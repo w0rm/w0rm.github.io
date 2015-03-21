@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Creating Bulletproof SVG Icons</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="assets/shower-bright/styles/screen.css" media="screen">
+  <script src="assets/shower-core/shower.min.js"></script>
+</head>
+<body class="list">
+  <header class="caption">
+    <h1>Creating Bulletproof SVG Icons</h1>
+    <p>by Andrey Kuzmin, <a href="https://twitter.com/unsoundscapes">@unsoundscapes</a></p>
+  </header>
+  <section class="slide" id="cover"><div>
+    <h2>Creating Bulletproof<br>SVG Icons</h2>
+    <p>
+      <a href="http://www.meetup.com/Berlin-HTML5-User-Group/events/220967740/">19.03.2015 HTML5 Berlin User Group Revival</a>
+    </p>
+    <p class="next">Andrey Kuzmin, <a href="https://twitter.com/unsoundscapes">@unsoundscapes</a></p>
+    <img class="next" src="img/zalando.png" alt="Zalando" width="160">
+    <style>
+      #cover {
+        text-align: center;
+      }
+      #cover::after {
+        visibility: hidden;
+      }
+      #cover h2 {
+        font-size: 70px;
+        line-height: 100px;
+      }
+    </style>
+  </div></section>
+  <section class="slide shout" id="question"><div>
+    <h2>What do we want from a spriting method?</h2>
+    <style>
+      #question {
+        background: #fff;
+      }
+      #question h2 {
+        color: inherit;
+        font-size: 100px;
+        line-height: 1.1;
+      }
+    </style>
+  </div></section>
+  <section class="slide" id="features"><div>
+    <ol>
+      <li><strong>Performance:</strong> payload, amount of requests, CPU usage</li>
+      <li class="next"><strong>Browser support:</strong> retina, IE8 and Android2.3, noscript</li>
+      <li class="next"><strong>Ease of use:</strong> updating icons, changing styles with CSS</li>
+    </ol>
+    <style>
+      #features li {
+        font-size: 30px;
+        margin-bottom: 40px;
+      }
+    </style>
+  </div></section>
+  <section class="slide shout" id="question2"><div>
+    <h2>What methods to consider?</h2>
+    <style>
+      #question2 {
+        background: #fff;
+      }
+      #question2 h2 {
+        color: inherit;
+        font-size: 100px;
+        line-height: 1.1;
+      }
+    </style>
+  </div></section>
+  <section class="slide" id="methods"><div>
+    <img src="img/png-svg.png" alt="PNG SVG">
+    <ul>
+      <li>Raster or Vector
+        <ul>
+          <li>CSS Sprites</li>
+          <li>CSS with data URIs</li>
+        </ul>
+      </li>
+      <li>Vector only
+        <ul>
+          <li>Icon Fonts</li>
+          <li>SVG fragment identifiers</li>
+          <li>Combined SVG with symbol tags</li>
+        </ul>
+      </li>
+    </ul>
+    <style>
+      #methods img {
+        position: absolute;
+        right: 10%;
+        top: 15%;
+        height: 50%;
+      }
+    </style>
+  </div></section>
+  <section class="slide"><div>
+    <h2>CSS Sprites</h2>
+    <img src="img/sprite.png" alt="css sprite" />
+  </div></section>
+  <section class="slide cover"><div>
+    <h2>CSS Sprites</h2>
+    <img src="img/sprite2.png" alt="css sprite" />
+    <pre>
+      <code>.icon {</code>
+      <code>  background-image: url(icons.png);</code>
+      <code>  display: inline-block;</code>
+      <code>}</code>
+      <code>.icon-twitter {</code>
+      <code>  background-position: -137px -50px;</code>
+      <code>  width: 31px; height: 31px;</code>
+      <code>}</code>
+    </pre>
+  </div></section>
+  <section class="slide"><div>
+    <h2>CSS Sprites drawbacks</h2>
+    <ul>
+      <li class="next">a larger copy of PNG is required for retina screen</li>
+      <li class="next">SVG sprite has performance issues in <a href="http://codepen.io/adrianosmond/pen/LCogn">recent Chrome</a></li>
+      <li class="next">it’s impossible to change the color using CSS</li>
+    </ul>
+    </div>
+  </div></section>
+  <section class="slide" id="grumpicon"><div>
+    <a class="next" href="http://www.grumpicon.com/">
+      <video src="img/grumpicon.mp4" loop autoplay>
+    </a>
+    <h2>CSS with Data URIs</h2>
+    <style media="screen">
+      #grumpicon h2 {
+        /* hide part of the video */
+        background: white;
+        padding: 0 100px 30px;
+        margin: 0 -100px;
+        position: relative;
+      }
+      #grumpicon::after {
+        visibility: hidden;
+      }
+      #grumpicon video {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        top: 150px;
+      }
+    </style>
+  </div></section>
+  <section class="slide"><div>
+    <h2>CSS with Data URIs</h2>
+    <pre>
+      <code>.icon-close {</code>
+      <code>  background-image: url('data:image/png;base64,iVBORw0K...</code>
+      <code>}</code>
+    </pre>
+    <ul>
+      <li class="next">base64 encoding increases the size of the images by 37%</li>
+      <li class="next">you have to provide a separate image for each color</li>
+      <li class="next">data URIs are <a href="http://www.mobify.com/blog/data-uris-are-slow-on-mobile/">slow on mobile</a></li>
+    </ul>
+  </div></section>
+  <section class="slide"><div>
+    <h2>Icon Fonts</h2>
+    <pre>
+      <code>@font-face { font-family: IconFont; ... }</code>
+      <code>.icon:before { font-family: IconFont; }</code>
+      <code>.icon-close:before { content: "\025B6"; }</code>
+    </pre>
+    <ul>
+      <li class="next">it is difficult to scale and position the icons</li>
+      <li class="next">cumbersome <a href="https://github.com/blog/1135-the-making-of-octicons">build process</a></li>
+      <li class="next">monochrome icons</li>
+    </ul>
+  </div></section>
+  <section class="slide"><div>
+    <h2>SVG fragment identifiers</h2>
+    <pre>
+      <code>&lt;svg&gt;</code>
+      <code>  &lt;view id='icon-close' viewBox='0 40 20 20'/&gt;</code>
+      <code>  ...</code>
+      <code>&lt;/svg&gt;</code>
+      <code>&lt;img src='icons.svg#icon-close' alt='x'&gt;</code>
+    </pre>
+    <ul>
+      <li>limited <a href="http://betravis.github.io/icon-methods/svg-sprite-sheets.html#browser-support">browser support</a> (doesn't work in iOS Safari < 7.1, Android 4.x)</li>
+    </ul>
+  </div></section>
+  <section class="slide"><div>
+    <h2>Combined SVG with symbol tags</h2>
+    <pre>
+      <code>&lt;svg&gt;</code>
+      <code>  &lt;symbol id="<mark>icon-close</mark>" viewBox="0 0 20 20"/&gt;...&lt;/symbol&gt;</code>
+      <code>  &lt;symbol id="icon-menu" viewBox="0 0 20 20"/&gt;...&lt;/symbol&gt;</code>
+      <code>  ...</code>
+      <code>&lt;/svg&gt;</code>
+      <code>...</code>
+      <code>&lt;svg&gt;&lt;use xlink:href="<mark>#icon-close</mark>"&gt;&lt;/svg&gt;</code>
+    </pre>
+  </div></section>
+  <section class="slide" id="superman"><div>
+    <img src="img/svg-superman.jpg" alt="SVG Superman">
+    <p>Illustration by <a href="https://twitter.com/01k">@01k</a></p>
+    <style>
+      #superman img {
+        position: absolute;
+        top: 10%;
+        left: 30%;
+        width: 40%;
+      }
+      #superman::after {
+        visibility: hidden;
+      }
+      #superman p {
+        font-size: 16px;
+        margin: 0;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+    </style>
+  </div></section>
+  <section class="slide"><div>
+    <h2>Combined SVG Advantages</h2>
+    <ul>
+      <li class="next">Fast enough to be used on mobile devices</li>
+      <li class="next">Endless styling possibilities (fill, stroke, width, height...)</li>
+      <li class="next">Easy to maintain</li>
+    </ul>
+  </div></section>
+  <section class="slide"><div>
+    <h2>Combined SVG Gotchas</h2>
+    <ul>
+      <li>not supported in IE8 and Android 2.3</li>
+      <li class="next">combined SVG should be <em>visually</em> hidden for gradients to render</li>
+      <li class="next">combined SVG should be put on top of body because of iOS</li>
+      <li class="next">html base tag has affect on xlink:href in Firefox</li>
+      <li class="next">fill attributes should be removed in order to set with CSS</li>
+      <li class="next">can't be used with external svg because of IE, use <a href="https://github.com/jonathantneal/svg4everybody">svg4everybody</a> or load with XMLHttpRequest</li>
+    </ul>
+  </div></section>
+  <section class="slide"><div>
+    <pre>
+      <code>var xhr = new XMLHttpRequest();</code>
+      <div class="next">
+        <code>xhr.onload = function () {</code>
+        <div class="next">
+          <code>  var div = document.createElement('div');</code>
+          <code>  div.innerHTML = xhr.responseText;</code>
+          <code>  document.body.insertBefore(div, document.body.childNodes[0]);</code>
+        </div>
+        <code>}</code>
+      </div>
+      <div class="next">
+        <code>xhr.open('GET', 'img/icons.svg', true);</code>
+        <code>xhr.send();</code>
+      </div>
+    </pre>
+  </div></section>
+  <section class="slide shout" id="question3"><div>
+    <h2>What about the tooling support?</h2>
+    <style>
+      #question3 {
+        background: #fff;
+      }
+      #question3 h2 {
+        color: inherit;
+        font-size: 100px;
+        line-height: 1.1;
+      }
+    </style>
+  </div></section>
+  <section class="slide"><div>
+    <h2><a href="https://github.com/w0rm/gulp-svgstore">gulp-svgstore</a></h2>
+    <pre class="next">
+      <code>var gulp = require('gulp');</code>
+      <code>var svgstore = require('gulp-svgstore');</code>
+      <code>gulp.task('svgstore', function () {</code>
+      <code>    return gulp.src('src/icons/*.svg')</code>
+      <code>        .pipe(svgstore())</code>
+      <code>        .pipe(gulp.dest('dest/img'));</code>
+      <code>});</code>
+    </pre>
+  </div></section>
+  <section class="slide"><div>
+    <h2>gulp-svgstore</h2>
+    <ul>
+      <li>attempts to only do one thing, and <a href="https://github.com/gulpjs/gulp/blob/master/docs/writing-a-plugin/guidelines.md">do it well</a></li>
+      <li class="next">plays well with other gulp plugins:
+        <ul>
+          <li><a href="https://github.com/hparra/gulp-rename">gulp-rename</a></li>
+          <li><a href="https://github.com/sindresorhus/gulp-imagemin">gulp-imagemin</a></li>
+          <li><a href="https://github.com/KenPowers/gulp-cheerio">gulp-cheerio</a></li>
+        </ul>
+      </li>
+      <li class="next">is tested and documented</li>
+    </ul>
+  </div></section>
+  <section class="slide shout" id="question4"><div>
+    <h2>What about the fallback?</h2>
+    <style>
+      #question4 {
+        background: #fff;
+      }
+      #question4 h2 {
+        color: inherit;
+        font-size: 100px;
+        line-height: 1.1;
+      }
+    </style>
+  </div></section>
+  <section class="slide shout" id="parachute"><div>
+    <h2>CSS Sprites</h2>
+    <img src="img/fallback-parachute.jpg" alt="Fallback Parachute">
+    <p>Illustration by <a href="https://twitter.com/01k">@01k</a></p>
+    <style>
+      #parachute {
+        background: #fff;
+      }
+      #parachute h2 {
+        color: inherit;
+        font-size: 80px;
+        line-height: 1.1;
+      }
+      #parachute img {
+        position: absolute;
+        top: 10px;
+        right: 10%;
+        width: 30%;
+      }
+      #parachute::after {
+        visibility: hidden;
+      }
+      #parachute p {
+        font-size: 16px;
+        margin: 0;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+    </style>
+  </div></section>
+  <section class="slide"><div>
+    <h2>CSS Sprites as a fallback</h2>
+    <ul>
+      <li class="next">Graceful degradation (limited colors and sizes)</li>
+      <li class="next">Automatically generated with <a href="https://github.com/w0rm/gulp-svgfallback">gulp-svgfallback</a></li>
+    </ul>
+    <ul>
+      <li class="next">
+        Use javascript to test for svg support
+        <ul>
+          <li class="next">Load svg if supported</li>
+          <li class="next">Load fallback css otherwise</li>
+        </ul>
+      </li>
+      <li class="next">Load fallback css if javascript is disabled</li>
+    </ul>
+  </div></section>
+  <section class="slide"><div>
+    <h2>HTML</h2>
+    <pre>
+      <code>&lt;span class=&quot;icon icon-close&quot;&gt;</code>
+      <code>  &lt;svg width=&quot;50&quot; height=&quot;50&quot;&gt;</code>
+      <code>    &lt;use xlink:href=&quot;#icon-close&quot;&gt;&lt;/use&gt;</code>
+      <code>  &lt;/svg&gt;</code>
+      <code>&lt;/span&gt;</code>
+    </pre>
+  </div></section>
+  <section class="slide"><div>
+    <h2>CSS</h2>
+    <pre>
+      <code>.icon { display: inline-block; vertical-align: middle; }</code>
+      <code>.icon &gt; svg {</code>
+      <code>  display: block;</code>
+      <code>  fill: currentColor;</code>
+      <code>  pointer-events: none;</code>
+      <code>}</code>
+      <code>.no-js .icon > svg { display: none; }</code>
+    </pre>
+  </div></section>
+  <section class="slide" id="recap"><div>
+    <h2>Recap</h2>
+    <img src="img/svg-superman.jpg" alt="SVG Superman">
+    <ul>
+      <li class="next">Defined a feature set</li>
+      <li class="next">Compared various methods</li>
+      <li class="next">Decided upon combined SVG with symbol tags</li>
+      <li class="next">Introduced a tool to simplify our workflow</li>
+      <li class="next">Proposed a fallback to make our solution bulletproof</li>
+    </ul>
+    <style>
+      #recap img {
+        position: absolute;
+        top: 25%;
+        right: 10%;
+        width: 20%;
+      }
+    </style>
+  </div></section>
+  <section class="slide"><div>
+    <h2><img src="img/zalando.png" alt="Zalando"></h2>
+    <ul>
+      <li>Tech Blog: <a href="http://tech.zalando.com/">tech.zalando.com</a></li>
+      <li>GitHub: <a href="https://github.com/zalando">github.com/zalando</a></li>
+      <li>Twitter: <a href="https://twitter.com/zalandotech">@ZalandoTech</a></li>
+    </ul>
+  </div></section>
+  <section class="slide" id="questions"><div>
+    <h2>Questions?</h2>
+    <p>Andrey Kuzmin, <a href="https://twitter.com/unsoundscapes">@unsoundscapes</a></p>
+    <style>
+      #questions {
+        text-align: center;
+      }
+      #questions::after {
+        visibility: hidden;
+      }
+      #questions h2 {
+        font-size: 120px;
+        line-height: 120px;
+        margin: 60px 0 100px;
+      }
+    </style>
+  </div></section>
+  <section class="slide"><div>
+    <h2>Links</h2>
+    <ul>
+      <li><a href="http://ianfeather.co.uk/ten-reasons-we-switched-from-an-icon-font-to-svg/">Ten reasons we switched from an icon font to SVG</a>, by Ian Feather</li>
+      <li><a href="http://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/">An Overview of SVG Sprite Creation Techniques</a>, by Sara Soueidan</li>
+      <li><a href="https://css-tricks.com/mega-list-svg-information/">A Compendium of SVG Information</a>, by Chris Coyier</li>
+      <li><a href="http://synapticism.com/dev/roll-your-own-svg-sprite-sheets-with-bower-and-gulp/">Roll your own SVG sprite sheets with Bower and Gulp</a>, by Alexander Synaptic</li>
+    </ul>
+  </div></section>
+</body>
+</html>
