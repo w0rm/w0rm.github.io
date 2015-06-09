@@ -3,8 +3,8 @@
 <head>
   <title>Creating Bulletproof SVG Icons</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="assets/shower-bright/styles/screen.css" media="screen">
-  <script src="assets/shower-core/shower.min.js"></script>
+  <link rel="stylesheet" href="node_modules/shower-bright/styles/screen.css" media="screen">
+  <script src="node_modules/shower-core/shower.min.js"></script>
 </head>
 <body class="list">
   <header class="caption">
@@ -13,9 +13,17 @@
   </header>
   <section class="slide" id="cover"><div>
     <h2>Creating Bulletproof<br>SVG Icons</h2>
-    <p class="next">Andrey Kuzmin, <a href="https://twitter.com/unsoundscapes">@unsoundscapes</a></p>
+    <p>Andrey Kuzmin, <a href="https://twitter.com/unsoundscapes">@unsoundscapes</a></p>
     <img class="next" src="img/zalando.png" alt="Zalando" width="160">
+    <p class="next gulp">
+      gulp—<span>(<a href="https://github.com/w0rm/gulp-svgstore">svgstore</a>,
+      <a href="https://github.com/w0rm/gulp-svgfallback">svgfallback</a>,
+      <a href="https://github.com/postcss/gulp-postcss">postcss</a>)</span>
+    </p>
     <style>
+      #cover img {
+        margin-bottom: 20px;
+      }
       #cover {
         text-align: center;
       }
@@ -26,24 +34,15 @@
         font-size: 70px;
         line-height: 100px;
       }
-    </style>
-  </div></section>
-  <section class="slide shout" id="question"><div>
-    <h2>What do we want from a spriting method?</h2>
-    <style>
-      #question {
-        background: #fff;
-      }
-      #question h2 {
-        color: inherit;
-        font-size: 100px;
-        line-height: 1.1;
+      #cover .gulp {
+        color: #999;
       }
     </style>
   </div></section>
   <section class="slide" id="features"><div>
+    <h2>What do we want from a spriting method?</h2>
     <ol>
-      <li><strong>Performance:</strong> payload, amount of requests, CPU usage</li>
+      <li class="next"><strong>Performance:</strong> payload, amount of requests, CPU usage</li>
       <li class="next"><strong>Browser support:</strong> retina, IE8 and Android2.3, noscript</li>
       <li class="next"><strong>Ease of use:</strong> updating icons, changing styles with CSS</li>
     </ol>
@@ -54,20 +53,8 @@
       }
     </style>
   </div></section>
-  <section class="slide shout" id="question2"><div>
-    <h2>What methods to consider?</h2>
-    <style>
-      #question2 {
-        background: #fff;
-      }
-      #question2 h2 {
-        color: inherit;
-        font-size: 100px;
-        line-height: 1.1;
-      }
-    </style>
-  </div></section>
   <section class="slide" id="methods"><div>
+    <h2>What methods to consider?</h2>
     <img src="img/png-svg.png" alt="PNG SVG">
     <ul>
       <li>Raster or Vector
@@ -79,7 +66,6 @@
       <li>Vector only
         <ul>
           <li>Icon Fonts</li>
-          <li>SVG fragment identifiers</li>
           <li>Combined SVG with symbol tags</li>
         </ul>
       </li>
@@ -88,14 +74,10 @@
       #methods img {
         position: absolute;
         right: 10%;
-        top: 15%;
+        top: 30%;
         height: 50%;
       }
     </style>
-  </div></section>
-  <section class="slide"><div>
-    <h2>CSS Sprites</h2>
-    <img src="img/sprite.png" alt="css sprite" />
   </div></section>
   <section class="slide cover"><div>
     <h2>CSS Sprites</h2>
@@ -112,9 +94,9 @@
     </pre>
   </div></section>
   <section class="slide"><div>
-    <h2>CSS Sprites drawbacks</h2>
+    <h2>CSS Sprites</h2>
     <ul>
-      <li class="next">a larger copy of PNG is required for retina screen</li>
+      <li>a larger copy of PNG is required for retina screen</li>
       <li class="next">SVG sprite has performance issues in <a href="http://codepen.io/adrianosmond/pen/LCogn">recent Chrome</a></li>
       <li class="next">it’s impossible to change the color using CSS</li>
     </ul>
@@ -167,20 +149,8 @@
     <ul>
       <li class="next">it is difficult to scale and position the icons</li>
       <li class="next">cumbersome <a href="https://github.com/blog/1135-the-making-of-octicons">build process</a></li>
+      <li class="next">inconsistent rendering in different browsers</li>
       <li class="next">monochrome icons</li>
-    </ul>
-  </div></section>
-  <section class="slide"><div>
-    <h2>SVG fragment identifiers</h2>
-    <pre>
-      <code>&lt;svg&gt;</code>
-      <code>  &lt;view id='icon-close' viewBox='0 40 20 20'/&gt;</code>
-      <code>  ...</code>
-      <code>&lt;/svg&gt;</code>
-      <code>&lt;img src='icons.svg#icon-close' alt='x'&gt;</code>
-    </pre>
-    <ul>
-      <li>limited <a href="http://betravis.github.io/icon-methods/svg-sprite-sheets.html#browser-support">browser support</a> (doesn't work in iOS Safari < 7.1, Android 4.x)</li>
     </ul>
   </div></section>
   <section class="slide"><div>
@@ -192,7 +162,7 @@
       <code>  ...</code>
       <code>&lt;/svg&gt;</code>
       <code>...</code>
-      <code>&lt;svg&gt;&lt;use xlink:href="<mark>#icon-close</mark>"&gt;&lt;/svg&gt;</code>
+      <code class="next">&lt;svg&gt;&lt;use xlink:href="<mark>icons.svg#icon-close</mark>"&gt;&lt;/svg&gt;</code>
     </pre>
   </div></section>
   <section class="slide" id="superman"><div>
@@ -220,7 +190,7 @@
   <section class="slide"><div>
     <h2>Combined SVG Advantages</h2>
     <ul>
-      <li class="next">Fast enough to be used on mobile devices</li>
+      <li>Fast enough to be used on mobile devices</li>
       <li class="next">Endless styling possibilities (fill, stroke, width, height...)</li>
       <li class="next">Easy to maintain</li>
     </ul>
@@ -229,11 +199,11 @@
     <h2>Combined SVG Gotchas</h2>
     <ul>
       <li>not supported in IE8 and Android 2.3</li>
-      <li class="next">combined SVG should be <em>visually</em> hidden for gradients to render</li>
+      <li class="next">fill attributes should be removed in order to set with CSS</li>
+      <li class="next">can't be used with external svg because of IE, use <a href="https://github.com/jonathantneal/svg4everybody">svg4everybody</a>, inline or load with XMLHttpRequest</li>
+      <li class="next">combined SVG should be <em>visually</em> hidden for gradients in Firefox</li>
       <li class="next">combined SVG should be put on top of body because of iOS</li>
       <li class="next">html base tag has affect on xlink:href in Firefox</li>
-      <li class="next">fill attributes should be removed in order to set with CSS</li>
-      <li class="next">can't be used with external svg because of IE, use <a href="https://github.com/jonathantneal/svg4everybody">svg4everybody</a> or load with XMLHttpRequest</li>
     </ul>
   </div></section>
   <section class="slide"><div>
@@ -253,6 +223,21 @@
         <code>xhr.send();</code>
       </div>
     </pre>
+  </div></section>
+  <section class="slide" id="ie"><div>
+    <h2>Vote for SVG External Content support in IE</h2>
+    <style>
+      #ie .vote-link {
+        font-size: 2em;
+        margin-bottom: 1em;
+      }
+    </style>
+    <div class="vote-link">
+      <a href="https://goo.gl/Ur8j77">goo.gl/Ur8j77</a>
+    </div>
+    <small>
+      <a href="https://wpdev.uservoice.com/forums/257854/suggestions/6263916">https://wpdev.uservoice.com/forums/257854/suggestions/6263916</a>
+    </small>
   </div></section>
   <section class="slide shout" id="question3"><div>
     <h2>What about the tooling support?</h2>
@@ -282,7 +267,7 @@
   <section class="slide"><div>
     <h2>gulp-svgstore</h2>
     <ul>
-      <li>attempts to only do one thing, and <a href="https://github.com/gulpjs/gulp/blob/master/docs/writing-a-plugin/guidelines.md">do it well</a></li>
+      <li>attempts to only do one thing, and <a href="https://github.com/gulpjs/gulp/blob/master/docs/writing-a-plugin/guidelines.md">does it well</a></li>
       <li class="next">plays well with other gulp plugins:
         <ul>
           <li><a href="https://github.com/hparra/gulp-rename">gulp-rename</a></li>
@@ -398,8 +383,8 @@
   <section class="slide"><div>
     <h2><img src="img/zalando.png" alt="Zalando"></h2>
     <ul>
-      <li>Tech Blog: <a href="http://tech.zalando.com/">tech.zalando.com</a></li>
-      <li>GitHub: <a href="https://github.com/zalando">github.com/zalando</a></li>
+      <li>Blog: <a href="http://tech.zalando.com/blog/creating-bulletproof-svg-icons/">tech.zalando.com/blog/creating-bulletproof-svg-icons/</a></li>
+      <li>GitHub: <a href="https://github.com/zalando/compare-sprite-methods">github.com/zalando/compare-sprite-methods</a></li>
       <li>Twitter: <a href="https://twitter.com/zalandotech">@ZalandoTech</a></li>
     </ul>
   </div></section>
