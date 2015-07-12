@@ -1,1 +1,76 @@
-html,body{height:100%}body{background:white;padding:0;margin:0;font:14px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;color:#000}a{color:#999}a:hover{color:#111}a:visited{color:#555}h1{margin:0 0 10px 0;font:100 30px/1 'Roboto', sans-serif}h1,p,hr{margin:0 0 10px}.contacts{margin:-10px 0 10px 0;padding:0;list-style-type:none}.contacts>li{display:inline;margin-right:10px}.instructions{font-size:12px;color:#333;margin-bottom:5px}hr{border:0;border-top:1px dashed #ddd;height:0;margin:15px 0}kbd{border:2px solid #aaa;border-top-color:#eee;border-left-color:#eee;padding:1px 5px}.page{padding:50px 0 0 20px;position:relative;max-width:300px}.bald{position:absolute;right:0;bottom:0;overflow:hidden}.bald>img{display:block}.hair{border-radius:50%;position:absolute;background:url(../images/hair.jpg) right bottom no-repeat;display:none}.bald:hover>.hair{display:block}.hair:hover{border:1px solid #fff;margin:-1px 0 0 -1px}
+html, body {
+  height: 100%;
+}
+body {
+  background: white;
+  color: #000;
+  font: 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: #999;
+}
+a:hover {
+  color: #111;
+}
+a:visited {
+  color: #555;
+}
+h1 {
+  font: 100 30px/1 'Roboto', sans-serif;
+  margin: 0 0 10px 0;
+}
+h1, p, hr, ul {
+  margin: 0 0 10px;
+}
+.contacts {
+  list-style-type: none;
+  padding: 0;
+}
+.contacts > li {
+  display: inline;
+  margin-right: 10px;
+}
+.instructions {
+  color: #333;
+  font-size: 12px;
+}
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  height: 0;
+}
+kbd {
+  border: 2px solid #aaa;
+  border-left-color: #eee;
+  border-top-color: #eee;
+  padding: 1px 5px;
+}
+.page {
+  max-width: 300px;
+  padding: 50px 0 0 20px;
+  position: relative;
+}
+.bald {
+  bottom: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+}
+.bald > img {
+  display: block;
+}
+.hair {
+  background: url(../images/hair.jpg) right bottom no-repeat;
+  border-radius: 50%;
+  display: none;
+  position: absolute;
+}
+.bald:hover > .hair {
+  display: block;
+}
+.hair:hover {
+  border: 1px solid #fff;
+  margin: -1px 0 0 -1px;
+}
