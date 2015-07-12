@@ -91,7 +91,7 @@ require(['jquery'], function ($) {
       updatePosition()
     })
     .on('click', '.js-hair', function (e) {
-      $clickedHair = $(e.currentTarget)
+      var $clickedHair = $(e.currentTarget)
       if (!$hair.is($clickedHair)) {
         $clickedHair.remove()
       } else {
