@@ -51,24 +51,7 @@ kbd {
   max-width: 300px;
   padding: 50px 0 0 20px;
   position: relative;
-}
-.bald {
-  bottom: 0;
-  overflow: hidden;
-  position: absolute;
-  right: 0;
-}
-.bald > img {
-  display: block;
-}
-.hair {
-  background: url(../images/hair.jpg) right bottom no-repeat;
-  border-radius: 50%;
-  display: none;
-  position: absolute;
-}
-.bald:hover > .hair {
-  display: block;
+  z-index: 1;
 }
 .hair:hover {
   border: 1px solid #fff;
