@@ -11172,7 +11172,8 @@ Elm.Actions.make = function (_elm) {
    var Resume = {ctor: "Resume"};
    var Pause = {ctor: "Pause"};
    var Start = {ctor: "Start"};
-   return _elm.Actions.values = {_op: _op,Start: Start,Pause: Pause,Resume: Resume,Tick: Tick,Move: Move,Rotate: Rotate,Accelerate: Accelerate};
+   var Init = function (a) {    return {ctor: "Init",_0: a};};
+   return _elm.Actions.values = {_op: _op,Init: Init,Start: Start,Pause: Pause,Resume: Resume,Tick: Tick,Move: Move,Rotate: Rotate,Accelerate: Accelerate};
 };Elm.Grid = Elm.Grid || {};
 Elm.Grid.make = function (_elm) {
    "use strict";
@@ -11192,6 +11193,14 @@ Elm.Grid.make = function (_elm) {
       var processRow = F2(function (y,row) {    return A2($List.filterMap,processCell(y),$Array.toIndexedList(row));});
       return $List.concat($Array.toList(A2($Array.indexedMap,processRow,grid)));
    });
+   var centerOfMass = function (grid) {
+      var boxes = A2(mapToList,F3(function (x,y,_p2) {    return {ctor: "_Tuple2",_0: $Basics.toFloat(x),_1: $Basics.toFloat(y)};}),grid);
+      var len = $Basics.toFloat($List.length(boxes));
+      var _p3 = $List.unzip(boxes);
+      var x = _p3._0;
+      var y = _p3._1;
+      return {ctor: "_Tuple2",_0: $Basics.round($List.sum(x) / len),_1: $Basics.round($List.sum(y) / len)};
+   };
    var width = function (grid) {    return A2($Maybe.withDefault,0,A2($Maybe.map,$Array.length,A2($Array.get,0,grid)));};
    var height = $Array.length;
    var get = F3(function (x,y,grid) {
@@ -11201,10 +11210,10 @@ Elm.Grid.make = function (_elm) {
    var collide = F4(function (x,y,sample,grid) {
       var hei = height(grid);
       var wid = width(grid);
-      var collideCell = F3(function (x$,y$,_p2) {
+      var collideCell = F3(function (x$,y$,_p4) {
          if (_U.cmp(x$ + x,wid) > -1 || (_U.cmp(x$ + x,0) < 0 || _U.cmp(y + y$,hei) > -1)) return true; else {
-               var _p3 = A3(get,x$ + x,y$ + y,grid);
-               if (_p3.ctor === "Just") {
+               var _p5 = A3(get,x$ + x,y$ + y,grid);
+               if (_p5.ctor === "Just") {
                      return true;
                   } else {
                      return false;
@@ -11219,7 +11228,7 @@ Elm.Grid.make = function (_elm) {
    var rotate = F2(function (clockwise,grid) {
       var hei = height(grid);
       var wid = width(grid);
-      var fn = F2(function (x,y) {    return clockwise ? A3(get,y,wid - x - 1,grid) : A3(get,hei - y - 1,x,grid);});
+      var fn = F2(function (x,y) {    return clockwise ? A3(get,y,hei - x - 1,grid) : A3(get,wid - y - 1,x,grid);});
       return A3(make,hei,wid,fn);
    });
    var stamp = F4(function (x,y,sample,grid) {
@@ -11229,10 +11238,8 @@ Elm.Grid.make = function (_elm) {
    var clearLines = function (grid) {
       var keep = function (row) {    return A2($List.any,F2(function (x,y) {    return _U.eq(x,y);})($Maybe.Nothing),$Array.toList(row));};
       var grid$ = A2($Array.filter,keep,grid);
-      var wid = width(grid);
-      var hei = height(grid);
-      var lines = hei - height(grid$);
-      var add = A3(make,wid,lines,F2(function (_p5,_p4) {    return $Maybe.Nothing;}));
+      var lines = height(grid) - height(grid$);
+      var add = A3(make,width(grid),lines,F2(function (_p7,_p6) {    return $Maybe.Nothing;}));
       return {ctor: "_Tuple2",_0: A2($Array.append,add,grid$),_1: lines};
    };
    var map = F2(function (fun,grid) {    return A2($Array.map,function (row) {    return A2($Array.map,$Maybe.map(fun),row);},grid);});
@@ -11245,7 +11252,10 @@ Elm.Grid.make = function (_elm) {
                              ,stamp: stamp
                              ,collide: collide
                              ,mapToList: mapToList
-                             ,clearLines: clearLines};
+                             ,clearLines: clearLines
+                             ,centerOfMass: centerOfMass
+                             ,width: width
+                             ,height: height};
 };Elm.Model = Elm.Model || {};
 Elm.Model.make = function (_elm) {
    "use strict";
@@ -11321,27 +11331,19 @@ Elm.Tetriminos.make = function (_elm) {
    var fromChar = function (name) {
       var _p0 = name;
       switch (_p0.valueOf())
-      {case "I": return $Grid.fromList(_U.list([_U.list([$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing])
-                                               ,_U.list([$Maybe.Just("#3cc7d6"),$Maybe.Just("#3cc7d6"),$Maybe.Just("#3cc7d6"),$Maybe.Just("#3cc7d6")])
-                                               ,_U.list([$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing])
-                                               ,_U.list([$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing])]));
+      {case "I": return $Grid.fromList(_U.list([_U.list([$Maybe.Just("#3cc7d6"),$Maybe.Just("#3cc7d6"),$Maybe.Just("#3cc7d6"),$Maybe.Just("#3cc7d6")])]));
          case "O": return $Grid.fromList(_U.list([_U.list([$Maybe.Just("#fbb414"),$Maybe.Just("#fbb414")])
                                                  ,_U.list([$Maybe.Just("#fbb414"),$Maybe.Just("#fbb414")])]));
          case "T": return $Grid.fromList(_U.list([_U.list([$Maybe.Nothing,$Maybe.Just("#b04497"),$Maybe.Nothing])
-                                                 ,_U.list([$Maybe.Just("#b04497"),$Maybe.Just("#b04497"),$Maybe.Just("#b04497")])
-                                                 ,_U.list([$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing])]));
+                                                 ,_U.list([$Maybe.Just("#b04497"),$Maybe.Just("#b04497"),$Maybe.Just("#b04497")])]));
          case "J": return $Grid.fromList(_U.list([_U.list([$Maybe.Just("#3993d0"),$Maybe.Nothing,$Maybe.Nothing])
-                                                 ,_U.list([$Maybe.Just("#3993d0"),$Maybe.Just("#3993d0"),$Maybe.Just("#3993d0")])
-                                                 ,_U.list([$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing])]));
+                                                 ,_U.list([$Maybe.Just("#3993d0"),$Maybe.Just("#3993d0"),$Maybe.Just("#3993d0")])]));
          case "L": return $Grid.fromList(_U.list([_U.list([$Maybe.Nothing,$Maybe.Nothing,$Maybe.Just("#ed652f")])
-                                                 ,_U.list([$Maybe.Just("#ed652f"),$Maybe.Just("#ed652f"),$Maybe.Just("#ed652f")])
-                                                 ,_U.list([$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing])]));
+                                                 ,_U.list([$Maybe.Just("#ed652f"),$Maybe.Just("#ed652f"),$Maybe.Just("#ed652f")])]));
          case "S": return $Grid.fromList(_U.list([_U.list([$Maybe.Nothing,$Maybe.Just("#95c43d"),$Maybe.Just("#95c43d")])
-                                                 ,_U.list([$Maybe.Just("#95c43d"),$Maybe.Just("#95c43d"),$Maybe.Nothing])
-                                                 ,_U.list([$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing])]));
+                                                 ,_U.list([$Maybe.Just("#95c43d"),$Maybe.Just("#95c43d"),$Maybe.Nothing])]));
          case "Z": return $Grid.fromList(_U.list([_U.list([$Maybe.Just("#e84138"),$Maybe.Just("#e84138"),$Maybe.Nothing])
-                                                 ,_U.list([$Maybe.Nothing,$Maybe.Just("#e84138"),$Maybe.Just("#e84138")])
-                                                 ,_U.list([$Maybe.Nothing,$Maybe.Nothing,$Maybe.Nothing])]));
+                                                 ,_U.list([$Maybe.Nothing,$Maybe.Just("#e84138"),$Maybe.Just("#e84138")])]));
          default: return $Grid.fromList(_U.list([]));}
    };
    var letters = $Array.fromList(_U.list([_U.chr("I"),_U.chr("O"),_U.chr("T"),_U.chr("J"),_U.chr("L"),_U.chr("S"),_U.chr("Z")]));
@@ -11367,6 +11369,7 @@ Elm.Update.make = function (_elm) {
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Model = Elm.Model.make(_elm),
+   $Random = Elm.Random.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Tetriminos = Elm.Tetriminos.make(_elm),
@@ -11378,112 +11381,127 @@ Elm.Update.make = function (_elm) {
       var lines = _p0._1;
       return _U.update(model,{grid: grid,lines: model.lines + lines});
    };
-   var dropTetrimino = function (model) {
-      var elapsedFrames = function () {    var _p1 = model.animationState;if (_p1.ctor === "Just") {    return _p1._0.elapsedFrames;} else {    return 0;}}();
-      var _p2 = model.activePosition;
-      var x = _p2._0;
-      var y = _p2._1;
+   var dropTetrimino = F2(function (elapsedFrames,model) {
+      var _p1 = model.activePosition;
+      var x = _p1._0;
+      var y = _p1._1;
       var y$ = y + elapsedFrames / (model.acceleration ? 1.5 : 48);
       if (A4($Grid.collide,x,$Basics.floor(y$),model.active,model.grid)) {
+            var _p2 = $Grid.centerOfMass(model.next);
+            var dx = _p2._0;
             var _p3 = $Tetriminos.random(model.seed);
             var next = _p3._0;
             var seed$ = _p3._1;
             var score = $List.length(A2($Grid.mapToList,F3(function (_p6,_p5,_p4) {    return true;}),model.active));
             return clearLines(_U.update(model,
             {grid: A4($Grid.stamp,x,$Basics.floor(y),model.active,model.grid)
-            ,activePosition: {ctor: "_Tuple2",_0: 0,_1: 0}
+            ,activePosition: {ctor: "_Tuple2",_0: ($Grid.width(model.grid) / 2 | 0) - dx,_1: 0}
             ,active: model.next
             ,next: next
             ,seed: seed$
             ,score: model.score + score}));
          } else return _U.update(model,{activePosition: {ctor: "_Tuple2",_0: x,_1: y$}});
-   };
+   });
    var checkEndGame = function (model) {
       var check = F3(function (_p8,y,_p7) {    return _U.eq(y,0);});
       return A2($List.any,$Basics.identity,A2($Grid.mapToList,check,model.grid)) ? _U.update(model,{state: $Model.Stopped}) : model;
    };
    var rotateTetrimino$ = function (model) {
+      var _p9 = $Grid.centerOfMass(model.active);
+      var xOld = _p9._0;
+      var yOld = _p9._1;
       var rotated = A2($Grid.rotate,true,model.active);
-      var _p9 = model.activePosition;
-      var x = _p9._0;
-      var y = _p9._1;
-      return A4($Grid.collide,x,$Basics.floor(y),rotated,model.grid) ? model : _U.update(model,{active: rotated});
-   };
-   var rotateTetrimino = function (model) {
-      var updateFrames = function (elapsedFrames) {
-         var elapsedFrames$ = function () {
-            var _p10 = model.animationState;
-            if (_p10.ctor === "Just") {
-                  return elapsedFrames + _p10._0.elapsedFrames;
+      var _p10 = $Grid.centerOfMass(rotated);
+      var xNew = _p10._0;
+      var yNew = _p10._1;
+      var _p11 = model.activePosition;
+      var x = _p11._0;
+      var y = _p11._1;
+      var newX = x + xOld - xNew;
+      var newY = y + $Basics.toFloat(yOld - yNew);
+      var shiftPosition = function (deltas) {
+         shiftPosition: while (true) {
+            var _p12 = deltas;
+            if (_p12.ctor === "::") {
+                  var _p13 = _p12._0;
+                  if (A4($Grid.collide,newX + _p13,$Basics.floor(newY),rotated,model.grid)) {
+                        var _v1 = _p12._1;
+                        deltas = _v1;
+                        continue shiftPosition;
+                     } else return _U.update(model,{active: rotated,activePosition: {ctor: "_Tuple2",_0: newX + _p13,_1: newY}});
                } else {
-                  return elapsedFrames;
+                  return model;
                }
-         }();
-         return _U.cmp(elapsedFrames$,30) > 0 ? _U.update(model,{rotation: $Maybe.Just({active: true,elapsedFrames: 0})}) : _U.update(model,
-         {rotation: $Maybe.Just({active: false,elapsedFrames: elapsedFrames$})});
+         }
       };
-      var _p11 = model.rotation;
-      if (_p11.ctor === "Just") {
-            var _p12 = _p11._0.elapsedFrames;
-            return _p11._0.active ? rotateTetrimino$(updateFrames(_p12)) : updateFrames(_p12);
+      return shiftPosition(_U.list([0,1,-1,2,-2]));
+   };
+   var updateFrames = F3(function (limit,elapsedFrames,state) {
+      var elapsedFrames$ = state.elapsedFrames + elapsedFrames;
+      return _U.cmp(elapsedFrames$,limit) > 0 ? _U.update(state,{active: true,elapsedFrames: elapsedFrames$ - limit}) : _U.update(state,
+      {active: false,elapsedFrames: elapsedFrames$});
+   });
+   var rotateTetrimino = F2(function (elapsedFrames,model) {
+      var _p14 = model.rotation;
+      if (_p14.ctor === "Just") {
+            var _p15 = _p14._0;
+            return (_p15.active ? rotateTetrimino$ : $Basics.identity)(_U.update(model,{rotation: $Maybe.Just(A3(updateFrames,30,elapsedFrames,_p15))}));
          } else {
             return model;
          }
-   };
+   });
    var moveTetrimino$ = F2(function (dx,model) {
-      var _p13 = model.activePosition;
-      var x = _p13._0;
-      var y = _p13._1;
+      var _p16 = model.activePosition;
+      var x = _p16._0;
+      var y = _p16._1;
       var x$ = x + dx;
       return A4($Grid.collide,x$,$Basics.floor(y),model.active,model.grid) ? model : _U.update(model,{activePosition: {ctor: "_Tuple2",_0: x$,_1: y}});
    });
-   var moveTetrimino = function (model) {
-      var updateFrames = F2(function (elapsedFrames,direction) {
-         var elapsedFrames$ = function () {
-            var _p14 = model.animationState;
-            if (_p14.ctor === "Just") {
-                  return elapsedFrames + _p14._0.elapsedFrames;
-               } else {
-                  return elapsedFrames;
-               }
-         }();
-         return _U.cmp(elapsedFrames$,10) > 0 ? _U.update(model,
-         {direction: $Maybe.Just({active: true,direction: direction,elapsedFrames: 0})}) : _U.update(model,
-         {direction: $Maybe.Just({active: false,direction: direction,elapsedFrames: elapsedFrames$})});
-      });
-      var _p15 = model.direction;
-      if (_p15.ctor === "Just") {
-            var _p17 = _p15._0.elapsedFrames;
-            var _p16 = _p15._0.direction;
-            return _p15._0.active ? A2(moveTetrimino$,_p16,A2(updateFrames,_p17,_p16)) : A2(updateFrames,_p17,_p16);
+   var moveTetrimino = F2(function (elapsedFrames,model) {
+      var _p17 = model.direction;
+      if (_p17.ctor === "Just") {
+            var _p18 = _p17._0;
+            return (_p18.active ? moveTetrimino$(_p18.direction) : $Basics.identity)(_U.update(model,
+            {direction: $Maybe.Just(A3(updateFrames,10,elapsedFrames,_p18))}));
          } else {
             return model;
          }
-   };
-   var framesSince = F2(function (prevTime,time) {    return (time - prevTime) * 60 / 1000;});
-   var animateModel = F2(function (time,model) {
-      var animationState = function () {
-         var _p18 = model.animationState;
-         if (_p18.ctor === "Nothing") {
-               return $Maybe.Just({prevClockTime: time,elapsedFrames: 0});
+   });
+   var framesSince = F2(function (prevTime,time) {    return A2($Basics.min,(time - prevTime) * 60 / 1000,1.5);});
+   var animate = F2(function (time,model) {
+      var elapsedFrames = function () {
+         var _p19 = model.animationState;
+         if (_p19.ctor === "Nothing") {
+               return 0;
             } else {
-               return $Maybe.Just({prevClockTime: time,elapsedFrames: A2(framesSince,_p18._0.prevClockTime,time)});
+               return A2(framesSince,_p19._0.prevClockTime,time);
             }
       }();
-      return _U.update(model,{animationState: animationState});
+      var animationState = $Maybe.Just({prevClockTime: time,elapsedFrames: elapsedFrames});
+      return checkEndGame(A2(dropTetrimino,
+      elapsedFrames,
+      A2(rotateTetrimino,elapsedFrames,A2(moveTetrimino,elapsedFrames,_U.update(model,{animationState: animationState})))));
    });
-   var animate = function (time) {
-      return function (_p19) {
-         return checkEndGame(dropTetrimino(rotateTetrimino(moveTetrimino(A2(animateModel,time,_p19)))));
-      };
-   };
    var update = F2(function (action,model) {
       var _p20 = action;
       switch (_p20.ctor)
-      {case "Start": return {ctor: "_Tuple2"
-                            ,_0: _U.update(model,
-                            {state: $Model.Playing,lines: 0,score: 0,grid: A3($Grid.make,10,20,F2(function (_p22,_p21) {    return $Maybe.Nothing;}))})
-                            ,_1: $Effects.tick($Actions.Tick)};
+      {case "Init": var initialSeed = $Random.initialSeed($Basics.floor(_p20._0));
+           var _p21 = $Tetriminos.random(initialSeed);
+           var active = _p21._0;
+           var seed$ = _p21._1;
+           var _p22 = $Tetriminos.random(seed$);
+           var next = _p22._0;
+           var seed = _p22._1;
+           var _p23 = $Grid.centerOfMass(active);
+           var dx = _p23._0;
+           return {ctor: "_Tuple2"
+                  ,_0: _U.update(model,
+                  {seed: seed,active: active,activePosition: {ctor: "_Tuple2",_0: ($Grid.width(model.grid) / 2 | 0) - dx,_1: 0},next: next})
+                  ,_1: $Effects.none};
+         case "Start": return {ctor: "_Tuple2"
+                              ,_0: _U.update(model,
+                              {state: $Model.Playing,lines: 0,score: 0,grid: A3($Grid.make,10,20,F2(function (_p25,_p24) {    return $Maybe.Nothing;}))})
+                              ,_1: $Effects.tick($Actions.Tick)};
          case "Pause": return {ctor: "_Tuple2",_0: _U.update(model,{state: $Model.Paused}),_1: $Effects.none};
          case "Resume": return {ctor: "_Tuple2",_0: _U.update(model,{state: $Model.Playing}),_1: $Effects.tick($Actions.Tick)};
          case "Move": if (_p20._0 === 0) {
@@ -11629,31 +11647,42 @@ Elm.View.make = function (_elm) {
               renderBoxes(A2($Grid.map,function (_p2) {    return "#ecf0f1";},model.next)))
               ,A2(renderGameButton,address,model.state)]));
    });
-   var renderControlButton = function (txt) {
+   var renderControlButton = F2(function (txt,attrs) {
       return A2($Html.button,
-      _U.list([$Html$Attributes.style(_U.list([A2(_op["=>"],"background","#ecf0f1")
-                                              ,A2(_op["=>"],"border","0")
-                                              ,A2(_op["=>"],"color","#34495f")
-                                              ,A2(_op["=>"],"cursor","pointer")
-                                              ,A2(_op["=>"],"display","block")
-                                              ,A2(_op["=>"],"float","left")
-                                              ,A2(_op["=>"],"font-family","Helvetica, Arial, sans-serif")
-                                              ,A2(_op["=>"],"font-size","24px")
-                                              ,A2(_op["=>"],"font-weight","300")
-                                              ,A2(_op["=>"],"height","60px")
-                                              ,A2(_op["=>"],"line-height","60px")
-                                              ,A2(_op["=>"],"margin","20px 20px 0 0")
-                                              ,A2(_op["=>"],"outline","none")
-                                              ,A2(_op["=>"],"padding","0")
-                                              ,A2(_op["=>"],"width","60px")]))]),
+      A2($List._op["::"],
+      $Html$Attributes.style(_U.list([A2(_op["=>"],"background","#ecf0f1")
+                                     ,A2(_op["=>"],"border","0")
+                                     ,A2(_op["=>"],"color","#34495f")
+                                     ,A2(_op["=>"],"cursor","pointer")
+                                     ,A2(_op["=>"],"display","block")
+                                     ,A2(_op["=>"],"float","left")
+                                     ,A2(_op["=>"],"font-family","Helvetica, Arial, sans-serif")
+                                     ,A2(_op["=>"],"font-size","24px")
+                                     ,A2(_op["=>"],"font-weight","300")
+                                     ,A2(_op["=>"],"height","60px")
+                                     ,A2(_op["=>"],"line-height","60px")
+                                     ,A2(_op["=>"],"margin","20px 20px 0 0")
+                                     ,A2(_op["=>"],"outline","none")
+                                     ,A2(_op["=>"],"padding","0")
+                                     ,A2(_op["=>"],"width","60px")])),
+      attrs),
       _U.list([$Html.text(txt)]));
+   });
+   var renderControls = function (address) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.style(_U.list([A2(_op["=>"],"height","80px")
+                                              ,A2(_op["=>"],"left","0")
+                                              ,A2(_op["=>"],"position","absolute")
+                                              ,A2(_op["=>"],"top","600px")]))]),
+      _U.list([A2(renderControlButton,
+              "↻",
+              _U.list([A2($Html$Events.onMouseDown,address,$Actions.Rotate(true)),A2($Html$Events.onMouseUp,address,$Actions.Rotate(false))]))
+              ,A2(renderControlButton,"←",_U.list([A2($Html$Events.onMouseDown,address,$Actions.Move(-1)),A2($Html$Events.onMouseUp,address,$Actions.Move(0))]))
+              ,A2(renderControlButton,"→",_U.list([A2($Html$Events.onMouseDown,address,$Actions.Move(1)),A2($Html$Events.onMouseUp,address,$Actions.Move(0))]))
+              ,A2(renderControlButton,
+              "↓",
+              _U.list([A2($Html$Events.onMouseDown,address,$Actions.Accelerate(true)),A2($Html$Events.onMouseUp,address,$Actions.Accelerate(false))]))]));
    };
-   var renderControls = A2($Html.div,
-   _U.list([$Html$Attributes.style(_U.list([A2(_op["=>"],"height","80px")
-                                           ,A2(_op["=>"],"left","0")
-                                           ,A2(_op["=>"],"position","absolute")
-                                           ,A2(_op["=>"],"top","600px")]))]),
-   _U.list([renderControlButton("↻"),renderControlButton("←"),renderControlButton("→"),renderControlButton("↓")]));
    var renderInfo = function (state) {
       return A2($Html.div,
       _U.list([$Html$Attributes.style(_U.list([A2(_op["=>"],"background","rgba(236, 240, 241, 0.85)")
@@ -11678,7 +11707,7 @@ Elm.View.make = function (_elm) {
                                               ,A2(_op["=>"],"margin","auto")
                                               ,A2(_op["=>"],"position","relative")
                                               ,A2(_op["=>"],"width","480px")]))]),
-      _U.list([A2(renderWell,address,model),A2(renderPanel,address,model),renderInfo(model.state)]))]));
+      _U.list([A2(renderWell,address,model),renderControls(address),A2(renderPanel,address,model),renderInfo(model.state)]))]));
    });
    return _elm.View.values = {_op: _op,view: view};
 };Elm.Main = Elm.Main || {};
@@ -11702,23 +11731,22 @@ Elm.Main.make = function (_elm) {
    $Signal = Elm.Signal.make(_elm),
    $StartApp = Elm.StartApp.make(_elm),
    $Task = Elm.Task.make(_elm),
-   $Tetriminos = Elm.Tetriminos.make(_elm),
    $Update = Elm.Update.make(_elm),
    $View = Elm.View.make(_elm);
    var _op = {};
-   var initialModel = {active: $Tetriminos.fromChar(_U.chr("I"))
+   var initialModel = {active: $Grid.fromList(_U.list([]))
                       ,activePosition: {ctor: "_Tuple2",_0: 0,_1: 0}
                       ,grid: A3($Grid.make,10,20,F2(function (_p1,_p0) {    return $Maybe.Nothing;}))
                       ,lines: 0
-                      ,next: $Tetriminos.fromChar(_U.chr("O"))
+                      ,next: $Grid.fromList(_U.list([]))
                       ,score: 0
-                      ,seed: $Random.initialSeed(31415)
+                      ,seed: $Random.initialSeed(0)
                       ,state: $Model.Stopped
                       ,acceleration: false
                       ,animationState: $Maybe.Nothing
                       ,rotation: $Maybe.Nothing
                       ,direction: $Maybe.Nothing};
-   var app = $StartApp.start({init: {ctor: "_Tuple2",_0: initialModel,_1: $Effects.none}
+   var app = $StartApp.start({init: {ctor: "_Tuple2",_0: initialModel,_1: $Effects.tick($Actions.Init)}
                              ,update: $Update.update
                              ,view: $View.view
                              ,inputs: _U.list([A2($Signal.map,$Actions.Rotate,$Keyboard.isDown(38))
@@ -11727,4 +11755,13 @@ Elm.Main.make = function (_elm) {
    var main = app.html;
    var tasks = Elm.Native.Task.make(_elm).performSignal("tasks",app.tasks);
    return _elm.Main.values = {_op: _op,initialModel: initialModel,app: app,main: main};
-};</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.Main)</script></body></html>
+};</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.Main)</script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-43235123-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body></html>
