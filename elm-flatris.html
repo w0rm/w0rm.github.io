@@ -11172,8 +11172,20 @@ Elm.Actions.make = function (_elm) {
    var Resume = {ctor: "Resume"};
    var Pause = {ctor: "Pause"};
    var Start = {ctor: "Start"};
+   var Saved = {ctor: "Saved"};
+   var Load = function (a) {    return {ctor: "Load",_0: a};};
    var Init = function (a) {    return {ctor: "Init",_0: a};};
-   return _elm.Actions.values = {_op: _op,Init: Init,Start: Start,Pause: Pause,Resume: Resume,Tick: Tick,Move: Move,Rotate: Rotate,Accelerate: Accelerate};
+   return _elm.Actions.values = {_op: _op
+                                ,Init: Init
+                                ,Load: Load
+                                ,Saved: Saved
+                                ,Start: Start
+                                ,Pause: Pause
+                                ,Resume: Resume
+                                ,Tick: Tick
+                                ,Move: Move
+                                ,Rotate: Rotate
+                                ,Accelerate: Accelerate};
 };Elm.Grid = Elm.Grid || {};
 Elm.Grid.make = function (_elm) {
    "use strict";
@@ -11269,6 +11281,95 @@ Elm.Grid.make = function (_elm) {
                              ,centerOfMass: centerOfMass
                              ,width: width
                              ,height: height};
+};Elm.Native.LocalStorage = {};
+Elm.Native.LocalStorage.make = function(localRuntime) {
+
+  localRuntime.Native = localRuntime.Native || {};
+  localRuntime.Native.LocalStorage = localRuntime.Native.LocalStorage || {};
+  if (localRuntime.Native.LocalStorage.values)
+  {
+    return localRuntime.Native.LocalStorage.values;
+  }
+
+  var Maybe = Elm.Maybe.make(localRuntime);
+  var Task = Elm.Native.Task.make(localRuntime);
+
+  function get(key)
+  {
+    var value = localStorage.getItem(key);
+    return Task.succeed((value === null) ? Maybe.Nothing : Maybe.Just(value));
+  }
+
+  function set(key, value)
+  {
+    localStorage.setItem(key, value);
+    return Task.succeed(value);
+  }
+
+  function remove(key)
+  {
+    localStorage.removeItem(key);
+    return Task.succeed(key);
+  }
+
+  function storageFail() {
+    return Task.fail({ ctor: 'NoStorage' });
+  }
+
+  if ('object' !== typeof localStorage) {
+    return localRuntime.Native.LocalStorage.values = {
+      get: storageFail,
+      set: storageFail,
+      remove: storageFail
+    };
+  }
+
+  return localRuntime.Native.LocalStorage.values = {
+    get: get,
+    set: F2(set),
+    remove: remove
+  };
+};Elm.LocalStorage = Elm.LocalStorage || {};
+Elm.LocalStorage.make = function (_elm) {
+   "use strict";
+   _elm.LocalStorage = _elm.LocalStorage || {};
+   if (_elm.LocalStorage.values) return _elm.LocalStorage.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Json$Decode = Elm.Json.Decode.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Native$LocalStorage = Elm.Native.LocalStorage.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Task = Elm.Task.make(_elm);
+   var _op = {};
+   var remove = function (key) {    return $Native$LocalStorage.remove;};
+   var set = $Native$LocalStorage.set;
+   var get = $Native$LocalStorage.get;
+   var UnexpectedPayload = function (a) {    return {ctor: "UnexpectedPayload",_0: a};};
+   var fromJson = F2(function (decoder,str) {
+      var _p0 = A2($Json$Decode.decodeString,decoder,str);
+      if (_p0.ctor === "Ok") {
+            return $Task.succeed($Maybe.Just(_p0._0));
+         } else {
+            return $Task.fail(UnexpectedPayload(_p0._0));
+         }
+   });
+   var getJson = F2(function (decoder,key) {
+      var decode = function (maybe) {
+         var _p1 = maybe;
+         if (_p1.ctor === "Just") {
+               return A2(fromJson,decoder,_p1._0);
+            } else {
+               return $Task.succeed($Maybe.Nothing);
+            }
+      };
+      return A2($Task.andThen,get(key),decode);
+   });
+   var NoStorage = {ctor: "NoStorage"};
+   return _elm.LocalStorage.values = {_op: _op,get: get,set: set,remove: remove,getJson: getJson,NoStorage: NoStorage,UnexpectedPayload: UnexpectedPayload};
 };Elm.Model = Elm.Model || {};
 Elm.Model.make = function (_elm) {
    "use strict";
@@ -11434,11 +11535,13 @@ Elm.Update.make = function (_elm) {
    $Effects = Elm.Effects.make(_elm),
    $Grid = Elm.Grid.make(_elm),
    $List = Elm.List.make(_elm),
+   $LocalStorage = Elm.LocalStorage.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Model = Elm.Model.make(_elm),
    $Random = Elm.Random.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
+   $Task = Elm.Task.make(_elm),
    $Tetriminos = Elm.Tetriminos.make(_elm),
    $Time = Elm.Time.make(_elm);
    var _op = {};
@@ -11556,39 +11659,49 @@ Elm.Update.make = function (_elm) {
       var animation = $Maybe.Just({prevClockTime: time,elapsed: elapsed});
       return checkEndGame(A2(dropTetrimino,elapsed,A2(rotateTetrimino,elapsed,A2(moveTetrimino,elapsed,_U.update(model,{animation: animation})))));
    });
+   var saveToStorage = F2(function (key,value) {
+      return $Effects.task(A2($Task.map,$Basics.always($Actions.Saved),$Task.toMaybe(A2($LocalStorage.set,key,value))));
+   });
+   var getFromStorage = function (key) {
+      return $Effects.task(A2($Task.map,
+      function (result) {
+         return $Actions.Load(A2($Maybe.withDefault,"",result));
+      },
+      A2($Task.onError,$LocalStorage.get(key),function (_p21) {    return $Task.succeed($Maybe.Nothing);})));
+   };
    var update = F2(function (action,model) {
-      var _p21 = action;
-      switch (_p21.ctor)
-      {case "Init": var initialSeed = $Random.initialSeed($Basics.floor(_p21._0));
-           var _p22 = $Tetriminos.random(initialSeed);
-           var active = _p22._0;
-           var seed$ = _p22._1;
-           var _p23 = $Tetriminos.random(seed$);
-           var next = _p23._0;
-           var seed = _p23._1;
-           var _p24 = $Grid.centerOfMass(active);
-           var dx = _p24._0;
+      var _p22 = action;
+      switch (_p22.ctor)
+      {case "Init": var initialSeed = $Random.initialSeed($Basics.floor(_p22._0));
+           var _p23 = $Tetriminos.random(initialSeed);
+           var active = _p23._0;
+           var seed$ = _p23._1;
+           var _p24 = $Tetriminos.random(seed$);
+           var next = _p24._0;
+           var seed = _p24._1;
+           var _p25 = $Grid.centerOfMass(active);
+           var dx = _p25._0;
            return {ctor: "_Tuple2"
                   ,_0: _U.update(model,{seed: seed,active: active,position: {ctor: "_Tuple2",_0: ($Grid.width(model.grid) / 2 | 0) - dx,_1: 0},next: next})
-                  ,_1: $Effects.tick($Actions.Tick)};
+                  ,_1: getFromStorage("elm-flatris")};
+         case "Load": return {ctor: "_Tuple2",_0: A2($Model.decode,_p22._0,model),_1: $Effects.tick($Actions.Tick)};
          case "Start": return {ctor: "_Tuple2",_0: _U.update(model,{state: $Model.Playing,lines: 0,score: 0,grid: A2($Grid.empty,10,20)}),_1: $Effects.none};
          case "Pause": return {ctor: "_Tuple2",_0: _U.update(model,{state: $Model.Paused}),_1: $Effects.none};
          case "Resume": return {ctor: "_Tuple2",_0: _U.update(model,{state: $Model.Playing}),_1: $Effects.none};
-         case "Move": if (_p21._0 === 0) {
+         case "Move": if (_p22._0 === 0) {
                  return {ctor: "_Tuple2",_0: _U.update(model,{direction: $Maybe.Nothing}),_1: $Effects.none};
               } else {
-                 return {ctor: "_Tuple2",_0: _U.update(model,{direction: $Maybe.Just({active: true,direction: _p21._0,elapsed: 0})}),_1: $Effects.none};
+                 return {ctor: "_Tuple2",_0: _U.update(model,{direction: $Maybe.Just({active: true,direction: _p22._0,elapsed: 0})}),_1: $Effects.none};
               }
-         case "Rotate": if (_p21._0 === false) {
+         case "Rotate": if (_p22._0 === false) {
                  return {ctor: "_Tuple2",_0: _U.update(model,{rotation: $Maybe.Nothing}),_1: $Effects.none};
               } else {
                  return {ctor: "_Tuple2",_0: _U.update(model,{rotation: $Maybe.Just({active: true,elapsed: 0})}),_1: $Effects.none};
               }
-         case "Accelerate": return {ctor: "_Tuple2",_0: _U.update(model,{acceleration: _p21._0}),_1: $Effects.none};
-         default: return _U.eq(model.state,$Model.Playing) ? {ctor: "_Tuple2",_0: A2(animate,_p21._0,model),_1: $Effects.tick($Actions.Tick)} : {ctor: "_Tuple2"
-                                                                                                                                                ,_0: _U.update(model,
-                                                                                                                                                {animation: $Maybe.Nothing})
-                                                                                                                                                ,_1: $Effects.tick($Actions.Tick)};}
+         case "Accelerate": return {ctor: "_Tuple2",_0: _U.update(model,{acceleration: _p22._0}),_1: $Effects.none};
+         case "Tick": var model = _U.eq(model.state,$Model.Playing) ? A2(animate,_p22._0,model) : _U.update(model,{animation: $Maybe.Nothing});
+           return {ctor: "_Tuple2",_0: model,_1: A2(saveToStorage,"elm-flatris",A2($Model.encode,0,model))};
+         default: return {ctor: "_Tuple2",_0: model,_1: $Effects.tick($Actions.Tick)};}
    });
    return _elm.Update.values = {_op: _op,update: update};
 };Elm.View = Elm.View || {};
