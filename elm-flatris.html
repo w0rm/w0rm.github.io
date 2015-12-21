@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>Main</title><style>html,head,body { padding:0; margin:0; }
+<html><head><meta charset="UTF-8"><title>Main</title><meta name="viewport" content="width=480,user-scalable=0"><style>html,head,body { padding:0; margin:0; }
 body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">var Elm = Elm || { Native: {} };Elm.Native.Array = {};
 Elm.Native.Array.make = function(localRuntime) {
 
@@ -11168,6 +11168,7 @@ Elm.Actions.make = function (_elm) {
    var Accelerate = function (a) {    return {ctor: "Accelerate",_0: a};};
    var Rotate = function (a) {    return {ctor: "Rotate",_0: a};};
    var Move = function (a) {    return {ctor: "Move",_0: a};};
+   var UnlockButtons = {ctor: "UnlockButtons"};
    var Tick = function (a) {    return {ctor: "Tick",_0: a};};
    var Resume = {ctor: "Resume"};
    var Pause = {ctor: "Pause"};
@@ -11183,6 +11184,7 @@ Elm.Actions.make = function (_elm) {
                                 ,Pause: Pause
                                 ,Resume: Resume
                                 ,Tick: Tick
+                                ,UnlockButtons: UnlockButtons
                                 ,Move: Move
                                 ,Rotate: Rotate
                                 ,Accelerate: Accelerate};
@@ -11699,6 +11701,9 @@ Elm.Update.make = function (_elm) {
                  return {ctor: "_Tuple2",_0: _U.update(model,{rotation: $Maybe.Just({active: true,elapsed: 0})}),_1: $Effects.none};
               }
          case "Accelerate": return {ctor: "_Tuple2",_0: _U.update(model,{acceleration: _p22._0}),_1: $Effects.none};
+         case "UnlockButtons": return {ctor: "_Tuple2"
+                                      ,_0: _U.update(model,{rotation: $Maybe.Nothing,direction: $Maybe.Nothing,acceleration: false})
+                                      ,_1: $Effects.none};
          case "Tick": var model = _U.eq(model.state,$Model.Playing) ? A2(animate,_p22._0,model) : _U.update(model,{animation: $Maybe.Nothing});
            return {ctor: "_Tuple2",_0: model,_1: A2(saveToStorage,"elm-flatris",A2($Model.encode,0,model))};
          default: return {ctor: "_Tuple2",_0: model,_1: $Effects.tick($Actions.Tick)};}
@@ -11717,6 +11722,7 @@ Elm.View.make = function (_elm) {
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $Html$Events = Elm.Html.Events.make(_elm),
+   $Json$Decode = Elm.Json.Decode.make(_elm),
    $List = Elm.List.make(_elm),
    $Markdown = Elm.Markdown.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
@@ -11724,6 +11730,12 @@ Elm.View.make = function (_elm) {
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
    var _op = {};
+   var onTouchEnd = F2(function (address,action) {
+      return A3($Html$Events.on,"touchend",$Json$Decode.value,function (_p0) {    return A2($Signal.message,address,action);});
+   });
+   var onTouchStart = F2(function (address,action) {
+      return A3($Html$Events.on,"touchstart",$Json$Decode.value,function (_p1) {    return A2($Signal.message,address,action);});
+   });
    _op["=>"] = F2(function (v0,v1) {    return {ctor: "_Tuple2",_0: v0,_1: v1};});
    var renderBox = F3(function (x,y,c) {
       return A2($Html.div,
@@ -11779,15 +11791,15 @@ Elm.View.make = function (_elm) {
       _U.list([$Html.text($Basics.toString(n))]));
    };
    var renderGameButton = F2(function (address,state) {
-      var _p0 = function () {
-         var _p1 = state;
-         switch (_p1.ctor)
+      var _p2 = function () {
+         var _p3 = state;
+         switch (_p3.ctor)
          {case "Stopped": return {ctor: "_Tuple2",_0: "New game",_1: $Actions.Start};
             case "Playing": return {ctor: "_Tuple2",_0: "Pause",_1: $Actions.Pause};
             default: return {ctor: "_Tuple2",_0: "Resume",_1: $Actions.Resume};}
       }();
-      var txt = _p0._0;
-      var action = _p0._1;
+      var txt = _p2._0;
+      var action = _p2._1;
       return A2($Html.button,
       _U.list([$Html$Attributes.style(_U.list([A2(_op["=>"],"background","#34495f")
                                               ,A2(_op["=>"],"border","0")
@@ -11827,16 +11839,18 @@ Elm.View.make = function (_elm) {
               ,renderLabel("Next Shape")
               ,A2($Html.div,
               _U.list([$Html$Attributes.style(_U.list([A2(_op["=>"],"margin-top","10px"),A2(_op["=>"],"position","relative")]))]),
-              renderBoxes(A2($Grid.map,function (_p2) {    return "#ecf0f1";},model.next)))
+              renderBoxes(A2($Grid.map,function (_p4) {    return "#ecf0f1";},model.next)))
               ,A2(renderGameButton,address,model.state)]));
    });
    var renderControlButton = F2(function (txt,attrs) {
-      return A2($Html.button,
+      return A2($Html.div,
       A2($List._op["::"],
       $Html$Attributes.style(_U.list([A2(_op["=>"],"background","#ecf0f1")
                                      ,A2(_op["=>"],"border","0")
                                      ,A2(_op["=>"],"color","#34495f")
                                      ,A2(_op["=>"],"cursor","pointer")
+                                     ,A2(_op["=>"],"text-align","center")
+                                     ,A2(_op["=>"],"-webkit-user-select","none")
                                      ,A2(_op["=>"],"display","block")
                                      ,A2(_op["=>"],"float","left")
                                      ,A2(_op["=>"],"font-family","Helvetica, Arial, sans-serif")
@@ -11859,12 +11873,28 @@ Elm.View.make = function (_elm) {
                                               ,A2(_op["=>"],"top","600px")]))]),
       _U.list([A2(renderControlButton,
               "↻",
-              _U.list([A2($Html$Events.onMouseDown,address,$Actions.Rotate(true)),A2($Html$Events.onMouseUp,address,$Actions.Rotate(false))]))
-              ,A2(renderControlButton,"←",_U.list([A2($Html$Events.onMouseDown,address,$Actions.Move(-1)),A2($Html$Events.onMouseUp,address,$Actions.Move(0))]))
-              ,A2(renderControlButton,"→",_U.list([A2($Html$Events.onMouseDown,address,$Actions.Move(1)),A2($Html$Events.onMouseUp,address,$Actions.Move(0))]))
+              _U.list([A2($Html$Events.onMouseDown,address,$Actions.Rotate(true))
+                      ,A2($Html$Events.onMouseUp,address,$Actions.Rotate(false))
+                      ,A2(onTouchStart,address,$Actions.Rotate(true))
+                      ,A2(onTouchEnd,address,$Actions.Rotate(false))]))
+              ,A2(renderControlButton,
+              "←",
+              _U.list([A2($Html$Events.onMouseDown,address,$Actions.Move(-1))
+                      ,A2($Html$Events.onMouseUp,address,$Actions.Move(0))
+                      ,A2(onTouchStart,address,$Actions.Move(-1))
+                      ,A2(onTouchEnd,address,$Actions.Move(0))]))
+              ,A2(renderControlButton,
+              "→",
+              _U.list([A2($Html$Events.onMouseDown,address,$Actions.Move(1))
+                      ,A2($Html$Events.onMouseUp,address,$Actions.Move(0))
+                      ,A2(onTouchStart,address,$Actions.Move(1))
+                      ,A2(onTouchEnd,address,$Actions.Move(0))]))
               ,A2(renderControlButton,
               "↓",
-              _U.list([A2($Html$Events.onMouseDown,address,$Actions.Accelerate(true)),A2($Html$Events.onMouseUp,address,$Actions.Accelerate(false))]))]));
+              _U.list([A2($Html$Events.onMouseDown,address,$Actions.Accelerate(true))
+                      ,A2($Html$Events.onMouseUp,address,$Actions.Accelerate(false))
+                      ,A2(onTouchStart,address,$Actions.Accelerate(true))
+                      ,A2(onTouchEnd,address,$Actions.Accelerate(false))]))]));
    };
    var renderInfo = function (state) {
       return A2($Html.div,
@@ -11884,7 +11914,9 @@ Elm.View.make = function (_elm) {
    };
    var view = F2(function (address,model) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.style(_U.list([A2(_op["=>"],"padding","30px 0")]))]),
+      _U.list([$Html$Attributes.style(_U.list([A2(_op["=>"],"padding","30px 0")]))
+              ,A2(onTouchEnd,address,$Actions.UnlockButtons)
+              ,A2($Html$Events.onMouseUp,address,$Actions.UnlockButtons)]),
       _U.list([A2($Html.div,
       _U.list([$Html$Attributes.style(_U.list([A2(_op["=>"],"height","680px")
                                               ,A2(_op["=>"],"margin","auto")
@@ -11925,12 +11957,12 @@ Elm.Main.make = function (_elm) {
    var tasks = Elm.Native.Task.make(_elm).performSignal("tasks",app.tasks);
    return _elm.Main.values = {_op: _op,app: app,main: main};
 };</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.Main)</script>
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-43235123-1', 'auto');
-    ga('send', 'pageview');
-  </script>
-</body></html>
+	  <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	    ga('create', 'UA-43235123-1', 'auto');
+	    ga('send', 'pageview');
+	  </script>
+	</body></html>
