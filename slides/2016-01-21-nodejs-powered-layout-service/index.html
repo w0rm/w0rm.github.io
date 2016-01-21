@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NodeJS-powered Layout Service</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="node_modules/shower-bright/styles/screen.css" media="screen">
+  <script src="node_modules/shower-core/shower.min.js"></script>
+</head>
+<body class="shower list">
+
+  <header class="caption">
+    <h1>NodeJS-powered Layout Service</h1>
+    <p>by Andrey Kuzmin, <a href="https://twitter.com/unsoundscapes">@unsoundscapes</a></p>
+  </header>
+
+  <section class="slide" id="cover"><div>
+    <h2>NodeJS-powered<br>Layout Service</h2>
+    <p><img src="img/zalando.png" alt="Zalando" width="160"></p>
+    <div>Andrey Kuzmin, <a href="https://twitter.com/unsoundscapes">@unsoundscapes</a></div>
+    <div class="next grey">
+      gulp—<span>(<a href="https://github.com/w0rm/gulp-svgstore">svgstore</a>,
+      <a href="https://github.com/w0rm/gulp-svgfallback">svgfallback</a>,
+      <a href="https://github.com/postcss/gulp-postcss">postcss</a>)</span>
+    </div>
+    <div class="next grey">
+      elm—<span>(<a href="https://github.com/w0rm/elm-flatris">flatris</a>,
+      <a href="https://github.com/zalando/elm-street-404">street-404</a>)</span>
+    </div>
+    <style>
+      #cover img { margin-bottom: 20px; }
+      #cover { text-align: center; }
+      #cover::after { visibility: hidden; }
+      #cover h2 { font-size: 60px; line-height: 90px; margin-bottom: 40px }
+      #cover .grey { color: #999; }
+    </style>
+  </div></section>
+
+  <section class="slide" id="jimmy"><div>
+    <h2>
+      The Old Shop
+      <span class="next">(aka Jimmy) <img src="img/jimmy.png" width="147" class="body"></span>
+    </h2>
+    <div class="pad">
+      <ul class="next">
+        <li>LOC: 560k Java, 34k JavaScript, 36k CSS</li>
+        <li>8 mins to compile, 4 mins to run</li>
+        <li>More than 100 active contributors since 2015</li>
+        <li>Changes from one team affect another</li>
+        <li>Pre-release bugs postpone features</li>
+      </ul>
+    </div>
+    <style media="screen">
+      #jimmy .body { position: absolute; top: 320px; left: 100px; }
+      #jimmy .pad { padding-left: 200px }
+    </style>
+  </div></section>
+
+  <section class="slide" id="requirements"><div>
+    <h2>Requirements</h2>
+    <img src="img/jimmy.png" width="147" class="body">
+    <div class="pad">
+      <ul class="next">
+        <li>Support team autonomy</li>
+        <li>Increase the reliablity</li>
+        <li>Ensure fast time to first byte</li>
+        <li>Prioritize the content above the fold</li>
+        <li>Preserve existing SEO friendliness</li>
+      </ul>
+    </div>
+    <style media="screen">
+      #requirements .body { position: absolute; top: 320px; left: 100px; }
+      #requirements .pad { padding-left: 200px }
+    </style>
+  </div></section>
+
+  <section class="slide" id="mosaic"><div>
+    <h2>The New Shop (aka Project Mosaic)</h2>
+    <div id="schema" class="next">
+      <img src="img/jimmy.png" width="147" class="body">
+      <img src="img/head.png" width="147" class="head">
+      <img src="img/schema-1.png" class="schema">
+      <img src="img/schema-2.png" class="schema next">
+      <img src="img/schema-3.png" class="schema next">
+    </div>
+    <style>
+      #schema { visibility: visible; }
+      #schema .schema { opacity: 0 }
+      #schema.visited .schema, #schema.active .schema { opacity: 1; transition: opacity .3s 1s; }
+      #schema .body, #schema .head { position: absolute; top: 320px; left: 100px; }
+      #schema.visited .head, #schema.active .head { top: 480px; transition: top 1s; }
+      #schema.visited .body, #schema.active .body { visibility: hidden; }
+      #schema .schema { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+      #mosaic h2 { position: relative; z-index: 1; }
+      #mosaic::after { visibility: hidden; }
+    </style>
+  </div></section>
+
+  <section class="slide" id="tailor">
+    <svg width="800" viewBox="0 0 1004.5 344.3">
+      <g fill="none" stroke="#010202" stroke-width="5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round">
+        <path class="line" d="M322.7 86.5c-7.3-3.5-188.4 240.8-168.4 255 13.4 9.5 153-256.7 158-254.6 12 5.2-300 80-309.6 65s401-81 410.6-75c-66 0-130 123.5-103.6 125C345.3 204 416 83 422.3 86.4c6 3.3-93 118.7-60 118.7 21 0 133-122.7 125.4-127.7-13-8.5-94.4 119.3-71.4 119.3S630 2.4 598.7 2.4 396 286.4 423 286.4s118.3-172.2 155.3-151c-38.3 0-112.3 126.8-67 126.8 30 0 96.4-104.4 73.4-118.4-7.5-4.5-13 7.6-7.4 11.4 16.7 11 56.7-22.4 59.4-20 5 4.3-75.4 121-59.7 121s55-134 86.7-120c16 7 19.6 18.2 51.2 17.8 51-.7 204-19.4 287-77.2"/>
+        <path class="dot" d="M504.2 50.3c6.5 6.4-6.7 17-11.2 13s5.8-18 11.2-13z"/>
+      </g>
+    </svg>
+    <style>
+      #tailor svg { position: absolute; left: 100px; top: 150px; }
+      #tailor.active .line, #tailor.visited .line { stroke-dasharray: 4062; stroke-dashoffset: 0; animation: line 2s linear alternate 1; }
+      #tailor .dot { opacity: 0; }
+      #tailor.active .dot, #tailor.visited .dot, .list #tailor .dot { opacity: 1; transition: opacity 0.3s 1s; }
+      #tailor::after { visibility: hidden; }
+      @keyframes line { from { stroke-dashoffset: 4062; } to { stroke-dashoffset: 0; } }
+    </style>
+  </section>
+
+  <section class="slide"><div>
+    <h2>Tailor (Streaming Layout Service)</h2>
+    <ul>
+      <li class="next">Selects the template based on the current request</li>
+      <li class="next">Parses the template for fragment placeholders</li>
+      <li class="next">Retrieves all fragments from the template</li>
+      <li class="next">Assembles the page</li>
+      <li class="next">Streams the output ASAP</li>
+    </ul>
+  </div></section>
+
+  <section class="slide shout" id="streams"><div>
+    <h2>Streams</h2>
+    <style>
+      #streams { background: #fff; }
+      #streams h2 { color: inherit; font-size: 100px; text-align: center; }
+    </style>
+  </div></section>
+  <div></section>
+
+  <section class="slide"><div>
+    <h2>Custom Streams</h2>
+    <ul>
+      <li>Parser (HTML → Buffers &amp; JSON Objects)</li>
+      <li>Stringifier (Buffers &amp; JSON Objects → Buffers &amp; Streams → HTML)</li>
+      <li>Async (Streams → HTML)</li>
+    </ul>
+  </div></section>
+
+  <section class="slide"><div>
+    <h2>Template</h2>
+    <pre>
+      <code>&lt;head&gt;&lt;fragment src=&quot;http://assets...&quot;&gt;&lt;/head&gt;</code>
+      <code>&lt;body&gt;</code>
+      <code>  &lt;fragment src=&quot;http://header...&quot;&gt;</code>
+      <code>  &lt;fragment src=&quot;http://ajax-cart...&quot; async&gt;</code>
+      <code>  &lt;fragment src=&quot;http://product...&quot; primary&gt;</code>
+      <code>  &lt;fragment src=&quot;http://footer...&quot; async&gt;</code>
+      <code>&lt;/body&gt;</code>
+    </pre>
+  </div></section>
+
+  <section class="slide" id="parser"><div>
+    <h2>Parser</h2>
+    <style>
+      #parser .buffer { color: #ccc }
+    </style>
+    <pre>
+      <code><span class="buffer">[&lt;head&gt;]</span>{src: "http://assets..."}<span class="buffer">[&lt;/head&gt;</span></code>
+      <code><span class="buffer">&lt;body&gt;]</span></code>
+      <code>  {src: "http://header..."}</code>
+      <code>  {src: "http://ajax-cart...", async: true}</code>
+      <code>  {src: "http://product...", primary: true}</code>
+      <code>  {src: "http://footer...", async: true}</code>
+      <code>  {}</code>
+      <code><span class="buffer">[&lt;/body&gt;]</span></code>
+    </pre>
+  </div></section>
+
+  <section class="slide" id="stringifier"><div>
+    <h2>Stringifier</h2>
+    <style>
+      #stringifier .buffer { color: #ccc }
+    </style>
+    <pre>
+      <code><span class="buffer">[&lt;head&gt;]</span>*Assets*<span class="buffer">[&lt;/head&gt;</span></code>
+      <code><span class="buffer">&lt;body&gt;]</span></code>
+      <code>  *Header*</code>
+      <code>  <span class="buffer">[&lt;div id="ajax-cart"&gt;&lt;/div&gt;]</span></code>
+      <code>  *Product*</code>
+      <code>  <span class="buffer">[&lt;div id="footer"&gt;&lt;/div&gt;]</span></code>
+      <code>  *Async [AjaxCart, Footer]*</code>
+      <code><span class="buffer">[&lt;/body&gt;]</span></code>
+    </pre>
+  </div></section>
+
+  <section class="slide"><div>
+    <h2>Fragment Output</h2>
+    <pre>
+      <code>&lt;link rel="stylesheet" href="product.css"&gt;</code>
+      <code>&lt;script&gt;require(["product.js"]);&lt;/script&gt;</code>
+      <code>&lt;div id="product"&gt;...product content...&lt;/div&gt;</code>
+      <code>&lt;script&gt;</code>
+      <code>  pipe("product", "product.js", false);</code>
+      <code>&lt;/script&gt;</code>
+    </pre>
+  </div></section>
+
+  <section class="slide"><div>
+    <h2>Async Fragment Output</h2>
+    <pre>
+      <code>&lt;div id="async-ajax-cart"&gt;...ajax cart content...&lt;/div&gt;</code>
+      <code>&lt;link rel="stylesheet" href="ajax-cart.css"&gt;</code>
+      <code>&lt;script&gt;</code>
+      <code>  pipe("ajax-cart", "ajax-cart.js", true);</code>
+      <code>&lt;/script&gt;</code>
+    </pre>
+  </div></section>
+
+  <section class="slide"><div>
+    <h2>Fragment Attributes</h2>
+    <ul class="next">
+        <li><strong>id</strong> — optional unique identifier (autogenerated)</li>
+        <li><strong>src</strong> — URL of the fragment</li>
+        <li><strong>primary</strong> — sets the response code of the page</li>
+        <li><strong>async</strong> — delays the output</li>
+        <li><strong>inline</strong> — excludes the &lt;div&gt; wrapper</li>
+        <li><strong>public</strong> — doesn't receive the headers</li>
+    </ul>
+  </div></section>
+
+  <section class="slide" id="pipe"><div>
+    <h2>Pipe Function (draft)</h2>
+    <style>
+      #pipe .grey { color: #ccc; }
+    </style>
+    <pre class="next">
+      <code>function pipe (id, url, async) {</code>
+      <code>  var placeholder = document.getElementById(id);</code>
+      <code>  if (async) { <span class="grey">/* transfer content from async-{id}</span></code>
+      <code>               <span class="grey">   to the placeholder */</span> }</code>
+      <code>  require([url], function (init) {</code>
+      <code>    init(placeholder.firstElementChild);</code>
+      <code>  });</code>
+      <code>}</code>
+    </pre>
+  </div></section>
+
+  <section class="slide"><div>
+    <h2>Assets Fragment</h2>
+    <ul class="next">
+      <li>ES6 &amp; fetch polyfills</li>
+      <li>Normalise.css and <code>{box-sizing: border-box;}</code></li>
+      <li>RequireJS and pipe function</li>
+      <li>Defines AMD modules (React, UI, Translation, Event Bus, etc.)</li>
+    </ul>
+  </div></section>
+
+  <section class="slide"><div>
+    <h2>Outcome</h2>
+    <ul class="next">
+      <li>Fast time to first byte</li>
+      <li>Ability to prioritize the content above the fold</li>
+      <li>SEO friendliness preserved by backend composition</li>
+      <li>Eliminated the single point of failure</li>
+    </ul>
+  </div></section>
+
+  <section class="slide"><div>
+    <h2><img src="img/zalando.png" alt="Zalando"></h2>
+    <ul>
+      <li>Blog: <a href="http://tech.zalando.com/blog/">tech.zalando.com/blog</a></li>
+      <li>GitHub: <a href="https://github.com/zalando/tailor">github.com/zalando/tailor</a></li>
+      <li>Twitter: <a href="https://twitter.com/zalandotech">@ZalandoTech</a></li>
+    </ul>
+  </div></section>
+
+  <section class="slide" id="questions"><div>
+    <h2>Questions?</h2>
+    <p>Andrey Kuzmin, <a href="https://twitter.com/unsoundscapes">@unsoundscapes</a></p>
+    <style>
+      #questions { text-align: center; }
+      #questions::after { visibility: hidden; }
+      #questions h2 { font-size: 120px; line-height: 120px; margin: 60px 0 100px; }
+    </style>
+  </div></section>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-43235123-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>
