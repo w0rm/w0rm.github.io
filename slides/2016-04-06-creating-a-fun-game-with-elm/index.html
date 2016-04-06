@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Creating a Fun Game With Elm</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/highlight.css">
+  <script src="assets/highlight.min.js"></script>
+  <script src="assets/elm.js"></script>
+</head>
+<body>
+  <script>
+    Elm.fullscreen(Elm.Main, {
+      locationHash: window.location.hash,
+      windowDimensions: [window.innerWidth, window.innerHeight]
+    });
+  </script>
+</body>
+</html>
