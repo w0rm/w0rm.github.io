@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>Main</title><style>html,head,body { padding:0; margin:0; }
+<html><head><meta charset="UTF-8"><title>Mogee</title><style>html,head,body { padding:0; margin:0; }
 body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">var Elm = Elm || { Native: {} };Elm.Native.Basics = {};
 Elm.Native.Basics.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -10243,33 +10243,48 @@ Elm.Model.Direction.make = function (_elm) {
    $Debug = Elm.Debug.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
+   $Random = Elm.Random.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
    var _op = {};
+   var pickRandom = F2(function (list,$default) {
+      return A2($Random.map,
+      function (index) {
+         return A2($Maybe.withDefault,$default,$List.head(A2($List.drop,index,list)));
+      },
+      A2($Random.$int,0,$List.length(list) - 1));
+   });
+   var offset = F3(function (_p1,_p0,dir) {
+      var _p2 = _p1;
+      var _p8 = _p2._0;
+      var _p7 = _p2._1;
+      var _p3 = _p0;
+      var _p6 = _p3._1;
+      var _p5 = _p3._0;
+      var _p4 = dir;
+      switch (_p4.ctor)
+      {case "Left": return {ctor: "_Tuple2",_0: _p5 - _p8,_1: _p6};
+         case "Right": return {ctor: "_Tuple2",_0: _p5 + _p8,_1: _p6};
+         case "Top": return {ctor: "_Tuple2",_0: _p5,_1: _p6 - _p7};
+         default: return {ctor: "_Tuple2",_0: _p5,_1: _p6 + _p7};}
+   });
    var Bottom = {ctor: "Bottom"};
    var Top = {ctor: "Top"};
    var Right = {ctor: "Right"};
+   var possibleDirections = _U.list([Right,Top,Bottom]);
    var Left = {ctor: "Left"};
-   return _elm.Model.Direction.values = {_op: _op,Left: Left,Right: Right,Top: Top,Bottom: Bottom};
-};Elm.Model = Elm.Model || {};
-Elm.Model.Space = Elm.Model.Space || {};
-Elm.Model.Space.make = function (_elm) {
-   "use strict";
-   _elm.Model = _elm.Model || {};
-   _elm.Model.Space = _elm.Model.Space || {};
-   if (_elm.Model.Space.values) return _elm.Model.Space.values;
-   var _U = Elm.Native.Utils.make(_elm),
-   $Basics = Elm.Basics.make(_elm),
-   $Debug = Elm.Debug.make(_elm),
-   $List = Elm.List.make(_elm),
-   $Maybe = Elm.Maybe.make(_elm),
-   $Model$Direction = Elm.Model.Direction.make(_elm),
-   $Result = Elm.Result.make(_elm),
-   $Signal = Elm.Signal.make(_elm);
-   var _op = {};
-   var space = F2(function (dir,act) {    return {direction: dir,active: act};});
-   var Space = F2(function (a,b) {    return {direction: a,active: b};});
-   return _elm.Model.Space.values = {_op: _op,space: space,Space: Space};
+   var opposite = function (dir) {
+      var _p9 = dir;
+      switch (_p9.ctor)
+      {case "Left": return Right;
+         case "Right": return Left;
+         case "Top": return Bottom;
+         default: return Top;}
+   };
+   var next = function (direction) {
+      return A2(pickRandom,A2($List.filter,F2(function (x,y) {    return !_U.eq(x,y);})(opposite(direction)),possibleDirections),direction);
+   };
+   return _elm.Model.Direction.values = {_op: _op,opposite: opposite,offset: offset,next: next,Left: Left,Right: Right,Top: Top,Bottom: Bottom};
 };Elm.Model = Elm.Model || {};
 Elm.Model.Object = Elm.Model.Object || {};
 Elm.Model.Object.make = function (_elm) {
@@ -10284,7 +10299,6 @@ Elm.Model.Object.make = function (_elm) {
    $Maybe = Elm.Maybe.make(_elm),
    $Model$Direction = Elm.Model.Direction.make(_elm),
    $Model$Mogee = Elm.Model.Mogee.make(_elm),
-   $Model$Space = Elm.Model.Space.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Time = Elm.Time.make(_elm);
@@ -10298,306 +10312,177 @@ Elm.Model.Object.make = function (_elm) {
             return false;
          }
    });
-   var expandSpaces = $List.filterMap(function (o) {
-      var _p3 = o.category;
-      if (_p3.ctor === "SpaceCategory") {
-            return $Maybe.Just({ctor: "_Tuple2",_0: o,_1: _p3._0});
-         } else {
-            return $Maybe.Nothing;
-         }
-   });
+   var toIntTuple = function (_p3) {    var _p4 = _p3;return {ctor: "_Tuple2",_0: $Basics.round(_p4._0),_1: $Basics.round(_p4._1)};};
    var collide = F2(function (o1,o2) {
-      var _p4 = o2.size;
-      var w2 = _p4._0;
-      var h2 = _p4._1;
-      var _p5 = o2.position;
-      var x2 = _p5._0;
-      var y2 = _p5._1;
-      var _p6 = o1.size;
-      var w1 = _p6._0;
-      var h1 = _p6._1;
-      var _p7 = o1.position;
-      var x1 = _p7._0;
-      var y1 = _p7._1;
+      var _p5 = toIntTuple(o2.size);
+      var w2 = _p5._0;
+      var h2 = _p5._1;
+      var _p6 = toIntTuple(o2.position);
+      var x2 = _p6._0;
+      var y2 = _p6._1;
+      var _p7 = toIntTuple(o1.size);
+      var w1 = _p7._0;
+      var h1 = _p7._1;
+      var _p8 = toIntTuple(o1.position);
+      var x1 = _p8._0;
+      var y1 = _p8._1;
       return _U.cmp(x1,x2 + w2) < 0 && (_U.cmp(x1 + w1,x2) > 0 && (_U.cmp(y1,y2 + h2) < 0 && _U.cmp(y1 + h1,y2) > 0));
    });
+   var cleanup = $List.filter(function (_p9) {    var _p10 = _p9;var _p11 = _p10.size;return !_U.eq($Basics.fst(_p11),0) && !_U.eq($Basics.snd(_p11),0);});
    var shrink = F3(function (dt,direction,object) {
-      var _p8 = object.size;
-      var w = _p8._0;
-      var h = _p8._1;
+      var _p12 = object.size;
+      var w = _p12._0;
+      var h = _p12._1;
       var newW = A2($Basics.max,0,w - dt * $Basics.fst(object.velocity));
       var newH = A2($Basics.max,0,h - dt * $Basics.snd(object.velocity));
-      var _p9 = object.position;
-      var x = _p9._0;
-      var y = _p9._1;
-      if (_U.eq(w,0) || _U.eq(h,0)) return object; else {
-            var _p10 = direction;
-            switch (_p10.ctor)
+      var _p13 = object.position;
+      var x = _p13._0;
+      var y = _p13._1;
+      if (_U.eq(w,0) || _U.eq(h,0)) return A2($Debug.log,"d",object); else {
+            var _p14 = direction;
+            switch (_p14.ctor)
             {case "Left": return _U.update(object,{size: {ctor: "_Tuple2",_0: newW,_1: 64}});
                case "Right": return _U.update(object,{size: {ctor: "_Tuple2",_0: newW,_1: 64},position: {ctor: "_Tuple2",_0: x - newW + w,_1: y}});
                case "Top": return _U.update(object,{size: {ctor: "_Tuple2",_0: 64,_1: newH}});
                default: return _U.update(object,{size: {ctor: "_Tuple2",_0: 64,_1: newH},position: {ctor: "_Tuple2",_0: x,_1: y - newH + h}});}
          }
    });
-   var invertSpace = function (_p11) {
-      var _p12 = _p11;
-      var _p17 = _p12;
-      var _p13 = _p12.category;
-      if (_p13.ctor === "SpaceCategory") {
-            var _p14 = _p12.size;
-            var w = _p14._0;
-            var h = _p14._1;
-            var _p15 = _p12.position;
-            var x = _p15._0;
-            var y = _p15._1;
-            return _p13._0.active ? $Maybe.Just(function () {
-               var _p16 = _p13._0.direction;
-               switch (_p16.ctor)
-               {case "Left": return _U.update(_p17,{size: {ctor: "_Tuple2",_0: 64 - w,_1: h},position: {ctor: "_Tuple2",_0: x + w,_1: y}});
-                  case "Right": return _U.update(_p17,{size: {ctor: "_Tuple2",_0: 64 - w,_1: h},position: {ctor: "_Tuple2",_0: x - (64 - w),_1: y}});
-                  case "Top": return _U.update(_p17,{size: {ctor: "_Tuple2",_0: w,_1: 64 - h},position: {ctor: "_Tuple2",_0: x,_1: y + h}});
-                  default: return _U.update(_p17,{size: {ctor: "_Tuple2",_0: w,_1: 64 - h},position: {ctor: "_Tuple2",_0: x,_1: y - (64 - h)}});}
-            }()) : $Maybe.Nothing;
+   var invertSpace = function (_p15) {
+      var _p16 = _p15;
+      var _p21 = _p16;
+      var _p17 = _p16.category;
+      if (_p17.ctor === "SpaceCategory") {
+            var _p18 = _p16.size;
+            var w = _p18._0;
+            var h = _p18._1;
+            var _p19 = _p16.position;
+            var x = _p19._0;
+            var y = _p19._1;
+            var _p20 = _p17._0;
+            switch (_p20.ctor)
+            {case "Left": return _U.update(_p21,{size: {ctor: "_Tuple2",_0: 64 - w,_1: h},position: {ctor: "_Tuple2",_0: x + w,_1: y}});
+               case "Right": return _U.update(_p21,{size: {ctor: "_Tuple2",_0: 64 - w,_1: h},position: {ctor: "_Tuple2",_0: x - (64 - w),_1: y}});
+               case "Top": return _U.update(_p21,{size: {ctor: "_Tuple2",_0: w,_1: 64 - h},position: {ctor: "_Tuple2",_0: x,_1: y + h}});
+               default: return _U.update(_p21,{size: {ctor: "_Tuple2",_0: w,_1: 64 - h},position: {ctor: "_Tuple2",_0: x,_1: y - (64 - h)}});}
          } else {
-            return $Maybe.Nothing;
+            return _p21;
          }
    };
-   var isSpace = function (obj) {    var _p18 = obj.category;if (_p18.ctor === "SpaceCategory") {    return true;} else {    return false;}};
-   var isWall = function (obj) {    var _p19 = obj.category;if (_p19.ctor === "WallCategory") {    return true;} else {    return false;}};
-   var isMogee = function (obj) {    var _p20 = obj.category;if (_p20.ctor === "MogeeCategory") {    return true;} else {    return false;}};
+   var isSpace = function (obj) {    var _p22 = obj.category;if (_p22.ctor === "SpaceCategory") {    return true;} else {    return false;}};
+   var isWall = function (obj) {    var _p23 = obj.category;if (_p23.ctor === "WallCategory") {    return true;} else {    return false;}};
+   var isMogee = function (obj) {    var _p24 = obj.category;if (_p24.ctor === "MogeeCategory") {    return true;} else {    return false;}};
+   var borderSize = 1;
+   var size = 64;
    var spaceVelocity = 1.0e-2;
+   var activate = F2(function (objects,object) {
+      return A2($List.all,function (_p25) {    var _p26 = _p25;return !_U.eq(_p26.number,object.number - 1);},objects) ? _U.update(object,
+      {velocity: {ctor: "_Tuple2"
+                 ,_0: spaceVelocity + 1.0e-3 * $Basics.toFloat(object.number)
+                 ,_1: spaceVelocity + 1.0e-3 * $Basics.toFloat(object.number)}}) : object;
+   });
    var walkVelocity = 3.0e-2;
    var jumpVelocity = 6.0e-2;
    var friction = 1.0e-3;
-   var moveX = F4(function (dt,dx,objects,object) {
-      var _p21 = object.position;
-      var x = _p21._0;
-      var y = _p21._1;
-      var _p22 = object.velocity;
-      var vx = _p22._0;
-      var vy = _p22._1;
+   var moveX = F4(function (dt,dx,walls,object) {
+      var _p27 = object.position;
+      var x = _p27._0;
+      var y = _p27._1;
+      var _p28 = object.velocity;
+      var vx = _p28._0;
+      var vy = _p28._1;
       var newVelocity = function () {
          if (_U.eq(dx,0)) if (!_U.eq(vx,0)) {
-                  var $new = $Basics.abs(vx) - friction * dt;
-                  return _U.cmp($new,0) > 0 ? vx / $Basics.abs(vx) * $new : 0;
+                  var $new = A2($Basics.max,$Basics.abs(vx) - friction * dt,0);
+                  return vx / $Basics.abs(vx) * $new;
                } else return 0; else return dx * walkVelocity;
       }();
       var deltaX = dt * (vx + newVelocity) * 0.5;
-      var newObject = _U.update(object,{position: {ctor: "_Tuple2",_0: x + deltaX,_1: y},velocity: {ctor: "_Tuple2",_0: newVelocity,_1: vy}});
-      var collisions = A2($List.filter,collide(newObject),objects);
-      var _p23 = $List.head(collisions);
-      if (_p23.ctor === "Nothing") {
-            return newObject;
-         } else {
-            var _p24 = _p23._0.position;
-            return _U.cmp(deltaX,0) < 0 ? _U.update(object,
-            {position: {ctor: "_Tuple2",_0: $Basics.fst(_p24) + $Basics.fst(_p23._0.size),_1: y},velocity: {ctor: "_Tuple2",_0: 0,_1: vy}}) : _U.update(object,
-            {position: {ctor: "_Tuple2",_0: $Basics.fst(_p24) - $Basics.fst(object.size),_1: y},velocity: {ctor: "_Tuple2",_0: 0,_1: vy}});
-         }
+      return A3($List.foldl,
+      F2(function (_p29,object) {
+         var _p30 = _p29;
+         var _p31 = _p30.position;
+         return A2(collide,object,_p30) ? _U.cmp(deltaX,0) < 0 ? _U.update(object,
+         {velocity: {ctor: "_Tuple2",_0: -1.0e-6,_1: vy},position: {ctor: "_Tuple2",_0: $Basics.fst(_p31) + $Basics.fst(_p30.size),_1: y}}) : _U.update(object,
+         {velocity: {ctor: "_Tuple2",_0: 1.0e-6,_1: vy},position: {ctor: "_Tuple2",_0: $Basics.fst(_p31) - $Basics.fst(object.size),_1: y}}) : object;
+      }),
+      _U.update(object,{position: {ctor: "_Tuple2",_0: x + deltaX,_1: y},velocity: {ctor: "_Tuple2",_0: newVelocity,_1: vy}}),
+      walls);
    });
    var gravity = 1.0e-4;
-   var moveY = F4(function (dt,dy,objects,object) {
-      var _p25 = object.position;
-      var x = _p25._0;
-      var y = _p25._1;
-      var _p26 = object.velocity;
-      var vx = _p26._0;
-      var vy = _p26._1;
+   var moveY = F4(function (dt,dy,walls,object) {
+      var _p32 = object.position;
+      var x = _p32._0;
+      var y = _p32._1;
+      var _p33 = object.velocity;
+      var vx = _p33._0;
+      var vy = _p33._1;
       var newVelocity = vy + gravity * dt;
       var deltaY = dt * (vy + newVelocity) * 0.5;
-      var newObject = _U.update(object,{position: {ctor: "_Tuple2",_0: x,_1: y + deltaY},velocity: {ctor: "_Tuple2",_0: vx,_1: newVelocity}});
-      var collisions = A2($List.filter,collide(newObject),objects);
-      var _p27 = $List.head(collisions);
-      if (_p27.ctor === "Nothing") {
-            return newObject;
-         } else {
-            var _p28 = _p27._0.position;
-            return _U.cmp(deltaY,0) < 0 ? _U.update(object,
-            {velocity: {ctor: "_Tuple2",_0: vx,_1: 0 - vy}
-            ,position: {ctor: "_Tuple2",_0: x,_1: $Basics.snd(_p28) + $Basics.snd(_p27._0.size)}}) : _U.update(object,
-            {velocity: {ctor: "_Tuple2",_0: vx,_1: _U.eq(dy,1) ? 0 - jumpVelocity : 0}
-            ,position: {ctor: "_Tuple2",_0: x,_1: $Basics.snd(_p28) - $Basics.snd(object.size)}});
-         }
+      return A3($List.foldl,
+      F2(function (_p34,object) {
+         var _p35 = _p34;
+         var _p36 = _p35.position;
+         return A2(collide,object,_p35) ? _U.cmp(deltaY,0) < 0 ? _U.update(object,
+         {velocity: {ctor: "_Tuple2",_0: vx,_1: 0},position: {ctor: "_Tuple2",_0: x,_1: $Basics.snd(_p36) + $Basics.snd(_p35.size)}}) : _U.update(object,
+         {velocity: {ctor: "_Tuple2",_0: vx,_1: _U.eq(dy,1) ? 0 - jumpVelocity : 0}
+         ,position: {ctor: "_Tuple2",_0: x,_1: $Basics.snd(_p36) - $Basics.snd(object.size)}}) : object;
+      }),
+      _U.update(object,{position: {ctor: "_Tuple2",_0: x,_1: y + deltaY},velocity: {ctor: "_Tuple2",_0: vx,_1: newVelocity}}),
+      walls);
    });
-   var offset = F2(function (_p29,object) {
-      var _p30 = _p29;
-      return _U.update(object,{position: {ctor: "_Tuple2",_0: $Basics.fst(object.position) - _p30._0,_1: $Basics.snd(object.position) - _p30._1}});
+   var offset = F2(function (direction,object) {
+      return _U.update(object,{position: A3($Model$Direction.offset,{ctor: "_Tuple2",_0: 64,_1: 64},object.position,direction)});
    });
-   var Object = F5(function (a,b,c,d,e) {    return {category: a,number: b,velocity: c,size: d,position: e};});
+   var Object = F5(function (a,b,c,d,e) {    return {number: a,category: b,velocity: c,size: d,position: e};});
    var Keys = F2(function (a,b) {    return {x: a,y: b};});
    var SpaceCategory = function (a) {    return {ctor: "SpaceCategory",_0: a};};
-   var space = F2(function (direction,number) {
-      return A4(Object,
-      SpaceCategory(A2($Model$Space.space,direction,_U.eq(number,0))),
-      number,
-      {ctor: "_Tuple2",_0: spaceVelocity + 1.0e-3 * number,_1: spaceVelocity + 1.0e-3 * number},
-      {ctor: "_Tuple2",_0: 64,_1: 64});
-   });
-   var activate = F3(function (space,objects,object) {
-      var isPrevious = function (_p31) {
-         var _p32 = _p31;
-         var _p33 = _p32.size;
-         return (_U.eq($Basics.fst(_p33),0) || _U.eq($Basics.snd(_p33),0)) && _U.eq(_p32.number,object.number - 1);
-      };
-      var newSpace = A2($List.any,isPrevious,objects) ? _U.update(space,{active: true}) : space;
-      return _U.update(object,{category: SpaceCategory(newSpace)});
+   var space = F2(function (number,direction) {
+      return A4(Object,number,SpaceCategory(direction),{ctor: "_Tuple2",_0: 0,_1: 0},{ctor: "_Tuple2",_0: 64,_1: 64});
    });
    var MogeeCategory = function (a) {    return {ctor: "MogeeCategory",_0: a};};
-   var mogee = A4(Object,MogeeCategory($Model$Mogee.mogee),0,{ctor: "_Tuple2",_0: 0,_1: 0},$Model$Mogee.size);
-   var update = F3(function (_p34,objects,object) {
-      var _p35 = _p34;
-      var _p39 = _p35._0;
-      var _p36 = object.category;
-      switch (_p36.ctor)
-      {case "SpaceCategory": var _p37 = _p36._0;
-           return _p37.active ? F2(function (x,y) {    return A2($List._op["::"],x,y);})(A3(shrink,_p39,_p37.direction,object)) : F2(function (x,y) {
-              return A2($List._op["::"],x,y);
-           })(A3(activate,_p37,A2($List.filter,isSpace,objects),object));
-         case "WallCategory": return A2($List.any,collide(object),A2($List.filter,isSpace,objects)) ? F2(function (x,y) {
-              return A2($List._op["::"],x,y);
-           })(object) : $Basics.identity;
-         default: var _p38 = _p36._0;
-           var rest = A2($List.filter,isWall,objects);
-           return A2($List.any,collide(object),A2($List.filter,isSpace,objects)) ? F2(function (x,y) {    return A2($List._op["::"],x,y);})(A4(moveX,
-           _p39,
-           $Basics.toFloat(_p35._1.x),
-           rest,
+   var mogee = A4(Object,-1,MogeeCategory($Model$Mogee.mogee),{ctor: "_Tuple2",_0: 0,_1: 0},$Model$Mogee.size);
+   var update = F5(function (dt,_p37,spaces,walls,object) {
+      var _p38 = _p37;
+      var _p39 = object.category;
+      switch (_p39.ctor)
+      {case "SpaceCategory": return F2(function (x,y) {    return A2($List._op["::"],x,y);})(A2(activate,spaces,A3(shrink,dt,_p39._0,object)));
+         case "WallCategory": return A2($List.any,collide(object),spaces) ? F2(function (x,y) {    return A2($List._op["::"],x,y);})(object) : $Basics.identity;
+         default: var _p40 = _p39._0;
+           return A2($List.any,collide(object),spaces) ? F2(function (x,y) {    return A2($List._op["::"],x,y);})(A4(moveX,
+           dt,
+           $Basics.toFloat(_p38.x),
+           walls,
            A4(moveY,
-           _p39,
-           $Basics.toFloat(_p35._1.y),
-           rest,
-           _U.update(object,{category: MogeeCategory(A3($Model$Mogee.update,_p39,object.velocity,_p38))})))) : F2(function (x,y) {
+           dt,
+           $Basics.toFloat(_p38.y),
+           walls,
+           _U.update(object,{category: MogeeCategory(A3($Model$Mogee.update,dt,object.velocity,_p40))})))) : F2(function (x,y) {
               return A2($List._op["::"],x,y);
-           })(_U.update(object,{category: MogeeCategory($Model$Mogee.die(_p38))}));}
+           })(_U.update(object,{category: MogeeCategory($Model$Mogee.die(_p40))}));}
    });
    var WallCategory = {ctor: "WallCategory"};
-   var wall = function (number) {    return A3(Object,WallCategory,number,{ctor: "_Tuple2",_0: 0,_1: 0});};
-   return _elm.Model.Object.values = {_op: _op
-                                     ,isDead: isDead
-                                     ,update: update
-                                     ,wall: wall
-                                     ,mogee: mogee
-                                     ,space: space
-                                     ,isMogee: isMogee
-                                     ,isSpace: isSpace
-                                     ,collide: collide
-                                     ,offset: offset
-                                     ,invertSpace: invertSpace
-                                     ,Object: Object
-                                     ,WallCategory: WallCategory
-                                     ,MogeeCategory: MogeeCategory
-                                     ,SpaceCategory: SpaceCategory};
-};Elm.Model = Elm.Model || {};
-Elm.Model.Screen = Elm.Model.Screen || {};
-Elm.Model.Screen.make = function (_elm) {
-   "use strict";
-   _elm.Model = _elm.Model || {};
-   _elm.Model.Screen = _elm.Model.Screen || {};
-   if (_elm.Model.Screen.values) return _elm.Model.Screen.values;
-   var _U = Elm.Native.Utils.make(_elm),
-   $Basics = Elm.Basics.make(_elm),
-   $Debug = Elm.Debug.make(_elm),
-   $List = Elm.List.make(_elm),
-   $Maybe = Elm.Maybe.make(_elm),
-   $Model$Direction = Elm.Model.Direction.make(_elm),
-   $Model$Object = Elm.Model.Object.make(_elm),
-   $Random = Elm.Random.make(_elm),
-   $Result = Elm.Result.make(_elm),
-   $Signal = Elm.Signal.make(_elm);
-   var _op = {};
-   var pickRandom = function (list) {
-      return A2($Random.map,function (index) {    return $List.head(A2($List.drop,index,list));},A2($Random.$int,0,$List.length(list) - 1));
-   };
-   var opposite = function (dir) {
-      var _p0 = dir;
-      switch (_p0.ctor)
-      {case "Left": return $Model$Direction.Right;
-         case "Right": return $Model$Direction.Left;
-         case "Top": return $Model$Direction.Bottom;
-         default: return $Model$Direction.Top;}
-   };
-   var offset = F2(function (_p1,screen) {
-      var _p2 = _p1;
-      return _U.update(screen,{offset: {ctor: "_Tuple2",_0: $Basics.fst(screen.offset) - _p2._0,_1: $Basics.snd(screen.offset) - _p2._1}});
-   });
-   var Screen = F3(function (a,b,c) {    return {offset: a,number: b,direction: c};});
-   var screen = Screen;
-   var borderSize = 1;
-   var size = 64;
-   var getDirection = F2(function (p1,_p3) {
-      var _p4 = _p3;
-      var _p6 = _p4._1;
-      var _p5 = _p4._0;
-      return _U.eq(p1,{ctor: "_Tuple2",_0: _p5 - size,_1: _p6}) ? $Maybe.Just($Model$Direction.Right) : _U.eq(p1,
-      {ctor: "_Tuple2",_0: _p5 + size,_1: _p6}) ? $Maybe.Just($Model$Direction.Left) : _U.eq(p1,
-      {ctor: "_Tuple2",_0: _p5,_1: _p6 - size}) ? $Maybe.Just($Model$Direction.Bottom) : _U.eq(p1,
-      {ctor: "_Tuple2",_0: _p5,_1: _p6 + size}) ? $Maybe.Just($Model$Direction.Top) : $Maybe.Nothing;
-   });
-   var offsetScreen = F2(function (_p7,dir) {
-      var _p8 = _p7;
-      var _p11 = _p8._1;
-      var _p10 = _p8._0;
-      var _p9 = dir;
-      switch (_p9.ctor)
-      {case "Left": return {ctor: "_Tuple2",_0: _p10 - size,_1: _p11};
-         case "Right": return {ctor: "_Tuple2",_0: _p10 + size,_1: _p11};
-         case "Top": return {ctor: "_Tuple2",_0: _p10,_1: _p11 - size};
-         default: return {ctor: "_Tuple2",_0: _p10,_1: _p11 + size};}
-   });
-   var next = function (screens) {
-      var scr = A2($Maybe.withDefault,A3(screen,{ctor: "_Tuple2",_0: 0,_1: 0},0,$Model$Direction.Right),$List.head(screens));
-      var oppositeDirection = opposite(scr.direction);
-      var nextOffset = A2(offsetScreen,scr.offset,scr.direction);
-      var possibleDirections = A2($List.filter,
-      F2(function (x,y) {    return !_U.eq(x,y);})(opposite(scr.direction)),
-      _U.list([$Model$Direction.Right,$Model$Direction.Top,$Model$Direction.Bottom]));
-      var nextScreen = function (maybeDirection) {
-         var _p12 = maybeDirection;
-         if (_p12.ctor === "Just") {
-               return A3(screen,nextOffset,scr.number + 1,_p12._0);
-            } else {
-               return A3(screen,nextOffset,scr.number + 1,$Model$Direction.Right);
-            }
-      };
-      return A2($Random.map,nextScreen,pickRandom(possibleDirections));
-   };
-   var walls = F2(function (from,_p13) {
-      var _p14 = _p13;
-      var _p25 = _p14.offset;
-      var _p24 = _p14.number;
-      var _p23 = _p14.direction;
-      var oppositeDir = opposite(from);
-      var _p15 = _p25;
-      var dx = _p15._0;
-      var dy = _p15._1;
-      var corner = function (_p16) {
-         var _p17 = _p16;
-         return A3($Model$Object.wall,_p24,{ctor: "_Tuple2",_0: borderSize,_1: borderSize},{ctor: "_Tuple2",_0: _p17._0 + dx,_1: _p17._1 + dy});
-      };
-      var horizontal = function (_p18) {
-         var _p19 = _p18;
-         return A3($Model$Object.wall,_p24,{ctor: "_Tuple2",_0: size - 2 * borderSize,_1: borderSize},{ctor: "_Tuple2",_0: _p19._0 + dx,_1: _p19._1 + dy});
-      };
-      var vertical = function (_p20) {
-         var _p21 = _p20;
-         return A3($Model$Object.wall,_p24,{ctor: "_Tuple2",_0: borderSize,_1: size - 2 * borderSize},{ctor: "_Tuple2",_0: _p21._0 + dx,_1: _p21._1 + dy});
-      };
+   var wall = function (number) {    return A3(Object,number,WallCategory,{ctor: "_Tuple2",_0: 0,_1: 0});};
+   var walls = F3(function (from,direction,number) {
+      var oppositeDir = $Model$Direction.opposite(from);
+      var vertical = A2(wall,number,{ctor: "_Tuple2",_0: borderSize,_1: size - 2 * borderSize});
+      var horizontal = A2(wall,number,{ctor: "_Tuple2",_0: size - 2 * borderSize,_1: borderSize});
+      var corner = A2(wall,number,{ctor: "_Tuple2",_0: borderSize,_1: borderSize});
       return A2($List._op["::"],
-      A3($Model$Object.space,_p23,_p24,_p25),
+      A3(space,number,direction,{ctor: "_Tuple2",_0: 0,_1: 0}),
       A2($List._op["::"],
-      A3($Model$Object.wall,_p24,{ctor: "_Tuple2",_0: 7,_1: 2},{ctor: "_Tuple2",_0: 0 + dx,_1: 11 + dy}),
+      A3(wall,number,{ctor: "_Tuple2",_0: 7,_1: 2},{ctor: "_Tuple2",_0: 0,_1: 11}),
       A2($List._op["::"],
-      A3($Model$Object.wall,_p24,{ctor: "_Tuple2",_0: 16,_1: 2},{ctor: "_Tuple2",_0: 24 + dx,_1: 11 + dy}),
+      A3(wall,number,{ctor: "_Tuple2",_0: 16,_1: 2},{ctor: "_Tuple2",_0: 24,_1: 11}),
       A2($List._op["::"],
-      A3($Model$Object.wall,_p24,{ctor: "_Tuple2",_0: 11,_1: 2},{ctor: "_Tuple2",_0: 6 + dx,_1: 27 + dy}),
+      A3(wall,number,{ctor: "_Tuple2",_0: 11,_1: 2},{ctor: "_Tuple2",_0: 6,_1: 27}),
       A2($List._op["::"],
-      A3($Model$Object.wall,_p24,{ctor: "_Tuple2",_0: 13,_1: 2},{ctor: "_Tuple2",_0: 51 + dx,_1: 27 + dy}),
+      A3(wall,number,{ctor: "_Tuple2",_0: 13,_1: 2},{ctor: "_Tuple2",_0: 51,_1: 27}),
       A2($List._op["::"],
-      A3($Model$Object.wall,_p24,{ctor: "_Tuple2",_0: 11,_1: 2},{ctor: "_Tuple2",_0: 0 + dx,_1: 43 + dy}),
+      A3(wall,number,{ctor: "_Tuple2",_0: 11,_1: 2},{ctor: "_Tuple2",_0: 0,_1: 43}),
       A2($List._op["::"],
-      A3($Model$Object.wall,_p24,{ctor: "_Tuple2",_0: 33,_1: 2},{ctor: "_Tuple2",_0: 31 + dx,_1: 43 + dy}),
+      A3(wall,number,{ctor: "_Tuple2",_0: 33,_1: 2},{ctor: "_Tuple2",_0: 31,_1: 43}),
       A2($List._op["::"],
-      A3($Model$Object.wall,_p24,{ctor: "_Tuple2",_0: 19,_1: 2},{ctor: "_Tuple2",_0: 17 + dx,_1: 59 + dy}),
+      A3(wall,number,{ctor: "_Tuple2",_0: 19,_1: 2},{ctor: "_Tuple2",_0: 17,_1: 58}),
       A2($Basics._op["++"],
       A2($List.map,
       corner,
@@ -10607,8 +10492,8 @@ Elm.Model.Screen.make = function (_elm) {
               ,{ctor: "_Tuple2",_0: 0,_1: size - borderSize}])),
       A2($List.map,
       function (d) {
-         var _p22 = d;
-         switch (_p22.ctor)
+         var _p41 = d;
+         switch (_p41.ctor)
          {case "Left": return vertical({ctor: "_Tuple2",_0: 0,_1: borderSize});
             case "Right": return vertical({ctor: "_Tuple2",_0: size - borderSize,_1: borderSize});
             case "Top": return horizontal({ctor: "_Tuple2",_0: borderSize,_1: 0});
@@ -10616,11 +10501,26 @@ Elm.Model.Screen.make = function (_elm) {
       },
       A2($List.filter,
       function (d) {
-         return !_U.eq(d,oppositeDir) && !_U.eq(d,_p23);
+         return !_U.eq(d,oppositeDir) && !_U.eq(d,direction);
       },
       _U.list([$Model$Direction.Left,$Model$Direction.Right,$Model$Direction.Top,$Model$Direction.Bottom]))))))))))));
    });
-   return _elm.Model.Screen.values = {_op: _op,screen: screen,next: next,offset: offset,walls: walls,Screen: Screen};
+   return _elm.Model.Object.values = {_op: _op
+                                     ,isDead: isDead
+                                     ,update: update
+                                     ,walls: walls
+                                     ,mogee: mogee
+                                     ,isMogee: isMogee
+                                     ,isSpace: isSpace
+                                     ,isWall: isWall
+                                     ,collide: collide
+                                     ,offset: offset
+                                     ,invertSpace: invertSpace
+                                     ,cleanup: cleanup
+                                     ,Object: Object
+                                     ,WallCategory: WallCategory
+                                     ,MogeeCategory: MogeeCategory
+                                     ,SpaceCategory: SpaceCategory};
 };Elm.Model = Elm.Model || {};
 Elm.Model.make = function (_elm) {
    "use strict";
@@ -10633,82 +10533,72 @@ Elm.Model.make = function (_elm) {
    $Maybe = Elm.Maybe.make(_elm),
    $Model$Direction = Elm.Model.Direction.make(_elm),
    $Model$Object = Elm.Model.Object.make(_elm),
-   $Model$Screen = Elm.Model.Screen.make(_elm),
    $Random = Elm.Random.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Time = Elm.Time.make(_elm);
    var _op = {};
-   var removeScreens = function (model) {
-      var numbers = A2($List.map,
-      function (_) {
-         return _.number;
-      },
-      A2($List.filter,function (o) {    return $Model$Object.isSpace(o) && (_U.eq($Basics.fst(o.size),0) || _U.eq($Basics.snd(o.size),0));},model.objects));
-      return _U.update(model,
-      {screens: A2($List.filter,
-      function (_p0) {
-         var _p1 = _p0;
-         return A2($List.all,F2(function (x,y) {    return !_U.eq(x,y);})(_p1.number),numbers);
-      },
-      model.screens)});
+   var mogee = function (_p0) {
+      var _p1 = _p0;
+      return A2($Maybe.withDefault,$Model$Object.mogee({ctor: "_Tuple2",_0: 28,_1: 27}),$List.head(A2($List.filter,$Model$Object.isMogee,_p1.objects)));
    };
-   var offset = function (_p2) {
-      var _p3 = _p2;
-      return A2($Maybe.withDefault,
-      {ctor: "_Tuple2",_0: 0,_1: 0},
-      A2($Maybe.map,function (_) {    return _.position;},$List.head(A2($List.filter,$Model$Object.isMogee,_p3.objects))));
-   };
+   var updateObjects = F3(function (elapsed,keys,model) {
+      var objects = $Model$Object.cleanup(model.objects);
+      var spaces = A2($List.filter,$Model$Object.isSpace,objects);
+      var number = A2($Maybe.withDefault,
+      0,
+      $List.maximum(A2($List.map,function (_) {    return _.number;},A2($List.filter,$Model$Object.collide(mogee(model)),spaces))));
+      var walls = A2($List.filter,$Model$Object.isWall,objects);
+      var updateObject = A4($Model$Object.update,elapsed,keys,spaces,walls);
+      return _U.update(model,{objects: A3($List.foldr,updateObject,_U.list([]),objects),currentScore: A2($Basics.max,number,model.currentScore)});
+   });
    var addScreen = function (model) {
-      var _p4 = A2($Random.generate,$Model$Screen.next(model.screens),model.seed);
-      var scr = _p4._0;
-      var seed = _p4._1;
-      var lastScr = A2($Maybe.withDefault,A3($Model$Screen.screen,{ctor: "_Tuple2",_0: 0,_1: 0},0,$Model$Direction.Right),$List.head(model.screens));
-      var lastScrOffsets = A2($List.map,
-      function (_p5) {
-         var _p6 = _p5;
-         var _p7 = _p6.offset;
-         return {ctor: "_Tuple2",_0: $Basics.round($Basics.fst(_p7) / 64),_1: $Basics.round($Basics.snd(_p7) / 64)};
-      },
-      A2($List.take,3,model.screens));
-      var _p8 = offset(model);
-      var x = _p8._0;
-      var y = _p8._1;
-      var pos = {ctor: "_Tuple2",_0: $Basics.round(x / 64),_1: $Basics.round(y / 64)};
-      return A2($List.any,F2(function (x,y) {    return _U.eq(x,y);})(pos),lastScrOffsets) ? _U.update(model,
+      var _p2 = A2($Random.generate,$Model$Direction.next(model.direction),model.seed);
+      var direction = _p2._0;
+      var seed = _p2._1;
+      var _p3 = function (_) {    return _.position;}(mogee(model));
+      var x = _p3._0;
+      var y = _p3._1;
+      var _p4 = {ctor: "_Tuple2",_0: x - 32 + 4,_1: y - 32 + 5};
+      var screenX = _p4._0;
+      var screenY = _p4._1;
+      return _U.cmp($Basics.abs(screenX),64) < 0 && _U.cmp($Basics.abs(screenY),64) < 0 ? _U.update(model,
       {seed: seed
-      ,screens: A2($List.map,$Model$Screen.offset(scr.offset),A2($List._op["::"],scr,model.screens))
-      ,objects: A2($List.map,$Model$Object.offset(scr.offset),A2($Basics._op["++"],A2($Model$Screen.walls,lastScr.direction,scr),model.objects))}) : model;
+      ,direction: direction
+      ,screens: model.screens + 1
+      ,objects: A2($Basics._op["++"],
+      A3($Model$Object.walls,model.direction,direction,model.screens + 1),
+      A2($List.map,$Model$Object.offset($Model$Direction.opposite(model.direction)),model.objects))}) : model;
    };
    var Keys = F2(function (a,b) {    return {x: a,y: b};});
-   var Model = F5(function (a,b,c,d,e) {    return {objects: a,screens: b,seed: c,state: d,lives: e};});
+   var Model = F8(function (a,b,c,d,e,f,g,h) {    return {objects: a,direction: b,seed: c,state: d,lives: e,score: f,currentScore: g,screens: h};});
    var Stopped = {ctor: "Stopped"};
-   var model = function () {
-      var screen = A3($Model$Screen.screen,{ctor: "_Tuple2",_0: 0,_1: 0},0,$Model$Direction.Right);
-      return {objects: A2($Basics._op["++"],
-             A2($Model$Screen.walls,$Model$Direction.Left,screen),
-             _U.list([$Model$Object.mogee({ctor: "_Tuple2",_0: 28,_1: 27})]))
-             ,screens: _U.list([screen])
-             ,seed: $Random.initialSeed(1)
-             ,lives: 3
-             ,state: Stopped};
-   }();
+   var model = {objects: A2($List._op["::"],
+               $Model$Object.mogee({ctor: "_Tuple2",_0: 28,_1: 27}),
+               A3($Model$Object.walls,$Model$Direction.Left,$Model$Direction.Right,0))
+               ,direction: $Model$Direction.Right
+               ,seed: $Random.initialSeed(1)
+               ,lives: 3
+               ,screens: 0
+               ,score: 0
+               ,currentScore: 0
+               ,state: Stopped};
    var Playing = {ctor: "Playing"};
    var Paused = {ctor: "Paused"};
    var checkLives = function (m) {
-      return $Model$Object.isDead(m.objects) ? _U.eq(m.lives,1) ? _U.update(model,{seed: m.seed}) : _U.update(m,{lives: m.lives - 1,state: Paused}) : m;
+      return $Model$Object.isDead(m.objects) ? _U.eq(m.lives,1) ? _U.update(model,{seed: m.seed,score: m.score + m.currentScore,currentScore: 0}) : _U.update(m,
+      {lives: m.lives - 1,state: Paused,score: m.score + m.currentScore,currentScore: 0}) : m;
    };
-   var update = F2(function (_p9,m) {
-      var _p10 = _p9;
-      var _p12 = _p10._2;
-      var _p11 = m.state;
-      switch (_p11.ctor)
-      {case "Paused": return _p12 ? _U.update(model,{state: Playing,lives: m.lives,seed: m.seed}) : m;
-         case "Stopped": return _p12 ? _U.update(m,{state: Playing}) : m;
-         default: return checkLives(removeScreens(addScreen(_U.update(m,
-           {objects: A3($List.foldr,A2($Model$Object.update,{ctor: "_Tuple2",_0: _p10._0,_1: _p10._1},m.objects),_U.list([]),m.objects)}))));}
+   var update = F2(function (_p5,m) {
+      var _p6 = _p5;
+      var _p8 = _p6._2;
+      var _p7 = m.state;
+      switch (_p7.ctor)
+      {case "Paused": return _p8 ? _U.update(model,{state: Playing,lives: m.lives,seed: m.seed,score: m.score}) : m;
+         case "Stopped": return _p8 ? _U.update(m,{state: Playing,score: 0}) : m;
+         default: return checkLives(addScreen(A3(updateObjects,_p6._0,_p6._1,m)));}
    });
-   return _elm.Model.values = {_op: _op,model: model,update: update,offset: offset,Model: Model,Keys: Keys,Paused: Paused,Playing: Playing,Stopped: Stopped};
+   return _elm.Model.values = {_op: _op,model: model,update: update,mogee: mogee,Model: Model,Keys: Keys,Paused: Paused,Playing: Playing,Stopped: Stopped};
 };Elm.View = Elm.View || {};
 Elm.View.Common = Elm.View.Common || {};
 Elm.View.Common.make = function (_elm) {
@@ -10845,25 +10735,26 @@ Elm.View.Object.make = function (_elm) {
    $View$Wall = Elm.View.Wall.make(_elm),
    $WebGL = Elm.WebGL.make(_elm);
    var _op = {};
-   var render = F3(function (texture,offset,_p0) {
+   var render = F2(function (texture,_p0) {
       var _p1 = _p0;
-      var _p4 = _p1.size;
-      var _p3 = _p1.position;
-      var pos = {ctor: "_Tuple2",_0: $Basics.fst(_p3) - $Basics.fst(offset),_1: $Basics.snd(_p3) - $Basics.snd(offset)};
+      var _p5 = _p1.size;
+      var _p4 = _p1.position;
       var _p2 = _p1.category;
       switch (_p2.ctor)
-      {case "WallCategory": return F2(function (x,y) {    return A2($List._op["::"],x,y);})({ctor: "_Tuple2",_0: 3,_1: A3($View$Wall.render,texture,_p4,pos)});
+      {case "WallCategory": return F2(function (x,y) {    return A2($List._op["::"],x,y);})({ctor: "_Tuple2",_0: 3,_1: A3($View$Wall.render,texture,_p5,_p4)});
          case "MogeeCategory": return F2(function (x,y) {    return A2($List._op["::"],x,y);})(A4($View$Mogee.render,
            texture,
-           pos,
+           _p4,
            _p2._0,
            _U.cmp($Basics.fst(_p1.velocity),0) < 0 ? -1 : 1));
-         default: return F2(function (x,y) {    return A2($List._op["::"],x,y);})({ctor: "_Tuple2"
-                                                                                  ,_0: 5
-                                                                                  ,_1: A3($View$Common.rectangle,
-                                                                                  _p4,
-                                                                                  pos,
-                                                                                  {ctor: "_Tuple3",_0: 25,_1: 30,_2: 28})});}
+         default: var monster = $Model$Object.invertSpace(_p1);
+           return function (_p3) {
+              return A2(F2(function (x,y) {    return A2($List._op["::"],x,y);}),
+              {ctor: "_Tuple2",_0: 2,_1: A3($View$Common.rectangle,monster.size,monster.position,{ctor: "_Tuple3",_0: 22,_1: 17,_2: 22})},
+              A2(F2(function (x,y) {    return A2($List._op["::"],x,y);}),
+              {ctor: "_Tuple2",_0: 5,_1: A3($View$Common.rectangle,_p5,_p4,{ctor: "_Tuple3",_0: 25,_1: 30,_2: 28})},
+              _p3));
+           };}
    });
    return _elm.View.Object.values = {_op: _op,render: render};
 };Elm.View = Elm.View || {};
@@ -10925,17 +10816,42 @@ Elm.View.Lives.make = function (_elm) {
       ,textureSize: A2($Math$Vector2.vec2,$Basics.toFloat($Basics.fst($WebGL.textureSize(texture))),$Basics.toFloat($Basics.snd($WebGL.textureSize(texture))))
       ,size: A2($Math$Vector2.vec2,5,6)}));
    });
-   var render = F3(function (texture,_p0,lives) {
+   var renderDigit = F4(function (texture,_p0,index,number) {
       var _p1 = _p0;
+      return A2(F2(function (v0,v1) {    return {ctor: "_Tuple2",_0: v0,_1: v1};}),
+      0,
+      A4($WebGL.render,
+      texturedVertexShader,
+      texturedFragmentShader,
+      $View$Common.box,
+      {offset: $Math$Vector2.fromTuple({ctor: "_Tuple2",_0: _p1._0 + $Basics.toFloat(index) * 4,_1: _p1._1})
+      ,texture: texture
+      ,textureOffset: A2($Math$Vector2.vec2,$Basics.toFloat(number) * 3,50)
+      ,textureSize: A2($Math$Vector2.vec2,$Basics.toFloat($Basics.fst($WebGL.textureSize(texture))),$Basics.toFloat($Basics.snd($WebGL.textureSize(texture))))
+      ,size: A2($Math$Vector2.vec2,3,4)}));
+   });
+   var digitsList = function (n) {
+      var r = A2($Basics._op["%"],n,10);
+      var nn = n / 10 | 0;
+      return _U.eq(nn,0) && _U.eq(r,0) ? _U.list([]) : A2($List._op["::"],r,digitsList(nn));
+   };
+   var renderScore = F3(function (texture,_p2,value) {
+      var _p3 = _p2;
+      var digits = $List.reverse(digitsList(value));
+      var position = {ctor: "_Tuple2",_0: _p3._0 - $Basics.toFloat($List.length(digits)) * 2,_1: _p3._1};
+      return A2($List.indexedMap,A2(renderDigit,texture,position),digits);
+   });
+   var render = F3(function (texture,_p4,lives) {
+      var _p5 = _p4;
       return A2($List.map,
       function (i) {
-         return A2(renderLive,texture,{ctor: "_Tuple2",_0: _p1._0 + $Basics.toFloat(i) * 6,_1: _p1._1});
+         return A2(renderLive,texture,{ctor: "_Tuple2",_0: _p5._0 + $Basics.toFloat(i) * 6,_1: _p5._1});
       },
       _U.range(0,lives - 1));
    });
    var Varying = function (a) {    return {texturePos: a};};
    var UniformTextured = F5(function (a,b,c,d,e) {    return {offset: a,size: b,textureOffset: c,texture: d,textureSize: e};});
-   return _elm.View.Lives.values = {_op: _op,render: render,renderTitle: renderTitle,renderPlay: renderPlay};
+   return _elm.View.Lives.values = {_op: _op,render: render,renderScore: renderScore,renderTitle: renderTitle,renderPlay: renderPlay};
 };Elm.View = Elm.View || {};
 Elm.View.make = function (_elm) {
    "use strict";
@@ -10956,21 +10872,22 @@ Elm.View.make = function (_elm) {
    $View$Object = Elm.View.Object.make(_elm),
    $WebGL = Elm.WebGL.make(_elm);
    var _op = {};
+   var toMinimap = function (_p0) {
+      var _p1 = _p0;
+      return {ctor: "_Tuple2",_0: $Basics.toFloat($Basics.floor(_p1._0 / 64)),_1: $Basics.toFloat($Basics.floor(_p1._1 / 64))};
+   };
    var render = F2(function (texture,model) {
       var bg = {ctor: "_Tuple2"
                ,_0: 6
                ,_1: A3($View$Common.rectangle,{ctor: "_Tuple2",_0: 64,_1: 64},{ctor: "_Tuple2",_0: 0,_1: 0},{ctor: "_Tuple3",_0: 22,_1: 17,_2: 22})};
       var allScr = A2($List.map,
-      function (_p0) {
-         return function (_p1) {
-            var _p2 = _p1;
-            return {ctor: "_Tuple2",_0: _p2._0 / 64,_1: _p2._1 / 64};
-         }(function (_) {    return _.offset;}(_p0));
+      function (_p2) {
+         return toMinimap(function (_) {    return _.position;}(_p2));
       },
-      model.screens);
+      A2($List.filter,$Model$Object.isSpace,model.objects));
       var maxX = A2($Maybe.withDefault,0,$List.maximum(A2($List.map,$Basics.fst,allScr)));
       var minY = A2($Maybe.withDefault,0,$List.minimum(A2($List.map,$Basics.snd,allScr)));
-      var _p3 = $Model.offset(model);
+      var _p3 = function (_) {    return _.position;}($Model.mogee(model));
       var x = _p3._0;
       var y = _p3._1;
       var offset = {ctor: "_Tuple2",_0: x - 32 + 4,_1: y - 32 + 5};
@@ -10984,43 +10901,47 @@ Elm.View.make = function (_elm) {
                 {ctor: "_Tuple2",_0: $Basics.fst(_p6) - $Basics.fst(offset),_1: $Basics.snd(_p6) - $Basics.snd(offset)},
                 {ctor: "_Tuple3",_0: 22,_1: 17,_2: 22})};
       };
-      var dot = function (_p7) {
+      var offsetObject = function (_p7) {
          var _p8 = _p7;
-         var _p10 = _p8._1;
-         var _p9 = _p8._0;
+         var _p9 = _p8.position;
+         return _U.update(_p8,{position: {ctor: "_Tuple2",_0: $Basics.fst(_p9) - $Basics.fst(offset),_1: $Basics.snd(_p9) - $Basics.snd(offset)}});
+      };
+      var _p10 = toMinimap({ctor: "_Tuple2",_0: x,_1: y});
+      var cx = _p10._0;
+      var cy = _p10._1;
+      var dot = function (_p11) {
+         var _p12 = _p11;
+         var _p14 = _p12._1;
+         var _p13 = _p12._0;
          return A2(F2(function (v0,v1) {    return {ctor: "_Tuple2",_0: v0,_1: v1};}),
          0,
          A3($View$Common.rectangle,
          {ctor: "_Tuple2",_0: 1,_1: 1},
-         {ctor: "_Tuple2",_0: 63 - maxX - 1 + _p9,_1: _p10 - minY + 1},
-         _U.eq($Basics.floor(_p9),$Basics.floor(x / 64)) && _U.eq($Basics.floor(_p10),$Basics.floor(y / 64)) ? {ctor: "_Tuple3"
-                                                                                                               ,_0: 255
-                                                                                                               ,_1: 255
-                                                                                                               ,_2: 0} : {ctor: "_Tuple3"
-                                                                                                                         ,_0: 100
-                                                                                                                         ,_1: 100
-                                                                                                                         ,_2: 100}));
+         {ctor: "_Tuple2",_0: 63 - maxX - 1 + _p13,_1: _p14 - minY + 1},
+         _U.eq(_p13,cx) && _U.eq(_p14,cy) ? {ctor: "_Tuple3",_0: 255,_1: 255,_2: 0} : {ctor: "_Tuple3",_0: 100,_1: 100,_2: 100}));
       };
-      return _U.eq(model.state,$Model.Stopped) ? _U.list([A2($View$Lives.renderTitle,texture,{ctor: "_Tuple2",_0: 3,_1: 14})
-                                                         ,A2($View$Lives.renderPlay,texture,{ctor: "_Tuple2",_0: 5,_1: 44})
-                                                         ,bg]) : A2($Basics._op["++"],
+      return _U.eq(model.state,$Model.Stopped) ? A2($Basics._op["++"],
+      _U.cmp(model.score,0) > 0 ? A3($View$Lives.renderScore,texture,{ctor: "_Tuple2",_0: 32,_1: 1},model.score) : _U.list([]),
+      _U.list([A2($View$Lives.renderTitle,texture,{ctor: "_Tuple2",_0: 3,_1: 14})
+              ,A2($View$Lives.renderPlay,texture,{ctor: "_Tuple2",_0: 5,_1: 44})
+              ,bg])) : A2($Basics._op["++"],
       _U.eq(model.state,$Model.Paused) ? _U.list([A2($View$Lives.renderPlay,texture,{ctor: "_Tuple2",_0: 5,_1: 44})]) : _U.list([]),
       A2($Basics._op["++"],
       A3($View$Lives.render,texture,{ctor: "_Tuple2",_0: 1,_1: 1},model.lives),
       A2($Basics._op["++"],
-      A2($List.map,monster,A2($List.filterMap,$Model$Object.invertSpace,model.objects)),
-      A2($Basics._op["++"],A2($List.map,dot,allScr),A3($List.foldl,A2($View$Object.render,texture,offset),_U.list([bg]),model.objects)))));
+      A3($View$Lives.renderScore,texture,{ctor: "_Tuple2",_0: 32,_1: 1},model.currentScore + model.score),
+      A2($Basics._op["++"],A2($List.map,dot,allScr),A3($List.foldl,$View$Object.render(texture),_U.list([bg]),A2($List.map,offsetObject,model.objects))))));
    });
    var view = F3(function (maybeTexture,size,model) {
       return A3($WebGL.webglWithConfig,
       _U.list([$WebGL.Enable($WebGL.Blend),$WebGL.BlendFunc({ctor: "_Tuple2",_0: $WebGL.One,_1: $WebGL.OneMinusSrcAlpha})]),
       {ctor: "_Tuple2",_0: size,_1: size},
       function () {
-         var _p11 = maybeTexture;
-         if (_p11.ctor === "Nothing") {
+         var _p15 = maybeTexture;
+         if (_p15.ctor === "Nothing") {
                return _U.list([]);
             } else {
-               return A2($List.map,$Basics.snd,A2($List.sortBy,$Basics.fst,A2(render,_p11._0,model)));
+               return A2($List.map,$Basics.snd,A2($List.sortBy,$Basics.fst,A2(render,_p15._0,model)));
             }
       }());
    });
@@ -11049,7 +10970,7 @@ Elm.Main.make = function (_elm) {
    var _op = {};
    var texture = $Signal.mailbox($Maybe.Nothing);
    var textureFetcher = Elm.Native.Task.make(_elm).perform(A2($Task.andThen,
-   $WebGL.loadTexture("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAHlBMVEXOzQH///9CTT+AjmkAAAAaHh3OzwDPzwDOzgAAAADlbZFbAAAACnRSTlP///////////8AsswszwAAAcNJREFUeNrtkuGSgyAMhINU233/Fz426O3EaMvYm+ufboElhHyI1mAUDgwnVihgWRZw8YlwaKXrgQcWB9xubNG6o/vOCnq73+94C4AFlN7BsBUKmzzB1vuYqVxPYF37ryCHLMhi1tzYUqWuAPYMGDe+ggDgcGjsa6U2759gqlNTrZXdpzI2OiNNJ7etzhjO08zFuS34dG4p9D1Mb+IWDpWdZXMbjasuJv0MNhK8Bv4YcLrXV1p1GHfDJs+hW6PSPa4ADajwQ3gkGDV5RfW0oYKb2tqapTOzziobg8pAcV3TBin8U0aVAHaKMioDtFkAetpsXUMAy5u1OADgkDYzOgFYBvSp3A1hzABd3eNtqrUwCwAqAlJdnjwDiJCA0P0EUC5VhAQo5QXIV4xzBFS+wuEe+DTTFO4A2AOoCNDGNRUBkB8QoCMFO/2Ha0GBFnTbUwDiQgDkvCETYqgbZ2WANA4g4VWZPQMk5bvSLwGktwG4BBAB1wB6DRcBWeW/AcWHF4BSgNY5qDPcein0NefmCwJAv14UD1ci/DKAJ4lQXKMA1WnWwyFA+T2UzXsgKM9JtwC48gk/DSgFkuGKvoAv4Av4e8APsI5nfrKJSK0AAAAASUVORK5CYII="),
+   $WebGL.loadTexture("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAFVBMVEXOzQH///9CTT+AjmkAAAAaHh3///+/VOlgAAAAB3RSTlP///////8AGksDRgAAAdpJREFUeNrtlttuwzAMQ5W45f9/8kSpHqEqaY0U6F6m2KYu1nGcDdgMRsOB4EQ2GhAB5dxwKFuax0jq7cZRJRWpT7IhB2EfAWCg6Rssy0bDNGZi5FwTtesNfEr13aWQFLNatRCO1qkrgLMD1oWfoAC4HAur2Tk39zfYx+42xuAMV8JBZSR3D5l9xvC+35m8eyJcd3bkHpanxZbhysm2u6/GbBiLI2rZiehBvAaCHv2DMgLG3bA9akhxKjXiAVCAgTiER4KRW3SMKJtnuMlzjyrVK9MbHAwGA8Vsoxhk5Tdl1RrATlFG6wBtFoDaNlvaEsD6ZiUXAFzaZkYnAOuAdFMFLWsH6OoRT1e54hUArQJaX3deAURoQOh+AqjWOkoBNNUF6FesPgqqX+FwD8LtNIVPACivegVo46NUAZAeEKAjBTv9DVdCgRK67SkANVEAvW7ohAirtUwHNFsGkPCuzV4BmvW7Ui8BZB8DcAkgAq4B9BkuArpt3wZssbwBbJ70yUWT4ZweU7MWEgkBoCeb6uEq6DkG5AmzK2wVoD55GS4Btt9DOWIWgup0Ugrgyo/wjwG6gf7SgEtqtfdciyY6+eh/U45FAJ/5Nsq4rgFkAOQuX+F1+R/wD/gS4Af9UkQ6nBJ6wwAAAABJRU5ErkJggg=="),
    function (_p0) {
       return A2($Signal.send,texture.address,$Maybe.Just(_p0));
    }));
