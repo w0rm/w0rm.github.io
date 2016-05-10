@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'Munro-Regular';
+  src: url('fonts/Munro-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FiraCode';
+  src: url('fonts/FiraCode-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+html, body {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: Munro-Regular, sans-serif;
+  background: black;
+  color: #111;
+  font-size: 24px;
+}
+body > div > div {
+  background: transparent !important;
+}
+h1 {
+  font-family: inherit;
+  font-weight: normal;
+}
+a {
+  text-decoration: none;
+  color: #cecd2b;
+}
+a:hover {
+  text-decoration: underline;
+}
+code {
+  font-family: FiraCode, monospace;
+}
+li {
+  margin-bottom: 10px;
+}
