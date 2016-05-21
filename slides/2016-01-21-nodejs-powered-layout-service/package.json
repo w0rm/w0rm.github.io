@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-powered-layout-service",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/w0rm/creating-bulletproof-svg-icons"
+  },
+  "author": "Andrey Kuzmin <unsoundscapes@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/w0rm/nodejs-powered-layout-service/issues"
+  },
+  "homepage": "https://github.com/w0rm/nodejs-powered-layout-service",
+  "dependencies": {
+    "shower-bright": "1.1.0",
+    "shower-core": "2.0.1"
+  }
+}
