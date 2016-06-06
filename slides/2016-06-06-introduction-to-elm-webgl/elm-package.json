@@ -1,0 +1,20 @@
+{
+    "version": "1.0.0",
+    "summary": "Introduction to Elm-WebGL",
+    "repository": "https://github.com/w0rm/elm-slice-show.git",
+    "license": "MIT",
+    "source-directories": [
+        "."
+    ],
+    "exposed-modules": [],
+    "dependencies": {
+        "elm-community/elm-linear-algebra": "2.0.1 <= v < 3.0.0",
+        "elm-community/elm-webgl": "3.0.0 <= v < 4.0.0",
+        "elm-lang/animation-frame": "1.0.0 <= v < 2.0.0",
+        "elm-lang/core": "4.0.1 <= v < 5.0.0",
+        "elm-lang/html": "1.0.0 <= v < 2.0.0",
+        "evancz/elm-markdown": "3.0.0 <= v < 4.0.0",
+        "w0rm/elm-slice-show": "3.0.2 <= v < 4.0.0"
+    },
+    "elm-version": "0.17.0 <= v < 0.18.0"
+}
