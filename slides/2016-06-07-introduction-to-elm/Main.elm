@@ -69,7 +69,7 @@ paddedSlide content =
 
 main : Program Never
 main =
-  [ [ title "Introduction to Elm"
+  [ [ title "An Introduction to Elm"
     , richtext """Elm — functional programming language that is statically  \ntyped and compiles to JavaScript"""
     , spacer
     , richtext """Andrey Kuzmin  [@unsoundscapes](https://twitter.com/unsoundscapes)""" |> hide

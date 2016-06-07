@@ -9338,7 +9338,7 @@ var _w0rm$elm_slice_show$Main$main = {
 					[
 						_elm_lang$core$Native_List.fromArray(
 						[
-							_w0rm$elm_slice_show$Main$title('Introduction to Elm'),
+							_w0rm$elm_slice_show$Main$title('An Introduction to Elm'),
 							_w0rm$elm_slice_show$Main$richtext('Elm — functional programming language that is statically  \ntyped and compiles to JavaScript'),
 							_w0rm$elm_slice_show$Main$spacer,
 							_w0rm$elm_slice_show$SliceShow_Content$hide(
