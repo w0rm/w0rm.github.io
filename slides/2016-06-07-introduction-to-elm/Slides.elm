@@ -3,13 +3,13 @@ module Slides exposing (slides)
 import Html exposing (Html, h1, img, text, ul, li, a, section, div, br)
 import Html.Attributes exposing (href, target, style, src)
 import SliceShow.Slide exposing (Slide, slide)
-import SliceShow.Content exposing (Content, item, container, hide)
+import SliceShow.Content exposing (Content, item, custom, container, hide)
 import Markdown exposing (toHtml)
+import Nim
 
+type alias CustomContent = Content Nim.Model Nim.Msg
 
-type alias CustomContent = Content () ()
-
-type alias CustomSlide = Slide () ()
+type alias CustomSlide = Slide Nim.Model Nim.Msg
 
 
 (=>) : a -> b -> (a, b)
@@ -227,6 +227,13 @@ slides =
           , bullet "Enforced semantic versioning"
           , bullet "Fast HTML rendering"
           ]
+      ]
+    , [ title "Elm-Nim"
+      , ( div
+          [style ["font-size" => "small", "text-align" => "right"]]
+          [text "Below is the live-coded Nim at the meetup, that was integrated into the slide"]
+        ) |> item
+      , custom Nim.initialModel
       ]
     , [ title "Links"
       , bullets
