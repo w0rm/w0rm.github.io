@@ -1,4 +1,4 @@
-module Nim exposing (update, initialModel, Model, Msg)
+module Nim exposing (update, view, initialModel, Model, Msg)
 
 -- this module was live coded at the meetup
 -- and then integrated into the slides later

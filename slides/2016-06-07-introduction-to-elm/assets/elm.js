@@ -7608,6 +7608,107 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
+var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode_ops[':='], 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$html$Html_Events$targetChecked = A2(
+	_elm_lang$core$Json_Decode$at,
+	_elm_lang$core$Native_List.fromArray(
+		['target', 'checked']),
+	_elm_lang$core$Json_Decode$bool);
+var _elm_lang$html$Html_Events$targetValue = A2(
+	_elm_lang$core$Json_Decode$at,
+	_elm_lang$core$Native_List.fromArray(
+		['target', 'value']),
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$html$Html_Events$onFocus = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'focus',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onBlur = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'blur',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+	_elm_lang$html$Html_Events$defaultOptions,
+	{preventDefault: true});
+var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'submit',
+		_elm_lang$html$Html_Events$onSubmitOptions,
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'change',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+};
+var _elm_lang$html$Html_Events$onInput = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'input',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+};
+var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseout',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseover',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseleave',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseenter',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseup',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mousedown',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'dblclick',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'click',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
+
 var _elm_lang$keyboard$Keyboard$onSelfMsg = F3(
 	function (router, _p0, state) {
 		var _p1 = _p0;
@@ -9223,7 +9324,170 @@ var _w0rm$elm_slice_show$SliceShow$PrivateConfig = F4(
 		return {model: a, update: b, view: c, subscriptions: d};
 	});
 
-var _w0rm$elm_slice_show$Slides$paddedSlide = function (content) {
+var _w0rm$elm_slice_show$NimStyles$coin = _elm_lang$core$Native_List.fromArray(
+	[
+		{ctor: '_Tuple2', _0: 'display', _1: 'block'},
+		{ctor: '_Tuple2', _0: 'margin', _1: '1px auto'},
+		{ctor: '_Tuple2', _0: 'color', _1: '#550'},
+		{ctor: '_Tuple2', _0: 'background', _1: '#FF0'},
+		{ctor: '_Tuple2', _0: 'min-width', _1: '50px'},
+		{ctor: '_Tuple2', _0: 'font', _1: '20px/1 sans-serif'},
+		{ctor: '_Tuple2', _0: 'border', _1: '2px solid currentColor'}
+	]);
+var _w0rm$elm_slice_show$NimStyles$heap = _elm_lang$core$Native_List.fromArray(
+	[
+		{ctor: '_Tuple2', _0: 'align-self', _1: 'flex-end'},
+		{ctor: '_Tuple2', _0: 'flex-grow', _1: '1'},
+		{ctor: '_Tuple2', _0: 'width', _1: '100px'}
+	]);
+var _w0rm$elm_slice_show$NimStyles$board = _elm_lang$core$Native_List.fromArray(
+	[
+		{ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+		{ctor: '_Tuple2', _0: 'width', _1: '300px'},
+		{ctor: '_Tuple2', _0: 'height', _1: '200px'},
+		{ctor: '_Tuple2', _0: 'border-bottom', _1: '2px solid #550'}
+	]);
+var _w0rm$elm_slice_show$NimStyles$title = _elm_lang$core$Native_List.fromArray(
+	[
+		{ctor: '_Tuple2', _0: 'font', _1: '20px/1 sans-serif'},
+		{ctor: '_Tuple2', _0: 'margin-bottom', _1: '20px'}
+	]);
+var _w0rm$elm_slice_show$NimStyles$game = _elm_lang$core$Native_List.fromArray(
+	[
+		{ctor: '_Tuple2', _0: 'margin', _1: '50px auto'},
+		{ctor: '_Tuple2', _0: 'width', _1: '300px'}
+	]);
+
+var _w0rm$elm_slice_show$Nim$gameView = F2(
+	function (title, content) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$style(_w0rm$elm_slice_show$NimStyles$game)
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$style(_w0rm$elm_slice_show$NimStyles$title)
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(title)
+						])),
+					content
+				]));
+	});
+var _w0rm$elm_slice_show$Nim$initialModel = {
+	isPlaying: true,
+	player: 1,
+	heaps: _elm_lang$core$Native_List.fromArray(
+		[3, 4, 5])
+};
+var _w0rm$elm_slice_show$Nim$update = F2(
+	function (msg, _p0) {
+		var _p1 = _p0;
+		var _p3 = _p1.player;
+		var _p2 = msg;
+		if (_p2.ctor === 'Take') {
+			var newHeaps = A2(
+				_elm_lang$core$List$indexedMap,
+				F2(
+					function (n, c) {
+						return _elm_lang$core$Native_Utils.eq(n, _p2._0) ? (c - _p2._1) : c;
+					}),
+				_p1.heaps);
+			var gameOver = _elm_lang$core$Native_Utils.eq(
+				newHeaps,
+				_elm_lang$core$Native_List.fromArray(
+					[0, 0, 0]));
+			return {
+				isPlaying: _elm_lang$core$Basics$not(gameOver),
+				heaps: newHeaps,
+				player: gameOver ? _p3 : (_elm_lang$core$Native_Utils.eq(_p3, 1) ? 2 : 1)
+			};
+		} else {
+			return _w0rm$elm_slice_show$Nim$initialModel;
+		}
+	});
+var _w0rm$elm_slice_show$Nim$Model = F3(
+	function (a, b, c) {
+		return {isPlaying: a, player: b, heaps: c};
+	});
+var _w0rm$elm_slice_show$Nim$Start = {ctor: 'Start'};
+var _w0rm$elm_slice_show$Nim$Take = F2(
+	function (a, b) {
+		return {ctor: 'Take', _0: a, _1: b};
+	});
+var _w0rm$elm_slice_show$Nim$coinView = F2(
+	function (heap, coins) {
+		return A2(
+			_elm_lang$html$Html$button,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$style(_w0rm$elm_slice_show$NimStyles$coin),
+					_elm_lang$html$Html_Events$onClick(
+					A2(_w0rm$elm_slice_show$Nim$Take, heap, coins))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text(
+					_elm_lang$core$Basics$toString(coins))
+				]));
+	});
+var _w0rm$elm_slice_show$Nim$heapView = F2(
+	function (heap, coins) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$style(_w0rm$elm_slice_show$NimStyles$heap)
+				]),
+			A2(
+				_elm_lang$core$List$map,
+				_w0rm$elm_slice_show$Nim$coinView(heap),
+				_elm_lang$core$Native_List.range(1, coins)));
+	});
+var _w0rm$elm_slice_show$Nim$view = function (_p4) {
+	var _p5 = _p4;
+	var _p6 = _p5.player;
+	return _p5.isPlaying ? A2(
+		_w0rm$elm_slice_show$Nim$gameView,
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'Player ',
+			_elm_lang$core$Basics$toString(_p6)),
+		A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$style(_w0rm$elm_slice_show$NimStyles$board)
+				]),
+			A2(_elm_lang$core$List$indexedMap, _w0rm$elm_slice_show$Nim$heapView, _p5.heaps))) : A2(
+		_w0rm$elm_slice_show$Nim$gameView,
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'Player ',
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_elm_lang$core$Basics$toString(_p6),
+				' has won!')),
+		A2(
+			_elm_lang$html$Html$button,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Events$onClick(_w0rm$elm_slice_show$Nim$Start)
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text('Start the new game')
+				])));
+};
+
+var _w0rm$elm_slice_show$Main$paddedSlide = function (content) {
 	return _w0rm$elm_slice_show$SliceShow_Slide$slide(
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -9235,13 +9499,14 @@ var _w0rm$elm_slice_show$Slides$paddedSlide = function (content) {
 							_elm_lang$html$Html_Attributes$style(
 							_elm_lang$core$Native_List.fromArray(
 								[
-									{ctor: '_Tuple2', _0: 'padding', _1: '50px 100px'}
+									{ctor: '_Tuple2', _0: 'padding', _1: '50px 100px'},
+									{ctor: '_Tuple2', _0: 'border-top', _1: 'solid 4px rgb(252, 88, 31)'}
 								]))
 						])),
 				content)
 			]));
 };
-var _w0rm$elm_slice_show$Slides$bulletLink = F2(
+var _w0rm$elm_slice_show$Main$bulletLink = F2(
 	function (str, url) {
 		return _w0rm$elm_slice_show$SliceShow_Content$item(
 			A2(
@@ -9263,7 +9528,7 @@ var _w0rm$elm_slice_show$Slides$bulletLink = F2(
 							]))
 					])));
 	});
-var _w0rm$elm_slice_show$Slides$richtext = function (str) {
+var _w0rm$elm_slice_show$Main$richtext = function (str) {
 	return _w0rm$elm_slice_show$SliceShow_Content$item(
 		A2(
 			_evancz$elm_markdown$Markdown$toHtml,
@@ -9271,14 +9536,14 @@ var _w0rm$elm_slice_show$Slides$richtext = function (str) {
 				[]),
 			str));
 };
-var _w0rm$elm_slice_show$Slides$spacer = _w0rm$elm_slice_show$SliceShow_Content$item(
+var _w0rm$elm_slice_show$Main$spacer = _w0rm$elm_slice_show$SliceShow_Content$item(
 	A2(
 		_elm_lang$html$Html$br,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
 		_elm_lang$core$Native_List.fromArray(
 			[])));
-var _w0rm$elm_slice_show$Slides$code = F2(
+var _w0rm$elm_slice_show$Main$code = F2(
 	function (lang, str) {
 		return _w0rm$elm_slice_show$SliceShow_Content$item(
 			A2(
@@ -9296,7 +9561,7 @@ var _w0rm$elm_slice_show$Slides$code = F2(
 							'\n',
 							A2(_elm_lang$core$Basics_ops['++'], str, '\n```'))))));
 	});
-var _w0rm$elm_slice_show$Slides$bullet = function (str) {
+var _w0rm$elm_slice_show$Main$bullet = function (str) {
 	return _w0rm$elm_slice_show$SliceShow_Content$item(
 		A2(
 			_elm_lang$html$Html$li,
@@ -9307,11 +9572,11 @@ var _w0rm$elm_slice_show$Slides$bullet = function (str) {
 					_elm_lang$html$Html$text(str)
 				])));
 };
-var _w0rm$elm_slice_show$Slides$bullets = _w0rm$elm_slice_show$SliceShow_Content$container(
+var _w0rm$elm_slice_show$Main$bullets = _w0rm$elm_slice_show$SliceShow_Content$container(
 	_elm_lang$html$Html$ul(
 		_elm_lang$core$Native_List.fromArray(
 			[])));
-var _w0rm$elm_slice_show$Slides$title = function (str) {
+var _w0rm$elm_slice_show$Main$title = function (str) {
 	return _w0rm$elm_slice_show$SliceShow_Content$item(
 		A2(
 			_elm_lang$html$Html$h1,
@@ -9322,349 +9587,479 @@ var _w0rm$elm_slice_show$Slides$title = function (str) {
 					_elm_lang$html$Html$text(str)
 				])));
 };
-var _w0rm$elm_slice_show$Slides_ops = _w0rm$elm_slice_show$Slides_ops || {};
-_w0rm$elm_slice_show$Slides_ops['=>'] = F2(
+var _w0rm$elm_slice_show$Main_ops = _w0rm$elm_slice_show$Main_ops || {};
+_w0rm$elm_slice_show$Main_ops['=>'] = F2(
 	function (v0, v1) {
 		return {ctor: '_Tuple2', _0: v0, _1: v1};
 	});
-var _w0rm$elm_slice_show$Slides$slides = A2(
-	_elm_lang$core$List$map,
-	_w0rm$elm_slice_show$Slides$paddedSlide,
-	_elm_lang$core$Native_List.fromArray(
-		[
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('Introduction to Elm'),
-				_w0rm$elm_slice_show$Slides$richtext('Elm — functional programming language that is statically  \ntyped and compiles to JavaScript'),
-				_w0rm$elm_slice_show$Slides$spacer,
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				_w0rm$elm_slice_show$Slides$richtext('Andrey Kuzmin @unsoundscapes')),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(
-					_w0rm$elm_slice_show$SliceShow_Content$container,
-					_elm_lang$html$Html$div(
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html_Attributes$style(
-								_elm_lang$core$Native_List.fromArray(
-									[
-										A2(_w0rm$elm_slice_show$Slides_ops['=>'], 'background', 'url(assets/unsoundscapes.jpg) bottom right no-repeat'),
-										A2(_w0rm$elm_slice_show$Slides_ops['=>'], 'height', '302px')
-									]))
-							])),
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_w0rm$elm_slice_show$Slides$bullets(
-							_elm_lang$core$Native_List.fromArray(
-								[
-									A2(_w0rm$elm_slice_show$Slides$bulletLink, 'elm—unsoundscapes', 'https://github.com/w0rm/elm-unsoundscapes'),
-									_w0rm$elm_slice_show$SliceShow_Content$hide(
-									A2(_w0rm$elm_slice_show$Slides$bulletLink, 'elm—flatris', 'https://github.com/w0rm/elm-flatris')),
-									_w0rm$elm_slice_show$SliceShow_Content$hide(
-									A2(_w0rm$elm_slice_show$Slides$bulletLink, 'elm—street—404', 'https://github.com/zalando/elm-street-404')),
-									_w0rm$elm_slice_show$SliceShow_Content$hide(
-									A2(_w0rm$elm_slice_show$Slides$bulletLink, 'elm—mogee', 'https://github.com/w0rm/elm-mogee')),
-									_w0rm$elm_slice_show$SliceShow_Content$hide(
-									A2(_w0rm$elm_slice_show$Slides$bulletLink, 'elm—slice—show', 'https://github.com/w0rm/elm-slice-show')),
-									_w0rm$elm_slice_show$SliceShow_Content$hide(
-									_w0rm$elm_slice_show$Slides$bullet('elm—...'))
-								]))
-						])))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('From React to Elm'),
-				_w0rm$elm_slice_show$Slides$bullets(
-				A2(
-					_elm_lang$core$List$map,
-					_w0rm$elm_slice_show$SliceShow_Content$hide,
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_w0rm$elm_slice_show$Slides$bullet('React describes UI as a function of state'),
-							_w0rm$elm_slice_show$Slides$bullet('Flux utilizes a unidirectional data flow'),
-							_w0rm$elm_slice_show$Slides$bullet('Redux streamlines Flux and turns stores into reducers')
-						]))),
-				_w0rm$elm_slice_show$Slides$spacer,
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				_w0rm$elm_slice_show$Slides$richtext(
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'[**Redux inspired by Elm:**](https://github.com/rackt/redux/blob/master/docs/introduction/PriorArt.md#elm)\n\n',
-						A2(_elm_lang$core$Basics_ops['++'], '> Even if you don’t plan to use Elm, you should read about the Elm architecture, and play with it.\n\n', '> We should look there for inspiration on Redux! One way that we can get closer to the static typing of Elm is by using a gradual typing solution like Flow.'))))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('JavaScript Tooling vs Elm'),
-				_w0rm$elm_slice_show$SliceShow_Content$item(
-				A2(
-					_elm_lang$html$Html$img,
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html_Attributes$src('assets/javascript-vs-elm.png')
-						]),
-					_elm_lang$core$Native_List.fromArray(
-						[]))),
-				_w0rm$elm_slice_show$SliceShow_Content$item(
-				A2(
-					_elm_lang$html$Html$div,
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html_Attributes$style(
-							_elm_lang$core$Native_List.fromArray(
-								[
-									A2(_w0rm$elm_slice_show$Slides_ops['=>'], 'font-size', 'small'),
-									A2(_w0rm$elm_slice_show$Slides_ops['=>'], 'text-align', 'right')
-								]))
-						]),
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html$text('The idea of the slide belongs to @rtfeldman')
-						])))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('Functions'),
-				A2(
-				_w0rm$elm_slice_show$Slides$code,
-				'elm',
-				A2(_elm_lang$core$Basics_ops['++'], 'plus : Int -> Int -> Int\n', 'plus x y = x + y')),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(
-					_w0rm$elm_slice_show$Slides$code,
-					'elm',
-					A2(_elm_lang$core$Basics_ops['++'], 'plusOne : Int -> Int\n', 'plusOne y = plus 1 y'))),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(_w0rm$elm_slice_show$Slides$code, 'elm', 'plusOne = (+) 1')),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(
-					_w0rm$elm_slice_show$Slides$code,
-					'elm',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'plusOneToEach : List Int -> List Int\n',
-						A2(_elm_lang$core$Basics_ops['++'], 'plusOneToEach list =\n', '  List.map ((+) 1) list')))),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(_w0rm$elm_slice_show$Slides$code, 'elm', 'plusOneToEach = List.map ((+) 1)'))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('Type Alias'),
-				A2(
-				_w0rm$elm_slice_show$Slides$code,
-				'elm',
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					'type alias Circle =\n',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'  { coordinates : (Int, Int)\n',
-						A2(_elm_lang$core$Basics_ops['++'], '  , radius : Int\n', '  }')))),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(
-					_w0rm$elm_slice_show$Slides$code,
-					'elm',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'circle : Int -> Int -> Int -> Circle\n',
-						A2(_elm_lang$core$Basics_ops['++'], 'circle x y r = \n', '  {coordinates = (x, y), radius = r}')))),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(
-					_w0rm$elm_slice_show$Slides$code,
-					'elm',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'move : Int -> Int -> Circle -> Circle\n',
-						A2(_elm_lang$core$Basics_ops['++'], 'move x y c = \n', '  {c | coordinates = (x, y)}'))))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('Union Types'),
-				A2(_w0rm$elm_slice_show$Slides$code, 'elm', 'type Response = Data String | Error'),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(
-					_w0rm$elm_slice_show$Slides$code,
-					'elm',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'toString : Response -> String\n',
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'toString response =\n',
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'  case response of\n',
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'    Data string -> \n',
-									A2(
-										_elm_lang$core$Basics_ops['++'],
-										'      string\n',
-										A2(_elm_lang$core$Basics_ops['++'], '    Error -> \n', '      \"Sorry, there was an error\"'))))))))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('Pattern Matching'),
-				A2(
-				_w0rm$elm_slice_show$Slides$code,
-				'elm',
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					'reverse : List a -> List a\n',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'reverse list =\n',
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'  case list of\n',
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'    [] ->\n',
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'      []\n',
-									A2(_elm_lang$core$Basics_ops['++'], '    el :: rest ->\n', '      reverse rest ++ [el]')))))))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('Elm Compiler'),
-				A2(
-				_w0rm$elm_slice_show$Slides$code,
-				'elm',
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					'circle : Int -> Int -> Int -> Circle\n',
-					A2(_elm_lang$core$Basics_ops['++'], 'circle x y r =\n', '  {coordinates = (x, y)}'))),
-				_w0rm$elm_slice_show$Slides$spacer,
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(
-					_w0rm$elm_slice_show$Slides$code,
-					'',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'The type annotation for `circle` does not match its definition.\n',
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'1│ circle : Int -> Int -> Int -> Circle\n',
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'            ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n',
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'The type annotation is saying:\n',
-									A2(
-										_elm_lang$core$Basics_ops['++'],
-										'    Int -> Int -> Int -> { ..., radius : ... }\n\n',
-										A2(_elm_lang$core$Basics_ops['++'], 'But I am inferring that the definition has this type:\n', '    Int -> Int -> Int -> { ... }\n'))))))))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('Html'),
-				A2(
-				_w0rm$elm_slice_show$Slides$code,
-				'elm',
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					'import Html exposing (Html, label, text)\n',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'import Html.Attributes exposing (style, for)\n\n',
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'renderLabel : String -> String -> Html msg\n',
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'renderLabel inputId txt =\n',
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'  label\n',
-									A2(
-										_elm_lang$core$Basics_ops['++'],
-										'    [ style\n',
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											'        [ (\"color\", \"#bdc3c7\")\n',
-											A2(
-												_elm_lang$core$Basics_ops['++'],
-												'        , (\"font-weight\", \"300\")\n',
-												A2(
-													_elm_lang$core$Basics_ops['++'],
-													'        ]\n',
-													A2(
-														_elm_lang$core$Basics_ops['++'],
-														'    , for inputId\n',
-														A2(_elm_lang$core$Basics_ops['++'], '    ]\n', '    [ text txt ]\n'))))))))))))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('Elm Architecture'),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(_w0rm$elm_slice_show$Slides$code, 'elm', 'initialModel : Model')),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(_w0rm$elm_slice_show$Slides$code, 'elm', 'update : Msg -> Model -> Model')),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(_w0rm$elm_slice_show$Slides$code, 'elm', 'view : Model -> Html Msg')),
-				_w0rm$elm_slice_show$SliceShow_Content$hide(
-				A2(
-					_w0rm$elm_slice_show$Slides$code,
-					'elm',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'main = Html.App.beginnerProgram\n',
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'  { model = initialModel\n',
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'  , update = update\n',
-								A2(_elm_lang$core$Basics_ops['++'], '  , view = view\n', '  }'))))))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('Elm Features'),
-				_w0rm$elm_slice_show$Slides$bullets(
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_w0rm$elm_slice_show$Slides$bullet('Descriptive compiler errors'),
-						_w0rm$elm_slice_show$Slides$bullet('No runtime exceptions'),
-						_w0rm$elm_slice_show$Slides$bullet('Enforced semantic versioning'),
-						_w0rm$elm_slice_show$Slides$bullet('Fast HTML rendering')
-					]))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$Slides$title('Links'),
-				_w0rm$elm_slice_show$Slides$bullets(
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(_w0rm$elm_slice_show$Slides$bulletLink, 'Official Website', 'http://elm-lang.org/'),
-						A2(_w0rm$elm_slice_show$Slides$bulletLink, 'The Guide', 'http://guide.elm-lang.org/'),
-						A2(_w0rm$elm_slice_show$Slides$bulletLink, 'Elm tutorial', 'http://www.elm-tutorial.org/en/')
-					]))
-			]),
-			_elm_lang$core$Native_List.fromArray(
-			[
-				_w0rm$elm_slice_show$SliceShow_Content$item(
-				A2(
-					_elm_lang$html$Html$img,
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html_Attributes$src('assets/zalando.png')
-						]),
-					_elm_lang$core$Native_List.fromArray(
-						[]))),
-				_w0rm$elm_slice_show$Slides$spacer,
-				_w0rm$elm_slice_show$Slides$bullets(
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(_w0rm$elm_slice_show$Slides$bulletLink, '@ZalandoTech', 'https://twitter.com/zalandotech'),
-						A2(_w0rm$elm_slice_show$Slides$bulletLink, 'Zalando Tech Blog', 'https://tech.zalando.com/')
-					]))
-			])
-		]));
-
 var _w0rm$elm_slice_show$Main$main = {
 	main: _w0rm$elm_slice_show$SliceShow$show(
-		_w0rm$elm_slice_show$SliceShow$init(_w0rm$elm_slice_show$Slides$slides))
+		A2(
+			_w0rm$elm_slice_show$SliceShow$setUpdate,
+			F2(
+				function (a, b) {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A2(_w0rm$elm_slice_show$Nim$update, a, b),
+						_elm_lang$core$Native_List.fromArray(
+							[]));
+				}),
+			A2(
+				_w0rm$elm_slice_show$SliceShow$setView,
+				_w0rm$elm_slice_show$Nim$view,
+				_w0rm$elm_slice_show$SliceShow$init(
+					A2(
+						_elm_lang$core$List$map,
+						_w0rm$elm_slice_show$Main$paddedSlide,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('An Introduction to Elm'),
+									_w0rm$elm_slice_show$Main$richtext('Elm — functional programming language that is statically  \ntyped and compiles to JavaScript'),
+									_w0rm$elm_slice_show$Main$spacer,
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									_w0rm$elm_slice_show$Main$richtext('Andrey Kuzmin  [@unsoundscapes](https://twitter.com/unsoundscapes)')),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(
+										_w0rm$elm_slice_show$SliceShow_Content$container,
+										_elm_lang$html$Html$div(
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$style(
+													_elm_lang$core$Native_List.fromArray(
+														[
+															A2(_w0rm$elm_slice_show$Main_ops['=>'], 'background', 'url(assets/unsoundscapes.jpg) bottom right no-repeat'),
+															A2(_w0rm$elm_slice_show$Main_ops['=>'], 'height', '298px')
+														]))
+												])),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_w0rm$elm_slice_show$Main$bullets(
+												_elm_lang$core$Native_List.fromArray(
+													[
+														A2(_w0rm$elm_slice_show$Main$bulletLink, 'elm—unsoundscapes', 'https://github.com/w0rm/elm-unsoundscapes'),
+														_w0rm$elm_slice_show$SliceShow_Content$hide(
+														A2(_w0rm$elm_slice_show$Main$bulletLink, 'elm—flatris', 'https://github.com/w0rm/elm-flatris')),
+														_w0rm$elm_slice_show$SliceShow_Content$hide(
+														A2(_w0rm$elm_slice_show$Main$bulletLink, 'elm—street—404', 'https://github.com/zalando/elm-street-404')),
+														_w0rm$elm_slice_show$SliceShow_Content$hide(
+														A2(_w0rm$elm_slice_show$Main$bulletLink, 'elm—mogee', 'https://github.com/w0rm/elm-mogee')),
+														_w0rm$elm_slice_show$SliceShow_Content$hide(
+														A2(_w0rm$elm_slice_show$Main$bulletLink, 'elm—slice—show', 'https://github.com/w0rm/elm-slice-show')),
+														_w0rm$elm_slice_show$SliceShow_Content$hide(
+														_w0rm$elm_slice_show$Main$bullet('elm—...'))
+													]))
+											])))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('From React to Elm'),
+									_w0rm$elm_slice_show$Main$bullets(
+									A2(
+										_elm_lang$core$List$map,
+										_w0rm$elm_slice_show$SliceShow_Content$hide,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_w0rm$elm_slice_show$Main$bullet('React describes UI as a function of state'),
+												_w0rm$elm_slice_show$Main$bullet('Flux utilizes a unidirectional data flow'),
+												_w0rm$elm_slice_show$Main$bullet('Redux streamlines Flux and turns stores into reducers')
+											]))),
+									_w0rm$elm_slice_show$Main$spacer,
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									_w0rm$elm_slice_show$Main$richtext(
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'[**Redux was inspired by Elm:**](https://github.com/reactjs/redux/blob/master/docs/introduction/PriorArt.md#elm)\n\n',
+											A2(_elm_lang$core$Basics_ops['++'], '> Even if you don’t plan to use Elm, you should read about the Elm architecture, and play with it.\n\n', '> We should look there for inspiration on Redux! One way that we can get closer to the static typing of Elm is by using a gradual typing solution like Flow.'))))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('JavaScript Tooling vs Elm'),
+									_w0rm$elm_slice_show$SliceShow_Content$item(
+									A2(
+										_elm_lang$html$Html$img,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$src('assets/javascript-vs-elm.png')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))),
+									_w0rm$elm_slice_show$SliceShow_Content$item(
+									A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$style(
+												_elm_lang$core$Native_List.fromArray(
+													[
+														A2(_w0rm$elm_slice_show$Main_ops['=>'], 'font-size', 'small'),
+														A2(_w0rm$elm_slice_show$Main_ops['=>'], 'text-align', 'right')
+													]))
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('The idea of the slide belongs to @rtfeldman')
+											])))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Functions'),
+									A2(_w0rm$elm_slice_show$Main$code, 'javascript', 'const plus = (x, y) => x + y;')
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Functions'),
+									A2(_w0rm$elm_slice_show$Main$code, 'elm', 'plus x y = x + y')
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Functions'),
+									A2(
+									_w0rm$elm_slice_show$Main$code,
+									'elm',
+									A2(_elm_lang$core$Basics_ops['++'], 'plus : Int -> Int -> Int\n', 'plus x y = x + y')),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(
+										_w0rm$elm_slice_show$Main$code,
+										'elm',
+										A2(_elm_lang$core$Basics_ops['++'], 'addOne : Int -> Int\n', 'addOne = plus 1'))),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(_w0rm$elm_slice_show$Main$code, 'elm', 'addOne = (+) 1')),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(
+										_w0rm$elm_slice_show$Main$code,
+										'elm',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'addOneToEach : List Int -> List Int\n',
+											A2(_elm_lang$core$Basics_ops['++'], 'addOneToEach list =\n', '  List.map ((+) 1) list')))),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(
+										_w0rm$elm_slice_show$Main$code,
+										'elm',
+										A2(_elm_lang$core$Basics_ops['++'], 'addOneToEach =\n', '  List.map ((+) 1)')))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Types'),
+									A2(
+									_w0rm$elm_slice_show$Main$code,
+									'elm',
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'type alias Circle =\n',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'  { coordinates : (Int, Int)\n',
+											A2(_elm_lang$core$Basics_ops['++'], '  , radius : Int\n', '  }')))),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(
+										_w0rm$elm_slice_show$Main$code,
+										'elm',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'circle : Int -> Int -> Int -> Circle\n',
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'circle x y r = \n',
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													'  { coordinates = (x, y)\n',
+													A2(_elm_lang$core$Basics_ops['++'], '  , radius = r\n', '  }')))))),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(
+										_w0rm$elm_slice_show$Main$code,
+										'elm',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'move : Int -> Int -> Circle -> Circle\n',
+											A2(_elm_lang$core$Basics_ops['++'], 'move x y c = \n', '  {c | coordinates = (x, y)}'))))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Types'),
+									A2(_w0rm$elm_slice_show$Main$code, 'elm', 'type Response = Data String | Error'),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(
+										_w0rm$elm_slice_show$Main$code,
+										'elm',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'toString : Response -> String\n',
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'toString response =\n',
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													'  case response of\n',
+													A2(
+														_elm_lang$core$Basics_ops['++'],
+														'    Data string ->\n',
+														A2(
+															_elm_lang$core$Basics_ops['++'],
+															'      string\n',
+															A2(_elm_lang$core$Basics_ops['++'], '    Error ->\n', '      \"Sorry, there was an error\"'))))))))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Pattern Matching'),
+									A2(
+									_w0rm$elm_slice_show$Main$code,
+									'elm',
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'reverse : List a -> List a\n',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'reverse list =\n',
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'  case list of\n',
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													'    [] ->\n',
+													A2(
+														_elm_lang$core$Basics_ops['++'],
+														'      []\n',
+														A2(_elm_lang$core$Basics_ops['++'], '    el :: rest ->\n', '      reverse rest ++ [el]')))))))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Elm Compiler'),
+									A2(
+									_w0rm$elm_slice_show$Main$code,
+									'elm',
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'circle : Int -> Int -> Int -> Circle\n',
+										A2(_elm_lang$core$Basics_ops['++'], 'circle x y r =\n', '  {coordinates = (x, y)}'))),
+									_w0rm$elm_slice_show$Main$spacer,
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(
+										_w0rm$elm_slice_show$Main$code,
+										'',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'The type annotation for `circle` does not match its definition.\n',
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'1│ circle : Int -> Int -> Int -> Circle\n',
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													'            ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n',
+													A2(
+														_elm_lang$core$Basics_ops['++'],
+														'The type annotation is saying:\n',
+														A2(
+															_elm_lang$core$Basics_ops['++'],
+															'    Int -> Int -> Int -> { ..., radius : ... }\n\n',
+															A2(_elm_lang$core$Basics_ops['++'], 'But I am inferring that the definition has this type:\n', '    Int -> Int -> Int -> { ... }\n'))))))))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Html'),
+									A2(
+									_w0rm$elm_slice_show$Main$code,
+									'elm',
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'import Html exposing (Html, label, text)\n',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'import Html.Attributes exposing (style, for)\n\n',
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'renderLabel : String -> String -> Html msg\n',
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													'renderLabel inputId txt =\n',
+													A2(
+														_elm_lang$core$Basics_ops['++'],
+														'  label\n',
+														A2(
+															_elm_lang$core$Basics_ops['++'],
+															'    [ style\n',
+															A2(
+																_elm_lang$core$Basics_ops['++'],
+																'        [ (\"color\", \"#bdc3c7\")\n',
+																A2(
+																	_elm_lang$core$Basics_ops['++'],
+																	'        , (\"font-weight\", \"300\")\n',
+																	A2(
+																		_elm_lang$core$Basics_ops['++'],
+																		'        ]\n',
+																		A2(
+																			_elm_lang$core$Basics_ops['++'],
+																			'    , for inputId\n',
+																			A2(_elm_lang$core$Basics_ops['++'], '    ]\n', '    [ text txt ]\n'))))))))))))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Elm Architecture'),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(_w0rm$elm_slice_show$Main$code, 'elm', 'initialModel : Model')),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(_w0rm$elm_slice_show$Main$code, 'elm', 'update : Msg -> Model -> Model')),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(_w0rm$elm_slice_show$Main$code, 'elm', 'view : Model -> Html Msg')),
+									_w0rm$elm_slice_show$SliceShow_Content$hide(
+									A2(
+										_w0rm$elm_slice_show$Main$code,
+										'elm',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'main = Html.App.beginnerProgram\n',
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'  { model = initialModel\n',
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													'  , update = update\n',
+													A2(_elm_lang$core$Basics_ops['++'], '  , view = view\n', '  }'))))))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Nim'),
+									_w0rm$elm_slice_show$SliceShow_Content$item(
+									A2(
+										_elm_lang$html$Html$a,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$href('https://plus.maths.org/content/play-win-nim'),
+												_elm_lang$html$Html_Attributes$style(
+												_elm_lang$core$Native_List.fromArray(
+													[
+														{ctor: '_Tuple2', _0: 'font-size', _1: 'small'}
+													]))
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												A2(
+												_elm_lang$html$Html$img,
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html_Attributes$src('assets/nim_game.jpg')
+													]),
+												_elm_lang$core$Native_List.fromArray(
+													[])),
+												A2(
+												_elm_lang$html$Html$br,
+												_elm_lang$core$Native_List.fromArray(
+													[]),
+												_elm_lang$core$Native_List.fromArray(
+													[])),
+												A2(
+												_elm_lang$html$Html$br,
+												_elm_lang$core$Native_List.fromArray(
+													[]),
+												_elm_lang$core$Native_List.fromArray(
+													[])),
+												A2(
+												_elm_lang$html$Html$div,
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html_Attributes$style(
+														_elm_lang$core$Native_List.fromArray(
+															[
+																{ctor: '_Tuple2', _0: 'float', _1: 'right'}
+															]))
+													]),
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html$text('Image borrowed from plus.maths.org')
+													]))
+											])))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Elm-Nim'),
+									_w0rm$elm_slice_show$SliceShow_Content$item(
+									A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$style(
+												_elm_lang$core$Native_List.fromArray(
+													[
+														A2(_w0rm$elm_slice_show$Main_ops['=>'], 'font-size', 'small'),
+														A2(_w0rm$elm_slice_show$Main_ops['=>'], 'padding-bottom', '30px')
+													]))
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text(
+												A2(_elm_lang$core$Basics_ops['++'], 'Below is the live-coded Nim game from the meetup, ', 'that was integrated into the slide afterwards.'))
+											]))),
+									_w0rm$elm_slice_show$SliceShow_Content$custom(_w0rm$elm_slice_show$Nim$initialModel)
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Elm Features'),
+									_w0rm$elm_slice_show$Main$bullets(
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_w0rm$elm_slice_show$Main$bullet('Descriptive compiler errors'),
+											_w0rm$elm_slice_show$Main$bullet('No runtime exceptions'),
+											_w0rm$elm_slice_show$Main$bullet('Enforced semantic versioning'),
+											_w0rm$elm_slice_show$Main$bullet('Fast HTML rendering')
+										]))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Links'),
+									_w0rm$elm_slice_show$Main$bullets(
+									_elm_lang$core$Native_List.fromArray(
+										[
+											A2(_w0rm$elm_slice_show$Main$bulletLink, 'Official Website (elm-lang.org)', 'http://elm-lang.org/'),
+											A2(_w0rm$elm_slice_show$Main$bulletLink, 'The Guide (guide.elm-lang.org)', 'http://guide.elm-lang.org/'),
+											A2(_w0rm$elm_slice_show$Main$bulletLink, 'Elm tutorial (www.elm-tutorial.org)', 'http://www.elm-tutorial.org/en/')
+										])),
+									_w0rm$elm_slice_show$SliceShow_Content$item(
+									A2(
+										_elm_lang$html$Html$img,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$src('assets/elm.png'),
+												_elm_lang$html$Html_Attributes$width(200),
+												_elm_lang$html$Html_Attributes$style(
+												_elm_lang$core$Native_List.fromArray(
+													[
+														{ctor: '_Tuple2', _0: 'float', _1: 'right'},
+														{ctor: '_Tuple2', _0: 'margin', _1: '60px 30px 0 0'}
+													]))
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[])))
+								]),
+								_elm_lang$core$Native_List.fromArray(
+								[
+									_w0rm$elm_slice_show$Main$title('Thank you!'),
+									_w0rm$elm_slice_show$Main$bullets(
+									_elm_lang$core$Native_List.fromArray(
+										[
+											A2(_w0rm$elm_slice_show$Main$bulletLink, '@ZalandoTech', 'https://twitter.com/zalandotech'),
+											A2(_w0rm$elm_slice_show$Main$bulletLink, 'Zalando Tech Blog (tech.zalando.com)', 'https://tech.zalando.com/'),
+											A2(_w0rm$elm_slice_show$Main$bulletLink, '\"Using Elm to Create a Fun Game in Just Five Days\"', 'https://tech.zalando.de/blog/using-elm-to-create-a-fun-game-in-just-five-days/'),
+											A2(_w0rm$elm_slice_show$Main$bulletLink, '\"Progress recap: Elm Street 404\"', 'https://tech.zalando.de/blog/progress-recap-elm-street-404/')
+										])),
+									_w0rm$elm_slice_show$SliceShow_Content$item(
+									A2(
+										_elm_lang$html$Html$img,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$src('assets/zalando.jpg'),
+												_elm_lang$html$Html_Attributes$width(250),
+												_elm_lang$html$Html_Attributes$style(
+												_elm_lang$core$Native_List.fromArray(
+													[
+														{ctor: '_Tuple2', _0: 'float', _1: 'right'}
+													]))
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[])))
+								])
+							]))))))
 };
 
 var Elm = {};
