@@ -11496,10 +11496,18 @@ var _w0rm$elm_slice_show$Main$main = _w0rm$elm_slice_show$SliceShow$show(
 														ctor: '::',
 														_0: {
 															ctor: '::',
-															_0: _w0rm$elm_slice_show$Formatting$shout('Questions?'),
+															_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Main$conclusion),
 															_1: {ctor: '[]'}
 														},
-														_1: {ctor: '[]'}
+														_1: {
+															ctor: '::',
+															_0: {
+																ctor: '::',
+																_0: _w0rm$elm_slice_show$Formatting$shout('Questions?'),
+																_1: {ctor: '[]'}
+															},
+															_1: {ctor: '[]'}
+														}
 													}
 												}
 											}

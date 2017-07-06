@@ -145,6 +145,7 @@ main =
     , [ padded layingOutTheText ]
     , [ padded keepingLocationInSync ]
     , [ padded settingUpTravisCI ]
+    , [ padded conclusion ]
     , [ shout "Questions?" ]
     ]
         |> List.map (Slide.slide >> Slide.setDimensions ( 1280, 720 ))
