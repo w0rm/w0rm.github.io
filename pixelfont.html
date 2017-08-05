@@ -11913,6 +11913,764 @@ var _elm_lang$html$Html_Events$Options = F2(
 	function (a, b) {
 		return {stopPropagation: a, preventDefault: b};
 	});
+var _elm_lang$http$Native_Http = function() {
+
+
+// ENCODING AND DECODING
+
+function encodeUri(string)
+{
+	return encodeURIComponent(string);
+}
+
+function decodeUri(string)
+{
+	try
+	{
+		return _elm_lang$core$Maybe$Just(decodeURIComponent(string));
+	}
+	catch(e)
+	{
+		return _elm_lang$core$Maybe$Nothing;
+	}
+}
+
+
+// SEND REQUEST
+
+function toTask(request, maybeProgress)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		var xhr = new XMLHttpRequest();
+
+		configureProgress(xhr, maybeProgress);
+
+		xhr.addEventListener('error', function() {
+			callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'NetworkError' }));
+		});
+		xhr.addEventListener('timeout', function() {
+			callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'Timeout' }));
+		});
+		xhr.addEventListener('load', function() {
+			callback(handleResponse(xhr, request.expect.responseToResult));
+		});
+
+		try
+		{
+			xhr.open(request.method, request.url, true);
+		}
+		catch (e)
+		{
+			return callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'BadUrl', _0: request.url }));
+		}
+
+		configureRequest(xhr, request);
+		send(xhr, request.body);
+
+		return function() { xhr.abort(); };
+	});
+}
+
+function configureProgress(xhr, maybeProgress)
+{
+	if (maybeProgress.ctor === 'Nothing')
+	{
+		return;
+	}
+
+	xhr.addEventListener('progress', function(event) {
+		if (!event.lengthComputable)
+		{
+			return;
+		}
+		_elm_lang$core$Native_Scheduler.rawSpawn(maybeProgress._0({
+			bytes: event.loaded,
+			bytesExpected: event.total
+		}));
+	});
+}
+
+function configureRequest(xhr, request)
+{
+	function setHeader(pair)
+	{
+		xhr.setRequestHeader(pair._0, pair._1);
+	}
+
+	A2(_elm_lang$core$List$map, setHeader, request.headers);
+	xhr.responseType = request.expect.responseType;
+	xhr.withCredentials = request.withCredentials;
+
+	if (request.timeout.ctor === 'Just')
+	{
+		xhr.timeout = request.timeout._0;
+	}
+}
+
+function send(xhr, body)
+{
+	switch (body.ctor)
+	{
+		case 'EmptyBody':
+			xhr.send();
+			return;
+
+		case 'StringBody':
+			xhr.setRequestHeader('Content-Type', body._0);
+			xhr.send(body._1);
+			return;
+
+		case 'FormDataBody':
+			xhr.send(body._0);
+			return;
+	}
+}
+
+
+// RESPONSES
+
+function handleResponse(xhr, responseToResult)
+{
+	var response = toResponse(xhr);
+
+	if (xhr.status < 200 || 300 <= xhr.status)
+	{
+		response.body = xhr.responseText;
+		return _elm_lang$core$Native_Scheduler.fail({
+			ctor: 'BadStatus',
+			_0: response
+		});
+	}
+
+	var result = responseToResult(response);
+
+	if (result.ctor === 'Ok')
+	{
+		return _elm_lang$core$Native_Scheduler.succeed(result._0);
+	}
+	else
+	{
+		response.body = xhr.responseText;
+		return _elm_lang$core$Native_Scheduler.fail({
+			ctor: 'BadPayload',
+			_0: result._0,
+			_1: response
+		});
+	}
+}
+
+function toResponse(xhr)
+{
+	return {
+		status: { code: xhr.status, message: xhr.statusText },
+		headers: parseHeaders(xhr.getAllResponseHeaders()),
+		url: xhr.responseURL,
+		body: xhr.response
+	};
+}
+
+function parseHeaders(rawHeaders)
+{
+	var headers = _elm_lang$core$Dict$empty;
+
+	if (!rawHeaders)
+	{
+		return headers;
+	}
+
+	var headerPairs = rawHeaders.split('\u000d\u000a');
+	for (var i = headerPairs.length; i--; )
+	{
+		var headerPair = headerPairs[i];
+		var index = headerPair.indexOf('\u003a\u0020');
+		if (index > 0)
+		{
+			var key = headerPair.substring(0, index);
+			var value = headerPair.substring(index + 2);
+
+			headers = A3(_elm_lang$core$Dict$update, key, function(oldValue) {
+				if (oldValue.ctor === 'Just')
+				{
+					return _elm_lang$core$Maybe$Just(value + ', ' + oldValue._0);
+				}
+				return _elm_lang$core$Maybe$Just(value);
+			}, headers);
+		}
+	}
+
+	return headers;
+}
+
+
+// EXPECTORS
+
+function expectStringResponse(responseToResult)
+{
+	return {
+		responseType: 'text',
+		responseToResult: responseToResult
+	};
+}
+
+function mapExpect(func, expect)
+{
+	return {
+		responseType: expect.responseType,
+		responseToResult: function(response) {
+			var convertedResponse = expect.responseToResult(response);
+			return A2(_elm_lang$core$Result$map, func, convertedResponse);
+		}
+	};
+}
+
+
+// BODY
+
+function multipart(parts)
+{
+	var formData = new FormData();
+
+	while (parts.ctor !== '[]')
+	{
+		var part = parts._0;
+		formData.append(part._0, part._1);
+		parts = parts._1;
+	}
+
+	return { ctor: 'FormDataBody', _0: formData };
+}
+
+return {
+	toTask: F2(toTask),
+	expectStringResponse: expectStringResponse,
+	mapExpect: F2(mapExpect),
+	multipart: multipart,
+	encodeUri: encodeUri,
+	decodeUri: decodeUri
+};
+
+}();
+var _elm_lang$http$Http_Internal$map = F2(
+	function (func, request) {
+		return _elm_lang$core$Native_Utils.update(
+			request,
+			{
+				expect: A2(_elm_lang$http$Native_Http.mapExpect, func, request.expect)
+			});
+	});
+var _elm_lang$http$Http_Internal$RawRequest = F7(
+	function (a, b, c, d, e, f, g) {
+		return {method: a, headers: b, url: c, body: d, expect: e, timeout: f, withCredentials: g};
+	});
+var _elm_lang$http$Http_Internal$Request = function (a) {
+	return {ctor: 'Request', _0: a};
+};
+var _elm_lang$http$Http_Internal$Expect = {ctor: 'Expect'};
+var _elm_lang$http$Http_Internal$FormDataBody = {ctor: 'FormDataBody'};
+var _elm_lang$http$Http_Internal$StringBody = F2(
+	function (a, b) {
+		return {ctor: 'StringBody', _0: a, _1: b};
+	});
+var _elm_lang$http$Http_Internal$EmptyBody = {ctor: 'EmptyBody'};
+var _elm_lang$http$Http_Internal$Header = F2(
+	function (a, b) {
+		return {ctor: 'Header', _0: a, _1: b};
+	});
+var _elm_lang$http$Http$decodeUri = _elm_lang$http$Native_Http.decodeUri;
+var _elm_lang$http$Http$encodeUri = _elm_lang$http$Native_Http.encodeUri;
+var _elm_lang$http$Http$expectStringResponse = _elm_lang$http$Native_Http.expectStringResponse;
+var _elm_lang$http$Http$expectJson = function (decoder) {
+	return _elm_lang$http$Http$expectStringResponse(
+		function (response) {
+			return A2(_elm_lang$core$Json_Decode$decodeString, decoder, response.body);
+		});
+};
+var _elm_lang$http$Http$expectString = _elm_lang$http$Http$expectStringResponse(
+	function (response) {
+		return _elm_lang$core$Result$Ok(response.body);
+	});
+var _elm_lang$http$Http$multipartBody = _elm_lang$http$Native_Http.multipart;
+var _elm_lang$http$Http$stringBody = _elm_lang$http$Http_Internal$StringBody;
+var _elm_lang$http$Http$jsonBody = function (value) {
+	return A2(
+		_elm_lang$http$Http_Internal$StringBody,
+		'application/json',
+		A2(_elm_lang$core$Json_Encode$encode, 0, value));
+};
+var _elm_lang$http$Http$emptyBody = _elm_lang$http$Http_Internal$EmptyBody;
+var _elm_lang$http$Http$header = _elm_lang$http$Http_Internal$Header;
+var _elm_lang$http$Http$request = _elm_lang$http$Http_Internal$Request;
+var _elm_lang$http$Http$post = F3(
+	function (url, body, decoder) {
+		return _elm_lang$http$Http$request(
+			{
+				method: 'POST',
+				headers: {ctor: '[]'},
+				url: url,
+				body: body,
+				expect: _elm_lang$http$Http$expectJson(decoder),
+				timeout: _elm_lang$core$Maybe$Nothing,
+				withCredentials: false
+			});
+	});
+var _elm_lang$http$Http$get = F2(
+	function (url, decoder) {
+		return _elm_lang$http$Http$request(
+			{
+				method: 'GET',
+				headers: {ctor: '[]'},
+				url: url,
+				body: _elm_lang$http$Http$emptyBody,
+				expect: _elm_lang$http$Http$expectJson(decoder),
+				timeout: _elm_lang$core$Maybe$Nothing,
+				withCredentials: false
+			});
+	});
+var _elm_lang$http$Http$getString = function (url) {
+	return _elm_lang$http$Http$request(
+		{
+			method: 'GET',
+			headers: {ctor: '[]'},
+			url: url,
+			body: _elm_lang$http$Http$emptyBody,
+			expect: _elm_lang$http$Http$expectString,
+			timeout: _elm_lang$core$Maybe$Nothing,
+			withCredentials: false
+		});
+};
+var _elm_lang$http$Http$toTask = function (_p0) {
+	var _p1 = _p0;
+	return A2(_elm_lang$http$Native_Http.toTask, _p1._0, _elm_lang$core$Maybe$Nothing);
+};
+var _elm_lang$http$Http$send = F2(
+	function (resultToMessage, request) {
+		return A2(
+			_elm_lang$core$Task$attempt,
+			resultToMessage,
+			_elm_lang$http$Http$toTask(request));
+	});
+var _elm_lang$http$Http$Response = F4(
+	function (a, b, c, d) {
+		return {url: a, status: b, headers: c, body: d};
+	});
+var _elm_lang$http$Http$BadPayload = F2(
+	function (a, b) {
+		return {ctor: 'BadPayload', _0: a, _1: b};
+	});
+var _elm_lang$http$Http$BadStatus = function (a) {
+	return {ctor: 'BadStatus', _0: a};
+};
+var _elm_lang$http$Http$NetworkError = {ctor: 'NetworkError'};
+var _elm_lang$http$Http$Timeout = {ctor: 'Timeout'};
+var _elm_lang$http$Http$BadUrl = function (a) {
+	return {ctor: 'BadUrl', _0: a};
+};
+var _elm_lang$http$Http$StringPart = F2(
+	function (a, b) {
+		return {ctor: 'StringPart', _0: a, _1: b};
+	});
+var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
+var _elm_lang$navigation$Native_Navigation = function() {
+
+
+// FAKE NAVIGATION
+
+function go(n)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		if (n !== 0)
+		{
+			history.go(n);
+		}
+		callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+	});
+}
+
+function pushState(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		history.pushState({}, '', url);
+		callback(_elm_lang$core$Native_Scheduler.succeed(getLocation()));
+	});
+}
+
+function replaceState(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		history.replaceState({}, '', url);
+		callback(_elm_lang$core$Native_Scheduler.succeed(getLocation()));
+	});
+}
+
+
+// REAL NAVIGATION
+
+function reloadPage(skipCache)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		document.location.reload(skipCache);
+		callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+	});
+}
+
+function setLocation(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		try
+		{
+			window.location = url;
+		}
+		catch(err)
+		{
+			// Only Firefox can throw a NS_ERROR_MALFORMED_URI exception here.
+			// Other browsers reload the page, so let's be consistent about that.
+			document.location.reload(false);
+		}
+		callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+	});
+}
+
+
+// GET LOCATION
+
+function getLocation()
+{
+	var location = document.location;
+
+	return {
+		href: location.href,
+		host: location.host,
+		hostname: location.hostname,
+		protocol: location.protocol,
+		origin: location.origin,
+		port_: location.port,
+		pathname: location.pathname,
+		search: location.search,
+		hash: location.hash,
+		username: location.username,
+		password: location.password
+	};
+}
+
+
+// DETECT IE11 PROBLEMS
+
+function isInternetExplorer11()
+{
+	return window.navigator.userAgent.indexOf('Trident') !== -1;
+}
+
+
+return {
+	go: go,
+	setLocation: setLocation,
+	reloadPage: reloadPage,
+	pushState: pushState,
+	replaceState: replaceState,
+	getLocation: getLocation,
+	isInternetExplorer11: isInternetExplorer11
+};
+
+}();
+var _elm_lang$navigation$Navigation$replaceState = _elm_lang$navigation$Native_Navigation.replaceState;
+var _elm_lang$navigation$Navigation$pushState = _elm_lang$navigation$Native_Navigation.pushState;
+var _elm_lang$navigation$Navigation$go = _elm_lang$navigation$Native_Navigation.go;
+var _elm_lang$navigation$Navigation$reloadPage = _elm_lang$navigation$Native_Navigation.reloadPage;
+var _elm_lang$navigation$Navigation$setLocation = _elm_lang$navigation$Native_Navigation.setLocation;
+var _elm_lang$navigation$Navigation_ops = _elm_lang$navigation$Navigation_ops || {};
+_elm_lang$navigation$Navigation_ops['&>'] = F2(
+	function (task1, task2) {
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (_p0) {
+				return task2;
+			},
+			task1);
+	});
+var _elm_lang$navigation$Navigation$notify = F3(
+	function (router, subs, location) {
+		var send = function (_p1) {
+			var _p2 = _p1;
+			return A2(
+				_elm_lang$core$Platform$sendToApp,
+				router,
+				_p2._0(location));
+		};
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Task$sequence(
+				A2(_elm_lang$core$List$map, send, subs)),
+			_elm_lang$core$Task$succeed(
+				{ctor: '_Tuple0'}));
+	});
+var _elm_lang$navigation$Navigation$cmdHelp = F3(
+	function (router, subs, cmd) {
+		var _p3 = cmd;
+		switch (_p3.ctor) {
+			case 'Jump':
+				return _elm_lang$navigation$Navigation$go(_p3._0);
+			case 'New':
+				return A2(
+					_elm_lang$core$Task$andThen,
+					A2(_elm_lang$navigation$Navigation$notify, router, subs),
+					_elm_lang$navigation$Navigation$pushState(_p3._0));
+			case 'Modify':
+				return A2(
+					_elm_lang$core$Task$andThen,
+					A2(_elm_lang$navigation$Navigation$notify, router, subs),
+					_elm_lang$navigation$Navigation$replaceState(_p3._0));
+			case 'Visit':
+				return _elm_lang$navigation$Navigation$setLocation(_p3._0);
+			default:
+				return _elm_lang$navigation$Navigation$reloadPage(_p3._0);
+		}
+	});
+var _elm_lang$navigation$Navigation$killPopWatcher = function (popWatcher) {
+	var _p4 = popWatcher;
+	if (_p4.ctor === 'Normal') {
+		return _elm_lang$core$Process$kill(_p4._0);
+	} else {
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Process$kill(_p4._0),
+			_elm_lang$core$Process$kill(_p4._1));
+	}
+};
+var _elm_lang$navigation$Navigation$onSelfMsg = F3(
+	function (router, location, state) {
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			A3(_elm_lang$navigation$Navigation$notify, router, state.subs, location),
+			_elm_lang$core$Task$succeed(state));
+	});
+var _elm_lang$navigation$Navigation$subscription = _elm_lang$core$Native_Platform.leaf('Navigation');
+var _elm_lang$navigation$Navigation$command = _elm_lang$core$Native_Platform.leaf('Navigation');
+var _elm_lang$navigation$Navigation$Location = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return {href: a, host: b, hostname: c, protocol: d, origin: e, port_: f, pathname: g, search: h, hash: i, username: j, password: k};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _elm_lang$navigation$Navigation$State = F2(
+	function (a, b) {
+		return {subs: a, popWatcher: b};
+	});
+var _elm_lang$navigation$Navigation$init = _elm_lang$core$Task$succeed(
+	A2(
+		_elm_lang$navigation$Navigation$State,
+		{ctor: '[]'},
+		_elm_lang$core$Maybe$Nothing));
+var _elm_lang$navigation$Navigation$Reload = function (a) {
+	return {ctor: 'Reload', _0: a};
+};
+var _elm_lang$navigation$Navigation$reload = _elm_lang$navigation$Navigation$command(
+	_elm_lang$navigation$Navigation$Reload(false));
+var _elm_lang$navigation$Navigation$reloadAndSkipCache = _elm_lang$navigation$Navigation$command(
+	_elm_lang$navigation$Navigation$Reload(true));
+var _elm_lang$navigation$Navigation$Visit = function (a) {
+	return {ctor: 'Visit', _0: a};
+};
+var _elm_lang$navigation$Navigation$load = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Visit(url));
+};
+var _elm_lang$navigation$Navigation$Modify = function (a) {
+	return {ctor: 'Modify', _0: a};
+};
+var _elm_lang$navigation$Navigation$modifyUrl = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Modify(url));
+};
+var _elm_lang$navigation$Navigation$New = function (a) {
+	return {ctor: 'New', _0: a};
+};
+var _elm_lang$navigation$Navigation$newUrl = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$New(url));
+};
+var _elm_lang$navigation$Navigation$Jump = function (a) {
+	return {ctor: 'Jump', _0: a};
+};
+var _elm_lang$navigation$Navigation$back = function (n) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Jump(0 - n));
+};
+var _elm_lang$navigation$Navigation$forward = function (n) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Jump(n));
+};
+var _elm_lang$navigation$Navigation$cmdMap = F2(
+	function (_p5, myCmd) {
+		var _p6 = myCmd;
+		switch (_p6.ctor) {
+			case 'Jump':
+				return _elm_lang$navigation$Navigation$Jump(_p6._0);
+			case 'New':
+				return _elm_lang$navigation$Navigation$New(_p6._0);
+			case 'Modify':
+				return _elm_lang$navigation$Navigation$Modify(_p6._0);
+			case 'Visit':
+				return _elm_lang$navigation$Navigation$Visit(_p6._0);
+			default:
+				return _elm_lang$navigation$Navigation$Reload(_p6._0);
+		}
+	});
+var _elm_lang$navigation$Navigation$Monitor = function (a) {
+	return {ctor: 'Monitor', _0: a};
+};
+var _elm_lang$navigation$Navigation$program = F2(
+	function (locationToMessage, stuff) {
+		var init = stuff.init(
+			_elm_lang$navigation$Native_Navigation.getLocation(
+				{ctor: '_Tuple0'}));
+		var subs = function (model) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: _elm_lang$navigation$Navigation$subscription(
+						_elm_lang$navigation$Navigation$Monitor(locationToMessage)),
+					_1: {
+						ctor: '::',
+						_0: stuff.subscriptions(model),
+						_1: {ctor: '[]'}
+					}
+				});
+		};
+		return _elm_lang$html$Html$program(
+			{init: init, view: stuff.view, update: stuff.update, subscriptions: subs});
+	});
+var _elm_lang$navigation$Navigation$programWithFlags = F2(
+	function (locationToMessage, stuff) {
+		var init = function (flags) {
+			return A2(
+				stuff.init,
+				flags,
+				_elm_lang$navigation$Native_Navigation.getLocation(
+					{ctor: '_Tuple0'}));
+		};
+		var subs = function (model) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: _elm_lang$navigation$Navigation$subscription(
+						_elm_lang$navigation$Navigation$Monitor(locationToMessage)),
+					_1: {
+						ctor: '::',
+						_0: stuff.subscriptions(model),
+						_1: {ctor: '[]'}
+					}
+				});
+		};
+		return _elm_lang$html$Html$programWithFlags(
+			{init: init, view: stuff.view, update: stuff.update, subscriptions: subs});
+	});
+var _elm_lang$navigation$Navigation$subMap = F2(
+	function (func, _p7) {
+		var _p8 = _p7;
+		return _elm_lang$navigation$Navigation$Monitor(
+			function (_p9) {
+				return func(
+					_p8._0(_p9));
+			});
+	});
+var _elm_lang$navigation$Navigation$InternetExplorer = F2(
+	function (a, b) {
+		return {ctor: 'InternetExplorer', _0: a, _1: b};
+	});
+var _elm_lang$navigation$Navigation$Normal = function (a) {
+	return {ctor: 'Normal', _0: a};
+};
+var _elm_lang$navigation$Navigation$spawnPopWatcher = function (router) {
+	var reportLocation = function (_p10) {
+		return A2(
+			_elm_lang$core$Platform$sendToSelf,
+			router,
+			_elm_lang$navigation$Native_Navigation.getLocation(
+				{ctor: '_Tuple0'}));
+	};
+	return _elm_lang$navigation$Native_Navigation.isInternetExplorer11(
+		{ctor: '_Tuple0'}) ? A3(
+		_elm_lang$core$Task$map2,
+		_elm_lang$navigation$Navigation$InternetExplorer,
+		_elm_lang$core$Process$spawn(
+			A3(_elm_lang$dom$Dom_LowLevel$onWindow, 'popstate', _elm_lang$core$Json_Decode$value, reportLocation)),
+		_elm_lang$core$Process$spawn(
+			A3(_elm_lang$dom$Dom_LowLevel$onWindow, 'hashchange', _elm_lang$core$Json_Decode$value, reportLocation))) : A2(
+		_elm_lang$core$Task$map,
+		_elm_lang$navigation$Navigation$Normal,
+		_elm_lang$core$Process$spawn(
+			A3(_elm_lang$dom$Dom_LowLevel$onWindow, 'popstate', _elm_lang$core$Json_Decode$value, reportLocation)));
+};
+var _elm_lang$navigation$Navigation$onEffects = F4(
+	function (router, cmds, subs, _p11) {
+		var _p12 = _p11;
+		var _p15 = _p12.popWatcher;
+		var stepState = function () {
+			var _p13 = {ctor: '_Tuple2', _0: subs, _1: _p15};
+			_v6_2:
+			do {
+				if (_p13._0.ctor === '[]') {
+					if (_p13._1.ctor === 'Just') {
+						return A2(
+							_elm_lang$navigation$Navigation_ops['&>'],
+							_elm_lang$navigation$Navigation$killPopWatcher(_p13._1._0),
+							_elm_lang$core$Task$succeed(
+								A2(_elm_lang$navigation$Navigation$State, subs, _elm_lang$core$Maybe$Nothing)));
+					} else {
+						break _v6_2;
+					}
+				} else {
+					if (_p13._1.ctor === 'Nothing') {
+						return A2(
+							_elm_lang$core$Task$map,
+							function (_p14) {
+								return A2(
+									_elm_lang$navigation$Navigation$State,
+									subs,
+									_elm_lang$core$Maybe$Just(_p14));
+							},
+							_elm_lang$navigation$Navigation$spawnPopWatcher(router));
+					} else {
+						break _v6_2;
+					}
+				}
+			} while(false);
+			return _elm_lang$core$Task$succeed(
+				A2(_elm_lang$navigation$Navigation$State, subs, _p15));
+		}();
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Task$sequence(
+				A2(
+					_elm_lang$core$List$map,
+					A2(_elm_lang$navigation$Navigation$cmdHelp, router, subs),
+					cmds)),
+			stepState);
+	});
+_elm_lang$core$Native_Platform.effectManagers['Navigation'] = {pkg: 'elm-lang/navigation', init: _elm_lang$navigation$Navigation$init, onEffects: _elm_lang$navigation$Navigation$onEffects, onSelfMsg: _elm_lang$navigation$Navigation$onSelfMsg, tag: 'fx', cmdMap: _elm_lang$navigation$Navigation$cmdMap, subMap: _elm_lang$navigation$Navigation$subMap};
 var _elm_lang$window$Native_Window = function()
 {
 
@@ -12033,7 +12791,7 @@ var _elm_lang$window$Window$subMap = F2(
 			});
 	});
 _elm_lang$core$Native_Platform.effectManagers['Window'] = {pkg: 'elm-lang/window', init: _elm_lang$window$Window$init, onEffects: _elm_lang$window$Window$onEffects, onSelfMsg: _elm_lang$window$Window$onSelfMsg, tag: 'sub', subMap: _elm_lang$window$Window$subMap};
-var _w0rm$elm_mogee$View_FontData$fontSrc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQAAAACCEkxzAAABd0lEQVR4nJWRP0gbcRTHP793N8QSJHWpgjEp2KIQRLcWUU+qoC2VdqgdDW7FxW52KGqLs1gVMumobqkZgot/tkKhCCUgNYMFwRQEo2ijnHfP4U4QXPQt78v3/f8+ljQwno4HQN473oe2rSQ2EG+/iG3bfq3ftPx4cFg4TPrdi/9+GbeY+L77M1KULwfHn066Sgt466qqrorZALAxSmASemxvvjz5KBer2H6BkRSHU9JDDMcHmXaZa7qMOubs4Wgl1fZgTf6ky6hEHNPR2Pr51e9y/nbD24C6Wut57pnlyuuBHbAy2Bji5/WbLcIqmHGaJdsLmpnYlnSEuqwSE8s1E6hTg6+qqrsqBoDS9RXeC6P4AiCXpY97wdDzamAPvkVTk42z8lLyA8mqJzM7SAI2MWPI3684iINZXTnu/HHa8BYteuodqQryP1zejQLcVGz/GpyEVN+78DsW6UDMoWhVEOovDAUffBPm4BbCZKrD8oNKwNxFw3uBK7QFq76oo/AxAAAAAElFTkSuQmCC';
+var _w0rm$elm_mogee$View_FontData$fontSrc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQAAAACCEkxzAAABdUlEQVR4nJWRO0hbcRTGf/9z7xBLKNFFBR8p2BIhiG4tYnulClWp1KF1NLhJKTjaofgozmKr4FRHdbNmCF2qbgWhCBIQzaAgmELAKGos13uPw72hgks9y/n4zvs7LGlgPBkPgAw63kjbZhwbqG//G9u2/Ro/sfzo3bBQiPudi39+GzfX+H1/K5KTqePTj2cv8t/wfqqquipmHcDGKIFJ6LG9+eJkdTpWsv0s75MUpqWLGI4PMuMyl7iOOuaicrSUbHvwQ/ZSRVQijuloav3Ut1PM3G14F1BbYz1LP7Vced2/C9YCNob6q7qNFmENzDjNstoNujCxLakItatKTCzXTKBOFb6qqu6rGADy5Su8l/+mX+c/HARDr6qAA/gSTU42fZVeyfTHKx7P7iKNsIEZQw4/4yAOZm3l9Pmv84YBNOepd6Iq5a0F9xLgtmJHZXAWUq/eht+xSAViDkUrglBPdij44JswBzcbJvMwLD8uBcz/aHgvcAOOdqqyDM5jEwAAAABJRU5ErkJggg==';
 var _w0rm$elm_mogee$View_FontData$CharInfo = F3(
 	function (a, b, c) {
 		return {x: a, y: b, w: c};
@@ -12755,17 +13513,66 @@ var _w0rm$elm_mogee$View_Font$load = function (msg) {
 				{magnify: _elm_community$webgl$WebGL_Texture$nearest, minify: _elm_community$webgl$WebGL_Texture$nearest, flipY: false}),
 			_w0rm$elm_mogee$View_FontData$fontSrc));
 };
-var _w0rm$elm_mogee$View_Font$kerning = _elm_lang$core$Dict$fromList(
+var _w0rm$elm_mogee$View_Font$defaultBearings = {ctor: '_Tuple2', _0: 0, _1: 1};
+var _w0rm$elm_mogee$View_Font$bearingsDict = _elm_lang$core$Dict$fromList(
+	{
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple2',
+			_0: _elm_lang$core$Native_Utils.chr('j'),
+			_1: {ctor: '_Tuple2', _0: -2, _1: 1}
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$Native_Utils.chr(','),
+				_1: {ctor: '_Tuple2', _0: -1, _1: 1}
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.chr(';'),
+					_1: {ctor: '_Tuple2', _0: -1, _1: 1}
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.chr(' '),
+						_1: {ctor: '_Tuple2', _0: 0, _1: 0}
+					},
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	});
+var _w0rm$elm_mogee$View_Font$rightBearing = function ($char) {
+	return _elm_lang$core$Tuple$second(
+		A2(
+			_elm_lang$core$Maybe$withDefault,
+			_w0rm$elm_mogee$View_Font$defaultBearings,
+			A2(_elm_lang$core$Dict$get, $char, _w0rm$elm_mogee$View_Font$bearingsDict)));
+};
+var _w0rm$elm_mogee$View_Font$leftBearing = function ($char) {
+	return _elm_lang$core$Tuple$first(
+		A2(
+			_elm_lang$core$Maybe$withDefault,
+			_w0rm$elm_mogee$View_Font$defaultBearings,
+			A2(_elm_lang$core$Dict$get, $char, _w0rm$elm_mogee$View_Font$bearingsDict)));
+};
+var _w0rm$elm_mogee$View_Font$kerningOverrides = _elm_lang$core$Dict$fromList(
 	{
 		ctor: '::',
 		_0: {
 			ctor: '_Tuple2',
 			_0: {
 				ctor: '_Tuple2',
-				_0: _elm_lang$core$Native_Utils.chr('f'),
-				_1: _elm_lang$core$Native_Utils.chr('o')
+				_0: _elm_lang$core$Native_Utils.chr('/'),
+				_1: _elm_lang$core$Native_Utils.chr('/')
 			},
-			_1: 0
+			_1: -1
 		},
 		_1: {
 			ctor: '::',
@@ -12773,49 +13580,891 @@ var _w0rm$elm_mogee$View_Font$kerning = _elm_lang$core$Dict$fromList(
 				ctor: '_Tuple2',
 				_0: {
 					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.chr('f'),
-					_1: _elm_lang$core$Native_Utils.chr('l')
+					_0: _elm_lang$core$Native_Utils.chr('y'),
+					_1: _elm_lang$core$Native_Utils.chr('j')
 				},
-				_1: 0
+				_1: -1
+			},
+			_1: {ctor: '[]'}
+		}
+	});
+var _w0rm$elm_mogee$View_Font$kerningDict = _elm_lang$core$Dict$fromList(
+	{
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple2',
+			_0: {ctor: '_Tuple2', _0: 1, _1: 5},
+			_1: -1
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: {ctor: '_Tuple2', _0: 6, _1: 6},
+				_1: -2
 			},
 			_1: {
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
+					_0: {ctor: '_Tuple2', _0: 6, _1: 8},
+					_1: -1
+				},
+				_1: {
+					ctor: '::',
 					_0: {
 						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.chr('f'),
-						_1: _elm_lang$core$Native_Utils.chr('i')
+						_0: {ctor: '_Tuple2', _0: 9, _1: 6},
+						_1: -1
 					},
-					_1: 0
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: {ctor: '_Tuple2', _0: 9, _1: 7},
+							_1: -1
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: {ctor: '_Tuple2', _0: 9, _1: 8},
+								_1: -2
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: {ctor: '_Tuple2', _0: 9, _1: 9},
+									_1: -1
+								},
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: {ctor: '_Tuple2', _0: 9, _1: 10},
+										_1: -1
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: {ctor: '_Tuple2', _0: 15, _1: 13},
+											_1: -1
+										},
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+var _w0rm$elm_mogee$View_Font$invertDict = A2(
+	_elm_lang$core$List$foldl,
+	F2(
+		function (_p2, dict) {
+			var _p3 = _p2;
+			return A3(
+				_elm_lang$core$List$foldl,
+				function ($char) {
+					return A2(_elm_lang$core$Dict$insert, $char, _p3._0);
 				},
+				dict,
+				_p3._1);
+		}),
+	_elm_lang$core$Dict$empty);
+var _w0rm$elm_mogee$View_Font$leftKerningClass = _w0rm$elm_mogee$View_Font$invertDict(
+	{
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple2',
+			_0: 1,
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$core$Native_Utils.chr('A'),
 				_1: {ctor: '[]'}
+			}
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 2,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Native_Utils.chr('B'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$core$Native_Utils.chr('C'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.chr('E'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Native_Utils.chr('G'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$core$Native_Utils.chr('H'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Native_Utils.chr('I'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Native_Utils.chr('J'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.chr('K'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$core$Native_Utils.chr('M'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr('N'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$core$Native_Utils.chr('R'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$core$Native_Utils.chr('S'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$core$Native_Utils.chr('U'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$core$Native_Utils.chr('X'),
+																		_1: {
+																			ctor: '::',
+																			_0: _elm_lang$core$Native_Utils.chr('Z'),
+																			_1: {ctor: '[]'}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 3,
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$core$Native_Utils.chr('D'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.chr('O'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Native_Utils.chr('Q'),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 4,
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.chr('F'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Native_Utils.chr('P'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$core$Native_Utils.chr('V'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Native_Utils.chr('W'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Native_Utils.chr('Y'),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 5,
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Native_Utils.chr('L'),
+								_1: {ctor: '[]'}
+							}
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 6,
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$core$Native_Utils.chr('T'),
+									_1: {ctor: '[]'}
+								}
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 7,
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Native_Utils.chr('a'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Native_Utils.chr('b'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.chr('c'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$core$Native_Utils.chr('e'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr('h'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$core$Native_Utils.chr('k'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$core$Native_Utils.chr('m'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$core$Native_Utils.chr('n'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$core$Native_Utils.chr('o'),
+																		_1: {
+																			ctor: '::',
+																			_0: _elm_lang$core$Native_Utils.chr('p'),
+																			_1: {
+																				ctor: '::',
+																				_0: _elm_lang$core$Native_Utils.chr('r'),
+																				_1: {
+																					ctor: '::',
+																					_0: _elm_lang$core$Native_Utils.chr('s'),
+																					_1: {
+																						ctor: '::',
+																						_0: _elm_lang$core$Native_Utils.chr('t'),
+																						_1: {
+																							ctor: '::',
+																							_0: _elm_lang$core$Native_Utils.chr('u'),
+																							_1: {
+																								ctor: '::',
+																								_0: _elm_lang$core$Native_Utils.chr('x'),
+																								_1: {
+																									ctor: '::',
+																									_0: _elm_lang$core$Native_Utils.chr('z'),
+																									_1: {ctor: '[]'}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								},
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 8,
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Native_Utils.chr('d'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.chr('i'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$core$Native_Utils.chr('j'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr('l'),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										}
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: 9,
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.chr('f'),
+												_1: {ctor: '[]'}
+											}
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: 10,
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$core$Native_Utils.chr('g'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr('q'),
+														_1: {ctor: '[]'}
+													}
+												}
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '_Tuple2',
+													_0: 11,
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr('v'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$core$Native_Utils.chr('w'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$core$Native_Utils.chr('y'),
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												},
+												_1: {
+													ctor: '::',
+													_0: {
+														ctor: '_Tuple2',
+														_0: 12,
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$core$Native_Utils.chr('.'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$core$Native_Utils.chr(','),
+																_1: {ctor: '[]'}
+															}
+														}
+													},
+													_1: {
+														ctor: '::',
+														_0: {
+															ctor: '_Tuple2',
+															_0: 13,
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$core$Native_Utils.chr('\''),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$core$Native_Utils.chr('\"'),
+																	_1: {ctor: '[]'}
+																}
+															}
+														},
+														_1: {
+															ctor: '::',
+															_0: {
+																ctor: '_Tuple2',
+																_0: 14,
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$core$Native_Utils.chr('!'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$core$Native_Utils.chr('?'),
+																		_1: {ctor: '[]'}
+																	}
+																}
+															},
+															_1: {
+																ctor: '::',
+																_0: {
+																	ctor: '_Tuple2',
+																	_0: 15,
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$core$Native_Utils.chr('/'),
+																		_1: {ctor: '[]'}
+																	}
+																},
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+var _w0rm$elm_mogee$View_Font$rightKerningClass = _w0rm$elm_mogee$View_Font$invertDict(
+	{
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple2',
+			_0: 1,
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$core$Native_Utils.chr('A'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Native_Utils.chr('M'),
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 2,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Native_Utils.chr('B'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$core$Native_Utils.chr('D'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.chr('E'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Native_Utils.chr('F'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$core$Native_Utils.chr('H'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Native_Utils.chr('I'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Native_Utils.chr('K'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.chr('L'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$core$Native_Utils.chr('N'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr('P'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$core$Native_Utils.chr('R'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$core$Native_Utils.chr('S'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$core$Native_Utils.chr('U'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$core$Native_Utils.chr('X'),
+																		_1: {
+																			ctor: '::',
+																			_0: _elm_lang$core$Native_Utils.chr('Z'),
+																			_1: {ctor: '[]'}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 3,
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$core$Native_Utils.chr('C'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.chr('G'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Native_Utils.chr('O'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$core$Native_Utils.chr('Q'),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 4,
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.chr('J'),
+							_1: {ctor: '[]'}
+						}
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 5,
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Native_Utils.chr('T'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$core$Native_Utils.chr('V'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Native_Utils.chr('W'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Native_Utils.chr('Y'),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 6,
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$core$Native_Utils.chr('a'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Native_Utils.chr('c'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Native_Utils.chr('d'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.chr('e'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$core$Native_Utils.chr('m'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr('n'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$core$Native_Utils.chr('o'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$core$Native_Utils.chr('q'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$core$Native_Utils.chr('r'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$core$Native_Utils.chr('s'),
+																		_1: {
+																			ctor: '::',
+																			_0: _elm_lang$core$Native_Utils.chr('t'),
+																			_1: {
+																				ctor: '::',
+																				_0: _elm_lang$core$Native_Utils.chr('u'),
+																				_1: {
+																					ctor: '::',
+																					_0: _elm_lang$core$Native_Utils.chr('v'),
+																					_1: {
+																						ctor: '::',
+																						_0: _elm_lang$core$Native_Utils.chr('w'),
+																						_1: {
+																							ctor: '::',
+																							_0: _elm_lang$core$Native_Utils.chr('x'),
+																							_1: {
+																								ctor: '::',
+																								_0: _elm_lang$core$Native_Utils.chr('z'),
+																								_1: {ctor: '[]'}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 7,
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Native_Utils.chr('b'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Native_Utils.chr('h'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.chr('i'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$core$Native_Utils.chr('k'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr('l'),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										}
+									}
+								},
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 8,
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Native_Utils.chr('f'),
+											_1: {ctor: '[]'}
+										}
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: 9,
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.chr('g'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$core$Native_Utils.chr('p'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr('y'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$core$Native_Utils.chr('j'),
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											}
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: 10,
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$core$Native_Utils.chr('.'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr(','),
+														_1: {ctor: '[]'}
+													}
+												}
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '_Tuple2',
+													_0: 11,
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Native_Utils.chr('\''),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$core$Native_Utils.chr('\"'),
+															_1: {ctor: '[]'}
+														}
+													}
+												},
+												_1: {
+													ctor: '::',
+													_0: {
+														ctor: '_Tuple2',
+														_0: 12,
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$core$Native_Utils.chr('!'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$core$Native_Utils.chr('?'),
+																_1: {ctor: '[]'}
+															}
+														}
+													},
+													_1: {
+														ctor: '::',
+														_0: {
+															ctor: '_Tuple2',
+															_0: 13,
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$core$Native_Utils.chr('/'),
+																_1: {ctor: '[]'}
+															}
+														},
+														_1: {
+															ctor: '::',
+															_0: {
+																ctor: '_Tuple2',
+																_0: 14,
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$core$Native_Utils.chr(':'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$core$Native_Utils.chr(';'),
+																		_1: {ctor: '[]'}
+																	}
+																}
+															},
+															_1: {
+																ctor: '::',
+																_0: {
+																	ctor: '_Tuple2',
+																	_0: 15,
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$core$Native_Utils.chr('$'),
+																		_1: {ctor: '[]'}
+																	}
+																},
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+var _w0rm$elm_mogee$View_Font$kerning = F2(
+	function (prevChar, nextChar) {
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			0,
+			_elm_lang$core$List$head(
+				A2(
+					_elm_lang$core$List$filterMap,
+					_elm_lang$core$Basics$identity,
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$core$Dict$get,
+							{ctor: '_Tuple2', _0: prevChar, _1: nextChar},
+							_w0rm$elm_mogee$View_Font$kerningOverrides),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$core$Maybe$andThen,
+								_elm_lang$core$Basics$identity,
+								A3(
+									_elm_lang$core$Maybe$map2,
+									_elm_lang$core$Basics$curry(
+										A2(_elm_lang$core$Basics$flip, _elm_lang$core$Dict$get, _w0rm$elm_mogee$View_Font$kerningDict)),
+									A2(_elm_lang$core$Dict$get, prevChar, _w0rm$elm_mogee$View_Font$leftKerningClass),
+									A2(_elm_lang$core$Dict$get, nextChar, _w0rm$elm_mogee$View_Font$rightKerningClass))),
+							_1: {ctor: '[]'}
+						}
+					})));
+	});
+var _w0rm$elm_mogee$View_Font$letterSpacing = F2(
+	function (prevChar, nextChar) {
+		var _p4 = prevChar;
+		if (_p4.ctor === 'Nothing') {
+			return _w0rm$elm_mogee$View_Font$leftBearing(nextChar);
+		} else {
+			switch (_p4._0.valueOf()) {
+				case ' ':
+					return _w0rm$elm_mogee$View_Font$leftBearing(nextChar);
+				case '\n':
+					return _w0rm$elm_mogee$View_Font$leftBearing(nextChar);
+				default:
+					var _p5 = _p4._0;
+					return _elm_lang$core$List$sum(
+						{
+							ctor: '::',
+							_0: _w0rm$elm_mogee$View_Font$rightBearing(_p5),
+							_1: {
+								ctor: '::',
+								_0: A2(_w0rm$elm_mogee$View_Font$kerning, _p5, nextChar),
+								_1: {
+									ctor: '::',
+									_0: _w0rm$elm_mogee$View_Font$leftBearing(nextChar),
+									_1: {ctor: '[]'}
+								}
+							}
+						});
 			}
 		}
 	});
 var _w0rm$elm_mogee$View_Font$tracking = 1;
-var _w0rm$elm_mogee$View_Font$letterSpacing = F2(
-	function (prevChar, nextChar) {
-		var _p2 = prevChar;
-		if (_p2.ctor === 'Nothing') {
-			return 0;
-		} else {
-			switch (_p2._0.valueOf()) {
-				case ' ':
-					return 0;
-				case '\n':
-					return 0;
-				default:
-					return A2(
-						_elm_lang$core$Maybe$withDefault,
-						_w0rm$elm_mogee$View_Font$tracking,
-						A2(
-							_elm_lang$core$Dict$get,
-							{ctor: '_Tuple2', _0: _p2._0, _1: nextChar},
-							_w0rm$elm_mogee$View_Font$kerning));
-			}
-		}
-	});
 var _w0rm$elm_mogee$View_Font$spaceWidth = 3;
 var _w0rm$elm_mogee$View_Font$emHeight = 11;
 var _w0rm$elm_mogee$View_Font$Vertex = F2(
@@ -12823,10 +14472,10 @@ var _w0rm$elm_mogee$View_Font$Vertex = F2(
 		return {position: a, texPosition: b};
 	});
 var _w0rm$elm_mogee$View_Font$addLetter = F2(
-	function ($char, _p3) {
-		var _p4 = _p3;
-		var _p6 = _p4._1;
-		var _p5 = _p4._0;
+	function ($char, _p6) {
+		var _p7 = _p6;
+		var _p9 = _p7._1;
+		var _p8 = _p7._0;
 		return F2(
 			function (x, y) {
 				return A2(_elm_lang$core$Basics_ops['++'], x, y);
@@ -12837,15 +14486,15 @@ var _w0rm$elm_mogee$View_Font$addLetter = F2(
 					ctor: '_Tuple3',
 					_0: A2(
 						_w0rm$elm_mogee$View_Font$Vertex,
-						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p5, _p6),
+						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8, _p9),
 						A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x, $char.y)),
 					_1: A2(
 						_w0rm$elm_mogee$View_Font$Vertex,
-						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p5 + $char.w, _p6 + _w0rm$elm_mogee$View_Font$emHeight),
+						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8 + $char.w, _p9 + _w0rm$elm_mogee$View_Font$emHeight),
 						A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x + $char.w, $char.y + _w0rm$elm_mogee$View_Font$emHeight)),
 					_2: A2(
 						_w0rm$elm_mogee$View_Font$Vertex,
-						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p5 + $char.w, _p6),
+						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8 + $char.w, _p9),
 						A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x + $char.w, $char.y))
 				},
 				_1: {
@@ -12854,15 +14503,15 @@ var _w0rm$elm_mogee$View_Font$addLetter = F2(
 						ctor: '_Tuple3',
 						_0: A2(
 							_w0rm$elm_mogee$View_Font$Vertex,
-							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p5, _p6),
+							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8, _p9),
 							A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x, $char.y)),
 						_1: A2(
 							_w0rm$elm_mogee$View_Font$Vertex,
-							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p5, _p6 + _w0rm$elm_mogee$View_Font$emHeight),
+							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8, _p9 + _w0rm$elm_mogee$View_Font$emHeight),
 							A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x, $char.y + _w0rm$elm_mogee$View_Font$emHeight)),
 						_2: A2(
 							_w0rm$elm_mogee$View_Font$Vertex,
-							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p5 + $char.w, _p6 + _w0rm$elm_mogee$View_Font$emHeight),
+							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8 + $char.w, _p9 + _w0rm$elm_mogee$View_Font$emHeight),
 							A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x + $char.w, $char.y + _w0rm$elm_mogee$View_Font$emHeight))
 					},
 					_1: {ctor: '[]'}
@@ -12873,67 +14522,67 @@ var _w0rm$elm_mogee$View_Font$textMeshHelper = F5(
 	function (prevChar, text, currentX, currentY, list) {
 		textMeshHelper:
 		while (true) {
-			var _p7 = _elm_lang$core$String$uncons(text);
-			if (_p7.ctor === 'Just') {
-				switch (_p7._0._0.valueOf()) {
+			var _p10 = _elm_lang$core$String$uncons(text);
+			if (_p10.ctor === 'Just') {
+				switch (_p10._0._0.valueOf()) {
 					case ' ':
-						var _v4 = _elm_lang$core$Maybe$Just(
+						var _v5 = _elm_lang$core$Maybe$Just(
 							_elm_lang$core$Native_Utils.chr(' ')),
-							_v5 = _p7._0._1,
-							_v6 = currentX + _w0rm$elm_mogee$View_Font$spaceWidth,
-							_v7 = currentY,
-							_v8 = list;
-						prevChar = _v4;
-						text = _v5;
-						currentX = _v6;
-						currentY = _v7;
-						list = _v8;
+							_v6 = _p10._0._1,
+							_v7 = currentX + _w0rm$elm_mogee$View_Font$spaceWidth,
+							_v8 = currentY,
+							_v9 = list;
+						prevChar = _v5;
+						text = _v6;
+						currentX = _v7;
+						currentY = _v8;
+						list = _v9;
 						continue textMeshHelper;
 					case '\n':
-						var _v9 = _elm_lang$core$Maybe$Just(
+						var _v10 = _elm_lang$core$Maybe$Just(
 							_elm_lang$core$Native_Utils.chr('\n')),
-							_v10 = _p7._0._1,
-							_v11 = 0,
-							_v12 = currentY + _w0rm$elm_mogee$View_Font$emHeight,
-							_v13 = list;
-						prevChar = _v9;
-						text = _v10;
-						currentX = _v11;
-						currentY = _v12;
-						list = _v13;
+							_v11 = _p10._0._1,
+							_v12 = 0,
+							_v13 = currentY + _w0rm$elm_mogee$View_Font$emHeight,
+							_v14 = list;
+						prevChar = _v10;
+						text = _v11;
+						currentX = _v12;
+						currentY = _v13;
+						list = _v14;
 						continue textMeshHelper;
 					default:
-						var _p11 = _p7._0._1;
-						var _p10 = _p7._0._0;
-						var _p8 = A2(_elm_lang$core$Dict$get, _p10, _w0rm$elm_mogee$View_FontData$font);
-						if (_p8.ctor === 'Just') {
-							var _p9 = _p8._0;
+						var _p14 = _p10._0._1;
+						var _p13 = _p10._0._0;
+						var _p11 = A2(_elm_lang$core$Dict$get, _p13, _w0rm$elm_mogee$View_FontData$font);
+						if (_p11.ctor === 'Just') {
+							var _p12 = _p11._0;
 							return A3(
 								_w0rm$elm_mogee$View_Font$addLetter,
-								_p9,
+								_p12,
 								{
 									ctor: '_Tuple2',
-									_0: currentX + A2(_w0rm$elm_mogee$View_Font$letterSpacing, prevChar, _p10),
+									_0: currentX + A2(_w0rm$elm_mogee$View_Font$letterSpacing, prevChar, _p13),
 									_1: currentY
 								},
 								A5(
 									_w0rm$elm_mogee$View_Font$textMeshHelper,
-									_elm_lang$core$Maybe$Just(_p10),
-									_p11,
-									(currentX + _p9.w) + A2(_w0rm$elm_mogee$View_Font$letterSpacing, prevChar, _p10),
+									_elm_lang$core$Maybe$Just(_p13),
+									_p14,
+									(currentX + _p12.w) + A2(_w0rm$elm_mogee$View_Font$letterSpacing, prevChar, _p13),
 									currentY,
 									list));
 						} else {
-							var _v15 = prevChar,
-								_v16 = _p11,
-								_v17 = currentX,
-								_v18 = currentY,
-								_v19 = list;
-							prevChar = _v15;
-							text = _v16;
-							currentX = _v17;
-							currentY = _v18;
-							list = _v19;
+							var _v16 = prevChar,
+								_v17 = _p14,
+								_v18 = currentX,
+								_v19 = currentY,
+								_v20 = list;
+							prevChar = _v16;
+							text = _v17;
+							currentX = _v18;
+							currentY = _v19;
+							list = _v20;
 							continue textMeshHelper;
 						}
 				}
@@ -12963,6 +14612,13 @@ var _w0rm$elm_mogee$View_Font$text = function (text) {
 				0,
 				{ctor: '[]'})));
 };
+var _w0rm$elm_mogee$PixelFont$hashToText = function (hash) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		'',
+		_elm_lang$http$Http$decodeUri(
+			A2(_elm_lang$core$String$dropLeft, 1, hash)));
+};
 var _w0rm$elm_mogee$PixelFont$update = F2(
 	function (action, model) {
 		var _p0 = action;
@@ -12987,12 +14643,24 @@ var _w0rm$elm_mogee$PixelFont$update = F2(
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'TextChange':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _elm_lang$navigation$Navigation$newUrl(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'#',
+							_elm_lang$http$Http$encodeUri(_p0._0)))
+				};
 			default:
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{text: _p0._0}),
+						{
+							text: _w0rm$elm_mogee$PixelFont$hashToText(_p0._0)
+						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
@@ -13001,8 +14669,8 @@ var _w0rm$elm_mogee$PixelFont$Model = F3(
 	function (a, b, c) {
 		return {size: a, font: b, text: c};
 	});
-var _w0rm$elm_mogee$PixelFont$FontLoaded = function (a) {
-	return {ctor: 'FontLoaded', _0: a};
+var _w0rm$elm_mogee$PixelFont$UrlUpdate = function (a) {
+	return {ctor: 'UrlUpdate', _0: a};
 };
 var _w0rm$elm_mogee$PixelFont$TextChange = function (a) {
 	return {ctor: 'TextChange', _0: a};
@@ -13151,7 +14819,11 @@ var _w0rm$elm_mogee$PixelFont$view = function (_p1) {
 																							_1: {
 																								ctor: '::',
 																								_0: {ctor: '_Tuple2', _0: 'color', _1: '#aaa'},
-																								_1: {ctor: '[]'}
+																								_1: {
+																									ctor: '::',
+																									_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'sans-serif'},
+																									_1: {ctor: '[]'}
+																								}
 																							}
 																						}
 																					}
@@ -13284,7 +14956,7 @@ var _w0rm$elm_mogee$PixelFont$view = function (_p1) {
 										{ctor: '_Tuple3', _0: 1, _1: 1, _2: 1},
 										_w0rm$elm_mogee$View_Font$text(_p4),
 										texture,
-										{ctor: '_Tuple3', _0: 1, _1: 1, _2: 0}),
+										{ctor: '_Tuple3', _0: 2, _1: 1, _2: 0}),
 									_1: {ctor: '[]'}
 								};
 							},
@@ -13293,24 +14965,41 @@ var _w0rm$elm_mogee$PixelFont$view = function (_p1) {
 			}
 		});
 };
+var _w0rm$elm_mogee$PixelFont$FontLoaded = function (a) {
+	return {ctor: 'FontLoaded', _0: a};
+};
 var _w0rm$elm_mogee$PixelFont$Resize = function (a) {
 	return {ctor: 'Resize', _0: a};
 };
-var _w0rm$elm_mogee$PixelFont$main = _elm_lang$html$Html$program(
+var _w0rm$elm_mogee$PixelFont$main = A2(
+	_elm_lang$navigation$Navigation$program,
+	function (_p5) {
+		return _w0rm$elm_mogee$PixelFont$UrlUpdate(
+			function (_) {
+				return _.hash;
+			}(_p5));
+	},
 	{
-		init: {
-			ctor: '_Tuple2',
-			_0: {size: 0, font: _elm_lang$core$Maybe$Nothing, text: ''},
-			_1: _elm_lang$core$Platform_Cmd$batch(
-				{
-					ctor: '::',
-					_0: _w0rm$elm_mogee$View_Font$load(_w0rm$elm_mogee$PixelFont$FontLoaded),
-					_1: {
+		init: function (_p6) {
+			var _p7 = _p6;
+			return {
+				ctor: '_Tuple2',
+				_0: {
+					size: 0,
+					font: _elm_lang$core$Maybe$Nothing,
+					text: _w0rm$elm_mogee$PixelFont$hashToText(_p7.hash)
+				},
+				_1: _elm_lang$core$Platform_Cmd$batch(
+					{
 						ctor: '::',
-						_0: A2(_elm_lang$core$Task$perform, _w0rm$elm_mogee$PixelFont$Resize, _elm_lang$window$Window$size),
-						_1: {ctor: '[]'}
-					}
-				})
+						_0: _w0rm$elm_mogee$View_Font$load(_w0rm$elm_mogee$PixelFont$FontLoaded),
+						_1: {
+							ctor: '::',
+							_0: A2(_elm_lang$core$Task$perform, _w0rm$elm_mogee$PixelFont$Resize, _elm_lang$window$Window$size),
+							_1: {ctor: '[]'}
+						}
+					})
+			};
 		},
 		subscriptions: _elm_lang$core$Basics$always(
 			_elm_lang$window$Window$resizes(_w0rm$elm_mogee$PixelFont$Resize)),
