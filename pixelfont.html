@@ -11448,6 +11448,11 @@ return {
 };
 
 }();
+var _elm_lang$dom$Dom$blur = _elm_lang$dom$Native_Dom.blur;
+var _elm_lang$dom$Dom$focus = _elm_lang$dom$Native_Dom.focus;
+var _elm_lang$dom$Dom$NotFound = function (a) {
+	return {ctor: 'NotFound', _0: a};
+};
 var _elm_lang$dom$Dom_LowLevel$onWindow = _elm_lang$dom$Native_Dom.onWindow;
 var _elm_lang$dom$Dom_LowLevel$onDocument = _elm_lang$dom$Native_Dom.onDocument;
 var _elm_lang$html$Html_Attributes$map = _elm_lang$virtual_dom$VirtualDom$mapProperty;
@@ -14720,25 +14725,18 @@ var _w0rm$elm_mogee$PixelFont$view = function (_p1) {
 					_0: _elm_lang$html$Html_Attributes$value(_p4),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$style(
-							{
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'right', _1: '50%'},
-								_1: {
+						_0: _elm_lang$html$Html_Attributes$id('textarea'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								{
 									ctor: '::',
-									_0: {
-										ctor: '_Tuple2',
-										_0: 'width',
-										_1: A2(
-											_elm_lang$core$Basics_ops['++'],
-											_elm_lang$core$Basics$toString(_p3),
-											'px')
-									},
+									_0: {ctor: '_Tuple2', _0: 'right', _1: '50%'},
 									_1: {
 										ctor: '::',
 										_0: {
 											ctor: '_Tuple2',
-											_0: 'height',
+											_0: 'width',
 											_1: A2(
 												_elm_lang$core$Basics_ops['++'],
 												_elm_lang$core$Basics$toString(_p3),
@@ -14748,81 +14746,92 @@ var _w0rm$elm_mogee$PixelFont$view = function (_p1) {
 											ctor: '::',
 											_0: {
 												ctor: '_Tuple2',
-												_0: 'margin-top',
+												_0: 'height',
 												_1: A2(
 													_elm_lang$core$Basics_ops['++'],
-													_elm_lang$core$Basics$toString(((0 - _p3) / 2) | 0),
+													_elm_lang$core$Basics$toString(_p3),
 													'px')
 											},
 											_1: {
 												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'top', _1: '50%'},
+												_0: {
+													ctor: '_Tuple2',
+													_0: 'margin-top',
+													_1: A2(
+														_elm_lang$core$Basics_ops['++'],
+														_elm_lang$core$Basics$toString(((0 - _p3) / 2) | 0),
+														'px')
+												},
 												_1: {
 													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
+													_0: {ctor: '_Tuple2', _0: 'top', _1: '50%'},
 													_1: {
 														ctor: '::',
-														_0: {ctor: '_Tuple2', _0: 'box-sizing', _1: 'border-box'},
+														_0: {ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
 														_1: {
 															ctor: '::',
-															_0: {
-																ctor: '_Tuple2',
-																_0: 'padding',
-																_1: A2(
-																	_elm_lang$core$Basics_ops['++'],
-																	'0 ',
-																	A2(
-																		_elm_lang$core$Basics_ops['++'],
-																		_elm_lang$core$Basics$toString((_p3 / 64) | 0),
-																		'px'))
-															},
+															_0: {ctor: '_Tuple2', _0: 'box-sizing', _1: 'border-box'},
 															_1: {
 																ctor: '::',
-																_0: {ctor: '_Tuple2', _0: 'border', _1: '0'},
+																_0: {
+																	ctor: '_Tuple2',
+																	_0: 'padding',
+																	_1: A2(
+																		_elm_lang$core$Basics_ops['++'],
+																		'0 ',
+																		A2(
+																			_elm_lang$core$Basics_ops['++'],
+																			_elm_lang$core$Basics$toString((_p3 / 64) | 0),
+																			'px'))
+																},
 																_1: {
 																	ctor: '::',
-																	_0: {ctor: '_Tuple2', _0: 'background', _1: '#222'},
+																	_0: {ctor: '_Tuple2', _0: 'border', _1: '0'},
 																	_1: {
 																		ctor: '::',
-																		_0: {ctor: '_Tuple2', _0: 'resize', _1: 'none'},
+																		_0: {ctor: '_Tuple2', _0: 'background', _1: '#222'},
 																		_1: {
 																			ctor: '::',
-																			_0: {ctor: '_Tuple2', _0: 'white-space', _1: 'nowrap'},
+																			_0: {ctor: '_Tuple2', _0: 'resize', _1: 'none'},
 																			_1: {
 																				ctor: '::',
-																				_0: {
-																					ctor: '_Tuple2',
-																					_0: 'font-size',
-																					_1: A2(
-																						_elm_lang$core$Basics_ops['++'],
-																						_elm_lang$core$Basics$toString(
-																							_elm_lang$core$Basics$toFloat(_p3) / 8),
-																						'px')
-																				},
+																				_0: {ctor: '_Tuple2', _0: 'white-space', _1: 'nowrap'},
 																				_1: {
 																					ctor: '::',
 																					_0: {
 																						ctor: '_Tuple2',
-																						_0: 'line-height',
+																						_0: 'font-size',
 																						_1: A2(
 																							_elm_lang$core$Basics_ops['++'],
 																							_elm_lang$core$Basics$toString(
-																								_elm_lang$core$Basics$toFloat(_p3) / 5.8),
+																								_elm_lang$core$Basics$toFloat(_p3) / 8),
 																							'px')
 																					},
 																					_1: {
 																						ctor: '::',
-																						_0: {ctor: '_Tuple2', _0: 'overflow-y', _1: 'hidden'},
+																						_0: {
+																							ctor: '_Tuple2',
+																							_0: 'line-height',
+																							_1: A2(
+																								_elm_lang$core$Basics_ops['++'],
+																								_elm_lang$core$Basics$toString(
+																									_elm_lang$core$Basics$toFloat(_p3) / 5.8),
+																								'px')
+																						},
 																						_1: {
 																							ctor: '::',
-																							_0: {ctor: '_Tuple2', _0: 'outline', _1: 'none'},
+																							_0: {ctor: '_Tuple2', _0: 'overflow-y', _1: 'hidden'},
 																							_1: {
 																								ctor: '::',
-																								_0: {ctor: '_Tuple2', _0: 'color', _1: '#aaa'},
+																								_0: {ctor: '_Tuple2', _0: 'outline', _1: 'none'},
 																								_1: {
 																									ctor: '::',
-																									_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'sans-serif'},
-																									_1: {ctor: '[]'}
+																									_0: {ctor: '_Tuple2', _0: 'color', _1: '#aaa'},
+																									_1: {
+																										ctor: '::',
+																										_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'sans-serif'},
+																										_1: {ctor: '[]'}
+																									}
 																								}
 																							}
 																						}
@@ -14839,24 +14848,24 @@ var _w0rm$elm_mogee$PixelFont$view = function (_p1) {
 											}
 										}
 									}
-								}
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(_elm_lang$html$Html_Attributes$attribute, 'autocomplete', 'off'),
+								}),
 							_1: {
 								ctor: '::',
-								_0: A2(_elm_lang$html$Html_Attributes$attribute, 'autocorrect', 'off'),
+								_0: A2(_elm_lang$html$Html_Attributes$attribute, 'autocomplete', 'off'),
 								_1: {
 									ctor: '::',
-									_0: A2(_elm_lang$html$Html_Attributes$attribute, 'autocapitalize', 'off'),
+									_0: A2(_elm_lang$html$Html_Attributes$attribute, 'autocorrect', 'off'),
 									_1: {
 										ctor: '::',
-										_0: A2(_elm_lang$html$Html_Attributes$attribute, 'spellcheck', 'false'),
+										_0: A2(_elm_lang$html$Html_Attributes$attribute, 'autocapitalize', 'off'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onInput(_w0rm$elm_mogee$PixelFont$TextChange),
-											_1: {ctor: '[]'}
+											_0: A2(_elm_lang$html$Html_Attributes$attribute, 'spellcheck', 'false'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onInput(_w0rm$elm_mogee$PixelFont$TextChange),
+												_1: {ctor: '[]'}
+											}
 										}
 									}
 								}
@@ -14982,13 +14991,13 @@ var _w0rm$elm_mogee$PixelFont$main = A2(
 	{
 		init: function (_p6) {
 			var _p7 = _p6;
-			var _p8 = _p7.hash;
+			var _p10 = _p7.hash;
 			return {
 				ctor: '_Tuple2',
 				_0: {
 					size: 0,
 					font: _elm_lang$core$Maybe$Nothing,
-					text: _elm_lang$core$Native_Utils.eq(_p8, '') ? '\nThe quick brown\nfox jumps over\nthe lazy dog' : _w0rm$elm_mogee$PixelFont$hashToText(_p8)
+					text: _elm_lang$core$Native_Utils.eq(_p10, '') ? '\nThe quick brown\nfox jumps over\nthe lazy dog' : _w0rm$elm_mogee$PixelFont$hashToText(_p10)
 				},
 				_1: _elm_lang$core$Platform_Cmd$batch(
 					{
@@ -14996,7 +15005,21 @@ var _w0rm$elm_mogee$PixelFont$main = A2(
 						_0: _w0rm$elm_mogee$View_Font$load(_w0rm$elm_mogee$PixelFont$FontLoaded),
 						_1: {
 							ctor: '::',
-							_0: A2(_elm_lang$core$Task$perform, _w0rm$elm_mogee$PixelFont$Resize, _elm_lang$window$Window$size),
+							_0: A2(
+								_elm_lang$core$Task$perform,
+								_w0rm$elm_mogee$PixelFont$Resize,
+								A2(
+									_elm_lang$core$Task$andThen,
+									function (_p8) {
+										return _elm_lang$window$Window$size;
+									},
+									A2(
+										_elm_lang$core$Task$onError,
+										function (_p9) {
+											return _elm_lang$core$Task$succeed(
+												{ctor: '_Tuple0'});
+										},
+										_elm_lang$dom$Dom$focus('textarea')))),
 							_1: {ctor: '[]'}
 						}
 					})
