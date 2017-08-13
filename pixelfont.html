@@ -11448,11 +11448,6 @@ return {
 };
 
 }();
-var _elm_lang$dom$Dom$blur = _elm_lang$dom$Native_Dom.blur;
-var _elm_lang$dom$Dom$focus = _elm_lang$dom$Native_Dom.focus;
-var _elm_lang$dom$Dom$NotFound = function (a) {
-	return {ctor: 'NotFound', _0: a};
-};
 var _elm_lang$dom$Dom_LowLevel$onWindow = _elm_lang$dom$Native_Dom.onWindow;
 var _elm_lang$dom$Dom_LowLevel$onDocument = _elm_lang$dom$Native_Dom.onDocument;
 var _elm_lang$html$Html_Attributes$map = _elm_lang$virtual_dom$VirtualDom$mapProperty;
@@ -12796,7 +12791,7 @@ var _elm_lang$window$Window$subMap = F2(
 			});
 	});
 _elm_lang$core$Native_Platform.effectManagers['Window'] = {pkg: 'elm-lang/window', init: _elm_lang$window$Window$init, onEffects: _elm_lang$window$Window$onEffects, onSelfMsg: _elm_lang$window$Window$onSelfMsg, tag: 'sub', subMap: _elm_lang$window$Window$subMap};
-var _w0rm$elm_mogee$View_FontData$fontSrc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQAAAACCEkxzAAABdUlEQVR4nJWRO0hbcRTGf/9z7xBLKNFFBR8p2BIhiG4tYnulClWp1KF1NLhJKTjaofgozmKr4FRHdbNmCF2qbgWhCBIQzaAgmELAKGos13uPw72hgks9y/n4zvs7LGlgPBkPgAw63kjbZhwbqG//G9u2/Ro/sfzo3bBQiPudi39+GzfX+H1/K5KTqePTj2cv8t/wfqqquipmHcDGKIFJ6LG9+eJkdTpWsv0s75MUpqWLGI4PMuMyl7iOOuaicrSUbHvwQ/ZSRVQijuloav3Ut1PM3G14F1BbYz1LP7Vced2/C9YCNob6q7qNFmENzDjNstoNujCxLakItatKTCzXTKBOFb6qqu6rGADy5Su8l/+mX+c/HARDr6qAA/gSTU42fZVeyfTHKx7P7iKNsIEZQw4/4yAOZm3l9Pmv84YBNOepd6Iq5a0F9xLgtmJHZXAWUq/eht+xSAViDkUrglBPdij44JswBzcbJvMwLD8uBcz/aHgvcAOOdqqyDM5jEwAAAABJRU5ErkJggg==';
+var _w0rm$elm_mogee$View_FontData$fontSrc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQAAAACCEkxzAAABiklEQVR4nJWQTUhUYRSGn+/44QhtLi7EQPFONDFgwbTVxVzDTdDCjUY/YLhSmJR2BYE3F7YIFEPBTUYLKWhTBNFGmYEWQZAiKaKiIoomwYwDSnq5c1rc0UW20HdzntX7nHN4q1G40h+B3PbCnus5FwvUNx86s7ZUW0q+i3d0Cb/dUsvrXz9MsNLwcfl79ZwMbO89KaYXJginVVVDFZMDEIwSRcoTG44VntXc+4o5yhC7die9Ja04eOojwwGjSa1wJDlJZtyALD0oQG7Akd6g8c30+Ox/Ck+DfUn+U/fE8047T8zfoS4r4MjMq1WEwIWLX5DAtsGORSqNb15s/kFSqQ+1UATNq6qW1soujR9LN07stsD7mdSNoQ6B5d5VOwqXv7m+udBTYSfvt7f/TC9Ui/cUQH3xBsFkjS83L4H6IA8/I/GM7ApAlV9efn/q6r8HqofAOqiLTfT1PdqLgyRGFpsKqQME85jKgxoE8Tgq7mJjDXO3qtruQphX1alOjXrMelSoOe9MPzwX/AWr8ZrnxJjmIwAAAABJRU5ErkJggg==';
 var _w0rm$elm_mogee$View_FontData$CharInfo = F3(
 	function (a, b, c) {
 		return {x: a, y: b, w: c};
@@ -12806,598 +12801,638 @@ var _w0rm$elm_mogee$View_FontData$font = _elm_lang$core$Dict$fromList(
 		ctor: '::',
 		_0: {
 			ctor: '_Tuple2',
-			_0: _elm_lang$core$Native_Utils.chr('!'),
+			_0: '!',
 			_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 0, 0, 1)
 		},
 		_1: {
 			ctor: '::',
 			_0: {
 				ctor: '_Tuple2',
-				_0: _elm_lang$core$Native_Utils.chr('\"'),
+				_0: '\"',
 				_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 1, 0, 3)
 			},
 			_1: {
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.chr('\''),
+					_0: '\'',
 					_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 4, 0, 1)
 				},
 				_1: {
 					ctor: '::',
 					_0: {
 						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.chr('('),
+						_0: '(',
 						_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 5, 0, 3)
 					},
 					_1: {
 						ctor: '::',
 						_0: {
 							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.chr(')'),
+							_0: ')',
 							_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 8, 0, 3)
 						},
 						_1: {
 							ctor: '::',
 							_0: {
 								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.chr('+'),
+								_0: '+',
 								_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 11, 0, 3)
 							},
 							_1: {
 								ctor: '::',
 								_0: {
 									ctor: '_Tuple2',
-									_0: _elm_lang$core$Native_Utils.chr(','),
+									_0: ',',
 									_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 14, 0, 2)
 								},
 								_1: {
 									ctor: '::',
 									_0: {
 										ctor: '_Tuple2',
-										_0: _elm_lang$core$Native_Utils.chr('-'),
+										_0: '-',
 										_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 16, 0, 3)
 									},
 									_1: {
 										ctor: '::',
 										_0: {
 											ctor: '_Tuple2',
-											_0: _elm_lang$core$Native_Utils.chr('.'),
+											_0: '.',
 											_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 19, 0, 1)
 										},
 										_1: {
 											ctor: '::',
 											_0: {
 												ctor: '_Tuple2',
-												_0: _elm_lang$core$Native_Utils.chr('/'),
+												_0: '/',
 												_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 20, 0, 3)
 											},
 											_1: {
 												ctor: '::',
 												_0: {
 													ctor: '_Tuple2',
-													_0: _elm_lang$core$Native_Utils.chr('0'),
+													_0: '0',
 													_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 23, 0, 3)
 												},
 												_1: {
 													ctor: '::',
 													_0: {
 														ctor: '_Tuple2',
-														_0: _elm_lang$core$Native_Utils.chr('1'),
+														_0: '1',
 														_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 26, 0, 2)
 													},
 													_1: {
 														ctor: '::',
 														_0: {
 															ctor: '_Tuple2',
-															_0: _elm_lang$core$Native_Utils.chr('2'),
+															_0: '2',
 															_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 28, 0, 3)
 														},
 														_1: {
 															ctor: '::',
 															_0: {
 																ctor: '_Tuple2',
-																_0: _elm_lang$core$Native_Utils.chr('3'),
+																_0: '3',
 																_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 31, 0, 3)
 															},
 															_1: {
 																ctor: '::',
 																_0: {
 																	ctor: '_Tuple2',
-																	_0: _elm_lang$core$Native_Utils.chr('4'),
+																	_0: '4',
 																	_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 34, 0, 3)
 																},
 																_1: {
 																	ctor: '::',
 																	_0: {
 																		ctor: '_Tuple2',
-																		_0: _elm_lang$core$Native_Utils.chr('5'),
+																		_0: '5',
 																		_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 37, 0, 3)
 																	},
 																	_1: {
 																		ctor: '::',
 																		_0: {
 																			ctor: '_Tuple2',
-																			_0: _elm_lang$core$Native_Utils.chr('6'),
+																			_0: '6',
 																			_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 40, 0, 3)
 																		},
 																		_1: {
 																			ctor: '::',
 																			_0: {
 																				ctor: '_Tuple2',
-																				_0: _elm_lang$core$Native_Utils.chr('7'),
+																				_0: '7',
 																				_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 43, 0, 3)
 																			},
 																			_1: {
 																				ctor: '::',
 																				_0: {
 																					ctor: '_Tuple2',
-																					_0: _elm_lang$core$Native_Utils.chr('8'),
+																					_0: '8',
 																					_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 46, 0, 3)
 																				},
 																				_1: {
 																					ctor: '::',
 																					_0: {
 																						ctor: '_Tuple2',
-																						_0: _elm_lang$core$Native_Utils.chr('9'),
+																						_0: '9',
 																						_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 49, 0, 3)
 																					},
 																					_1: {
 																						ctor: '::',
 																						_0: {
 																							ctor: '_Tuple2',
-																							_0: _elm_lang$core$Native_Utils.chr(':'),
+																							_0: ':',
 																							_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 52, 0, 1)
 																						},
 																						_1: {
 																							ctor: '::',
 																							_0: {
 																								ctor: '_Tuple2',
-																								_0: _elm_lang$core$Native_Utils.chr(';'),
+																								_0: ';',
 																								_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 53, 0, 2)
 																							},
 																							_1: {
 																								ctor: '::',
 																								_0: {
 																									ctor: '_Tuple2',
-																									_0: _elm_lang$core$Native_Utils.chr('<'),
+																									_0: '<',
 																									_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 55, 0, 5)
 																								},
 																								_1: {
 																									ctor: '::',
 																									_0: {
 																										ctor: '_Tuple2',
-																										_0: _elm_lang$core$Native_Utils.chr('='),
+																										_0: '=',
 																										_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 60, 0, 3)
 																									},
 																									_1: {
 																										ctor: '::',
 																										_0: {
 																											ctor: '_Tuple2',
-																											_0: _elm_lang$core$Native_Utils.chr('>'),
+																											_0: '>',
 																											_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 0, 11, 5)
 																										},
 																										_1: {
 																											ctor: '::',
 																											_0: {
 																												ctor: '_Tuple2',
-																												_0: _elm_lang$core$Native_Utils.chr('?'),
+																												_0: '?',
 																												_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 5, 11, 3)
 																											},
 																											_1: {
 																												ctor: '::',
 																												_0: {
 																													ctor: '_Tuple2',
-																													_0: _elm_lang$core$Native_Utils.chr('A'),
+																													_0: 'A',
 																													_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 8, 11, 4)
 																												},
 																												_1: {
 																													ctor: '::',
 																													_0: {
 																														ctor: '_Tuple2',
-																														_0: _elm_lang$core$Native_Utils.chr('B'),
+																														_0: 'B',
 																														_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 12, 11, 4)
 																													},
 																													_1: {
 																														ctor: '::',
 																														_0: {
 																															ctor: '_Tuple2',
-																															_0: _elm_lang$core$Native_Utils.chr('C'),
+																															_0: 'C',
 																															_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 16, 11, 4)
 																														},
 																														_1: {
 																															ctor: '::',
 																															_0: {
 																																ctor: '_Tuple2',
-																																_0: _elm_lang$core$Native_Utils.chr('D'),
+																																_0: 'D',
 																																_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 20, 11, 4)
 																															},
 																															_1: {
 																																ctor: '::',
 																																_0: {
 																																	ctor: '_Tuple2',
-																																	_0: _elm_lang$core$Native_Utils.chr('E'),
+																																	_0: 'E',
 																																	_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 24, 11, 3)
 																																},
 																																_1: {
 																																	ctor: '::',
 																																	_0: {
 																																		ctor: '_Tuple2',
-																																		_0: _elm_lang$core$Native_Utils.chr('F'),
+																																		_0: 'F',
 																																		_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 27, 11, 3)
 																																	},
 																																	_1: {
 																																		ctor: '::',
 																																		_0: {
 																																			ctor: '_Tuple2',
-																																			_0: _elm_lang$core$Native_Utils.chr('G'),
+																																			_0: 'G',
 																																			_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 30, 11, 4)
 																																		},
 																																		_1: {
 																																			ctor: '::',
 																																			_0: {
 																																				ctor: '_Tuple2',
-																																				_0: _elm_lang$core$Native_Utils.chr('H'),
+																																				_0: 'H',
 																																				_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 34, 11, 4)
 																																			},
 																																			_1: {
 																																				ctor: '::',
 																																				_0: {
 																																					ctor: '_Tuple2',
-																																					_0: _elm_lang$core$Native_Utils.chr('I'),
-																																					_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 38, 11, 1)
+																																					_0: 'I',
+																																					_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 38, 11, 3)
 																																				},
 																																				_1: {
 																																					ctor: '::',
 																																					_0: {
 																																						ctor: '_Tuple2',
-																																						_0: _elm_lang$core$Native_Utils.chr('J'),
-																																						_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 39, 11, 4)
+																																						_0: 'J',
+																																						_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 41, 11, 4)
 																																					},
 																																					_1: {
 																																						ctor: '::',
 																																						_0: {
 																																							ctor: '_Tuple2',
-																																							_0: _elm_lang$core$Native_Utils.chr('K'),
-																																							_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 43, 11, 4)
+																																							_0: 'K',
+																																							_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 45, 11, 4)
 																																						},
 																																						_1: {
 																																							ctor: '::',
 																																							_0: {
 																																								ctor: '_Tuple2',
-																																								_0: _elm_lang$core$Native_Utils.chr('L'),
-																																								_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 47, 11, 3)
+																																								_0: 'L',
+																																								_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 49, 11, 3)
 																																							},
 																																							_1: {
 																																								ctor: '::',
 																																								_0: {
 																																									ctor: '_Tuple2',
-																																									_0: _elm_lang$core$Native_Utils.chr('M'),
-																																									_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 50, 11, 5)
+																																									_0: 'M',
+																																									_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 52, 11, 5)
 																																								},
 																																								_1: {
 																																									ctor: '::',
 																																									_0: {
 																																										ctor: '_Tuple2',
-																																										_0: _elm_lang$core$Native_Utils.chr('N'),
-																																										_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 55, 11, 4)
+																																										_0: 'N',
+																																										_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 57, 11, 4)
 																																									},
 																																									_1: {
 																																										ctor: '::',
 																																										_0: {
 																																											ctor: '_Tuple2',
-																																											_0: _elm_lang$core$Native_Utils.chr('O'),
-																																											_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 59, 11, 4)
+																																											_0: 'O',
+																																											_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 0, 22, 4)
 																																										},
 																																										_1: {
 																																											ctor: '::',
 																																											_0: {
 																																												ctor: '_Tuple2',
-																																												_0: _elm_lang$core$Native_Utils.chr('P'),
-																																												_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 0, 22, 4)
+																																												_0: 'P',
+																																												_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 4, 22, 4)
 																																											},
 																																											_1: {
 																																												ctor: '::',
 																																												_0: {
 																																													ctor: '_Tuple2',
-																																													_0: _elm_lang$core$Native_Utils.chr('Q'),
-																																													_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 4, 22, 4)
+																																													_0: 'Q',
+																																													_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 8, 22, 4)
 																																												},
 																																												_1: {
 																																													ctor: '::',
 																																													_0: {
 																																														ctor: '_Tuple2',
-																																														_0: _elm_lang$core$Native_Utils.chr('R'),
-																																														_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 8, 22, 4)
+																																														_0: 'R',
+																																														_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 12, 22, 4)
 																																													},
 																																													_1: {
 																																														ctor: '::',
 																																														_0: {
 																																															ctor: '_Tuple2',
-																																															_0: _elm_lang$core$Native_Utils.chr('S'),
-																																															_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 12, 22, 4)
+																																															_0: 'S',
+																																															_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 16, 22, 4)
 																																														},
 																																														_1: {
 																																															ctor: '::',
 																																															_0: {
 																																																ctor: '_Tuple2',
-																																																_0: _elm_lang$core$Native_Utils.chr('T'),
-																																																_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 16, 22, 5)
+																																																_0: 'T',
+																																																_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 20, 22, 5)
 																																															},
 																																															_1: {
 																																																ctor: '::',
 																																																_0: {
 																																																	ctor: '_Tuple2',
-																																																	_0: _elm_lang$core$Native_Utils.chr('U'),
-																																																	_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 21, 22, 4)
+																																																	_0: 'U',
+																																																	_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 25, 22, 4)
 																																																},
 																																																_1: {
 																																																	ctor: '::',
 																																																	_0: {
 																																																		ctor: '_Tuple2',
-																																																		_0: _elm_lang$core$Native_Utils.chr('V'),
-																																																		_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 25, 22, 5)
+																																																		_0: 'V',
+																																																		_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 29, 22, 5)
 																																																	},
 																																																	_1: {
 																																																		ctor: '::',
 																																																		_0: {
 																																																			ctor: '_Tuple2',
-																																																			_0: _elm_lang$core$Native_Utils.chr('W'),
-																																																			_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 30, 22, 7)
+																																																			_0: 'W',
+																																																			_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 34, 22, 7)
 																																																		},
 																																																		_1: {
 																																																			ctor: '::',
 																																																			_0: {
 																																																				ctor: '_Tuple2',
-																																																				_0: _elm_lang$core$Native_Utils.chr('X'),
-																																																				_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 37, 22, 4)
+																																																				_0: 'X',
+																																																				_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 41, 22, 5)
 																																																			},
 																																																			_1: {
 																																																				ctor: '::',
 																																																				_0: {
 																																																					ctor: '_Tuple2',
-																																																					_0: _elm_lang$core$Native_Utils.chr('Y'),
-																																																					_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 41, 22, 5)
+																																																					_0: 'Y',
+																																																					_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 46, 22, 5)
 																																																				},
 																																																				_1: {
 																																																					ctor: '::',
 																																																					_0: {
 																																																						ctor: '_Tuple2',
-																																																						_0: _elm_lang$core$Native_Utils.chr('Z'),
-																																																						_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 46, 22, 4)
+																																																						_0: 'Z',
+																																																						_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 51, 22, 4)
 																																																					},
 																																																					_1: {
 																																																						ctor: '::',
 																																																						_0: {
 																																																							ctor: '_Tuple2',
-																																																							_0: _elm_lang$core$Native_Utils.chr('['),
-																																																							_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 50, 22, 2)
+																																																							_0: '[',
+																																																							_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 55, 22, 2)
 																																																						},
 																																																						_1: {
 																																																							ctor: '::',
 																																																							_0: {
 																																																								ctor: '_Tuple2',
-																																																								_0: _elm_lang$core$Native_Utils.chr(']'),
-																																																								_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 52, 22, 2)
+																																																								_0: ']',
+																																																								_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 57, 22, 2)
 																																																							},
 																																																							_1: {
 																																																								ctor: '::',
 																																																								_0: {
 																																																									ctor: '_Tuple2',
-																																																									_0: _elm_lang$core$Native_Utils.chr('_'),
-																																																									_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 54, 22, 4)
+																																																									_0: '_',
+																																																									_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 59, 22, 4)
 																																																								},
 																																																								_1: {
 																																																									ctor: '::',
 																																																									_0: {
 																																																										ctor: '_Tuple2',
-																																																										_0: _elm_lang$core$Native_Utils.chr('a'),
-																																																										_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 58, 22, 3)
+																																																										_0: 'a',
+																																																										_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 0, 33, 3)
 																																																									},
 																																																									_1: {
 																																																										ctor: '::',
 																																																										_0: {
 																																																											ctor: '_Tuple2',
-																																																											_0: _elm_lang$core$Native_Utils.chr('b'),
-																																																											_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 61, 22, 3)
+																																																											_0: 'b',
+																																																											_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 3, 33, 3)
 																																																										},
 																																																										_1: {
 																																																											ctor: '::',
 																																																											_0: {
 																																																												ctor: '_Tuple2',
-																																																												_0: _elm_lang$core$Native_Utils.chr('c'),
-																																																												_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 0, 33, 3)
+																																																												_0: 'c',
+																																																												_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 6, 33, 3)
 																																																											},
 																																																											_1: {
 																																																												ctor: '::',
 																																																												_0: {
 																																																													ctor: '_Tuple2',
-																																																													_0: _elm_lang$core$Native_Utils.chr('d'),
-																																																													_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 3, 33, 3)
+																																																													_0: 'd',
+																																																													_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 9, 33, 3)
 																																																												},
 																																																												_1: {
 																																																													ctor: '::',
 																																																													_0: {
 																																																														ctor: '_Tuple2',
-																																																														_0: _elm_lang$core$Native_Utils.chr('e'),
-																																																														_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 6, 33, 3)
+																																																														_0: 'e',
+																																																														_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 12, 33, 3)
 																																																													},
 																																																													_1: {
 																																																														ctor: '::',
 																																																														_0: {
 																																																															ctor: '_Tuple2',
-																																																															_0: _elm_lang$core$Native_Utils.chr('f'),
-																																																															_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 9, 33, 4)
+																																																															_0: 'f',
+																																																															_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 15, 33, 4)
 																																																														},
 																																																														_1: {
 																																																															ctor: '::',
 																																																															_0: {
 																																																																ctor: '_Tuple2',
-																																																																_0: _elm_lang$core$Native_Utils.chr('g'),
-																																																																_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 13, 33, 3)
+																																																																_0: 'ff',
+																																																																_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 19, 33, 6)
 																																																															},
 																																																															_1: {
 																																																																ctor: '::',
 																																																																_0: {
 																																																																	ctor: '_Tuple2',
-																																																																	_0: _elm_lang$core$Native_Utils.chr('h'),
-																																																																	_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 16, 33, 3)
+																																																																	_0: 'ffi',
+																																																																	_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 25, 33, 6)
 																																																																},
 																																																																_1: {
 																																																																	ctor: '::',
 																																																																	_0: {
 																																																																		ctor: '_Tuple2',
-																																																																		_0: _elm_lang$core$Native_Utils.chr('i'),
-																																																																		_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 19, 33, 1)
+																																																																		_0: 'fi',
+																																																																		_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 31, 33, 4)
 																																																																	},
 																																																																	_1: {
 																																																																		ctor: '::',
 																																																																		_0: {
 																																																																			ctor: '_Tuple2',
-																																																																			_0: _elm_lang$core$Native_Utils.chr('j'),
-																																																																			_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 20, 33, 3)
+																																																																			_0: 'fj',
+																																																																			_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 35, 33, 4)
 																																																																		},
 																																																																		_1: {
 																																																																			ctor: '::',
 																																																																			_0: {
 																																																																				ctor: '_Tuple2',
-																																																																				_0: _elm_lang$core$Native_Utils.chr('k'),
-																																																																				_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 23, 33, 3)
+																																																																				_0: 'g',
+																																																																				_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 39, 33, 3)
 																																																																			},
 																																																																			_1: {
 																																																																				ctor: '::',
 																																																																				_0: {
 																																																																					ctor: '_Tuple2',
-																																																																					_0: _elm_lang$core$Native_Utils.chr('l'),
-																																																																					_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 26, 33, 1)
+																																																																					_0: 'h',
+																																																																					_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 42, 33, 3)
 																																																																				},
 																																																																				_1: {
 																																																																					ctor: '::',
 																																																																					_0: {
 																																																																						ctor: '_Tuple2',
-																																																																						_0: _elm_lang$core$Native_Utils.chr('m'),
-																																																																						_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 27, 33, 5)
+																																																																						_0: 'i',
+																																																																						_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 45, 33, 1)
 																																																																					},
 																																																																					_1: {
 																																																																						ctor: '::',
 																																																																						_0: {
 																																																																							ctor: '_Tuple2',
-																																																																							_0: _elm_lang$core$Native_Utils.chr('n'),
-																																																																							_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 32, 33, 3)
+																																																																							_0: 'j',
+																																																																							_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 46, 33, 3)
 																																																																						},
 																																																																						_1: {
 																																																																							ctor: '::',
 																																																																							_0: {
 																																																																								ctor: '_Tuple2',
-																																																																								_0: _elm_lang$core$Native_Utils.chr('o'),
-																																																																								_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 35, 33, 3)
+																																																																								_0: 'jj',
+																																																																								_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 49, 33, 5)
 																																																																							},
 																																																																							_1: {
 																																																																								ctor: '::',
 																																																																								_0: {
 																																																																									ctor: '_Tuple2',
-																																																																									_0: _elm_lang$core$Native_Utils.chr('p'),
-																																																																									_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 38, 33, 3)
+																																																																									_0: 'k',
+																																																																									_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 54, 33, 3)
 																																																																								},
 																																																																								_1: {
 																																																																									ctor: '::',
 																																																																									_0: {
 																																																																										ctor: '_Tuple2',
-																																																																										_0: _elm_lang$core$Native_Utils.chr('q'),
-																																																																										_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 41, 33, 3)
+																																																																										_0: 'l',
+																																																																										_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 57, 33, 1)
 																																																																									},
 																																																																									_1: {
 																																																																										ctor: '::',
 																																																																										_0: {
 																																																																											ctor: '_Tuple2',
-																																																																											_0: _elm_lang$core$Native_Utils.chr('r'),
-																																																																											_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 44, 33, 3)
+																																																																											_0: 'm',
+																																																																											_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 58, 33, 5)
 																																																																										},
 																																																																										_1: {
 																																																																											ctor: '::',
 																																																																											_0: {
 																																																																												ctor: '_Tuple2',
-																																																																												_0: _elm_lang$core$Native_Utils.chr('s'),
-																																																																												_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 47, 33, 3)
+																																																																												_0: 'n',
+																																																																												_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 0, 44, 3)
 																																																																											},
 																																																																											_1: {
 																																																																												ctor: '::',
 																																																																												_0: {
 																																																																													ctor: '_Tuple2',
-																																																																													_0: _elm_lang$core$Native_Utils.chr('t'),
-																																																																													_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 50, 33, 3)
+																																																																													_0: 'o',
+																																																																													_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 3, 44, 3)
 																																																																												},
 																																																																												_1: {
 																																																																													ctor: '::',
 																																																																													_0: {
 																																																																														ctor: '_Tuple2',
-																																																																														_0: _elm_lang$core$Native_Utils.chr('u'),
-																																																																														_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 53, 33, 3)
+																																																																														_0: 'p',
+																																																																														_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 6, 44, 3)
 																																																																													},
 																																																																													_1: {
 																																																																														ctor: '::',
 																																																																														_0: {
 																																																																															ctor: '_Tuple2',
-																																																																															_0: _elm_lang$core$Native_Utils.chr('v'),
-																																																																															_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 56, 33, 3)
+																																																																															_0: 'q',
+																																																																															_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 9, 44, 3)
 																																																																														},
 																																																																														_1: {
 																																																																															ctor: '::',
 																																																																															_0: {
 																																																																																ctor: '_Tuple2',
-																																																																																_0: _elm_lang$core$Native_Utils.chr('w'),
-																																																																																_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 59, 33, 5)
+																																																																																_0: 'r',
+																																																																																_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 12, 44, 3)
 																																																																															},
 																																																																															_1: {
 																																																																																ctor: '::',
 																																																																																_0: {
 																																																																																	ctor: '_Tuple2',
-																																																																																	_0: _elm_lang$core$Native_Utils.chr('x'),
-																																																																																	_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 0, 44, 3)
+																																																																																	_0: 's',
+																																																																																	_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 15, 44, 3)
 																																																																																},
 																																																																																_1: {
 																																																																																	ctor: '::',
 																																																																																	_0: {
 																																																																																		ctor: '_Tuple2',
-																																																																																		_0: _elm_lang$core$Native_Utils.chr('y'),
-																																																																																		_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 3, 44, 3)
+																																																																																		_0: 't',
+																																																																																		_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 18, 44, 3)
 																																																																																	},
 																																																																																	_1: {
 																																																																																		ctor: '::',
 																																																																																		_0: {
 																																																																																			ctor: '_Tuple2',
-																																																																																			_0: _elm_lang$core$Native_Utils.chr('z'),
-																																																																																			_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 6, 44, 3)
+																																																																																			_0: 'u',
+																																																																																			_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 21, 44, 3)
 																																																																																		},
 																																																																																		_1: {
 																																																																																			ctor: '::',
 																																																																																			_0: {
 																																																																																				ctor: '_Tuple2',
-																																																																																				_0: _elm_lang$core$Native_Utils.chr('{'),
-																																																																																				_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 9, 44, 3)
+																																																																																				_0: 'v',
+																																																																																				_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 24, 44, 5)
 																																																																																			},
 																																																																																			_1: {
 																																																																																				ctor: '::',
 																																																																																				_0: {
 																																																																																					ctor: '_Tuple2',
-																																																																																					_0: _elm_lang$core$Native_Utils.chr('|'),
-																																																																																					_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 12, 44, 1)
+																																																																																					_0: 'w',
+																																																																																					_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 29, 44, 7)
 																																																																																				},
 																																																																																				_1: {
 																																																																																					ctor: '::',
 																																																																																					_0: {
 																																																																																						ctor: '_Tuple2',
-																																																																																						_0: _elm_lang$core$Native_Utils.chr('}'),
-																																																																																						_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 13, 44, 3)
+																																																																																						_0: 'x',
+																																																																																						_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 36, 44, 3)
 																																																																																					},
 																																																																																					_1: {
 																																																																																						ctor: '::',
 																																																																																						_0: {
 																																																																																							ctor: '_Tuple2',
-																																																																																							_0: _elm_lang$core$Native_Utils.chr('×'),
-																																																																																							_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 16, 44, 3)
+																																																																																							_0: 'y',
+																																																																																							_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 39, 44, 3)
 																																																																																						},
-																																																																																						_1: {ctor: '[]'}
+																																																																																						_1: {
+																																																																																							ctor: '::',
+																																																																																							_0: {
+																																																																																								ctor: '_Tuple2',
+																																																																																								_0: 'z',
+																																																																																								_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 42, 44, 3)
+																																																																																							},
+																																																																																							_1: {
+																																																																																								ctor: '::',
+																																																																																								_0: {
+																																																																																									ctor: '_Tuple2',
+																																																																																									_0: '{',
+																																																																																									_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 45, 44, 3)
+																																																																																								},
+																																																																																								_1: {
+																																																																																									ctor: '::',
+																																																																																									_0: {
+																																																																																										ctor: '_Tuple2',
+																																																																																										_0: '|',
+																																																																																										_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 48, 44, 1)
+																																																																																									},
+																																																																																									_1: {
+																																																																																										ctor: '::',
+																																																																																										_0: {
+																																																																																											ctor: '_Tuple2',
+																																																																																											_0: '}',
+																																																																																											_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 49, 44, 3)
+																																																																																										},
+																																																																																										_1: {
+																																																																																											ctor: '::',
+																																																																																											_0: {
+																																																																																												ctor: '_Tuple2',
+																																																																																												_0: '×',
+																																																																																												_1: A3(_w0rm$elm_mogee$View_FontData$CharInfo, 52, 44, 3)
+																																																																																											},
+																																																																																											_1: {ctor: '[]'}
+																																																																																										}
+																																																																																									}
+																																																																																								}
+																																																																																							}
+																																																																																						}
 																																																																																					}
 																																																																																				}
 																																																																																			}
@@ -13485,14 +13520,68 @@ var _w0rm$elm_mogee$View_FontData$font = _elm_lang$core$Dict$fromList(
 	});
 var _w0rm$elm_mogee$View_Font$texturedFragmentShader = {'src': '\n\n        precision mediump float;\n        uniform sampler2D texture;\n        uniform vec3 color;\n        varying vec2 texturePos;\n\n        void main () {\n            vec4 textureColor = texture2D(texture, texturePos);\n            gl_FragColor = vec4(color, 1.0);\n            if (dot(textureColor, textureColor) == 4.0) discard;\n        }\n\n    '};
 var _w0rm$elm_mogee$View_Font$texturedVertexShader = {'src': '\n\n        precision mediump float;\n        attribute vec2 position;\n        attribute vec2 texPosition;\n        uniform vec2 textureSize;\n        uniform vec3 offset;\n        varying vec2 texturePos;\n\n        void main () {\n            vec2 clipSpace = position + offset.xy - 32.0;\n            gl_Position = vec4(clipSpace.x, -clipSpace.y, offset.z, 32.0);\n            texturePos = texPosition / textureSize;\n        }\n\n    '};
+var _w0rm$elm_mogee$View_Font$takeLigature = F2(
+	function (n, st) {
+		var ligature = A2(_elm_lang$core$String$left, n, st);
+		return (_elm_lang$core$Native_Utils.eq(
+			_elm_lang$core$String$length(ligature),
+			n) && A2(_elm_lang$core$Dict$member, ligature, _w0rm$elm_mogee$View_FontData$font)) ? _elm_lang$core$Maybe$Just(
+			{
+				ctor: '_Tuple2',
+				_0: ligature,
+				_1: A2(_elm_lang$core$String$dropLeft, n, st)
+			}) : _elm_lang$core$Maybe$Nothing;
+	});
+var _w0rm$elm_mogee$View_Font$replaceLigatures = F2(
+	function (st, result) {
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			result,
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (_p0) {
+					var _p1 = _p0;
+					return A2(
+						_w0rm$elm_mogee$View_Font$replaceLigatures,
+						_p1._1,
+						{ctor: '::', _0: _p1._0, _1: result});
+				},
+				_elm_lang$core$List$head(
+					A2(
+						_elm_lang$core$List$filterMap,
+						_elm_lang$core$Basics$identity,
+						{
+							ctor: '::',
+							_0: A2(_w0rm$elm_mogee$View_Font$takeLigature, 3, st),
+							_1: {
+								ctor: '::',
+								_0: A2(_w0rm$elm_mogee$View_Font$takeLigature, 2, st),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$core$Maybe$map,
+										function (_p2) {
+											var _p3 = _p2;
+											return {
+												ctor: '_Tuple2',
+												_0: _elm_lang$core$String$fromChar(_p3._0),
+												_1: _p3._1
+											};
+										},
+										_elm_lang$core$String$uncons(st)),
+									_1: {ctor: '[]'}
+								}
+							}
+						}))));
+	});
 var _w0rm$elm_mogee$View_Font$render = F4(
-	function (color, _p0, texture, offset) {
-		var _p1 = _p0;
+	function (color, _p4, texture, offset) {
+		var _p5 = _p4;
 		return A4(
 			_elm_community$webgl$WebGL$entity,
 			_w0rm$elm_mogee$View_Font$texturedVertexShader,
 			_w0rm$elm_mogee$View_Font$texturedFragmentShader,
-			_p1._0,
+			_p5._0,
 			{
 				offset: _elm_community$linear_algebra$Math_Vector3$fromTuple(offset),
 				texture: texture,
@@ -13524,31 +13613,39 @@ var _w0rm$elm_mogee$View_Font$bearingsDict = _elm_lang$core$Dict$fromList(
 		ctor: '::',
 		_0: {
 			ctor: '_Tuple2',
-			_0: _elm_lang$core$Native_Utils.chr('j'),
+			_0: 'j',
 			_1: {ctor: '_Tuple2', _0: -2, _1: 1}
 		},
 		_1: {
 			ctor: '::',
 			_0: {
 				ctor: '_Tuple2',
-				_0: _elm_lang$core$Native_Utils.chr(','),
-				_1: {ctor: '_Tuple2', _0: -1, _1: 1}
+				_0: 'jj',
+				_1: {ctor: '_Tuple2', _0: -2, _1: 1}
 			},
 			_1: {
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.chr(';'),
+					_0: ',',
 					_1: {ctor: '_Tuple2', _0: -1, _1: 1}
 				},
 				_1: {
 					ctor: '::',
 					_0: {
 						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.chr(' '),
-						_1: {ctor: '_Tuple2', _0: 0, _1: 0}
+						_0: ';',
+						_1: {ctor: '_Tuple2', _0: -1, _1: 1}
 					},
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: ' ',
+							_1: {ctor: '_Tuple2', _0: 0, _1: 0}
+						},
+						_1: {ctor: '[]'}
+					}
 				}
 			}
 		}
@@ -13572,25 +13669,57 @@ var _w0rm$elm_mogee$View_Font$kerningOverrides = _elm_lang$core$Dict$fromList(
 		ctor: '::',
 		_0: {
 			ctor: '_Tuple2',
-			_0: {
-				ctor: '_Tuple2',
-				_0: _elm_lang$core$Native_Utils.chr('/'),
-				_1: _elm_lang$core$Native_Utils.chr('/')
-			},
+			_0: {ctor: '_Tuple2', _0: '/', _1: '/'},
 			_1: -1
 		},
 		_1: {
 			ctor: '::',
 			_0: {
 				ctor: '_Tuple2',
-				_0: {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.chr('y'),
-					_1: _elm_lang$core$Native_Utils.chr('j')
-				},
+				_0: {ctor: '_Tuple2', _0: 'y', _1: 'j'},
 				_1: -1
 			},
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: {ctor: '_Tuple2', _0: 'V', _1: 'g'},
+					_1: -1
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: {ctor: '_Tuple2', _0: 'W', _1: 'g'},
+						_1: -1
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: {ctor: '_Tuple2', _0: 'L', _1: 'g'},
+							_1: 0
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: {ctor: '_Tuple2', _0: 'f', _1: 'a'},
+								_1: -1
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: {ctor: '_Tuple2', _0: 'f', _1: 'a'},
+									_1: -1
+								},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}
 		}
 	});
 var _w0rm$elm_mogee$View_Font$kerningDict = _elm_lang$core$Dict$fromList(
@@ -13598,66 +13727,146 @@ var _w0rm$elm_mogee$View_Font$kerningDict = _elm_lang$core$Dict$fromList(
 		ctor: '::',
 		_0: {
 			ctor: '_Tuple2',
-			_0: {ctor: '_Tuple2', _0: 1, _1: 5},
+			_0: {ctor: '_Tuple2', _0: 4, _1: 3},
 			_1: -1
 		},
 		_1: {
 			ctor: '::',
 			_0: {
 				ctor: '_Tuple2',
-				_0: {ctor: '_Tuple2', _0: 6, _1: 6},
-				_1: -2
+				_0: {ctor: '_Tuple2', _0: 4, _1: 5},
+				_1: -1
 			},
 			_1: {
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
-					_0: {ctor: '_Tuple2', _0: 6, _1: 8},
+					_0: {ctor: '_Tuple2', _0: 5, _1: 3},
 					_1: -1
 				},
 				_1: {
 					ctor: '::',
 					_0: {
 						ctor: '_Tuple2',
-						_0: {ctor: '_Tuple2', _0: 9, _1: 6},
+						_0: {ctor: '_Tuple2', _0: 5, _1: 8},
 						_1: -1
 					},
 					_1: {
 						ctor: '::',
 						_0: {
 							ctor: '_Tuple2',
-							_0: {ctor: '_Tuple2', _0: 9, _1: 7},
+							_0: {ctor: '_Tuple2', _0: 6, _1: 16},
 							_1: -1
 						},
 						_1: {
 							ctor: '::',
 							_0: {
 								ctor: '_Tuple2',
-								_0: {ctor: '_Tuple2', _0: 9, _1: 8},
-								_1: -2
+								_0: {ctor: '_Tuple2', _0: 6, _1: 8},
+								_1: -1
 							},
 							_1: {
 								ctor: '::',
 								_0: {
 									ctor: '_Tuple2',
-									_0: {ctor: '_Tuple2', _0: 9, _1: 9},
+									_0: {ctor: '_Tuple2', _0: 9, _1: 6},
 									_1: -1
 								},
 								_1: {
 									ctor: '::',
 									_0: {
 										ctor: '_Tuple2',
-										_0: {ctor: '_Tuple2', _0: 9, _1: 10},
+										_0: {ctor: '_Tuple2', _0: 9, _1: 4},
 										_1: -1
 									},
 									_1: {
 										ctor: '::',
 										_0: {
 											ctor: '_Tuple2',
-											_0: {ctor: '_Tuple2', _0: 15, _1: 13},
+											_0: {ctor: '_Tuple2', _0: 9, _1: 3},
 											_1: -1
 										},
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: {ctor: '_Tuple2', _0: 9, _1: 7},
+												_1: -1
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '_Tuple2',
+													_0: {ctor: '_Tuple2', _0: 9, _1: 8},
+													_1: -2
+												},
+												_1: {
+													ctor: '::',
+													_0: {
+														ctor: '_Tuple2',
+														_0: {ctor: '_Tuple2', _0: 9, _1: 9},
+														_1: -1
+													},
+													_1: {
+														ctor: '::',
+														_0: {
+															ctor: '_Tuple2',
+															_0: {ctor: '_Tuple2', _0: 9, _1: 10},
+															_1: -1
+														},
+														_1: {
+															ctor: '::',
+															_0: {
+																ctor: '_Tuple2',
+																_0: {ctor: '_Tuple2', _0: 9, _1: 14},
+																_1: -1
+															},
+															_1: {
+																ctor: '::',
+																_0: {
+																	ctor: '_Tuple2',
+																	_0: {ctor: '_Tuple2', _0: 10, _1: 10},
+																	_1: -1
+																},
+																_1: {
+																	ctor: '::',
+																	_0: {
+																		ctor: '_Tuple2',
+																		_0: {ctor: '_Tuple2', _0: 15, _1: 13},
+																		_1: -1
+																	},
+																	_1: {
+																		ctor: '::',
+																		_0: {
+																			ctor: '_Tuple2',
+																			_0: {ctor: '_Tuple2', _0: 17, _1: 8},
+																			_1: -1
+																		},
+																		_1: {
+																			ctor: '::',
+																			_0: {
+																				ctor: '_Tuple2',
+																				_0: {ctor: '_Tuple2', _0: 17, _1: 4},
+																				_1: -1
+																			},
+																			_1: {
+																				ctor: '::',
+																				_0: {
+																					ctor: '_Tuple2',
+																					_0: {ctor: '_Tuple2', _0: 17, _1: 3},
+																					_1: -1
+																				},
+																				_1: {ctor: '[]'}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
 									}
 								}
 							}
@@ -13670,15 +13879,15 @@ var _w0rm$elm_mogee$View_Font$kerningDict = _elm_lang$core$Dict$fromList(
 var _w0rm$elm_mogee$View_Font$invertDict = A2(
 	_elm_lang$core$List$foldl,
 	F2(
-		function (_p2, dict) {
-			var _p3 = _p2;
+		function (_p6, dict) {
+			var _p7 = _p6;
 			return A3(
 				_elm_lang$core$List$foldl,
 				function ($char) {
-					return A2(_elm_lang$core$Dict$insert, $char, _p3._0);
+					return A2(_elm_lang$core$Dict$insert, $char, _p7._0);
 				},
 				dict,
-				_p3._1);
+				_p7._1);
 		}),
 	_elm_lang$core$Dict$empty);
 var _w0rm$elm_mogee$View_Font$leftKerningClass = _w0rm$elm_mogee$View_Font$invertDict(
@@ -13686,10 +13895,10 @@ var _w0rm$elm_mogee$View_Font$leftKerningClass = _w0rm$elm_mogee$View_Font$inver
 		ctor: '::',
 		_0: {
 			ctor: '_Tuple2',
-			_0: 1,
+			_0: 4,
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$core$Native_Utils.chr('A'),
+				_0: 'L',
 				_1: {ctor: '[]'}
 			}
 		},
@@ -13697,66 +13906,14 @@ var _w0rm$elm_mogee$View_Font$leftKerningClass = _w0rm$elm_mogee$View_Font$inver
 			ctor: '::',
 			_0: {
 				ctor: '_Tuple2',
-				_0: 2,
+				_0: 5,
 				_1: {
 					ctor: '::',
-					_0: _elm_lang$core$Native_Utils.chr('B'),
+					_0: 'E',
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$core$Native_Utils.chr('C'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$core$Native_Utils.chr('E'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$core$Native_Utils.chr('G'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$core$Native_Utils.chr('H'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$core$Native_Utils.chr('I'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$core$Native_Utils.chr('J'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$core$Native_Utils.chr('K'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$core$Native_Utils.chr('M'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr('N'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$core$Native_Utils.chr('R'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$core$Native_Utils.chr('S'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$core$Native_Utils.chr('U'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$core$Native_Utils.chr('X'),
-																		_1: {
-																			ctor: '::',
-																			_0: _elm_lang$core$Native_Utils.chr('Z'),
-																			_1: {ctor: '[]'}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
+						_0: 'I',
+						_1: {ctor: '[]'}
 					}
 				}
 			},
@@ -13764,45 +13921,25 @@ var _w0rm$elm_mogee$View_Font$leftKerningClass = _w0rm$elm_mogee$View_Font$inver
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
-					_0: 3,
+					_0: 6,
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$core$Native_Utils.chr('D'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$core$Native_Utils.chr('O'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$core$Native_Utils.chr('Q'),
-								_1: {ctor: '[]'}
-							}
-						}
+						_0: 'T',
+						_1: {ctor: '[]'}
 					}
 				},
 				_1: {
 					ctor: '::',
 					_0: {
 						ctor: '_Tuple2',
-						_0: 4,
+						_0: 9,
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$core$Native_Utils.chr('F'),
+							_0: 'f',
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$core$Native_Utils.chr('P'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$core$Native_Utils.chr('V'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$core$Native_Utils.chr('W'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$core$Native_Utils.chr('Y'),
-											_1: {ctor: '[]'}
-										}
-									}
-								}
+								_0: 'ff',
+								_1: {ctor: '[]'}
 							}
 						}
 					},
@@ -13810,10 +13947,10 @@ var _w0rm$elm_mogee$View_Font$leftKerningClass = _w0rm$elm_mogee$View_Font$inver
 						ctor: '::',
 						_0: {
 							ctor: '_Tuple2',
-							_0: 5,
+							_0: 10,
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$core$Native_Utils.chr('L'),
+								_0: 'r',
 								_1: {ctor: '[]'}
 							}
 						},
@@ -13821,10 +13958,10 @@ var _w0rm$elm_mogee$View_Font$leftKerningClass = _w0rm$elm_mogee$View_Font$inver
 							ctor: '::',
 							_0: {
 								ctor: '_Tuple2',
-								_0: 6,
+								_0: 15,
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$core$Native_Utils.chr('T'),
+									_0: '/',
 									_1: {ctor: '[]'}
 								}
 							},
@@ -13832,70 +13969,14 @@ var _w0rm$elm_mogee$View_Font$leftKerningClass = _w0rm$elm_mogee$View_Font$inver
 								ctor: '::',
 								_0: {
 									ctor: '_Tuple2',
-									_0: 7,
+									_0: 17,
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$core$Native_Utils.chr('a'),
+										_0: 'V',
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$core$Native_Utils.chr('b'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$core$Native_Utils.chr('c'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$core$Native_Utils.chr('e'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr('h'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$core$Native_Utils.chr('k'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$core$Native_Utils.chr('m'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$core$Native_Utils.chr('n'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$core$Native_Utils.chr('o'),
-																		_1: {
-																			ctor: '::',
-																			_0: _elm_lang$core$Native_Utils.chr('p'),
-																			_1: {
-																				ctor: '::',
-																				_0: _elm_lang$core$Native_Utils.chr('r'),
-																				_1: {
-																					ctor: '::',
-																					_0: _elm_lang$core$Native_Utils.chr('s'),
-																					_1: {
-																						ctor: '::',
-																						_0: _elm_lang$core$Native_Utils.chr('t'),
-																						_1: {
-																							ctor: '::',
-																							_0: _elm_lang$core$Native_Utils.chr('u'),
-																							_1: {
-																								ctor: '::',
-																								_0: _elm_lang$core$Native_Utils.chr('x'),
-																								_1: {
-																									ctor: '::',
-																									_0: _elm_lang$core$Native_Utils.chr('z'),
-																									_1: {ctor: '[]'}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
+											_0: 'W',
+											_1: {ctor: '[]'}
 										}
 									}
 								},
@@ -13903,134 +13984,18 @@ var _w0rm$elm_mogee$View_Font$leftKerningClass = _w0rm$elm_mogee$View_Font$inver
 									ctor: '::',
 									_0: {
 										ctor: '_Tuple2',
-										_0: 8,
+										_0: 18,
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$core$Native_Utils.chr('d'),
+											_0: 'v',
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$core$Native_Utils.chr('i'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$core$Native_Utils.chr('j'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr('l'),
-														_1: {ctor: '[]'}
-													}
-												}
+												_0: 'w',
+												_1: {ctor: '[]'}
 											}
 										}
 									},
-									_1: {
-										ctor: '::',
-										_0: {
-											ctor: '_Tuple2',
-											_0: 9,
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$core$Native_Utils.chr('f'),
-												_1: {ctor: '[]'}
-											}
-										},
-										_1: {
-											ctor: '::',
-											_0: {
-												ctor: '_Tuple2',
-												_0: 10,
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$core$Native_Utils.chr('g'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr('q'),
-														_1: {ctor: '[]'}
-													}
-												}
-											},
-											_1: {
-												ctor: '::',
-												_0: {
-													ctor: '_Tuple2',
-													_0: 11,
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr('v'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$core$Native_Utils.chr('w'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$core$Native_Utils.chr('y'),
-																_1: {ctor: '[]'}
-															}
-														}
-													}
-												},
-												_1: {
-													ctor: '::',
-													_0: {
-														ctor: '_Tuple2',
-														_0: 12,
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$core$Native_Utils.chr('.'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$core$Native_Utils.chr(','),
-																_1: {ctor: '[]'}
-															}
-														}
-													},
-													_1: {
-														ctor: '::',
-														_0: {
-															ctor: '_Tuple2',
-															_0: 13,
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$core$Native_Utils.chr('\''),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$core$Native_Utils.chr('\"'),
-																	_1: {ctor: '[]'}
-																}
-															}
-														},
-														_1: {
-															ctor: '::',
-															_0: {
-																ctor: '_Tuple2',
-																_0: 14,
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$core$Native_Utils.chr('!'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$core$Native_Utils.chr('?'),
-																		_1: {ctor: '[]'}
-																	}
-																}
-															},
-															_1: {
-																ctor: '::',
-																_0: {
-																	ctor: '_Tuple2',
-																	_0: 15,
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$core$Native_Utils.chr('/'),
-																		_1: {ctor: '[]'}
-																	}
-																},
-																_1: {ctor: '[]'}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
+									_1: {ctor: '[]'}
 								}
 							}
 						}
@@ -14044,13 +14009,13 @@ var _w0rm$elm_mogee$View_Font$rightKerningClass = _w0rm$elm_mogee$View_Font$inve
 		ctor: '::',
 		_0: {
 			ctor: '_Tuple2',
-			_0: 1,
+			_0: 3,
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$core$Native_Utils.chr('A'),
+				_0: 'v',
 				_1: {
 					ctor: '::',
-					_0: _elm_lang$core$Native_Utils.chr('M'),
+					_0: 'w',
 					_1: {ctor: '[]'}
 				}
 			}
@@ -14059,65 +14024,17 @@ var _w0rm$elm_mogee$View_Font$rightKerningClass = _w0rm$elm_mogee$View_Font$inve
 			ctor: '::',
 			_0: {
 				ctor: '_Tuple2',
-				_0: 2,
+				_0: 4,
 				_1: {
 					ctor: '::',
-					_0: _elm_lang$core$Native_Utils.chr('B'),
+					_0: 'd',
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$core$Native_Utils.chr('D'),
+						_0: 'e',
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$core$Native_Utils.chr('E'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$core$Native_Utils.chr('F'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$core$Native_Utils.chr('H'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$core$Native_Utils.chr('I'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$core$Native_Utils.chr('K'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$core$Native_Utils.chr('L'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$core$Native_Utils.chr('N'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr('P'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$core$Native_Utils.chr('R'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$core$Native_Utils.chr('S'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$core$Native_Utils.chr('U'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$core$Native_Utils.chr('X'),
-																		_1: {
-																			ctor: '::',
-																			_0: _elm_lang$core$Native_Utils.chr('Z'),
-																			_1: {ctor: '[]'}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
+							_0: 's',
+							_1: {ctor: '[]'}
 						}
 					}
 				}
@@ -14126,19 +14043,19 @@ var _w0rm$elm_mogee$View_Font$rightKerningClass = _w0rm$elm_mogee$View_Font$inve
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
-					_0: 3,
+					_0: 5,
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$core$Native_Utils.chr('C'),
+						_0: 'T',
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$core$Native_Utils.chr('G'),
+							_0: 'V',
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$core$Native_Utils.chr('O'),
+								_0: 'W',
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$core$Native_Utils.chr('Q'),
+									_0: 'Y',
 									_1: {ctor: '[]'}
 								}
 							}
@@ -14149,96 +14066,44 @@ var _w0rm$elm_mogee$View_Font$rightKerningClass = _w0rm$elm_mogee$View_Font$inve
 					ctor: '::',
 					_0: {
 						ctor: '_Tuple2',
-						_0: 4,
+						_0: 6,
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$core$Native_Utils.chr('J'),
-							_1: {ctor: '[]'}
-						}
-					},
-					_1: {
-						ctor: '::',
-						_0: {
-							ctor: '_Tuple2',
-							_0: 5,
+							_0: 'c',
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$core$Native_Utils.chr('T'),
+								_0: 'm',
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$core$Native_Utils.chr('V'),
+									_0: 'n',
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$core$Native_Utils.chr('W'),
+										_0: 'o',
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$core$Native_Utils.chr('Y'),
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							}
-						},
-						_1: {
-							ctor: '::',
-							_0: {
-								ctor: '_Tuple2',
-								_0: 6,
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$core$Native_Utils.chr('a'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$core$Native_Utils.chr('c'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$core$Native_Utils.chr('d'),
+											_0: 'p',
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$core$Native_Utils.chr('e'),
+												_0: 'q',
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$core$Native_Utils.chr('m'),
+													_0: 'r',
 													_1: {
 														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr('n'),
+														_0: 't',
 														_1: {
 															ctor: '::',
-															_0: _elm_lang$core$Native_Utils.chr('o'),
+															_0: 'u',
 															_1: {
 																ctor: '::',
-																_0: _elm_lang$core$Native_Utils.chr('q'),
+																_0: 'x',
 																_1: {
 																	ctor: '::',
-																	_0: _elm_lang$core$Native_Utils.chr('r'),
+																	_0: 'y',
 																	_1: {
 																		ctor: '::',
-																		_0: _elm_lang$core$Native_Utils.chr('s'),
-																		_1: {
-																			ctor: '::',
-																			_0: _elm_lang$core$Native_Utils.chr('t'),
-																			_1: {
-																				ctor: '::',
-																				_0: _elm_lang$core$Native_Utils.chr('u'),
-																				_1: {
-																					ctor: '::',
-																					_0: _elm_lang$core$Native_Utils.chr('v'),
-																					_1: {
-																						ctor: '::',
-																						_0: _elm_lang$core$Native_Utils.chr('w'),
-																						_1: {
-																							ctor: '::',
-																							_0: _elm_lang$core$Native_Utils.chr('x'),
-																							_1: {
-																								ctor: '::',
-																								_0: _elm_lang$core$Native_Utils.chr('z'),
-																								_1: {ctor: '[]'}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
+																		_0: 'z',
+																		_1: {ctor: '[]'}
 																	}
 																}
 															}
@@ -14249,27 +14114,75 @@ var _w0rm$elm_mogee$View_Font$rightKerningClass = _w0rm$elm_mogee$View_Font$inve
 										}
 									}
 								}
+							}
+						}
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 7,
+							_1: {
+								ctor: '::',
+								_0: 'b',
+								_1: {
+									ctor: '::',
+									_0: 'h',
+									_1: {
+										ctor: '::',
+										_0: 'i',
+										_1: {
+											ctor: '::',
+											_0: 'k',
+											_1: {
+												ctor: '::',
+												_0: 'l',
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 8,
+								_1: {
+									ctor: '::',
+									_0: 'f',
+									_1: {
+										ctor: '::',
+										_0: 'fj',
+										_1: {
+											ctor: '::',
+											_0: 'fi',
+											_1: {ctor: '[]'}
+										}
+									}
+								}
 							},
 							_1: {
 								ctor: '::',
 								_0: {
 									ctor: '_Tuple2',
-									_0: 7,
+									_0: 9,
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$core$Native_Utils.chr('b'),
+										_0: 'g',
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$core$Native_Utils.chr('h'),
+											_0: 'p',
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$core$Native_Utils.chr('i'),
+												_0: 'y',
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$core$Native_Utils.chr('k'),
+													_0: 'j',
 													_1: {
 														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr('l'),
+														_0: 'jj',
 														_1: {ctor: '[]'}
 													}
 												}
@@ -14281,47 +14194,39 @@ var _w0rm$elm_mogee$View_Font$rightKerningClass = _w0rm$elm_mogee$View_Font$inve
 									ctor: '::',
 									_0: {
 										ctor: '_Tuple2',
-										_0: 8,
+										_0: 10,
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$core$Native_Utils.chr('f'),
-											_1: {ctor: '[]'}
+											_0: '.',
+											_1: {
+												ctor: '::',
+												_0: ',',
+												_1: {ctor: '[]'}
+											}
 										}
 									},
 									_1: {
 										ctor: '::',
 										_0: {
 											ctor: '_Tuple2',
-											_0: 9,
+											_0: 13,
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$core$Native_Utils.chr('g'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$core$Native_Utils.chr('p'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr('y'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$core$Native_Utils.chr('j'),
-															_1: {ctor: '[]'}
-														}
-													}
-												}
+												_0: '/',
+												_1: {ctor: '[]'}
 											}
 										},
 										_1: {
 											ctor: '::',
 											_0: {
 												ctor: '_Tuple2',
-												_0: 10,
+												_0: 14,
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$core$Native_Utils.chr('.'),
+													_0: ':',
 													_1: {
 														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr(','),
+														_0: ';',
 														_1: {ctor: '[]'}
 													}
 												}
@@ -14330,74 +14235,14 @@ var _w0rm$elm_mogee$View_Font$rightKerningClass = _w0rm$elm_mogee$View_Font$inve
 												ctor: '::',
 												_0: {
 													ctor: '_Tuple2',
-													_0: 11,
+													_0: 15,
 													_1: {
 														ctor: '::',
-														_0: _elm_lang$core$Native_Utils.chr('\''),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$core$Native_Utils.chr('\"'),
-															_1: {ctor: '[]'}
-														}
+														_0: '$',
+														_1: {ctor: '[]'}
 													}
 												},
-												_1: {
-													ctor: '::',
-													_0: {
-														ctor: '_Tuple2',
-														_0: 12,
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$core$Native_Utils.chr('!'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$core$Native_Utils.chr('?'),
-																_1: {ctor: '[]'}
-															}
-														}
-													},
-													_1: {
-														ctor: '::',
-														_0: {
-															ctor: '_Tuple2',
-															_0: 13,
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$core$Native_Utils.chr('/'),
-																_1: {ctor: '[]'}
-															}
-														},
-														_1: {
-															ctor: '::',
-															_0: {
-																ctor: '_Tuple2',
-																_0: 14,
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$core$Native_Utils.chr(':'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$core$Native_Utils.chr(';'),
-																		_1: {ctor: '[]'}
-																	}
-																}
-															},
-															_1: {
-																ctor: '::',
-																_0: {
-																	ctor: '_Tuple2',
-																	_0: 15,
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$core$Native_Utils.chr('$'),
-																		_1: {ctor: '[]'}
-																	}
-																},
-																_1: {ctor: '[]'}
-															}
-														}
-													}
-												}
+												_1: {ctor: '[]'}
 											}
 										}
 									}
@@ -14441,24 +14286,24 @@ var _w0rm$elm_mogee$View_Font$kerning = F2(
 	});
 var _w0rm$elm_mogee$View_Font$letterSpacing = F2(
 	function (prevChar, nextChar) {
-		var _p4 = prevChar;
-		if (_p4.ctor === 'Nothing') {
+		var _p8 = prevChar;
+		if (_p8.ctor === 'Nothing') {
 			return _w0rm$elm_mogee$View_Font$leftBearing(nextChar);
 		} else {
-			switch (_p4._0.valueOf()) {
+			switch (_p8._0) {
 				case ' ':
 					return _w0rm$elm_mogee$View_Font$leftBearing(nextChar);
 				case '\n':
 					return _w0rm$elm_mogee$View_Font$leftBearing(nextChar);
 				default:
-					var _p5 = _p4._0;
+					var _p9 = _p8._0;
 					return _elm_lang$core$List$sum(
 						{
 							ctor: '::',
-							_0: _w0rm$elm_mogee$View_Font$rightBearing(_p5),
+							_0: _w0rm$elm_mogee$View_Font$rightBearing(_p9),
 							_1: {
 								ctor: '::',
-								_0: A2(_w0rm$elm_mogee$View_Font$kerning, _p5, nextChar),
+								_0: A2(_w0rm$elm_mogee$View_Font$kerning, _p9, nextChar),
 								_1: {
 									ctor: '::',
 									_0: _w0rm$elm_mogee$View_Font$leftBearing(nextChar),
@@ -14477,10 +14322,10 @@ var _w0rm$elm_mogee$View_Font$Vertex = F2(
 		return {position: a, texPosition: b};
 	});
 var _w0rm$elm_mogee$View_Font$addLetter = F2(
-	function ($char, _p6) {
-		var _p7 = _p6;
-		var _p9 = _p7._1;
-		var _p8 = _p7._0;
+	function ($char, _p10) {
+		var _p11 = _p10;
+		var _p13 = _p11._1;
+		var _p12 = _p11._0;
 		return F2(
 			function (x, y) {
 				return A2(_elm_lang$core$Basics_ops['++'], x, y);
@@ -14491,15 +14336,15 @@ var _w0rm$elm_mogee$View_Font$addLetter = F2(
 					ctor: '_Tuple3',
 					_0: A2(
 						_w0rm$elm_mogee$View_Font$Vertex,
-						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8, _p9),
+						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p12, _p13),
 						A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x, $char.y)),
 					_1: A2(
 						_w0rm$elm_mogee$View_Font$Vertex,
-						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8 + $char.w, _p9 + _w0rm$elm_mogee$View_Font$emHeight),
+						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p12 + $char.w, _p13 + _w0rm$elm_mogee$View_Font$emHeight),
 						A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x + $char.w, $char.y + _w0rm$elm_mogee$View_Font$emHeight)),
 					_2: A2(
 						_w0rm$elm_mogee$View_Font$Vertex,
-						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8 + $char.w, _p9),
+						A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p12 + $char.w, _p13),
 						A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x + $char.w, $char.y))
 				},
 				_1: {
@@ -14508,15 +14353,15 @@ var _w0rm$elm_mogee$View_Font$addLetter = F2(
 						ctor: '_Tuple3',
 						_0: A2(
 							_w0rm$elm_mogee$View_Font$Vertex,
-							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8, _p9),
+							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p12, _p13),
 							A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x, $char.y)),
 						_1: A2(
 							_w0rm$elm_mogee$View_Font$Vertex,
-							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8, _p9 + _w0rm$elm_mogee$View_Font$emHeight),
+							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p12, _p13 + _w0rm$elm_mogee$View_Font$emHeight),
 							A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x, $char.y + _w0rm$elm_mogee$View_Font$emHeight)),
 						_2: A2(
 							_w0rm$elm_mogee$View_Font$Vertex,
-							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p8 + $char.w, _p9 + _w0rm$elm_mogee$View_Font$emHeight),
+							A2(_elm_community$linear_algebra$Math_Vector2$vec2, _p12 + $char.w, _p13 + _w0rm$elm_mogee$View_Font$emHeight),
 							A2(_elm_community$linear_algebra$Math_Vector2$vec2, $char.x + $char.w, $char.y + _w0rm$elm_mogee$View_Font$emHeight))
 					},
 					_1: {ctor: '[]'}
@@ -14527,67 +14372,65 @@ var _w0rm$elm_mogee$View_Font$textMeshHelper = F5(
 	function (prevChar, text, currentX, currentY, list) {
 		textMeshHelper:
 		while (true) {
-			var _p10 = _elm_lang$core$String$uncons(text);
-			if (_p10.ctor === 'Just') {
-				switch (_p10._0._0.valueOf()) {
+			var _p14 = text;
+			if (_p14.ctor === '::') {
+				switch (_p14._0) {
 					case ' ':
-						var _v5 = _elm_lang$core$Maybe$Just(
-							_elm_lang$core$Native_Utils.chr(' ')),
-							_v6 = _p10._0._1,
-							_v7 = currentX + _w0rm$elm_mogee$View_Font$spaceWidth,
-							_v8 = currentY,
-							_v9 = list;
-						prevChar = _v5;
-						text = _v6;
-						currentX = _v7;
-						currentY = _v8;
-						list = _v9;
+						var _v7 = _elm_lang$core$Maybe$Just(' '),
+							_v8 = _p14._1,
+							_v9 = currentX + _w0rm$elm_mogee$View_Font$spaceWidth,
+							_v10 = currentY,
+							_v11 = list;
+						prevChar = _v7;
+						text = _v8;
+						currentX = _v9;
+						currentY = _v10;
+						list = _v11;
 						continue textMeshHelper;
 					case '\n':
-						var _v10 = _elm_lang$core$Maybe$Just(
-							_elm_lang$core$Native_Utils.chr('\n')),
-							_v11 = _p10._0._1,
-							_v12 = 0,
-							_v13 = currentY + _w0rm$elm_mogee$View_Font$emHeight,
-							_v14 = list;
-						prevChar = _v10;
-						text = _v11;
-						currentX = _v12;
-						currentY = _v13;
-						list = _v14;
+						var _v12 = _elm_lang$core$Maybe$Just('\n'),
+							_v13 = _p14._1,
+							_v14 = 0,
+							_v15 = currentY + _w0rm$elm_mogee$View_Font$emHeight,
+							_v16 = list;
+						prevChar = _v12;
+						text = _v13;
+						currentX = _v14;
+						currentY = _v15;
+						list = _v16;
 						continue textMeshHelper;
 					default:
-						var _p14 = _p10._0._1;
-						var _p13 = _p10._0._0;
-						var _p11 = A2(_elm_lang$core$Dict$get, _p13, _w0rm$elm_mogee$View_FontData$font);
-						if (_p11.ctor === 'Just') {
-							var _p12 = _p11._0;
+						var _p18 = _p14._1;
+						var _p17 = _p14._0;
+						var _p15 = A2(_elm_lang$core$Dict$get, _p17, _w0rm$elm_mogee$View_FontData$font);
+						if (_p15.ctor === 'Just') {
+							var _p16 = _p15._0;
 							return A3(
 								_w0rm$elm_mogee$View_Font$addLetter,
-								_p12,
+								_p16,
 								{
 									ctor: '_Tuple2',
-									_0: currentX + A2(_w0rm$elm_mogee$View_Font$letterSpacing, prevChar, _p13),
+									_0: currentX + A2(_w0rm$elm_mogee$View_Font$letterSpacing, prevChar, _p17),
 									_1: currentY
 								},
 								A5(
 									_w0rm$elm_mogee$View_Font$textMeshHelper,
-									_elm_lang$core$Maybe$Just(_p13),
-									_p14,
-									(currentX + _p12.w) + A2(_w0rm$elm_mogee$View_Font$letterSpacing, prevChar, _p13),
+									_elm_lang$core$Maybe$Just(_p17),
+									_p18,
+									(currentX + _p16.w) + A2(_w0rm$elm_mogee$View_Font$letterSpacing, prevChar, _p17),
 									currentY,
 									list));
 						} else {
-							var _v16 = prevChar,
-								_v17 = _p14,
-								_v18 = currentX,
-								_v19 = currentY,
-								_v20 = list;
-							prevChar = _v16;
-							text = _v17;
-							currentX = _v18;
-							currentY = _v19;
-							list = _v20;
+							var _v18 = prevChar,
+								_v19 = _p18,
+								_v20 = currentX,
+								_v21 = currentY,
+								_v22 = list;
+							prevChar = _v18;
+							text = _v19;
+							currentX = _v20;
+							currentY = _v21;
+							list = _v22;
 							continue textMeshHelper;
 						}
 				}
@@ -14607,12 +14450,17 @@ var _w0rm$elm_mogee$View_Font$Text = function (a) {
 	return {ctor: 'Text', _0: a};
 };
 var _w0rm$elm_mogee$View_Font$text = function (text) {
+	var chars = _elm_lang$core$List$reverse(
+		A2(
+			_w0rm$elm_mogee$View_Font$replaceLigatures,
+			text,
+			{ctor: '[]'}));
 	return _w0rm$elm_mogee$View_Font$Text(
 		_elm_community$webgl$WebGL$triangles(
 			A5(
 				_w0rm$elm_mogee$View_Font$textMeshHelper,
 				_elm_lang$core$Maybe$Nothing,
-				text,
+				chars,
 				0,
 				0,
 				{ctor: '[]'})));
@@ -14725,7 +14573,7 @@ var _w0rm$elm_mogee$PixelFont$view = function (_p1) {
 					_0: _elm_lang$html$Html_Attributes$value(_p4),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$id('textarea'),
+						_0: _elm_lang$html$Html_Attributes$autofocus(true),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$html$Html_Attributes$style(
@@ -14991,13 +14839,13 @@ var _w0rm$elm_mogee$PixelFont$main = A2(
 	{
 		init: function (_p6) {
 			var _p7 = _p6;
-			var _p10 = _p7.hash;
+			var _p8 = _p7.hash;
 			return {
 				ctor: '_Tuple2',
 				_0: {
 					size: 0,
 					font: _elm_lang$core$Maybe$Nothing,
-					text: _elm_lang$core$Native_Utils.eq(_p10, '') ? '\nThe quick brown\nfox jumps over\nthe lazy dog' : _w0rm$elm_mogee$PixelFont$hashToText(_p10)
+					text: _elm_lang$core$Native_Utils.eq(_p8, '') ? '\nThe quick brown\nfox jumps over\nthe lazy dog' : _w0rm$elm_mogee$PixelFont$hashToText(_p8)
 				},
 				_1: _elm_lang$core$Platform_Cmd$batch(
 					{
@@ -15005,21 +14853,7 @@ var _w0rm$elm_mogee$PixelFont$main = A2(
 						_0: _w0rm$elm_mogee$View_Font$load(_w0rm$elm_mogee$PixelFont$FontLoaded),
 						_1: {
 							ctor: '::',
-							_0: A2(
-								_elm_lang$core$Task$perform,
-								_w0rm$elm_mogee$PixelFont$Resize,
-								A2(
-									_elm_lang$core$Task$andThen,
-									function (_p8) {
-										return _elm_lang$window$Window$size;
-									},
-									A2(
-										_elm_lang$core$Task$onError,
-										function (_p9) {
-											return _elm_lang$core$Task$succeed(
-												{ctor: '_Tuple0'});
-										},
-										_elm_lang$dom$Dom$focus('textarea')))),
+							_0: A2(_elm_lang$core$Task$perform, _w0rm$elm_mogee$PixelFont$Resize, _elm_lang$window$Window$size),
 							_1: {ctor: '[]'}
 						}
 					})
