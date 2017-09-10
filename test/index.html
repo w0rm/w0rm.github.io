@@ -12,7 +12,7 @@
   <script src="elm.js"></script>
   <script>
     var app = Elm.Mogee.fullscreen();
-    var howler = new Howl({"src":["assets/sound.ogg","assets/sound.m4a","assets/sound.mp3","assets/sound.ac3"],"sprite":{"theme":[0,46802.72108843538],"action":[48000,252.15419501133596],"death":[50000,1722.6303854875268],"jump":[53000,227.84580498866092],"wall":[55000,194.62585034013813]}});
+    var howler = new Howl({"src":["assets/sound.ogg","assets/sound.m4a","assets/sound.mp3","assets/sound.ac3"],"sprite":{"theme":[0,46802.72108843538,true],"action":[48000,252.15419501133596],"death":[50000,1722.6303854875268],"jump":[53000,227.84580498866092],"wall":[55000,194.62585034013813]}});
     var sounds = {};
     app.ports.play.subscribe(function(sound) {
       sounds[sound] = howler.play(sound);
