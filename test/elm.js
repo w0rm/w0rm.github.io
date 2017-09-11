@@ -13330,7 +13330,8 @@ var _w0rm$elm_mogee$Components_Mogee$walking = {
 		}
 	}
 };
-var _w0rm$elm_mogee$Components_Mogee$size = {ctor: '_Tuple2', _0: 7, _1: 10};
+var _w0rm$elm_mogee$Components_Mogee$height = 10;
+var _w0rm$elm_mogee$Components_Mogee$width = 7;
 var _w0rm$elm_mogee$Components_Mogee$Mogee = F3(
 	function (a, b, c) {
 		return {elapsed: a, frames: b, state: c};
@@ -13402,26 +13403,6 @@ var _w0rm$elm_mogee$Components_Direction$pickRandom = F2(
 				0,
 				_elm_lang$core$List$length(list) - 1));
 	});
-var _w0rm$elm_mogee$Components_Direction$offset = F3(
-	function (_p1, _p0, dir) {
-		var _p2 = _p1;
-		var _p8 = _p2._0;
-		var _p7 = _p2._1;
-		var _p3 = _p0;
-		var _p6 = _p3._1;
-		var _p5 = _p3._0;
-		var _p4 = dir;
-		switch (_p4.ctor) {
-			case 'Left':
-				return {ctor: '_Tuple2', _0: _p5 - _p8, _1: _p6};
-			case 'Right':
-				return {ctor: '_Tuple2', _0: _p5 + _p8, _1: _p6};
-			case 'Top':
-				return {ctor: '_Tuple2', _0: _p5, _1: _p6 - _p7};
-			default:
-				return {ctor: '_Tuple2', _0: _p5, _1: _p6 + _p7};
-		}
-	});
 var _w0rm$elm_mogee$Components_Direction$Bottom = {ctor: 'Bottom'};
 var _w0rm$elm_mogee$Components_Direction$Top = {ctor: 'Top'};
 var _w0rm$elm_mogee$Components_Direction$Right = {ctor: 'Right'};
@@ -13440,8 +13421,8 @@ var _w0rm$elm_mogee$Components_Direction$possibleDirections = {
 };
 var _w0rm$elm_mogee$Components_Direction$Left = {ctor: 'Left'};
 var _w0rm$elm_mogee$Components_Direction$opposite = function (dir) {
-	var _p9 = dir;
-	switch (_p9.ctor) {
+	var _p0 = dir;
+	switch (_p0.ctor) {
 		case 'Left':
 			return _w0rm$elm_mogee$Components_Direction$Right;
 		case 'Right':
@@ -13474,33 +13455,7 @@ var _w0rm$elm_mogee$Components_Screen$Screen = F6(
 		return {from: a, to: b, number: c, frame: d, state: e, velocity: f};
 	});
 var _w0rm$elm_mogee$Components_Screen$Moving = {ctor: 'Moving'};
-var _w0rm$elm_mogee$Components_Screen$update = F2(
-	function (dt, screen) {
-		var _p0 = screen.state;
-		if (_p0.ctor === 'Initial') {
-			return screen;
-		} else {
-			var frame = screen.frame + ((screen.velocity * dt) / 2);
-			return (_elm_lang$core$Native_Utils.cmp(frame, 8) > -1) ? _elm_lang$core$Native_Utils.update(
-				screen,
-				{frame: 8 - frame, state: _w0rm$elm_mogee$Components_Screen$Moving}) : _elm_lang$core$Native_Utils.update(
-				screen,
-				{frame: frame});
-		}
-	});
 var _w0rm$elm_mogee$Components_Screen$Rotating = {ctor: 'Rotating'};
-var _w0rm$elm_mogee$Components_Screen$activate = function (screen) {
-	var _p1 = screen.state;
-	if (_p1.ctor === 'Initial') {
-		return _elm_lang$core$Native_Utils.eq(screen.to, screen.from) ? _elm_lang$core$Native_Utils.update(
-			screen,
-			{state: _w0rm$elm_mogee$Components_Screen$Moving, frame: 0}) : _elm_lang$core$Native_Utils.update(
-			screen,
-			{state: _w0rm$elm_mogee$Components_Screen$Rotating, frame: 0});
-	} else {
-		return screen;
-	}
-};
 var _w0rm$elm_mogee$Components_Screen$Initial = {ctor: 'Initial'};
 var _w0rm$elm_mogee$Components_Screen$screen = F3(
 	function (from, to, number) {
@@ -13513,92 +13468,110 @@ var _w0rm$elm_mogee$Components_Screen$screen = F3(
 			velocity: _w0rm$elm_mogee$Components_Screen$velocity + (_w0rm$elm_mogee$Components_Screen$velocityIncrement * _elm_lang$core$Basics$toFloat(number))
 		};
 	});
+var _w0rm$elm_mogee$Components_Screen$update = F2(
+	function (dt, screen) {
+		if (_elm_lang$core$Native_Utils.eq(screen.state, _w0rm$elm_mogee$Components_Screen$Initial)) {
+			return screen;
+		} else {
+			var frame = screen.frame + ((screen.velocity * dt) / 2);
+			return (_elm_lang$core$Native_Utils.cmp(frame, 8) > -1) ? _elm_lang$core$Native_Utils.update(
+				screen,
+				{frame: 8 - frame, state: _w0rm$elm_mogee$Components_Screen$Moving}) : _elm_lang$core$Native_Utils.update(
+				screen,
+				{frame: frame});
+		}
+	});
+var _w0rm$elm_mogee$Components_Screen$activate = function (screen) {
+	return _elm_lang$core$Native_Utils.eq(screen.state, _w0rm$elm_mogee$Components_Screen$Initial) ? (_elm_lang$core$Native_Utils.eq(screen.to, screen.from) ? _elm_lang$core$Native_Utils.update(
+		screen,
+		{state: _w0rm$elm_mogee$Components_Screen$Moving, frame: 0}) : _elm_lang$core$Native_Utils.update(
+		screen,
+		{state: _w0rm$elm_mogee$Components_Screen$Rotating, frame: 0})) : screen;
+};
 
 var _w0rm$elm_mogee$Components_Transform$collide = F2(
-	function (o1, o2) {
-		var _p0 = o2.size;
-		var w2 = _p0._0;
-		var h2 = _p0._1;
-		var _p1 = o2.position;
-		var x2 = _p1._0;
-		var y2 = _p1._1;
-		var _p2 = o1.size;
-		var w1 = _p2._0;
-		var h1 = _p2._1;
-		var _p3 = o1.position;
-		var x1 = _p3._0;
-		var y1 = _p3._1;
-		return (_elm_lang$core$Native_Utils.cmp(x1, x2 + w2) < 0) && ((_elm_lang$core$Native_Utils.cmp(x1 + w1, x2) > 0) && ((_elm_lang$core$Native_Utils.cmp(y1, y2 + h2) < 0) && (_elm_lang$core$Native_Utils.cmp(y1 + h1, y2) > 0)));
+	function (t1, t2) {
+		return (_elm_lang$core$Native_Utils.cmp(t1.x, t2.x + t2.width) < 0) && ((_elm_lang$core$Native_Utils.cmp(t1.x + t1.width, t2.x) > 0) && ((_elm_lang$core$Native_Utils.cmp(t1.y, t2.y + t2.height) < 0) && (_elm_lang$core$Native_Utils.cmp(t1.y + t1.height, t2.y) > 0)));
 	});
 var _w0rm$elm_mogee$Components_Transform$invertScreen = F2(
-	function (to, _p4) {
-		var _p5 = _p4;
-		var _p6 = _p5.size;
-		var w = _p6._0;
-		var h = _p6._1;
-		var _p7 = _p5.position;
-		var x = _p7._0;
-		var y = _p7._1;
-		var _p8 = to;
-		switch (_p8.ctor) {
+	function (direction, transform) {
+		var _p0 = direction;
+		switch (_p0.ctor) {
 			case 'Left':
-				return {
-					size: {ctor: '_Tuple2', _0: _w0rm$elm_mogee$Components_Screen$size - w, _1: h},
-					position: {ctor: '_Tuple2', _0: x + w, _1: y}
-				};
+				return _elm_lang$core$Native_Utils.update(
+					transform,
+					{width: _w0rm$elm_mogee$Components_Screen$size - transform.width, x: transform.x + transform.width});
 			case 'Right':
-				return {
-					size: {ctor: '_Tuple2', _0: _w0rm$elm_mogee$Components_Screen$size - w, _1: h},
-					position: {ctor: '_Tuple2', _0: x - (_w0rm$elm_mogee$Components_Screen$size - w), _1: y}
-				};
+				return _elm_lang$core$Native_Utils.update(
+					transform,
+					{width: _w0rm$elm_mogee$Components_Screen$size - transform.width, x: transform.x - (_w0rm$elm_mogee$Components_Screen$size - transform.width)});
 			case 'Top':
-				return {
-					size: {ctor: '_Tuple2', _0: w, _1: _w0rm$elm_mogee$Components_Screen$size - h},
-					position: {ctor: '_Tuple2', _0: x, _1: y + h}
-				};
+				return _elm_lang$core$Native_Utils.update(
+					transform,
+					{height: _w0rm$elm_mogee$Components_Screen$size - transform.height, y: transform.y + transform.height});
 			default:
-				return {
-					size: {ctor: '_Tuple2', _0: w, _1: _w0rm$elm_mogee$Components_Screen$size - h},
-					position: {ctor: '_Tuple2', _0: x, _1: y - (_w0rm$elm_mogee$Components_Screen$size - h)}
-				};
+				return _elm_lang$core$Native_Utils.update(
+					transform,
+					{height: _w0rm$elm_mogee$Components_Screen$size - transform.height, y: transform.y - (_w0rm$elm_mogee$Components_Screen$size - transform.height)});
 		}
 	});
 var _w0rm$elm_mogee$Components_Transform$offset = F3(
-	function (distance, direction, object) {
-		return _elm_lang$core$Native_Utils.update(
-			object,
-			{
-				position: A3(_w0rm$elm_mogee$Components_Direction$offset, distance, object.position, direction)
-			});
+	function (_p1, direction, transform) {
+		var _p2 = _p1;
+		var _p5 = _p2._1;
+		var _p4 = _p2._0;
+		var _p3 = direction;
+		switch (_p3.ctor) {
+			case 'Left':
+				return _elm_lang$core$Native_Utils.update(
+					transform,
+					{x: transform.x - _p4});
+			case 'Right':
+				return _elm_lang$core$Native_Utils.update(
+					transform,
+					{x: transform.x + _p4});
+			case 'Top':
+				return _elm_lang$core$Native_Utils.update(
+					transform,
+					{y: transform.y - _p5});
+			default:
+				return _elm_lang$core$Native_Utils.update(
+					transform,
+					{y: transform.y + _p5});
+		}
 	});
-var _w0rm$elm_mogee$Components_Transform$Transform = F2(
-	function (a, b) {
-		return {size: a, position: b};
+var _w0rm$elm_mogee$Components_Transform$offsetBy = F2(
+	function (_p6, transform) {
+		var _p7 = _p6;
+		return _elm_lang$core$Native_Utils.update(
+			transform,
+			{x: transform.x - _p7._0, y: transform.y - _p7._1});
+	});
+var _w0rm$elm_mogee$Components_Transform$Transform = F4(
+	function (a, b, c, d) {
+		return {width: a, height: b, x: c, y: d};
 	});
 
-var _w0rm$elm_mogee$Components_Velocity$Velocity = function (a) {
-	return {velocity: a};
-};
+var _w0rm$elm_mogee$Components_Velocity$Velocity = F2(
+	function (a, b) {
+		return {vx: a, vy: b};
+	});
 
 var _w0rm$elm_mogee$Components_Wall$Wall = {ctor: 'Wall'};
 var _w0rm$elm_mogee$Components_Wall$wall = _w0rm$elm_mogee$Components_Wall$Wall;
 
-var _w0rm$elm_mogee$Components_Components$addWall = F3(
-	function (size, position, components) {
+var _w0rm$elm_mogee$Components_Components$addWall = F2(
+	function (transform, components) {
 		return _elm_lang$core$Native_Utils.update(
 			components,
 			{
 				uid: components.uid + 1,
 				walls: A3(_elm_lang$core$Dict$insert, components.uid, _w0rm$elm_mogee$Components_Wall$wall, components.walls),
-				transforms: A3(
-					_elm_lang$core$Dict$insert,
-					components.uid,
-					{position: position, size: size},
-					components.transforms)
+				transforms: A3(_elm_lang$core$Dict$insert, components.uid, transform, components.transforms)
 			});
 	});
-var _w0rm$elm_mogee$Components_Components$addMogee = F2(
-	function (position, components) {
+var _w0rm$elm_mogee$Components_Components$addMogee = F3(
+	function (x, y, components) {
 		return _elm_lang$core$Native_Utils.update(
 			components,
 			{
@@ -13607,14 +13580,12 @@ var _w0rm$elm_mogee$Components_Components$addMogee = F2(
 				transforms: A3(
 					_elm_lang$core$Dict$insert,
 					components.uid,
-					{position: position, size: _w0rm$elm_mogee$Components_Mogee$size},
+					{x: x, y: y, width: _w0rm$elm_mogee$Components_Mogee$width, height: _w0rm$elm_mogee$Components_Mogee$height},
 					components.transforms),
 				velocities: A3(
 					_elm_lang$core$Dict$insert,
 					components.uid,
-					{
-						velocity: {ctor: '_Tuple2', _0: 0, _1: 0}
-					},
+					{vx: 0, vy: 0},
 					components.velocities)
 			});
 	});
@@ -13631,25 +13602,17 @@ var _w0rm$elm_mogee$Components_Components$addWalls = F3(
 					var _p0 = d;
 					switch (_p0.ctor) {
 						case 'Left':
-							return A2(
-								_w0rm$elm_mogee$Components_Components$addWall,
-								{ctor: '_Tuple2', _0: 1, _1: _w0rm$elm_mogee$Components_Screen$size},
-								{ctor: '_Tuple2', _0: 0, _1: 0});
+							return _w0rm$elm_mogee$Components_Components$addWall(
+								{width: 1, height: _w0rm$elm_mogee$Components_Screen$size, x: 0, y: 0});
 						case 'Right':
-							return A2(
-								_w0rm$elm_mogee$Components_Components$addWall,
-								{ctor: '_Tuple2', _0: 1, _1: _w0rm$elm_mogee$Components_Screen$size},
-								{ctor: '_Tuple2', _0: _w0rm$elm_mogee$Components_Screen$size - 1, _1: 0});
+							return _w0rm$elm_mogee$Components_Components$addWall(
+								{width: 1, height: _w0rm$elm_mogee$Components_Screen$size, x: _w0rm$elm_mogee$Components_Screen$size - 1, y: 0});
 						case 'Top':
-							return A2(
-								_w0rm$elm_mogee$Components_Components$addWall,
-								{ctor: '_Tuple2', _0: _w0rm$elm_mogee$Components_Screen$size, _1: 1},
-								{ctor: '_Tuple2', _0: 0, _1: 0});
+							return _w0rm$elm_mogee$Components_Components$addWall(
+								{width: _w0rm$elm_mogee$Components_Screen$size, height: 1, x: 0, y: 0});
 						default:
-							return A2(
-								_w0rm$elm_mogee$Components_Components$addWall,
-								{ctor: '_Tuple2', _0: _w0rm$elm_mogee$Components_Screen$size, _1: 1},
-								{ctor: '_Tuple2', _0: 0, _1: _w0rm$elm_mogee$Components_Screen$size - 1});
+							return _w0rm$elm_mogee$Components_Components$addWall(
+								{width: _w0rm$elm_mogee$Components_Screen$size, height: 1, x: 0, y: _w0rm$elm_mogee$Components_Screen$size - 1});
 					}
 				}
 			},
@@ -13678,34 +13641,27 @@ var _w0rm$elm_mogee$Components_Components$addScreen = F4(
 			_w0rm$elm_mogee$Components_Components$addWalls,
 			from,
 			to,
-			A3(
+			A2(
 				_w0rm$elm_mogee$Components_Components$addWall,
-				{ctor: '_Tuple2', _0: 19, _1: 2},
-				{ctor: '_Tuple2', _0: 17, _1: 58},
-				A3(
+				{width: 19, height: 2, x: 17, y: 58},
+				A2(
 					_w0rm$elm_mogee$Components_Components$addWall,
-					{ctor: '_Tuple2', _0: 33, _1: 2},
-					{ctor: '_Tuple2', _0: 31, _1: 43},
-					A3(
+					{width: 33, height: 2, x: 31, y: 43},
+					A2(
 						_w0rm$elm_mogee$Components_Components$addWall,
-						{ctor: '_Tuple2', _0: 11, _1: 2},
-						{ctor: '_Tuple2', _0: 0, _1: 43},
-						A3(
+						{width: 11, height: 2, x: 0, y: 43},
+						A2(
 							_w0rm$elm_mogee$Components_Components$addWall,
-							{ctor: '_Tuple2', _0: 13, _1: 2},
-							{ctor: '_Tuple2', _0: 51, _1: 27},
-							A3(
+							{width: 13, height: 2, x: 51, y: 27},
+							A2(
 								_w0rm$elm_mogee$Components_Components$addWall,
-								{ctor: '_Tuple2', _0: 11, _1: 2},
-								{ctor: '_Tuple2', _0: 6, _1: 27},
-								A3(
+								{width: 11, height: 2, x: 6, y: 27},
+								A2(
 									_w0rm$elm_mogee$Components_Components$addWall,
-									{ctor: '_Tuple2', _0: 16, _1: 2},
-									{ctor: '_Tuple2', _0: 24, _1: 11},
-									A3(
+									{width: 16, height: 2, x: 24, y: 11},
+									A2(
 										_w0rm$elm_mogee$Components_Components$addWall,
-										{ctor: '_Tuple2', _0: 7, _1: 2},
-										{ctor: '_Tuple2', _0: 0, _1: 11},
+										{width: 7, height: 2, x: 0, y: 11},
 										_elm_lang$core$Native_Utils.update(
 											components,
 											{
@@ -13718,10 +13674,7 @@ var _w0rm$elm_mogee$Components_Components$addScreen = F4(
 												transforms: A3(
 													_elm_lang$core$Dict$insert,
 													components.uid,
-													{
-														position: {ctor: '_Tuple2', _0: 0, _1: 0},
-														size: {ctor: '_Tuple2', _0: _w0rm$elm_mogee$Components_Screen$size, _1: _w0rm$elm_mogee$Components_Screen$size}
-													},
+													{x: 0, y: 0, width: _w0rm$elm_mogee$Components_Screen$size, height: _w0rm$elm_mogee$Components_Screen$size},
 													components.transforms)
 											})))))))));
 	});
@@ -13742,9 +13695,10 @@ var _w0rm$elm_mogee$Components_Components$initial = A4(
 	_w0rm$elm_mogee$Components_Direction$Left,
 	_w0rm$elm_mogee$Components_Direction$Right,
 	0,
-	A2(
+	A3(
 		_w0rm$elm_mogee$Components_Components$addMogee,
-		{ctor: '_Tuple2', _0: 28, _1: 27},
+		28,
+		27,
 		{uid: 0, mogees: _elm_lang$core$Dict$empty, screens: _elm_lang$core$Dict$empty, transforms: _elm_lang$core$Dict$empty, velocities: _elm_lang$core$Dict$empty, walls: _elm_lang$core$Dict$empty}));
 var _w0rm$elm_mogee$Components_Components$foldl3 = F5(
 	function (fn, initial, component1, component2, component3) {
@@ -13786,19 +13740,14 @@ var _w0rm$elm_mogee$Components_Components$mogeeOffset = function (_p1) {
 	var _p2 = _p1;
 	return A2(
 		_elm_lang$core$Maybe$withDefault,
-		{ctor: '_Tuple2', _0: 32, _1: 32},
+		{x: 32, y: 32, width: _w0rm$elm_mogee$Components_Mogee$width, height: _w0rm$elm_mogee$Components_Mogee$height},
 		A2(
-			_elm_lang$core$Maybe$map,
-			function (_) {
-				return _.position;
+			_elm_lang$core$Maybe$andThen,
+			function (uid) {
+				return A2(_elm_lang$core$Dict$get, uid, _p2.transforms);
 			},
-			A2(
-				_elm_lang$core$Maybe$andThen,
-				function (uid) {
-					return A2(_elm_lang$core$Dict$get, uid, _p2.transforms);
-				},
-				_elm_lang$core$List$head(
-					_elm_lang$core$Dict$keys(_p2.mogees)))));
+			_elm_lang$core$List$head(
+				_elm_lang$core$Dict$keys(_p2.mogees))));
 };
 var _w0rm$elm_mogee$Components_Components$isDead = function (_p3) {
 	return A2(
@@ -14150,46 +14099,35 @@ var _w0rm$elm_mogee$Systems_Screens$activate = F2(
 var _w0rm$elm_mogee$Systems_Screens$shrink = F3(
 	function (dt, _p2, transform) {
 		var _p3 = _p2;
-		var _p7 = _p3.velocity;
-		var _p4 = transform.size;
-		var w = _p4._0;
-		var h = _p4._1;
-		var newW = A2(_elm_lang$core$Basics$max, 0, w - (dt * _p7));
-		var newH = A2(_elm_lang$core$Basics$max, 0, h - (dt * _p7));
-		var _p5 = transform.position;
-		var x = _p5._0;
-		var y = _p5._1;
-		if ((!_elm_lang$core$Native_Utils.eq(_p3.state, _w0rm$elm_mogee$Components_Screen$Moving)) || (_elm_lang$core$Native_Utils.eq(w, 0) || _elm_lang$core$Native_Utils.eq(h, 0))) {
+		var _p6 = _p3.velocity;
+		var _p4 = transform;
+		var x = _p4.x;
+		var y = _p4.y;
+		var width = _p4.width;
+		var height = _p4.height;
+		var newW = A2(_elm_lang$core$Basics$max, 0, width - (dt * _p6));
+		var newH = A2(_elm_lang$core$Basics$max, 0, height - (dt * _p6));
+		if ((!_elm_lang$core$Native_Utils.eq(_p3.state, _w0rm$elm_mogee$Components_Screen$Moving)) || (_elm_lang$core$Native_Utils.eq(width, 0) || _elm_lang$core$Native_Utils.eq(height, 0))) {
 			return transform;
 		} else {
-			var _p6 = _p3.to;
-			switch (_p6.ctor) {
+			var _p5 = _p3.to;
+			switch (_p5.ctor) {
 				case 'Left':
 					return _elm_lang$core$Native_Utils.update(
 						transform,
-						{
-							size: {ctor: '_Tuple2', _0: newW, _1: 64}
-						});
+						{width: newW});
 				case 'Right':
 					return _elm_lang$core$Native_Utils.update(
 						transform,
-						{
-							size: {ctor: '_Tuple2', _0: newW, _1: 64},
-							position: {ctor: '_Tuple2', _0: (x - newW) + w, _1: y}
-						});
+						{width: newW, x: (x - newW) + width});
 				case 'Top':
 					return _elm_lang$core$Native_Utils.update(
 						transform,
-						{
-							size: {ctor: '_Tuple2', _0: 64, _1: newH}
-						});
+						{height: newH});
 				default:
 					return _elm_lang$core$Native_Utils.update(
 						transform,
-						{
-							size: {ctor: '_Tuple2', _0: 64, _1: newH},
-							position: {ctor: '_Tuple2', _0: x, _1: (y - newH) + h}
-						});
+						{height: newH, y: (y - newH) + height});
 			}
 		}
 	});
@@ -14199,34 +14137,21 @@ var _w0rm$elm_mogee$Systems_Screens$update = F2(
 			_w0rm$elm_mogee$Components_Components$foldl2,
 			F4(
 				function (uid, screen, transform, components) {
-					var _p8 = transform.size;
-					_v3_2:
-					do {
-						if (_p8.ctor === '_Tuple2') {
-							if (_p8._0 === 0) {
-								return A2(_w0rm$elm_mogee$Components_Components$delete, uid, components);
-							} else {
-								if (_p8._1 === 0) {
-									return A2(_w0rm$elm_mogee$Components_Components$delete, uid, components);
-								} else {
-									break _v3_2;
-								}
-							}
-						} else {
-							break _v3_2;
-						}
-					} while(false);
-					var newScreen = A2(
-						_w0rm$elm_mogee$Systems_Screens$activate,
-						_elm_lang$core$Dict$values(components.screens),
-						A2(_w0rm$elm_mogee$Components_Screen$update, elapsed, screen));
-					var newTransform = A3(_w0rm$elm_mogee$Systems_Screens$shrink, elapsed, newScreen, transform);
-					return _elm_lang$core$Native_Utils.update(
-						components,
-						{
-							screens: A3(_elm_lang$core$Dict$insert, uid, newScreen, components.screens),
-							transforms: A3(_elm_lang$core$Dict$insert, uid, newTransform, components.transforms)
-						});
+					if (_elm_lang$core$Native_Utils.eq(transform.width, 0) || _elm_lang$core$Native_Utils.eq(transform.height, 0)) {
+						return A2(_w0rm$elm_mogee$Components_Components$delete, uid, components);
+					} else {
+						var newScreen = A2(
+							_w0rm$elm_mogee$Systems_Screens$activate,
+							_elm_lang$core$Dict$values(components.screens),
+							A2(_w0rm$elm_mogee$Components_Screen$update, elapsed, screen));
+						var newTransform = A3(_w0rm$elm_mogee$Systems_Screens$shrink, elapsed, newScreen, transform);
+						return _elm_lang$core$Native_Utils.update(
+							components,
+							{
+								screens: A3(_elm_lang$core$Dict$insert, uid, newScreen, components.screens),
+								transforms: A3(_elm_lang$core$Dict$insert, uid, newTransform, components.transforms)
+							});
+					}
 				}),
 			components,
 			components.screens,
@@ -14249,23 +14174,18 @@ var _w0rm$elm_mogee$Systems_Screens$offsetScreens = F2(
 	});
 var _w0rm$elm_mogee$Systems_Screens$run = F3(
 	function (elapsed, components, screens) {
-		var _p9 = A2(
+		var _p7 = A2(
 			_elm_lang$core$Random$step,
 			_w0rm$elm_mogee$Components_Direction$next(screens.direction),
 			screens.seed);
-		var direction = _p9._0;
-		var seed = _p9._1;
+		var direction = _p7._0;
+		var seed = _p7._1;
 		var newComponents = A2(_w0rm$elm_mogee$Systems_Screens$update, elapsed, components);
-		var _p10 = _w0rm$elm_mogee$Components_Components$mogeeOffset(newComponents);
-		var x = _p10._0;
-		var y = _p10._1;
-		var _p11 = {
-			ctor: '_Tuple2',
-			_0: (x - 32) + (_elm_lang$core$Tuple$first(_w0rm$elm_mogee$Components_Mogee$size) / 2),
-			_1: (y - 32) + (_elm_lang$core$Tuple$second(_w0rm$elm_mogee$Components_Mogee$size) / 2)
-		};
-		var screenX = _p11._0;
-		var screenY = _p11._1;
+		var _p8 = _w0rm$elm_mogee$Components_Components$mogeeOffset(newComponents);
+		var x = _p8.x;
+		var y = _p8.y;
+		var screenX = (x - 32) + (_w0rm$elm_mogee$Components_Mogee$width / 2);
+		var screenY = (y - 32) + (_w0rm$elm_mogee$Components_Mogee$height / 2);
 		return ((_elm_lang$core$Native_Utils.cmp(
 			_elm_lang$core$Basics$abs(screenX),
 			64) < 0) && (_elm_lang$core$Native_Utils.cmp(
@@ -14324,163 +14244,105 @@ var _w0rm$elm_mogee$Systems_Mogee$walkVelocity = 4.5e-2;
 var _w0rm$elm_mogee$Systems_Mogee$jumpVelocity = 9.0e-2;
 var _w0rm$elm_mogee$Systems_Mogee$friction = 2.25e-3;
 var _w0rm$elm_mogee$Systems_Mogee$moveX = F5(
-	function (dt, dx, wallsTransforms, transform, velocity) {
-		var _p0 = velocity.velocity;
-		var vx = _p0._0;
-		var vy = _p0._1;
+	function (dt, dx, wallsTransforms, originalTransform, originalVelocity) {
+		var _p0 = originalVelocity;
+		var vx = _p0.vx;
 		var newVelocity = _elm_lang$core$Native_Utils.eq(dx, 0) ? ((!_elm_lang$core$Native_Utils.eq(vx, 0)) ? ((vx / _elm_lang$core$Basics$abs(vx)) * A2(
 			_elm_lang$core$Basics$max,
 			_elm_lang$core$Basics$abs(vx) - (_w0rm$elm_mogee$Systems_Mogee$friction * dt),
 			0)) : 0) : (dx * _w0rm$elm_mogee$Systems_Mogee$walkVelocity);
 		var deltaX = (dt * (vx + newVelocity)) * 0.5;
-		var _p1 = (_elm_lang$core$Native_Utils.eq(dx, 0) && _elm_lang$core$Native_Utils.eq(deltaX, 0)) ? {
-			ctor: '_Tuple2',
-			_0: _elm_lang$core$Basics$toFloat(
-				_elm_lang$core$Basics$round(
-					_elm_lang$core$Tuple$first(transform.position))),
-			_1: _elm_lang$core$Tuple$second(transform.position)
-		} : transform.position;
-		var x = _p1._0;
-		var y = _p1._1;
+		var x = (_elm_lang$core$Native_Utils.eq(dx, 0) && _elm_lang$core$Native_Utils.eq(deltaX, 0)) ? _elm_lang$core$Basics$toFloat(
+			_elm_lang$core$Basics$round(originalTransform.x)) : originalTransform.x;
 		return A3(
 			_elm_lang$core$List$foldl,
 			F2(
-				function (_p3, _p2) {
-					var _p4 = _p3;
-					var _p8 = _p4.position;
-					var _p5 = _p2;
-					var _p7 = _p5._1;
-					var _p6 = _p5._0;
-					return A2(_w0rm$elm_mogee$Components_Transform$collide, _p6, _p4) ? ((_elm_lang$core$Native_Utils.cmp(deltaX, 0) < 0) ? {
+				function (wall, _p1) {
+					var _p2 = _p1;
+					var _p4 = _p2._1;
+					var _p3 = _p2._0;
+					return A2(_w0rm$elm_mogee$Components_Transform$collide, _p3, wall) ? ((_elm_lang$core$Native_Utils.cmp(_p3.x - originalTransform.x, 0) < 0) ? {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
-							_p6,
-							{
-								position: {
-									ctor: '_Tuple2',
-									_0: _elm_lang$core$Tuple$first(_p8) + _elm_lang$core$Tuple$first(_p4.size),
-									_1: y
-								}
-							}),
+							_p3,
+							{x: wall.x + wall.width}),
 						_1: _elm_lang$core$Native_Utils.update(
-							_p7,
-							{
-								velocity: {ctor: '_Tuple2', _0: 0, _1: vy}
-							})
+							_p4,
+							{vx: 0})
 					} : {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
-							_p6,
-							{
-								position: {
-									ctor: '_Tuple2',
-									_0: _elm_lang$core$Tuple$first(_p8) - _elm_lang$core$Tuple$first(_p6.size),
-									_1: y
-								}
-							}),
+							_p3,
+							{x: wall.x - _p3.width}),
 						_1: _elm_lang$core$Native_Utils.update(
-							_p7,
-							{
-								velocity: {ctor: '_Tuple2', _0: 0, _1: vy}
-							})
-					}) : {ctor: '_Tuple2', _0: _p6, _1: _p7};
+							_p4,
+							{vx: 0})
+					}) : {ctor: '_Tuple2', _0: _p3, _1: _p4};
 				}),
 			{
 				ctor: '_Tuple2',
 				_0: _elm_lang$core$Native_Utils.update(
-					transform,
-					{
-						position: {ctor: '_Tuple2', _0: x + deltaX, _1: y}
-					}),
+					originalTransform,
+					{x: x + deltaX}),
 				_1: _elm_lang$core$Native_Utils.update(
-					velocity,
-					{
-						velocity: {ctor: '_Tuple2', _0: newVelocity, _1: vy}
-					})
+					originalVelocity,
+					{vx: newVelocity})
 			},
 			wallsTransforms);
 	});
 var _w0rm$elm_mogee$Systems_Mogee$gravity = 2.25e-4;
 var _w0rm$elm_mogee$Systems_Mogee$moveY = F5(
-	function (dt, dy, wallsTransforms, transform, velocity) {
-		var _p9 = transform.position;
-		var x = _p9._0;
-		var y = _p9._1;
-		var _p10 = velocity.velocity;
-		var vx = _p10._0;
-		var vy = _p10._1;
-		var newVelocity = vy + (_w0rm$elm_mogee$Systems_Mogee$gravity * dt);
-		var deltaY = (dt * (vy + newVelocity)) * 0.5;
+	function (dt, dy, wallsTransforms, originalTransform, originalVelocity) {
 		return A3(
 			_elm_lang$core$List$foldl,
 			F2(
-				function (_p12, _p11) {
-					var _p13 = _p12;
-					var _p17 = _p13.position;
-					var _p14 = _p11;
-					var _p16 = _p14._1;
-					var _p15 = _p14._0;
-					return A2(_w0rm$elm_mogee$Components_Transform$collide, _p15, _p13) ? ((_elm_lang$core$Native_Utils.cmp(deltaY, 0) < 0) ? {
-						ctor: '_Tuple2',
+				function (wall, _p5) {
+					var _p6 = _p5;
+					var _p9 = _p6._1;
+					var _p8 = _p6._0;
+					var _p7 = _p6._2;
+					return A2(_w0rm$elm_mogee$Components_Transform$collide, _p8, wall) ? ((_elm_lang$core$Native_Utils.cmp(_p8.y - originalTransform.y, 0) < 0) ? {
+						ctor: '_Tuple3',
 						_0: _elm_lang$core$Native_Utils.update(
-							_p15,
-							{
-								position: {
-									ctor: '_Tuple2',
-									_0: x,
-									_1: _elm_lang$core$Tuple$second(_p17) + _elm_lang$core$Tuple$second(_p13.size)
-								}
-							}),
+							_p8,
+							{y: wall.y + wall.height}),
 						_1: _elm_lang$core$Native_Utils.update(
-							_p16,
-							{
-								velocity: {ctor: '_Tuple2', _0: vx, _1: 0}
-							})
+							_p9,
+							{vy: 0}),
+						_2: (_elm_lang$core$Native_Utils.cmp(_p9.vy, -5.0e-2) < 0) ? _elm_lang$core$Maybe$Just('wall') : _p7
 					} : {
-						ctor: '_Tuple2',
+						ctor: '_Tuple3',
 						_0: _elm_lang$core$Native_Utils.update(
-							_p15,
-							{
-								position: {
-									ctor: '_Tuple2',
-									_0: x,
-									_1: _elm_lang$core$Tuple$second(_p17) - _elm_lang$core$Tuple$second(_p15.size)
-								}
-							}),
+							_p8,
+							{y: wall.y - _p8.height}),
 						_1: _elm_lang$core$Native_Utils.update(
-							_p16,
+							_p9,
 							{
-								velocity: {
-									ctor: '_Tuple2',
-									_0: vx,
-									_1: _elm_lang$core$Native_Utils.eq(dy, 1) ? (0 - _w0rm$elm_mogee$Systems_Mogee$jumpVelocity) : 0
-								}
-							})
-					}) : {ctor: '_Tuple2', _0: _p15, _1: _p16};
+								vy: _elm_lang$core$Native_Utils.eq(dy, 1) ? (0 - _w0rm$elm_mogee$Systems_Mogee$jumpVelocity) : 0
+							}),
+						_2: _elm_lang$core$Native_Utils.eq(dy, 1) ? _elm_lang$core$Maybe$Just('jump') : ((_elm_lang$core$Native_Utils.cmp(_p9.vy, 5.0e-2) > 0) ? _elm_lang$core$Maybe$Just('wall') : _elm_lang$core$Maybe$Nothing)
+					}) : {ctor: '_Tuple3', _0: _p8, _1: _p9, _2: _p7};
 				}),
 			{
-				ctor: '_Tuple2',
+				ctor: '_Tuple3',
 				_0: _elm_lang$core$Native_Utils.update(
-					transform,
-					{
-						position: {ctor: '_Tuple2', _0: x, _1: y + deltaY}
-					}),
+					originalTransform,
+					{y: (originalTransform.y + (originalVelocity.vy * dt)) + (((_w0rm$elm_mogee$Systems_Mogee$gravity * dt) * dt) * 0.5)}),
 				_1: _elm_lang$core$Native_Utils.update(
-					velocity,
-					{
-						velocity: {ctor: '_Tuple2', _0: vx, _1: newVelocity}
-					})
+					originalVelocity,
+					{vy: originalVelocity.vy + (_w0rm$elm_mogee$Systems_Mogee$gravity * dt)}),
+				_2: _elm_lang$core$Maybe$Nothing
 			},
 			wallsTransforms);
 	});
 var _w0rm$elm_mogee$Systems_Mogee$run = F3(
-	function (elapsed, _p18, components) {
-		var _p19 = _p18;
-		var _p25 = _p19.x;
+	function (elapsed, _p10, components) {
+		var _p11 = _p10;
+		var _p21 = _p11.x;
 		var screensTransforms = A4(
 			_w0rm$elm_mogee$Components_Components$foldl2,
 			F4(
-				function (_p21, _p20, x, y) {
+				function (_p13, _p12, x, y) {
 					return {ctor: '::', _0: x, _1: y};
 				}),
 			{ctor: '[]'},
@@ -14489,7 +14351,7 @@ var _w0rm$elm_mogee$Systems_Mogee$run = F3(
 		var wallsTransforms = A4(
 			_w0rm$elm_mogee$Components_Components$foldl2,
 			F4(
-				function (_p23, _p22, x, y) {
+				function (_p15, _p14, x, y) {
 					return {ctor: '::', _0: x, _1: y};
 				}),
 			{ctor: '[]'},
@@ -14498,26 +14360,33 @@ var _w0rm$elm_mogee$Systems_Mogee$run = F3(
 		return A5(
 			_w0rm$elm_mogee$Components_Components$foldl3,
 			F5(
-				function (uid, mogee, transform, velocity, components) {
+				function (uid, mogee, transform, velocity, _p16) {
+					var _p17 = _p16;
+					var _p20 = _p17._0;
 					var newMogee = A2(
 						_elm_lang$core$List$any,
 						_w0rm$elm_mogee$Components_Transform$collide(transform),
-						screensTransforms) ? A3(_w0rm$elm_mogee$Components_Mogee$update, elapsed, _p25, mogee) : _w0rm$elm_mogee$Components_Mogee$die(mogee);
-					var _p24 = A2(
-						_elm_lang$core$Basics$uncurry,
-						A3(_w0rm$elm_mogee$Systems_Mogee$moveX, elapsed, _p25, wallsTransforms),
-						A5(_w0rm$elm_mogee$Systems_Mogee$moveY, elapsed, _p19.y, wallsTransforms, transform, velocity));
-					var newTransform = _p24._0;
-					var newVelocity = _p24._1;
-					return _elm_lang$core$Native_Utils.update(
-						components,
-						{
-							transforms: A3(_elm_lang$core$Dict$insert, uid, newTransform, components.transforms),
-							velocities: A3(_elm_lang$core$Dict$insert, uid, newVelocity, components.velocities),
-							mogees: A3(_elm_lang$core$Dict$insert, uid, newMogee, components.mogees)
-						});
+						screensTransforms) ? A3(_w0rm$elm_mogee$Components_Mogee$update, elapsed, _p21, mogee) : _w0rm$elm_mogee$Components_Mogee$die(mogee);
+					var _p18 = A5(_w0rm$elm_mogee$Systems_Mogee$moveY, elapsed, _p11.y, wallsTransforms, transform, velocity);
+					var newYTransform = _p18._0;
+					var newYVelocity = _p18._1;
+					var newSound = _p18._2;
+					var _p19 = A5(_w0rm$elm_mogee$Systems_Mogee$moveX, elapsed, _p21, wallsTransforms, newYTransform, newYVelocity);
+					var newTransform = _p19._0;
+					var newVelocity = _p19._1;
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							_p20,
+							{
+								transforms: A3(_elm_lang$core$Dict$insert, uid, newTransform, _p20.transforms),
+								velocities: A3(_elm_lang$core$Dict$insert, uid, newVelocity, _p20.velocities),
+								mogees: A3(_elm_lang$core$Dict$insert, uid, newMogee, _p20.mogees)
+							}),
+						_1: _elm_lang$core$Native_Utils.eq(newSound, _elm_lang$core$Maybe$Nothing) ? _p17._1 : newSound
+					};
 				}),
-			components,
+			{ctor: '_Tuple2', _0: components, _1: _elm_lang$core$Maybe$Nothing},
 			components.mogees,
 			components.transforms,
 			components.velocities);
@@ -14553,15 +14422,21 @@ var _w0rm$elm_mogee$Systems_Systems$run = F4(
 		var _p2 = A3(_w0rm$elm_mogee$Systems_Screens$run, elapsed, components, _p1.screens);
 		var components1 = _p2._0;
 		var newScreens = _p2._1;
-		var components2 = _w0rm$elm_mogee$Systems_Walls$run(
-			A3(_w0rm$elm_mogee$Systems_Mogee$run, elapsed, keys, components1));
+		var _p3 = A3(
+			_w0rm$elm_mogee$Systems_Mogee$run,
+			elapsed,
+			keys,
+			_w0rm$elm_mogee$Systems_Walls$run(components1));
+		var components2 = _p3._0;
+		var sound = _p3._1;
 		return {
-			ctor: '_Tuple2',
+			ctor: '_Tuple3',
 			_0: components2,
 			_1: {
 				screens: newScreens,
 				currentScore: A2(_w0rm$elm_mogee$Systems_CurrentScore$run, components2, _p1.currentScore)
-			}
+			},
+			_2: sound
 		};
 	});
 var _w0rm$elm_mogee$Systems_Systems$initial = {screens: _w0rm$elm_mogee$Systems_Screens$screens, currentScore: _w0rm$elm_mogee$Systems_CurrentScore$currentScore};
@@ -18620,10 +18495,34 @@ var _w0rm$elm_mogee$Model$animate = F2(
 					model.systems);
 				var newComponents = _p7._0;
 				var newSystems = _p7._1;
-				return _w0rm$elm_mogee$Model$checkLives(
+				var sound = _p7._2;
+				var _p8 = _w0rm$elm_mogee$Model$checkLives(
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{components: newComponents, systems: newSystems, state: state}));
+				var newState = _p8._0;
+				var cmd = _p8._1;
+				return {
+					ctor: '_Tuple2',
+					_0: newState,
+					_1: function () {
+						var _p9 = sound;
+						if (_p9.ctor === 'Just') {
+							return _elm_lang$core$Platform_Cmd$batch(
+								{
+									ctor: '::',
+									_0: cmd,
+									_1: {
+										ctor: '::',
+										_0: _w0rm$elm_mogee$Model$play(_p9._0),
+										_1: {ctor: '[]'}
+									}
+								});
+						} else {
+							return cmd;
+						}
+					}()
+				};
 			default:
 				return A2(_w0rm$elm_mogee$Components_Keys$pressed, _w0rm$elm_mogee$Components_Keys$codes.enter, model.keys) ? (_elm_lang$core$Native_Utils.eq(model.lives, 0) ? {
 					ctor: '_Tuple2',
@@ -18638,31 +18537,31 @@ var _w0rm$elm_mogee$Model$animate = F2(
 	});
 var _w0rm$elm_mogee$Model$update = F2(
 	function (action, model) {
-		var _p8 = action;
-		switch (_p8.ctor) {
+		var _p10 = action;
+		switch (_p10.ctor) {
 			case 'Resize':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							size: ((A2(_elm_lang$core$Basics$min, _p8._0.width, _p8._0.height) / 64) | 0) * 64
+							size: ((A2(_elm_lang$core$Basics$min, _p10._0.width, _p10._0.height) / 64) | 0) * 64
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'Animate':
-				var _p9 = _p8._0;
+				var _p11 = _p10._0;
 				return A2(
 					_w0rm$elm_mogee$Model$animateKeys,
-					_p9,
-					A2(_w0rm$elm_mogee$Model$animate, _p9, model));
+					_p11,
+					A2(_w0rm$elm_mogee$Model$animate, _p11, model));
 			case 'KeyChange':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							keys: A3(_w0rm$elm_mogee$Components_Keys$keyChange, _p8._0, _p8._1, model.keys)
+							keys: A3(_w0rm$elm_mogee$Components_Keys$keyChange, _p10._0, _p10._1, model.keys)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -18672,7 +18571,7 @@ var _w0rm$elm_mogee$Model$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							texture: _elm_lang$core$Result$toMaybe(_p8._0)
+							texture: _elm_lang$core$Result$toMaybe(_p10._0)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -18682,7 +18581,7 @@ var _w0rm$elm_mogee$Model$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							sprite: _elm_lang$core$Result$toMaybe(_p8._0)
+							sprite: _elm_lang$core$Result$toMaybe(_p10._0)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -18692,12 +18591,12 @@ var _w0rm$elm_mogee$Model$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							font: _elm_lang$core$Result$toMaybe(_p8._0)
+							font: _elm_lang$core$Result$toMaybe(_p10._0)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
-				if (_p8._0.ctor === 'Visible') {
+				if (_p10._0.ctor === 'Visible') {
 					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				} else {
 					return {
@@ -18746,9 +18645,8 @@ var _w0rm$elm_mogee$View_Common$box = _elm_community$webgl$WebGL$triangles(
 		}
 	});
 var _w0rm$elm_mogee$View_Common$rectangle = F3(
-	function (_p1, _p0, color) {
-		var _p2 = _p1;
-		var _p3 = _p0;
+	function (_p0, l, color) {
+		var _p1 = _p0;
 		return A4(
 			_elm_community$webgl$WebGL$entity,
 			_w0rm$elm_mogee$View_Common$coloredVertexShader,
@@ -18758,17 +18656,17 @@ var _w0rm$elm_mogee$View_Common$rectangle = F3(
 				offset: A3(
 					_elm_community$linear_algebra$Math_Vector3$vec3,
 					_elm_lang$core$Basics$toFloat(
-						_elm_lang$core$Basics$round(_p3._0)),
+						_elm_lang$core$Basics$round(_p1.x)),
 					_elm_lang$core$Basics$toFloat(
-						_elm_lang$core$Basics$round(_p3._1)),
-					_p3._2),
+						_elm_lang$core$Basics$round(_p1.y)),
+					l),
 				color: color,
 				size: A2(
 					_elm_community$linear_algebra$Math_Vector2$vec2,
 					_elm_lang$core$Basics$toFloat(
-						_elm_lang$core$Basics$round(_p2._0)),
+						_elm_lang$core$Basics$round(_p1.width)),
 					_elm_lang$core$Basics$toFloat(
-						_elm_lang$core$Basics$round(_p2._1)))
+						_elm_lang$core$Basics$round(_p1.height)))
 			});
 	});
 var _w0rm$elm_mogee$View_Common$UniformColored = F3(
@@ -18919,10 +18817,10 @@ var _w0rm$elm_mogee$View_Mogee$render = F4(
 					_elm_lang$core$Basics$toFloat(
 						_elm_lang$core$Tuple$second(
 							_elm_community$webgl$WebGL_Texture$size(texture)))),
-				frameSize: _elm_community$linear_algebra$Math_Vector2$fromTuple(_w0rm$elm_mogee$Components_Mogee$size),
+				frameSize: A2(_elm_community$linear_algebra$Math_Vector2$vec2, _w0rm$elm_mogee$Components_Mogee$width, _w0rm$elm_mogee$Components_Mogee$height),
 				textureOffset: A2(
 					_elm_community$linear_algebra$Math_Vector2$vec2,
-					_elm_lang$core$Tuple$first(_w0rm$elm_mogee$Components_Mogee$size) * _w0rm$elm_mogee$View_Mogee$getFrame(mogee.frames),
+					_w0rm$elm_mogee$Components_Mogee$width * _w0rm$elm_mogee$View_Mogee$getFrame(mogee.frames),
 					0)
 			});
 	});
@@ -18935,11 +18833,11 @@ var _w0rm$elm_mogee$View_Mogee$Varying = function (a) {
 };
 
 var _w0rm$elm_mogee$View_Wall$texturedVertexShader = {'src': '\n\n        precision mediump float;\n        attribute vec2 position;\n        uniform vec3 offset;\n        uniform vec2 size;\n        varying vec2 texturePos;\n\n        void main () {\n          vec2 clipSpace = position * size + offset.xy - 32.0;\n          gl_Position = vec4(clipSpace.x, -clipSpace.y, offset.z, 32.0);\n          texturePos = position * size;\n        }\n\n    '};
-var _w0rm$elm_mogee$View_Wall$render = F3(
-	function (texture, position, _p0) {
+var _w0rm$elm_mogee$View_Wall$render = F2(
+	function (texture, _p0) {
 		var _p1 = _p0;
-		var _p3 = _p1._0;
-		var _p2 = _p1._1;
+		var _p3 = _p1.width;
+		var _p2 = _p1.height;
 		return A4(
 			_elm_community$webgl$WebGL$entity,
 			_w0rm$elm_mogee$View_Wall$texturedVertexShader,
@@ -18947,12 +18845,7 @@ var _w0rm$elm_mogee$View_Wall$render = F3(
 			_w0rm$elm_mogee$View_Common$box,
 			{
 				offset: _elm_community$linear_algebra$Math_Vector3$fromTuple(
-					{
-						ctor: '_Tuple3',
-						_0: _elm_lang$core$Tuple$first(position),
-						_1: _elm_lang$core$Tuple$second(position),
-						_2: 3
-					}),
+					{ctor: '_Tuple3', _0: _p1.x, _1: _p1.y, _2: 3}),
 				texture: texture,
 				textureSize: A2(
 					_elm_community$linear_algebra$Math_Vector2$vec2,
@@ -19365,13 +19258,51 @@ var _w0rm$elm_mogee$View_Screen$Varying = function (a) {
 	return {texturePos: a};
 };
 
-var _w0rm$elm_mogee$View_Components$renderMogee = F4(
-	function (texture, directionX, _p0, entities) {
+var _w0rm$elm_mogee$View_Components$renderScreens = F4(
+	function (texture, offset, _p0, entities) {
 		var _p1 = _p0;
+		return A4(
+			_w0rm$elm_mogee$Components_Components$foldl2,
+			F3(
+				function (_p2, screen, transform) {
+					var monster = A2(
+						_w0rm$elm_mogee$Components_Transform$offsetBy,
+						offset,
+						A2(_w0rm$elm_mogee$Components_Transform$invertScreen, screen.to, transform));
+					var screenTransform = A2(_w0rm$elm_mogee$Components_Transform$offsetBy, offset, transform);
+					return function (_p3) {
+						return A5(
+							_w0rm$elm_mogee$View_Screen$render,
+							texture,
+							{ctor: '_Tuple2', _0: monster.x, _1: monster.y},
+							{ctor: '_Tuple2', _0: transform.width, _1: transform.height},
+							screen,
+							A2(
+								F2(
+									function (x, y) {
+										return {ctor: '::', _0: x, _1: y};
+									}),
+								A3(_w0rm$elm_mogee$View_Common$rectangle, monster, 2, _w0rm$elm_mogee$View_Color$darkBlue),
+								A2(
+									F2(
+										function (x, y) {
+											return {ctor: '::', _0: x, _1: y};
+										}),
+									A3(_w0rm$elm_mogee$View_Common$rectangle, screenTransform, 5, _w0rm$elm_mogee$View_Color$darkGreen),
+									_p3)));
+					};
+				}),
+			entities,
+			_p1.screens,
+			_p1.transforms);
+	});
+var _w0rm$elm_mogee$View_Components$renderMogee = F4(
+	function (texture, directionX, _p4, entities) {
+		var _p5 = _p4;
 		return A3(
 			_w0rm$elm_mogee$Components_Components$foldl,
 			F2(
-				function (_p2, mogee) {
+				function (_p6, mogee) {
 					return F2(
 						function (x, y) {
 							return {ctor: '::', _0: x, _1: y};
@@ -19384,13 +19315,7 @@ var _w0rm$elm_mogee$View_Components$renderMogee = F4(
 							mogee));
 				}),
 			entities,
-			_p1.mogees);
-	});
-var _w0rm$elm_mogee$View_Components$offsetBy = F2(
-	function (_p4, _p3) {
-		var _p5 = _p4;
-		var _p6 = _p3;
-		return {ctor: '_Tuple2', _0: _p6._0 - _p5._0, _1: _p6._1 - _p5._1};
+			_p5.mogees);
 	});
 var _w0rm$elm_mogee$View_Components$renderWalls = F4(
 	function (texture, offset, _p7, entities) {
@@ -19398,79 +19323,23 @@ var _w0rm$elm_mogee$View_Components$renderWalls = F4(
 		return A4(
 			_w0rm$elm_mogee$Components_Components$foldl2,
 			F3(
-				function (_p11, _p10, _p9) {
-					var _p12 = _p9;
+				function (_p10, _p9, transform) {
 					return F2(
 						function (x, y) {
 							return {ctor: '::', _0: x, _1: y};
 						})(
-						A3(
+						A2(
 							_w0rm$elm_mogee$View_Wall$render,
 							texture,
-							A2(_w0rm$elm_mogee$View_Components$offsetBy, offset, _p12.position),
-							_p12.size));
+							A2(_w0rm$elm_mogee$Components_Transform$offsetBy, offset, transform)));
 				}),
 			entities,
 			_p8.walls,
 			_p8.transforms);
 	});
-var _w0rm$elm_mogee$View_Components$renderScreens = F4(
-	function (texture, offset, _p13, entities) {
-		var _p14 = _p13;
-		return A4(
-			_w0rm$elm_mogee$Components_Components$foldl2,
-			F3(
-				function (_p15, screen, transform) {
-					var monster = A2(_w0rm$elm_mogee$Components_Transform$invertScreen, screen.to, transform);
-					var monsterPosition = A2(_w0rm$elm_mogee$View_Components$offsetBy, offset, monster.position);
-					var position = A2(_w0rm$elm_mogee$View_Components$offsetBy, offset, transform.position);
-					return function (_p16) {
-						return A5(
-							_w0rm$elm_mogee$View_Screen$render,
-							texture,
-							monsterPosition,
-							transform.size,
-							screen,
-							A2(
-								F2(
-									function (x, y) {
-										return {ctor: '::', _0: x, _1: y};
-									}),
-								A3(
-									_w0rm$elm_mogee$View_Common$rectangle,
-									monster.size,
-									{
-										ctor: '_Tuple3',
-										_0: _elm_lang$core$Tuple$first(monsterPosition),
-										_1: _elm_lang$core$Tuple$second(monsterPosition),
-										_2: 2
-									},
-									_w0rm$elm_mogee$View_Color$darkBlue),
-								A2(
-									F2(
-										function (x, y) {
-											return {ctor: '::', _0: x, _1: y};
-										}),
-									A3(
-										_w0rm$elm_mogee$View_Common$rectangle,
-										transform.size,
-										{
-											ctor: '_Tuple3',
-											_0: _elm_lang$core$Tuple$first(position),
-											_1: _elm_lang$core$Tuple$second(position),
-											_2: 5
-										},
-										_w0rm$elm_mogee$View_Color$darkGreen),
-									_p16)));
-					};
-				}),
-			entities,
-			_p14.screens,
-			_p14.transforms);
-	});
 var _w0rm$elm_mogee$View_Components$render = F4(
 	function (texture, directionX, offset, components) {
-		return function (_p17) {
+		return function (_p11) {
 			return A4(
 				_w0rm$elm_mogee$View_Components$renderScreens,
 				texture,
@@ -19481,7 +19350,7 @@ var _w0rm$elm_mogee$View_Components$render = F4(
 					texture,
 					directionX,
 					components,
-					A4(_w0rm$elm_mogee$View_Components$renderWalls, texture, offset, components, _p17)));
+					A4(_w0rm$elm_mogee$View_Components$renderWalls, texture, offset, components, _p11)));
 		};
 	});
 
@@ -19738,11 +19607,12 @@ var _w0rm$elm_mogee$View$continueText = _w0rm$elm_mogee$View_Font$text('press en
 var _w0rm$elm_mogee$View$toMinimap = function (_p0) {
 	var _p1 = _p0;
 	return {
-		ctor: '_Tuple2',
-		_0: _elm_lang$core$Basics$toFloat(
-			_elm_lang$core$Basics$floor(_p1._0 / 64)),
-		_1: _elm_lang$core$Basics$toFloat(
-			_elm_lang$core$Basics$floor(_p1._1 / 64))
+		x: _elm_lang$core$Basics$toFloat(
+			_elm_lang$core$Basics$floor(_p1.x / 64)),
+		y: _elm_lang$core$Basics$toFloat(
+			_elm_lang$core$Basics$floor(_p1.y / 64)),
+		width: 1,
+		height: 1
 	};
 };
 var _w0rm$elm_mogee$View$renderGame = F4(
@@ -19750,11 +19620,10 @@ var _w0rm$elm_mogee$View$renderGame = F4(
 		var allScr = A4(
 			_w0rm$elm_mogee$Components_Components$foldl2,
 			F4(
-				function (_p4, _p3, _p2, positions) {
-					var _p5 = _p2;
+				function (_p3, _p2, position, positions) {
 					return {
 						ctor: '::',
-						_0: _w0rm$elm_mogee$View$toMinimap(_p5.position),
+						_0: _w0rm$elm_mogee$View$toMinimap(position),
 						_1: positions
 					};
 				}),
@@ -19765,35 +19634,40 @@ var _w0rm$elm_mogee$View$renderGame = F4(
 			_elm_lang$core$Maybe$withDefault,
 			0,
 			_elm_lang$core$List$maximum(
-				A2(_elm_lang$core$List$map, _elm_lang$core$Tuple$first, allScr)));
+				A2(
+					_elm_lang$core$List$map,
+					function (_) {
+						return _.x;
+					},
+					allScr)));
 		var minY = A2(
 			_elm_lang$core$Maybe$withDefault,
 			0,
 			_elm_lang$core$List$minimum(
-				A2(_elm_lang$core$List$map, _elm_lang$core$Tuple$second, allScr)));
-		var _p6 = _w0rm$elm_mogee$Components_Components$mogeeOffset(model.components);
-		var x = _p6._0;
-		var y = _p6._1;
+				A2(
+					_elm_lang$core$List$map,
+					function (_) {
+						return _.y;
+					},
+					allScr)));
+		var mogeeTransform = _w0rm$elm_mogee$Components_Components$mogeeOffset(model.components);
 		var offset = {
 			ctor: '_Tuple2',
 			_0: _elm_lang$core$Basics$toFloat(
-				_elm_lang$core$Basics$round(x) - 28),
+				_elm_lang$core$Basics$round(mogeeTransform.x) - 28),
 			_1: _elm_lang$core$Basics$toFloat(
-				_elm_lang$core$Basics$round(y) - 27)
+				_elm_lang$core$Basics$round(mogeeTransform.y) - 27)
 		};
-		var _p7 = _w0rm$elm_mogee$View$toMinimap(
-			{ctor: '_Tuple2', _0: x, _1: y});
-		var cx = _p7._0;
-		var cy = _p7._1;
-		var dot = function (_p8) {
-			var _p9 = _p8;
-			var _p11 = _p9._1;
-			var _p10 = _p9._0;
+		var mogeeMinimap = _w0rm$elm_mogee$View$toMinimap(mogeeTransform);
+		var dot = function (transform) {
 			return A3(
 				_w0rm$elm_mogee$View_Common$rectangle,
-				{ctor: '_Tuple2', _0: 1, _1: 1},
-				{ctor: '_Tuple3', _0: ((63 - maxX) - 1) + _p10, _1: (_p11 - minY) + 1, _2: 0},
-				(_elm_lang$core$Native_Utils.eq(_p10, cx) && _elm_lang$core$Native_Utils.eq(_p11, cy)) ? _w0rm$elm_mogee$View_Color$yellow : _w0rm$elm_mogee$View_Color$gray);
+				A2(
+					_w0rm$elm_mogee$Components_Transform$offsetBy,
+					{ctor: '_Tuple2', _0: maxX - 62, _1: minY - 1},
+					transform),
+				0,
+				_elm_lang$core$Native_Utils.eq(transform, mogeeMinimap) ? _w0rm$elm_mogee$View_Color$yellow : _w0rm$elm_mogee$View_Color$gray);
 		};
 		return A2(
 			_elm_lang$core$Basics_ops['++'],
@@ -19822,15 +19696,15 @@ var _w0rm$elm_mogee$View$renderGame = F4(
 	});
 var _w0rm$elm_mogee$View$render = F4(
 	function (model, texture, font, sprite) {
-		var _p12 = model.state;
-		switch (_p12.ctor) {
+		var _p4 = model.state;
+		switch (_p4.ctor) {
 			case 'Initial':
-				var _p13 = _p12._0;
-				return _elm_lang$core$Native_Utils.eq(_p13.section, _w0rm$elm_mogee$Components_Menu$SlidesSection) ? A3(_w0rm$elm_mogee$Slides_View$render, sprite, font, model.slides) : A4(_w0rm$elm_mogee$View_Menu$render, model.sound, font, sprite, _p13);
+				var _p5 = _p4._0;
+				return _elm_lang$core$Native_Utils.eq(_p5.section, _w0rm$elm_mogee$Components_Menu$SlidesSection) ? A3(_w0rm$elm_mogee$Slides_View$render, sprite, font, model.slides) : A4(_w0rm$elm_mogee$View_Menu$render, model.sound, font, sprite, _p5);
 			case 'Paused':
 				return A2(
 					_elm_lang$core$Basics_ops['++'],
-					A4(_w0rm$elm_mogee$View_Menu$render, model.sound, font, sprite, _p12._0),
+					A4(_w0rm$elm_mogee$View_Menu$render, model.sound, font, sprite, _p4._0),
 					A4(_w0rm$elm_mogee$View$renderGame, model, texture, font, sprite));
 			case 'Dead':
 				return {
