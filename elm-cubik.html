@@ -11921,6 +11921,120 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 				A2(_elm_lang$core$List$filter, _elm_lang$core$Tuple$second, list))));
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
+var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$html$Html_Events$targetChecked = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'checked',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$bool);
+var _elm_lang$html$Html_Events$targetValue = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'value',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$html$Html_Events$onFocus = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'focus',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onBlur = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'blur',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+	_elm_lang$html$Html_Events$defaultOptions,
+	{preventDefault: true});
+var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'submit',
+		_elm_lang$html$Html_Events$onSubmitOptions,
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'change',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+};
+var _elm_lang$html$Html_Events$onInput = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'input',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+};
+var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseout',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseover',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseleave',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseenter',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseup',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mousedown',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'dblclick',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'click',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
 var _elm_lang$mouse$Mouse_ops = _elm_lang$mouse$Mouse_ops || {};
 _elm_lang$mouse$Mouse_ops['&>'] = F2(
 	function (t1, t2) {
@@ -12223,6 +12337,88 @@ var _elm_lang$window$Window$subMap = F2(
 			});
 	});
 _elm_lang$core$Native_Platform.effectManagers['Window'] = {pkg: 'elm-lang/window', init: _elm_lang$window$Window$init, onEffects: _elm_lang$window$Window$onEffects, onSelfMsg: _elm_lang$window$Window$onSelfMsg, tag: 'sub', subMap: _elm_lang$window$Window$subMap};
+var _mpizenberg$elm_touch_events$Private_Touch$stopOptions = {stopPropagation: true, preventDefault: true};
+var _mpizenberg$elm_touch_events$Private_Touch$toTuple = function (touch) {
+	return {ctor: '_Tuple2', _0: touch.identifier, _1: touch.coordinates};
+};
+var _mpizenberg$elm_touch_events$Private_Touch$Event = F3(
+	function (a, b, c) {
+		return {changedTouches: a, targetTouches: b, touches: c};
+	});
+var _mpizenberg$elm_touch_events$Private_Touch$Touch = F2(
+	function (a, b) {
+		return {identifier: a, coordinates: b};
+	});
+var _mpizenberg$elm_touch_events$Private_Touch$Coordinates = F2(
+	function (a, b) {
+		return {clientX: a, clientY: b};
+	});
+var _mpizenberg$elm_touch_events$Private_Touch$decode = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_mpizenberg$elm_touch_events$Private_Touch$Touch,
+	A2(_elm_lang$core$Json_Decode$field, 'identifier', _elm_lang$core$Json_Decode$int),
+	A3(
+		_elm_lang$core$Json_Decode$map2,
+		_mpizenberg$elm_touch_events$Private_Touch$Coordinates,
+		A2(_elm_lang$core$Json_Decode$field, 'clientX', _elm_lang$core$Json_Decode$float),
+		A2(_elm_lang$core$Json_Decode$field, 'clientY', _elm_lang$core$Json_Decode$float)));
+var _mpizenberg$elm_touch_events$Touch$clientPos = function (coordinates) {
+	return {
+		ctor: '_Tuple2',
+		_0: function (_) {
+			return _.clientX;
+		}(coordinates),
+		_1: function (_) {
+			return _.clientY;
+		}(coordinates)
+	};
+};
+var _mpizenberg$elm_touch_events$Touch$touches = function (_) {
+	return _.touches;
+};
+var _mpizenberg$elm_touch_events$Touch$targetTouches = function (_) {
+	return _.targetTouches;
+};
+var _mpizenberg$elm_touch_events$Touch$changedTouches = function (_) {
+	return _.changedTouches;
+};
+var _mpizenberg$elm_touch_events$SingleTouch$decodeCoordinates = A2(
+	_elm_lang$core$Json_Decode$map,
+	function (_) {
+		return _.coordinates;
+	},
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'changedTouches',
+			_1: {
+				ctor: '::',
+				_0: '0',
+				_1: {ctor: '[]'}
+			}
+		},
+		_mpizenberg$elm_touch_events$Private_Touch$decode));
+var _mpizenberg$elm_touch_events$SingleTouch$on = F2(
+	function (event, tag) {
+		return A3(
+			_elm_lang$html$Html_Events$onWithOptions,
+			event,
+			_mpizenberg$elm_touch_events$Private_Touch$stopOptions,
+			A2(_elm_lang$core$Json_Decode$map, tag, _mpizenberg$elm_touch_events$SingleTouch$decodeCoordinates));
+	});
+var _mpizenberg$elm_touch_events$SingleTouch$onCancel = function (tag) {
+	return A2(_mpizenberg$elm_touch_events$SingleTouch$on, 'touchcancel', tag);
+};
+var _mpizenberg$elm_touch_events$SingleTouch$onEnd = function (tag) {
+	return A2(_mpizenberg$elm_touch_events$SingleTouch$on, 'touchend', tag);
+};
+var _mpizenberg$elm_touch_events$SingleTouch$onMove = function (tag) {
+	return A2(_mpizenberg$elm_touch_events$SingleTouch$on, 'touchmove', tag);
+};
+var _mpizenberg$elm_touch_events$SingleTouch$onStart = function (tag) {
+	return A2(_mpizenberg$elm_touch_events$SingleTouch$on, 'touchstart', tag);
+};
 var _user$project$Types$Cell = F3(
 	function (a, b, c) {
 		return {transform: a, color: b, normal: c};
@@ -12251,16 +12447,9 @@ var _user$project$Types$TransformStart = F2(
 	function (a, b) {
 		return {ctor: 'TransformStart', _0: a, _1: b};
 	});
-var _user$project$Types$Selected = function (a) {
-	return {ctor: 'Selected', _0: a};
-};
 var _user$project$Types$Rotating = function (a) {
 	return {ctor: 'Rotating', _0: a};
 };
-var _user$project$Types$Clicked = F2(
-	function (a, b) {
-		return {ctor: 'Clicked', _0: a, _1: b};
-	});
 var _user$project$Types$Initial = {ctor: 'Initial'};
 var _user$project$Types$Down = function (a) {
 	return {ctor: 'Down', _0: a};
@@ -12386,6 +12575,15 @@ var _user$project$Utils$rotateCell = F3(
 	});
 var _user$project$View$fragmentShader = {'src': '\n        precision mediump float;\n        uniform vec3 color;\n\n        void main () {\n          gl_FragColor = vec4(color, 1.0);\n        }\n    '};
 var _user$project$View$vertexShader = {'src': '\n        attribute vec3 position;\n        uniform mat4 camera;\n        uniform mat4 perspective;\n        uniform mat4 rotation;\n        uniform mat4 transform;\n\n        void main () {\n          gl_Position = perspective * camera * rotation * transform * vec4(position, 1.0);\n        }\n    '};
+var _user$project$View$touchToMouse = function (coordinates) {
+	var _p0 = _mpizenberg$elm_touch_events$Touch$clientPos(coordinates);
+	var x = _p0._0;
+	var y = _p0._1;
+	return A2(
+		_elm_lang$mouse$Mouse$Position,
+		_elm_lang$core$Basics$round(x),
+		_elm_lang$core$Basics$round(y));
+};
 var _user$project$View$cellAttributes = {
 	ctor: '::',
 	_0: {
@@ -12414,35 +12612,28 @@ var _user$project$View$cellAttributes = {
 var _user$project$View$cellMesh = _elm_community$webgl$WebGL$triangles(_user$project$View$cellAttributes);
 var _user$project$View$cellEntity = F3(
 	function (model, id, cell) {
-		var _p0 = function () {
-			var _p1 = model.state;
-			switch (_p1.ctor) {
-				case 'Selected':
-					return {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.eq(_p1._0, id),
-						_1: _elm_lang$core$Basics$identity
-					};
+		var _p1 = function () {
+			var _p2 = model.state;
+			switch (_p2.ctor) {
 				case 'TransformStart':
 					return {
 						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.eq(_p1._0, id),
+						_0: _elm_lang$core$Native_Utils.eq(_p2._0, id),
 						_1: _elm_lang$core$Basics$identity
 					};
 				case 'Transforming':
-					var _p2 = _p1._0;
-					return (_elm_lang$core$Native_Utils.eq(_p2, id) || A2(_elm_lang$core$Set$member, id, _p1._1)) ? {
+					return A2(_elm_lang$core$Set$member, id, _p2._1) ? {
 						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.eq(_p2, id),
+						_0: _elm_lang$core$Native_Utils.eq(_p2._0, id),
 						_1: _elm_community$linear_algebra$Math_Matrix4$mul(
-							A2(_user$project$Utils$makeRotation, _p1._2, _p1._3))
+							A2(_user$project$Utils$makeRotation, _p2._2, _p2._3))
 					} : {ctor: '_Tuple2', _0: false, _1: _elm_lang$core$Basics$identity};
 				default:
 					return {ctor: '_Tuple2', _0: false, _1: _elm_lang$core$Basics$identity};
 			}
 		}();
-		var isHighlighted = _p0._0;
-		var rotationFunc = _p0._1;
+		var isHighlighted = _p1._0;
+		var rotationFunc = _p1._1;
 		var highlightFunc = isHighlighted ? _elm_community$linear_algebra$Math_Vector3$scale(0.4) : _elm_lang$core$Basics$identity;
 		var perspective = A4(
 			_elm_community$linear_algebra$Math_Matrix4$makePerspective,
@@ -12507,10 +12698,12 @@ var _user$project$View$view = function (model) {
 		},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$width(model.window.width),
+			_0: _elm_lang$html$Html_Attributes$width(
+				_elm_lang$core$Native_Utils.eq(model.window.width, 0) ? 1 : model.window.width),
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$height(model.window.height),
+				_0: _elm_lang$html$Html_Attributes$height(
+					_elm_lang$core$Native_Utils.eq(model.window.height, 0) ? 1 : model.window.height),
 				_1: {
 					ctor: '::',
 					_0: _elm_lang$html$Html_Attributes$style(
@@ -12519,7 +12712,31 @@ var _user$project$View$view = function (model) {
 							_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
 							_1: {ctor: '[]'}
 						}),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: _mpizenberg$elm_touch_events$SingleTouch$onStart(
+							function (_p4) {
+								return _user$project$Types$Down(
+									_user$project$View$touchToMouse(_p4));
+							}),
+						_1: {
+							ctor: '::',
+							_0: _mpizenberg$elm_touch_events$SingleTouch$onMove(
+								function (_p5) {
+									return _user$project$Types$Move(
+										_user$project$View$touchToMouse(_p5));
+								}),
+							_1: {
+								ctor: '::',
+								_0: _mpizenberg$elm_touch_events$SingleTouch$onEnd(
+									function (_p6) {
+										return _user$project$Types$Up(
+											_user$project$View$touchToMouse(_p6));
+									}),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
 				}
 			}
 		},
@@ -12537,7 +12754,6 @@ var _user$project$Main$getMousePosition = F2(
 	function (_p0, mouse) {
 		var _p1 = _p0;
 		var _p2 = _p1.window;
-		var invertedViewMatrix = _elm_community$linear_algebra$Math_Matrix4$inverseOrthonormal(_p1.camera);
 		var invertedProjectionMatrix = A2(
 			_elm_lang$core$Maybe$withDefault,
 			_elm_community$linear_algebra$Math_Matrix4$identity,
@@ -12555,7 +12771,10 @@ var _user$project$Main$getMousePosition = F2(
 			_elm_community$linear_algebra$Math_Vector4$getY(vec4CameraCoordinates),
 			-1,
 			0);
-		var vec4WorldCoordinates = A2(_user$project$Utils$transform4, invertedViewMatrix, direction);
+		var vec4WorldCoordinates = A2(
+			_user$project$Utils$transform4,
+			_elm_community$linear_algebra$Math_Matrix4$inverseOrthonormal(_p1.camera),
+			direction);
 		var vec3WorldCoordinates = A3(
 			_elm_community$linear_algebra$Math_Vector3$vec3,
 			_elm_community$linear_algebra$Math_Vector4$getX(vec4WorldCoordinates),
@@ -12587,19 +12806,19 @@ var _user$project$Main$frontFace = function (color) {
 var _user$project$Main$makeSide = function (color) {
 	var _p3 = color;
 	switch (_p3.ctor) {
-		case 'Red':
+		case 'Green':
 			return _user$project$Main$frontFace(color);
-		case 'White':
+		case 'Blue':
 			return A2(
 				_elm_lang$core$List$map,
 				A2(_user$project$Utils$rotateCell, _user$project$Types$XAxis, _elm_lang$core$Basics$pi),
 				_user$project$Main$frontFace(color));
-		case 'Green':
+		case 'White':
 			return A2(
 				_elm_lang$core$List$map,
 				A2(_user$project$Utils$rotateCell, _user$project$Types$XAxis, _elm_lang$core$Basics$pi / 2),
 				_user$project$Main$frontFace(color));
-		case 'Blue':
+		case 'Yellow':
 			return A2(
 				_elm_lang$core$List$map,
 				A2(_user$project$Utils$rotateCell, _user$project$Types$XAxis, (0 - _elm_lang$core$Basics$pi) / 2),
@@ -12651,159 +12870,73 @@ var _user$project$Main$cubik = _elm_lang$core$Dict$fromList(
 					}
 				}
 			})));
-var _user$project$Main$sqr = function (a) {
-	return a * a;
-};
 var _user$project$Main$selectCells = F3(
 	function (selectedCell, axis, cells) {
-		var _p4 = _user$project$Utils$round3(
-			_user$project$Utils$cellPosition(selectedCell));
-		var x = _p4._0;
-		var y = _p4._1;
-		var z = _p4._2;
-		var _p5 = axis;
-		switch (_p5.ctor) {
-			case 'XAxis':
-				return A3(
-					_elm_lang$core$Dict$foldl,
-					F2(
-						function (cellId, cell) {
-							return _elm_lang$core$Native_Utils.eq(
-								_elm_lang$core$Basics$round(
-									_elm_community$linear_algebra$Math_Vector3$getX(
-										_user$project$Utils$cellPosition(cell))),
-								x) ? _elm_lang$core$Set$insert(cellId) : _elm_lang$core$Basics$identity;
-						}),
-					_elm_lang$core$Set$empty,
-					cells);
-			case 'YAxis':
-				return A3(
-					_elm_lang$core$Dict$foldl,
-					F2(
-						function (cellId, cell) {
-							return _elm_lang$core$Native_Utils.eq(
-								_elm_lang$core$Basics$round(
-									_elm_community$linear_algebra$Math_Vector3$getY(
-										_user$project$Utils$cellPosition(cell))),
-								y) ? _elm_lang$core$Set$insert(cellId) : _elm_lang$core$Basics$identity;
-						}),
-					_elm_lang$core$Set$empty,
-					cells);
-			default:
-				return A3(
-					_elm_lang$core$Dict$foldl,
-					F2(
-						function (cellId, cell) {
-							return _elm_lang$core$Native_Utils.eq(
-								_elm_lang$core$Basics$round(
-									_elm_community$linear_algebra$Math_Vector3$getZ(
-										_user$project$Utils$cellPosition(cell))),
-								z) ? _elm_lang$core$Set$insert(cellId) : _elm_lang$core$Basics$identity;
-						}),
-					_elm_lang$core$Set$empty,
-					cells);
-		}
-	});
-var _user$project$Main$origin = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -10);
-var _user$project$Main$transforming = F7(
-	function (cellId, cells, dest, axis, angle, fromCoord, model) {
-		var inverseRot = _elm_community$linear_algebra$Math_Matrix4$inverseOrthonormal(model.rotation);
-		var cell = function () {
-			var _p6 = A2(_elm_lang$core$Dict$get, cellId, model.cubik);
-			if (_p6.ctor === 'Just') {
-				return _p6._0;
-			} else {
-				return _elm_lang$core$Native_Utils.crashCase(
-					'Main',
-					{
-						start: {line: 350, column: 13},
-						end: {line: 355, column: 51}
-					},
-					_p6)('shouldn\'t happen');
+		var fn = function () {
+			var _p4 = axis;
+			switch (_p4.ctor) {
+				case 'XAxis':
+					return _elm_community$linear_algebra$Math_Vector3$getX;
+				case 'YAxis':
+					return _elm_community$linear_algebra$Math_Vector3$getY;
+				default:
+					return _elm_community$linear_algebra$Math_Vector3$getZ;
 			}
 		}();
-		var toCoord = A4(
-			_user$project$Utils$rayPlaneIntersect,
-			_user$project$Main$origin,
-			A2(_user$project$Main$getMousePosition, model, dest),
-			A2(
-				_elm_community$linear_algebra$Math_Matrix4$transform,
-				model.rotation,
-				_user$project$Utils$cellPosition(cell)),
-			A2(_elm_community$linear_algebra$Math_Matrix4$transform, model.rotation, cell.normal));
-		var _p8 = _elm_community$linear_algebra$Math_Vector3$toTuple(
-			A2(
-				_elm_lang$core$Maybe$withDefault,
-				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
-				A2(
-					_elm_lang$core$Maybe$map,
-					_elm_community$linear_algebra$Math_Matrix4$transform(inverseRot),
-					A2(
-						_elm_lang$core$Maybe$map,
-						_elm_community$linear_algebra$Math_Vector3$sub(fromCoord),
-						toCoord))));
-		var x = _p8._0;
-		var y = _p8._1;
-		var z = _p8._2;
-		var angle = function () {
-			var _p9 = _user$project$Utils$round3(cell.normal);
-			_v4_6:
-			do {
-				if (_p9.ctor === '_Tuple3') {
-					switch (_p9._0) {
-						case -1:
-							if ((_p9._1 === 0) && (_p9._2 === 0)) {
-								return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$ZAxis) ? y : (0 - z);
-							} else {
-								break _v4_6;
-							}
-						case 1:
-							if ((_p9._1 === 0) && (_p9._2 === 0)) {
-								return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$ZAxis) ? (0 - y) : z;
-							} else {
-								break _v4_6;
-							}
-						case 0:
-							switch (_p9._1) {
-								case 0:
-									switch (_p9._2) {
-										case -1:
-											return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? (0 - y) : x;
-										case 1:
-											return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? y : (0 - x);
-										default:
-											break _v4_6;
-									}
-								case 1:
-									if (_p9._2 === 0) {
-										return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? (0 - z) : x;
-									} else {
-										break _v4_6;
-									}
-								case -1:
-									if (_p9._2 === 0) {
-										return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? z : (0 - x);
-									} else {
-										break _v4_6;
-									}
-								default:
-									break _v4_6;
-							}
-						default:
-							break _v4_6;
-					}
-				} else {
-					break _v4_6;
-				}
-			} while(false);
-			return 0;
-		}();
+		var selectedPosition = _user$project$Utils$cellPosition(selectedCell);
+		return A3(
+			_elm_lang$core$Dict$foldl,
+			F2(
+				function (cellId, cell) {
+					return _elm_lang$core$Native_Utils.eq(
+						_elm_lang$core$Basics$round(
+							fn(
+								_user$project$Utils$cellPosition(cell))),
+						_elm_lang$core$Basics$round(
+							fn(selectedPosition))) ? _elm_lang$core$Set$insert(cellId) : _elm_lang$core$Basics$identity;
+				}),
+			_elm_lang$core$Set$empty,
+			cells);
+	});
+var _user$project$Main$rotate = F3(
+	function (source, dest, model) {
 		return _elm_lang$core$Native_Utils.update(
 			model,
 			{
-				state: A5(_user$project$Types$Transforming, cellId, cells, axis, angle, fromCoord)
+				state: _user$project$Types$Rotating(dest),
+				rotation: A2(
+					_elm_community$linear_algebra$Math_Matrix4$mul,
+					A2(
+						_elm_community$linear_algebra$Math_Matrix4$makeRotate,
+						_elm_lang$core$Basics$toFloat(source.y - dest.y) * 5.0e-3,
+						_elm_community$linear_algebra$Math_Vector3$i),
+					A2(
+						_elm_community$linear_algebra$Math_Matrix4$mul,
+						A2(
+							_elm_community$linear_algebra$Math_Matrix4$makeRotate,
+							_elm_lang$core$Basics$toFloat(dest.x - source.x) * 5.0e-3,
+							_elm_community$linear_algebra$Math_Vector3$j),
+						model.rotation))
 			});
 	});
+var _user$project$Main$transform = F4(
+	function (cells, axis, angle, model) {
+		var closestAngle = (_elm_lang$core$Basics$toFloat(
+			_elm_lang$core$Basics$round(angle / (_elm_lang$core$Basics$pi / 2))) * _elm_lang$core$Basics$pi) / 2;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				state: _user$project$Types$Initial,
+				cubik: A2(
+					_elm_lang$core$Dict$map,
+					F2(
+						function (cellId, cell) {
+							return A2(_elm_lang$core$Set$member, cellId, cells) ? A3(_user$project$Utils$rotateCell, axis, closestAngle, cell) : cell;
+						}),
+					model.cubik)
+			});
+	});
+var _user$project$Main$origin = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -10);
 var _user$project$Main$cellClickCoordinates = F2(
 	function (destination, transform) {
 		return _elm_lang$core$List$head(
@@ -12812,41 +12945,46 @@ var _user$project$Main$cellClickCoordinates = F2(
 				A2(_user$project$Utils$rayTriangleIntersect, _user$project$Main$origin, destination),
 				A2(
 					_elm_lang$core$List$map,
-					function (_p10) {
-						var _p11 = _p10;
+					function (_p5) {
+						var _p6 = _p5;
 						return {
 							ctor: '_Tuple3',
-							_0: A2(_elm_community$linear_algebra$Math_Matrix4$transform, transform, _p11._0.position),
-							_1: A2(_elm_community$linear_algebra$Math_Matrix4$transform, transform, _p11._1.position),
-							_2: A2(_elm_community$linear_algebra$Math_Matrix4$transform, transform, _p11._2.position)
+							_0: A2(_elm_community$linear_algebra$Math_Matrix4$transform, transform, _p6._0.position),
+							_1: A2(_elm_community$linear_algebra$Math_Matrix4$transform, transform, _p6._1.position),
+							_2: A2(_elm_community$linear_algebra$Math_Matrix4$transform, transform, _p6._2.position)
 						};
 					},
 					_user$project$View$cellAttributes)));
 	});
-var _user$project$Main$startTransforming = F4(
-	function (cellId, mouse, dest, model) {
-		var inverseRot = _elm_community$linear_algebra$Math_Matrix4$inverseOrthonormal(model.rotation);
-		var cell = function () {
-			var _p12 = A2(_elm_lang$core$Dict$get, cellId, model.cubik);
-			if (_p12.ctor === 'Just') {
-				return _p12._0;
-			} else {
-				return _elm_lang$core$Native_Utils.crashCase(
-					'Main',
-					{
-						start: {line: 166, column: 13},
-						end: {line: 171, column: 51}
+var _user$project$Main$selectCell = F2(
+	function (mouse, model) {
+		return _elm_lang$core$List$head(
+			_elm_lang$core$Dict$toList(
+				A2(
+					_elm_lang$core$Dict$filter,
+					function (_p7) {
+						return function (_p8) {
+							return A2(
+								F2(
+									function (x, y) {
+										return !_elm_lang$core$Native_Utils.eq(x, y);
+									}),
+								_elm_lang$core$Maybe$Nothing,
+								A2(
+									_user$project$Main$cellClickCoordinates,
+									A2(_user$project$Main$getMousePosition, model, mouse),
+									A2(
+										_elm_community$linear_algebra$Math_Matrix4$mul,
+										model.rotation,
+										function (_) {
+											return _.transform;
+										}(_p8))));
+						};
 					},
-					_p12)('shouldn\'t happen');
-			}
-		}();
-		var fromCoord = A2(
-			_elm_lang$core$Maybe$withDefault,
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
-			A2(
-				_user$project$Main$cellClickCoordinates,
-				A2(_user$project$Main$getMousePosition, model, mouse),
-				A2(_elm_community$linear_algebra$Math_Matrix4$mul, model.rotation, cell.transform)));
+					model.cubik)));
+	});
+var _user$project$Main$rotationDirection = F4(
+	function (cell, model, source, dest) {
 		var toCoord = A4(
 			_user$project$Utils$rayPlaneIntersect,
 			_user$project$Main$origin,
@@ -12856,46 +12994,73 @@ var _user$project$Main$startTransforming = F4(
 				model.rotation,
 				_user$project$Utils$cellPosition(cell)),
 			A2(_elm_community$linear_algebra$Math_Matrix4$transform, model.rotation, cell.normal));
-		var _p14 = _elm_community$linear_algebra$Math_Vector3$toTuple(
+		var fromCoord = A4(
+			_user$project$Utils$rayPlaneIntersect,
+			_user$project$Main$origin,
+			A2(_user$project$Main$getMousePosition, model, source),
 			A2(
-				_elm_lang$core$Maybe$withDefault,
-				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
-				A2(
-					_elm_lang$core$Maybe$map,
-					_elm_community$linear_algebra$Math_Matrix4$transform(inverseRot),
-					A2(
-						_elm_lang$core$Maybe$map,
-						_elm_community$linear_algebra$Math_Vector3$sub(fromCoord),
-						toCoord))));
-		var x = _p14._0;
-		var y = _p14._1;
-		var z = _p14._2;
-		var _p15 = function () {
-			var _p16 = _user$project$Utils$round3(cell.normal);
-			_v7_6:
+				_elm_community$linear_algebra$Math_Matrix4$transform,
+				model.rotation,
+				_user$project$Utils$cellPosition(cell)),
+			A2(_elm_community$linear_algebra$Math_Matrix4$transform, model.rotation, cell.normal));
+		var inverseRot = _elm_community$linear_algebra$Math_Matrix4$inverseOrthonormal(model.rotation);
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			{ctor: '_Tuple3', _0: 0, _1: 0, _2: 0},
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (_p9) {
+					return _elm_community$linear_algebra$Math_Vector3$toTuple(
+						A2(_elm_community$linear_algebra$Math_Matrix4$transform, inverseRot, _p9));
+				},
+				A3(_elm_lang$core$Maybe$map2, _elm_community$linear_algebra$Math_Vector3$sub, fromCoord, toCoord)));
+	});
+var _user$project$Main$startTransforming = F4(
+	function (cellId, source, dest, model) {
+		var cell = function () {
+			var _p10 = A2(_elm_lang$core$Dict$get, cellId, model.cubik);
+			if (_p10.ctor === 'Just') {
+				return _p10._0;
+			} else {
+				return _elm_lang$core$Native_Utils.crashCase(
+					'Main',
+					{
+						start: {line: 143, column: 13},
+						end: {line: 148, column: 51}
+					},
+					_p10)('Shouldn\'t happen');
+			}
+		}();
+		var _p12 = A4(_user$project$Main$rotationDirection, cell, model, source, dest);
+		var x = _p12._0;
+		var y = _p12._1;
+		var z = _p12._2;
+		var _p13 = function () {
+			var _p14 = _user$project$Utils$round3(cell.normal);
+			_v5_6:
 			do {
-				if (_p16.ctor === '_Tuple3') {
-					switch (_p16._0) {
+				if (_p14.ctor === '_Tuple3') {
+					switch (_p14._0) {
 						case -1:
-							if ((_p16._1 === 0) && (_p16._2 === 0)) {
+							if ((_p14._1 === 0) && (_p14._2 === 0)) {
 								return (_elm_lang$core$Native_Utils.cmp(
 									_elm_lang$core$Basics$abs(z),
 									_elm_lang$core$Basics$abs(y)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$ZAxis, _1: y} : {ctor: '_Tuple2', _0: _user$project$Types$YAxis, _1: 0 - z};
 							} else {
-								break _v7_6;
+								break _v5_6;
 							}
 						case 1:
-							if ((_p16._1 === 0) && (_p16._2 === 0)) {
+							if ((_p14._1 === 0) && (_p14._2 === 0)) {
 								return (_elm_lang$core$Native_Utils.cmp(
 									_elm_lang$core$Basics$abs(z),
 									_elm_lang$core$Basics$abs(y)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$ZAxis, _1: 0 - y} : {ctor: '_Tuple2', _0: _user$project$Types$YAxis, _1: z};
 							} else {
-								break _v7_6;
+								break _v5_6;
 							}
 						case 0:
-							switch (_p16._1) {
+							switch (_p14._1) {
 								case 0:
-									switch (_p16._2) {
+									switch (_p14._2) {
 										case -1:
 											return (_elm_lang$core$Native_Utils.cmp(
 												_elm_lang$core$Basics$abs(x),
@@ -12905,21 +13070,109 @@ var _user$project$Main$startTransforming = F4(
 												_elm_lang$core$Basics$abs(x),
 												_elm_lang$core$Basics$abs(y)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$XAxis, _1: y} : {ctor: '_Tuple2', _0: _user$project$Types$YAxis, _1: 0 - x};
 										default:
-											break _v7_6;
+											break _v5_6;
 									}
 								case 1:
-									if (_p16._2 === 0) {
+									if (_p14._2 === 0) {
 										return (_elm_lang$core$Native_Utils.cmp(
 											_elm_lang$core$Basics$abs(x),
 											_elm_lang$core$Basics$abs(z)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$XAxis, _1: 0 - z} : {ctor: '_Tuple2', _0: _user$project$Types$ZAxis, _1: x};
 									} else {
-										break _v7_6;
+										break _v5_6;
 									}
 								case -1:
-									if (_p16._2 === 0) {
+									if (_p14._2 === 0) {
 										return (_elm_lang$core$Native_Utils.cmp(
 											_elm_lang$core$Basics$abs(x),
 											_elm_lang$core$Basics$abs(z)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$XAxis, _1: z} : {ctor: '_Tuple2', _0: _user$project$Types$ZAxis, _1: 0 - x};
+									} else {
+										break _v5_6;
+									}
+								default:
+									break _v5_6;
+							}
+						default:
+							break _v5_6;
+					}
+				} else {
+					break _v5_6;
+				}
+			} while(false);
+			return _elm_lang$core$Native_Utils.crashCase(
+				'Main',
+				{
+					start: {line: 154, column: 13},
+					end: {line: 198, column: 51}
+				},
+				_p14)('Shouldn\'t happen');
+		}();
+		var axis = _p13._0;
+		var angle = _p13._1;
+		var cells = A3(_user$project$Main$selectCells, cell, axis, model.cubik);
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				state: A5(_user$project$Types$Transforming, cellId, cells, axis, angle, source)
+			});
+	});
+var _user$project$Main$transforming = F7(
+	function (cellId, cells, source, dest, axis, angle, model) {
+		var cell = function () {
+			var _p16 = A2(_elm_lang$core$Dict$get, cellId, model.cubik);
+			if (_p16.ctor === 'Just') {
+				return _p16._0;
+			} else {
+				return _elm_lang$core$Native_Utils.crashCase(
+					'Main',
+					{
+						start: {line: 210, column: 13},
+						end: {line: 215, column: 51}
+					},
+					_p16)('Shouldn\'t happen');
+			}
+		}();
+		var _p18 = A4(_user$project$Main$rotationDirection, cell, model, source, dest);
+		var x = _p18._0;
+		var y = _p18._1;
+		var z = _p18._2;
+		var angle = function () {
+			var _p19 = _user$project$Utils$round3(cell.normal);
+			_v7_6:
+			do {
+				if (_p19.ctor === '_Tuple3') {
+					switch (_p19._0) {
+						case -1:
+							if ((_p19._1 === 0) && (_p19._2 === 0)) {
+								return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$ZAxis) ? y : (0 - z);
+							} else {
+								break _v7_6;
+							}
+						case 1:
+							if ((_p19._1 === 0) && (_p19._2 === 0)) {
+								return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$ZAxis) ? (0 - y) : z;
+							} else {
+								break _v7_6;
+							}
+						case 0:
+							switch (_p19._1) {
+								case 0:
+									switch (_p19._2) {
+										case -1:
+											return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? (0 - y) : x;
+										case 1:
+											return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? y : (0 - x);
+										default:
+											break _v7_6;
+									}
+								case 1:
+									if (_p19._2 === 0) {
+										return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? (0 - z) : x;
+									} else {
+										break _v7_6;
+									}
+								case -1:
+									if (_p19._2 === 0) {
+										return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? z : (0 - x);
 									} else {
 										break _v7_6;
 									}
@@ -12936,254 +13189,107 @@ var _user$project$Main$startTransforming = F4(
 			return _elm_lang$core$Native_Utils.crashCase(
 				'Main',
 				{
-					start: {line: 196, column: 13},
-					end: {line: 240, column: 51}
+					start: {line: 221, column: 13},
+					end: {line: 265, column: 51}
 				},
-				_p16)('Shouldn\'t happen');
+				_p19)('Shouldn\'t happen');
 		}();
-		var axis = _p15._0;
-		var angle = _p15._1;
-		var cells = A3(_user$project$Main$selectCells, cell, axis, model.cubik);
 		return _elm_lang$core$Native_Utils.update(
 			model,
 			{
-				state: A5(_user$project$Types$Transforming, cellId, cells, axis, angle, fromCoord)
+				state: A5(_user$project$Types$Transforming, cellId, cells, axis, angle, source)
 			});
-	});
-var _user$project$Main$selectCell = F2(
-	function (mouse, model) {
-		return _elm_lang$core$List$head(
-			_elm_lang$core$Dict$toList(
-				A2(
-					_elm_lang$core$Dict$filter,
-					function (_p18) {
-						return function (_p19) {
-							return A2(
-								F2(
-									function (x, y) {
-										return !_elm_lang$core$Native_Utils.eq(x, y);
-									}),
-								_elm_lang$core$Maybe$Nothing,
-								A2(
-									_user$project$Main$cellClickCoordinates,
-									A2(_user$project$Main$getMousePosition, model, mouse),
-									A2(
-										_elm_community$linear_algebra$Math_Matrix4$mul,
-										model.rotation,
-										function (_) {
-											return _.transform;
-										}(_p19))));
-						};
-					},
-					model.cubik)));
 	});
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p20 = msg;
-		switch (_p20.ctor) {
+		var _p21 = A2(_elm_lang$core$Debug$log, '', msg);
+		switch (_p21.ctor) {
 			case 'Resize':
-				var _p21 = _p20._0;
+				var _p22 = _p21._0;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							window: _p21,
+							window: _p22,
 							perspective: A4(
 								_elm_community$linear_algebra$Math_Matrix4$makePerspective,
 								45,
-								_elm_lang$core$Basics$toFloat(_p21.width) / _elm_lang$core$Basics$toFloat(_p21.height),
+								_elm_lang$core$Basics$toFloat(_p22.width) / _elm_lang$core$Basics$toFloat(_p22.height),
 								1.0e-2,
 								100)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'Down':
-				var _p26 = _p20._0;
-				var _p22 = model.state;
-				switch (_p22.ctor) {
-					case 'Initial':
-						var _p23 = A2(_user$project$Main$selectCell, _p26, model);
-						if (_p23.ctor === 'Just') {
-							return {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{
-										state: A2(_user$project$Types$Clicked, _p23._0._0, _p26)
-									}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							};
-						} else {
-							return {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{
-										state: _user$project$Types$Rotating(_p26)
-									}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							};
-						}
-					case 'Selected':
-						var _p24 = A2(_user$project$Main$selectCell, _p26, model);
-						if (_p24.ctor === 'Just') {
-							var _p25 = _p24._0._0;
-							return _elm_lang$core$Native_Utils.eq(_p25, _p22._0) ? {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{
-										state: A2(_user$project$Types$TransformStart, _p25, _p26)
-									}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							} : {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{
-										state: A2(_user$project$Types$Clicked, _p25, _p26)
-									}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							};
-						} else {
-							return {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{
-										state: _user$project$Types$Rotating(_p26)
-									}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							};
-						}
-					default:
-						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				var _p25 = _p21._0;
+				var _p23 = model.state;
+				if (_p23.ctor === 'Initial') {
+					var _p24 = A2(_user$project$Main$selectCell, _p25, model);
+					if (_p24.ctor === 'Just') {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									state: A2(_user$project$Types$TransformStart, _p24._0._0, _p25)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					} else {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									state: _user$project$Types$Rotating(_p25)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					}
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				}
 			case 'Up':
-				var _p27 = model.state;
-				switch (_p27.ctor) {
-					case 'Clicked':
-						var _p28 = A2(_user$project$Main$selectCell, _p27._1, model);
-						if (_p28.ctor === 'Just') {
-							var _p29 = _p28._0._0;
-							return _elm_lang$core$Native_Utils.eq(_p29, _p27._0) ? {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{
-										state: _user$project$Types$Selected(_p29)
-									}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							} : {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{state: _user$project$Types$Initial}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							};
-						} else {
-							return {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{state: _user$project$Types$Initial}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							};
-						}
-					case 'Transforming':
-						var closestAngle = (_elm_lang$core$Basics$toFloat(
-							_elm_lang$core$Basics$round(_p27._3 / (_elm_lang$core$Basics$pi / 2))) * _elm_lang$core$Basics$pi) / 2;
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{
-									state: _user$project$Types$Initial,
-									cubik: A2(
-										_elm_lang$core$Dict$map,
-										F2(
-											function (cellId, cell) {
-												return A2(_elm_lang$core$Set$member, cellId, _p27._1) ? A3(_user$project$Utils$rotateCell, _p27._2, closestAngle, cell) : cell;
-											}),
-										model.cubik)
-								}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					default:
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{state: _user$project$Types$Initial}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
+				var _p26 = model.state;
+				if (_p26.ctor === 'Transforming') {
+					return {
+						ctor: '_Tuple2',
+						_0: A4(_user$project$Main$transform, _p26._1, _p26._2, _p26._3, model),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{state: _user$project$Types$Initial}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
 				}
 			default:
-				var _p34 = _p20._0;
-				var _p30 = model.state;
-				switch (_p30.ctor) {
-					case 'Clicked':
-						var _p31 = _p30._1;
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{
-									state: _user$project$Types$Rotating(_p34),
-									rotation: A2(
-										_elm_community$linear_algebra$Math_Matrix4$mul,
-										A2(
-											_elm_community$linear_algebra$Math_Matrix4$makeRotate,
-											_elm_lang$core$Basics$toFloat(_p31.y - _p34.y) * 5.0e-3,
-											_elm_community$linear_algebra$Math_Vector3$i),
-										A2(
-											_elm_community$linear_algebra$Math_Matrix4$mul,
-											A2(
-												_elm_community$linear_algebra$Math_Matrix4$makeRotate,
-												_elm_lang$core$Basics$toFloat(_p34.x - _p31.x) * 5.0e-3,
-												_elm_community$linear_algebra$Math_Vector3$j),
-											model.rotation))
-								}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
+				var _p29 = _p21._0;
+				var _p27 = model.state;
+				switch (_p27.ctor) {
 					case 'Rotating':
-						var _p32 = _p30._0;
 						return {
 							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{
-									state: _user$project$Types$Rotating(_p34),
-									rotation: A2(
-										_elm_community$linear_algebra$Math_Matrix4$mul,
-										A2(
-											_elm_community$linear_algebra$Math_Matrix4$makeRotate,
-											_elm_lang$core$Basics$toFloat(_p32.y - _p34.y) * 5.0e-3,
-											_elm_community$linear_algebra$Math_Vector3$i),
-										A2(
-											_elm_community$linear_algebra$Math_Matrix4$mul,
-											A2(
-												_elm_community$linear_algebra$Math_Matrix4$makeRotate,
-												_elm_lang$core$Basics$toFloat(_p34.x - _p32.x) * 5.0e-3,
-												_elm_community$linear_algebra$Math_Vector3$j),
-											model.rotation))
-								}),
+							_0: A3(_user$project$Main$rotate, _p27._0, _p29, model),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					case 'TransformStart':
-						var _p33 = _p30._1;
+						var _p28 = _p27._1;
 						return (_elm_lang$core$Native_Utils.cmp(
-							_user$project$Main$sqr(_p33.x - _p34.x) + _user$project$Main$sqr(_p33.y - _p34.y),
+							Math.pow(_p28.x - _p29.x, 2) + Math.pow(_p28.y - _p29.y, 2),
 							100) > 0) ? {
 							ctor: '_Tuple2',
-							_0: A4(_user$project$Main$startTransforming, _p30._0, _p33, _p34, model),
+							_0: A4(_user$project$Main$startTransforming, _p27._0, _p28, _p29, model),
 							_1: _elm_lang$core$Platform_Cmd$none
 						} : {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 					case 'Transforming':
 						return {
 							ctor: '_Tuple2',
-							_0: A7(_user$project$Main$transforming, _p30._0, _p30._1, _p34, _p30._2, _p30._3, _p30._4, model),
+							_0: A7(_user$project$Main$transforming, _p27._0, _p27._1, _p27._4, _p29, _p27._2, _p27._3, model),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					default:
@@ -13193,7 +13299,13 @@ var _user$project$Main$update = F2(
 	});
 var _user$project$Main$model = {
 	state: _user$project$Types$Initial,
-	rotation: _elm_community$linear_algebra$Math_Matrix4$identity,
+	rotation: A2(
+		_elm_community$linear_algebra$Math_Matrix4$mul,
+		A2(_elm_community$linear_algebra$Math_Matrix4$makeRotate, (0 - _elm_lang$core$Basics$pi) / 4, _elm_community$linear_algebra$Math_Vector3$i),
+		A2(
+			_elm_community$linear_algebra$Math_Matrix4$mul,
+			A2(_elm_community$linear_algebra$Math_Matrix4$makeRotate, _elm_lang$core$Basics$pi / 4, _elm_community$linear_algebra$Math_Vector3$j),
+			_elm_community$linear_algebra$Math_Matrix4$identity)),
 	perspective: _elm_community$linear_algebra$Math_Matrix4$identity,
 	camera: A3(
 		_elm_community$linear_algebra$Math_Matrix4$makeLookAt,
@@ -13212,7 +13324,7 @@ var _user$project$Main$main = _elm_lang$html$Html$program(
 		},
 		update: _user$project$Main$update,
 		view: _user$project$View$view,
-		subscriptions: function (_p35) {
+		subscriptions: function (_p30) {
 			return _elm_lang$core$Platform_Sub$batch(
 				{
 					ctor: '::',
