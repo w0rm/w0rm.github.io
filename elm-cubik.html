@@ -13181,17 +13181,17 @@ var _user$project$Utils$colorToVec3 = function (color) {
 	var _p0 = color;
 	switch (_p0.ctor) {
 		case 'Red':
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 0, 0);
+			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.757, 0.117, 0.227);
 		case 'Green':
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0);
+			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 3.0e-3, 0.619, 0.372);
 		case 'White':
 			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 1);
 		case 'Blue':
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 1);
+			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0.317, 0.729);
 		case 'Orange':
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 0.647, 0);
+			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.937, 0.321, 1.5e-2);
 		default:
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 0);
+			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 0.835, 0);
 	}
 };
 var _user$project$Utils$colorToInt = function (color) {
@@ -13627,7 +13627,7 @@ var _user$project$Decode$model = function (value) {
 			value));
 	var devicePixelRatio = A2(
 		_elm_lang$core$Result$withDefault,
-		1,
+		2,
 		A2(
 			_elm_lang$core$Json_Decode$decodeValue,
 			A2(_elm_lang$core$Json_Decode$field, 'devicePixelRatio', _elm_lang$core$Json_Decode$float),
@@ -13834,27 +13834,86 @@ var _user$project$View$touchToMouse = function (coordinates) {
 		_elm_lang$core$Basics$round(x),
 		_elm_lang$core$Basics$round(y));
 };
+var _user$project$View$face = F4(
+	function (a, b, c, d) {
+		return {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple3',
+				_0: _user$project$Types$Attributes(a),
+				_1: _user$project$Types$Attributes(b),
+				_2: _user$project$Types$Attributes(c)
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple3',
+					_0: _user$project$Types$Attributes(c),
+					_1: _user$project$Types$Attributes(d),
+					_2: _user$project$Types$Attributes(a)
+				},
+				_1: {ctor: '[]'}
+			}
+		};
+	});
+var _user$project$View$cubeMesh = function () {
+	var lbb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, -0.5);
+	var lfb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, -0.5);
+	var rfb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, -0.5);
+	var rbb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, -0.5);
+	var rbt = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, 0.5);
+	var lbt = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, 0.5);
+	var lft = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, 0.5);
+	var rft = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0.5);
+	return _elm_community$webgl$WebGL$triangles(
+		_elm_lang$core$List$concat(
+			{
+				ctor: '::',
+				_0: A4(_user$project$View$face, rft, rfb, rbb, rbt),
+				_1: {
+					ctor: '::',
+					_0: A4(_user$project$View$face, rft, rfb, lfb, lft),
+					_1: {
+						ctor: '::',
+						_0: A4(_user$project$View$face, rft, lft, lbt, rbt),
+						_1: {
+							ctor: '::',
+							_0: A4(_user$project$View$face, rfb, lfb, lbb, rbb),
+							_1: {
+								ctor: '::',
+								_0: A4(_user$project$View$face, lft, lfb, lbb, lbt),
+								_1: {
+									ctor: '::',
+									_0: A4(_user$project$View$face, rbt, rbb, lbb, lbt),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}
+			}));
+}();
 var _user$project$View$cellAttributes = {
 	ctor: '::',
 	_0: {
 		ctor: '_Tuple3',
 		_0: _user$project$Types$Attributes(
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.45, 0.45, -0.45)),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.45, 0.45, -0.5)),
 		_1: _user$project$Types$Attributes(
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.45, -0.45, -0.45)),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.45, -0.45, -0.5)),
 		_2: _user$project$Types$Attributes(
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.45, 0.45, -0.45))
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.45, 0.45, -0.5))
 	},
 	_1: {
 		ctor: '::',
 		_0: {
 			ctor: '_Tuple3',
 			_0: _user$project$Types$Attributes(
-				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.45, 0.45, -0.45)),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.45, 0.45, -0.5)),
 			_1: _user$project$Types$Attributes(
-				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.45, -0.45, -0.45)),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.45, -0.45, -0.5)),
 			_2: _user$project$Types$Attributes(
-				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.45, -0.45, -0.45))
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.45, -0.45, -0.5))
 		},
 		_1: {ctor: '[]'}
 	}
@@ -13900,7 +13959,7 @@ var _user$project$View$cellEntity = F3(
 		}();
 		var isHighlighted = _p1._0;
 		var rotationFunc = _p1._1;
-		var highlightFunc = isHighlighted ? _elm_community$linear_algebra$Math_Vector3$scale(0.4) : _elm_lang$core$Basics$identity;
+		var highlightFunc = isHighlighted ? _elm_community$linear_algebra$Math_Vector3$scale(0.6) : _elm_lang$core$Basics$identity;
 		var perspective = A4(
 			_elm_community$linear_algebra$Math_Matrix4$makePerspective,
 			45,
@@ -13909,30 +13968,58 @@ var _user$project$View$cellEntity = F3(
 			100);
 		return F2(
 			function (x, y) {
-				return {ctor: '::', _0: x, _1: y};
+				return A2(_elm_lang$core$Basics_ops['++'], x, y);
 			})(
-			A5(
-				_elm_community$webgl$WebGL$entityWith,
-				{
-					ctor: '::',
-					_0: _elm_community$webgl$WebGL_Settings_DepthTest$default,
-					_1: {
+			{
+				ctor: '::',
+				_0: A5(
+					_elm_community$webgl$WebGL$entityWith,
+					{
 						ctor: '::',
 						_0: _elm_community$webgl$WebGL_Settings$cullFace(_elm_community$webgl$WebGL_Settings$front),
-						_1: {ctor: '[]'}
-					}
-				},
-				_user$project$View$vertexShader,
-				_user$project$View$fragmentShader,
-				_user$project$View$cellMesh,
-				{
-					camera: model.camera,
-					perspective: perspective,
-					rotation: model.rotation,
-					transform: rotationFunc(cell.transform),
-					color: highlightFunc(
-						_user$project$Utils$colorToVec3(cell.color))
-				}));
+						_1: {
+							ctor: '::',
+							_0: _elm_community$webgl$WebGL_Settings_DepthTest$default,
+							_1: {ctor: '[]'}
+						}
+					},
+					_user$project$View$vertexShader,
+					_user$project$View$fragmentShader,
+					_user$project$View$cellMesh,
+					{
+						camera: model.camera,
+						perspective: perspective,
+						rotation: model.rotation,
+						transform: rotationFunc(cell.transform),
+						color: highlightFunc(
+							_user$project$Utils$colorToVec3(cell.color))
+					}),
+				_1: {
+					ctor: '::',
+					_0: A5(
+						_elm_community$webgl$WebGL$entityWith,
+						{
+							ctor: '::',
+							_0: _elm_community$webgl$WebGL_Settings_DepthTest$default,
+							_1: {
+								ctor: '::',
+								_0: A2(_elm_community$webgl$WebGL_Settings$polygonOffset, 2, 2),
+								_1: {ctor: '[]'}
+							}
+						},
+						_user$project$View$vertexShader,
+						_user$project$View$fragmentShader,
+						_user$project$View$cubeMesh,
+						{
+							camera: model.camera,
+							perspective: perspective,
+							rotation: model.rotation,
+							transform: rotationFunc(cell.transform),
+							color: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 3.0e-3, 3.0e-3, 0.251)
+						}),
+					_1: {ctor: '[]'}
+				}
+			});
 	});
 var _user$project$View$view = function (model) {
 	return A3(
@@ -13942,7 +14029,7 @@ var _user$project$View$view = function (model) {
 			_0: _elm_community$webgl$WebGL$depth(1),
 			_1: {
 				ctor: '::',
-				_0: A4(_elm_community$webgl$WebGL$clearColor, 0, 0, 0, 1),
+				_0: A4(_elm_community$webgl$WebGL$clearColor, 3.0e-3, 3.0e-3, 0.251, 1),
 				_1: {ctor: '[]'}
 			}
 		},
@@ -14094,18 +14181,43 @@ var _user$project$Main$cellClickCoordinates = F2(
 			A2(
 				_elm_lang$core$List$filterMap,
 				A2(_user$project$Utils$rayTriangleIntersect, _user$project$Decode$origin, destination),
-				A2(
-					_elm_lang$core$List$map,
-					function (_p4) {
-						var _p5 = _p4;
-						return {
-							ctor: '_Tuple3',
-							_0: A2(_elm_community$linear_algebra$Math_Matrix4$transform, transform, _p5._0.position),
-							_1: A2(_elm_community$linear_algebra$Math_Matrix4$transform, transform, _p5._1.position),
-							_2: A2(_elm_community$linear_algebra$Math_Matrix4$transform, transform, _p5._2.position)
-						};
+				{
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple3',
+						_0: A2(
+							_elm_community$linear_algebra$Math_Matrix4$transform,
+							transform,
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, -0.5)),
+						_1: A2(
+							_elm_community$linear_algebra$Math_Matrix4$transform,
+							transform,
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, -0.5)),
+						_2: A2(
+							_elm_community$linear_algebra$Math_Matrix4$transform,
+							transform,
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, -0.5))
 					},
-					_user$project$View$cellAttributes)));
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple3',
+							_0: A2(
+								_elm_community$linear_algebra$Math_Matrix4$transform,
+								transform,
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, -0.5)),
+							_1: A2(
+								_elm_community$linear_algebra$Math_Matrix4$transform,
+								transform,
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, -0.5)),
+							_2: A2(
+								_elm_community$linear_algebra$Math_Matrix4$transform,
+								transform,
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, -0.5))
+						},
+						_1: {ctor: '[]'}
+					}
+				}));
 	});
 var _user$project$Main$selectCell = F2(
 	function (mouse, model) {
@@ -14113,8 +14225,8 @@ var _user$project$Main$selectCell = F2(
 			_elm_lang$core$Dict$toList(
 				A2(
 					_elm_lang$core$Dict$filter,
-					function (_p6) {
-						return function (_p7) {
+					function (_p4) {
+						return function (_p5) {
 							return A2(
 								F2(
 									function (x, y) {
@@ -14129,7 +14241,7 @@ var _user$project$Main$selectCell = F2(
 										model.rotation,
 										function (_) {
 											return _.transform;
-										}(_p7))));
+										}(_p5))));
 						};
 					},
 					model.cubik)));
@@ -14137,9 +14249,9 @@ var _user$project$Main$selectCell = F2(
 var _user$project$Main$transforming = F5(
 	function (cellId, transformation, source, dest, model) {
 		var cell = function () {
-			var _p8 = A2(_elm_lang$core$Dict$get, cellId, model.cubik);
-			if (_p8.ctor === 'Just') {
-				return _p8._0;
+			var _p6 = A2(_elm_lang$core$Dict$get, cellId, model.cubik);
+			if (_p6.ctor === 'Just') {
+				return _p6._0;
 			} else {
 				return _elm_lang$core$Native_Utils.crashCase(
 					'Main',
@@ -14147,43 +14259,43 @@ var _user$project$Main$transforming = F5(
 						start: {line: 281, column: 13},
 						end: {line: 286, column: 51}
 					},
-					_p8)('Shouldn\'t happen');
+					_p6)('Shouldn\'t happen');
 			}
 		}();
-		var _p10 = A4(_user$project$Main$rotationDirection, cell, model, source, dest);
-		var x = _p10._0;
-		var y = _p10._1;
-		var z = _p10._2;
+		var _p8 = A4(_user$project$Main$rotationDirection, cell, model, source, dest);
+		var x = _p8._0;
+		var y = _p8._1;
+		var z = _p8._2;
 		var axis = transformation.axis;
 		var angle = function () {
-			var _p11 = _user$project$Utils$round3(cell.normal);
-			_v3_6:
+			var _p9 = _user$project$Utils$round3(cell.normal);
+			_v2_6:
 			do {
-				if (_p11.ctor === '_Tuple3') {
-					switch (_p11._2) {
+				if (_p9.ctor === '_Tuple3') {
+					switch (_p9._2) {
 						case -1:
 							return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? (0 - y) : x;
 						case 1:
 							return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? y : (0 - x);
 						default:
-							switch (_p11._0) {
+							switch (_p9._0) {
 								case -1:
 									return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$ZAxis) ? y : (0 - z);
 								case 1:
 									return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$ZAxis) ? (0 - y) : z;
 								default:
-									switch (_p11._1) {
+									switch (_p9._1) {
 										case 1:
 											return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? (0 - z) : x;
 										case -1:
 											return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? z : (0 - x);
 										default:
-											break _v3_6;
+											break _v2_6;
 									}
 							}
 					}
 				} else {
-					break _v3_6;
+					break _v2_6;
 				}
 			} while(false);
 			return _elm_lang$core$Native_Utils.crashCase(
@@ -14192,7 +14304,7 @@ var _user$project$Main$transforming = F5(
 					start: {line: 292, column: 13},
 					end: {line: 336, column: 51}
 				},
-				_p11)('Shouldn\'t happen');
+				_p9)('Shouldn\'t happen');
 		}();
 		return _elm_lang$core$Native_Utils.update(
 			model,
@@ -14209,9 +14321,9 @@ var _user$project$Main$transforming = F5(
 var _user$project$Main$startTransforming = F4(
 	function (cellId, source, dest, model) {
 		var cell = function () {
-			var _p13 = A2(_elm_lang$core$Dict$get, cellId, model.cubik);
-			if (_p13.ctor === 'Just') {
-				return _p13._0;
+			var _p11 = A2(_elm_lang$core$Dict$get, cellId, model.cubik);
+			if (_p11.ctor === 'Just') {
+				return _p11._0;
 			} else {
 				return _elm_lang$core$Native_Utils.crashCase(
 					'Main',
@@ -14219,19 +14331,19 @@ var _user$project$Main$startTransforming = F4(
 						start: {line: 211, column: 13},
 						end: {line: 216, column: 51}
 					},
-					_p13)('Shouldn\'t happen');
+					_p11)('Shouldn\'t happen');
 			}
 		}();
-		var _p15 = A4(_user$project$Main$rotationDirection, cell, model, source, dest);
-		var x = _p15._0;
-		var y = _p15._1;
-		var z = _p15._2;
-		var _p16 = function () {
-			var _p17 = _user$project$Utils$round3(cell.normal);
-			_v5_6:
+		var _p13 = A4(_user$project$Main$rotationDirection, cell, model, source, dest);
+		var x = _p13._0;
+		var y = _p13._1;
+		var z = _p13._2;
+		var _p14 = function () {
+			var _p15 = _user$project$Utils$round3(cell.normal);
+			_v4_6:
 			do {
-				if (_p17.ctor === '_Tuple3') {
-					switch (_p17._2) {
+				if (_p15.ctor === '_Tuple3') {
+					switch (_p15._2) {
 						case -1:
 							return (_elm_lang$core$Native_Utils.cmp(
 								_elm_lang$core$Basics$abs(x),
@@ -14241,7 +14353,7 @@ var _user$project$Main$startTransforming = F4(
 								_elm_lang$core$Basics$abs(x),
 								_elm_lang$core$Basics$abs(y)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$XAxis, _1: y} : {ctor: '_Tuple2', _0: _user$project$Types$YAxis, _1: 0 - x};
 						default:
-							switch (_p17._0) {
+							switch (_p15._0) {
 								case -1:
 									return (_elm_lang$core$Native_Utils.cmp(
 										_elm_lang$core$Basics$abs(z),
@@ -14251,7 +14363,7 @@ var _user$project$Main$startTransforming = F4(
 										_elm_lang$core$Basics$abs(z),
 										_elm_lang$core$Basics$abs(y)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$ZAxis, _1: 0 - y} : {ctor: '_Tuple2', _0: _user$project$Types$YAxis, _1: z};
 								default:
-									switch (_p17._1) {
+									switch (_p15._1) {
 										case 1:
 											return (_elm_lang$core$Native_Utils.cmp(
 												_elm_lang$core$Basics$abs(x),
@@ -14261,12 +14373,12 @@ var _user$project$Main$startTransforming = F4(
 												_elm_lang$core$Basics$abs(x),
 												_elm_lang$core$Basics$abs(z)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$XAxis, _1: z} : {ctor: '_Tuple2', _0: _user$project$Types$ZAxis, _1: 0 - x};
 										default:
-											break _v5_6;
+											break _v4_6;
 									}
 							}
 					}
 				} else {
-					break _v5_6;
+					break _v4_6;
 				}
 			} while(false);
 			return _elm_lang$core$Native_Utils.crashCase(
@@ -14275,10 +14387,10 @@ var _user$project$Main$startTransforming = F4(
 					start: {line: 222, column: 13},
 					end: {line: 266, column: 51}
 				},
-				_p17)('Shouldn\'t happen');
+				_p15)('Shouldn\'t happen');
 		}();
-		var axis = _p16._0;
-		var angle = _p16._1;
+		var axis = _p14._0;
+		var angle = _p14._1;
 		var coord = A2(_user$project$Utils$cellRotationCoord, axis, cell);
 		return _elm_lang$core$Native_Utils.update(
 			model,
@@ -14312,16 +14424,16 @@ var _user$project$Main$rotate = F3(
 			});
 	});
 var _user$project$Main$transform = F2(
-	function (_p19, cubik) {
-		var _p20 = _p19;
-		var _p22 = _p20.axis;
+	function (_p17, cubik) {
+		var _p18 = _p17;
+		var _p20 = _p18.axis;
 		return A2(
 			_elm_lang$core$Dict$map,
 			F2(
-				function (_p21, cell) {
+				function (_p19, cell) {
 					return _elm_lang$core$Native_Utils.eq(
-						A2(_user$project$Utils$cellRotationCoord, _p22, cell),
-						_p20.coord) ? A3(_user$project$Utils$rotateCell, _p22, _p20.angle, cell) : cell;
+						A2(_user$project$Utils$cellRotationCoord, _p20, cell),
+						_p18.coord) ? A3(_user$project$Utils$rotateCell, _p20, _p18.angle, cell) : cell;
 				}),
 			cubik);
 	});
@@ -14351,14 +14463,14 @@ var _user$project$Main$save = _elm_lang$core$Native_Platform.outgoingPort(
 	});
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p23 = msg;
-		switch (_p23.ctor) {
+		var _p21 = msg;
+		switch (_p21.ctor) {
 			case 'Transform':
-				var _p24 = _p23._0;
-				if (_p24.ctor === '[]') {
+				var _p22 = _p21._0;
+				if (_p22.ctor === '[]') {
 					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				} else {
-					var _p25 = _p24._0;
+					var _p23 = _p22._0;
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
@@ -14366,14 +14478,14 @@ var _user$project$Main$update = F2(
 							{
 								state: A3(
 									_user$project$Types$Animating,
-									_p25,
-									_p24._1,
+									_p23,
+									_p22._1,
 									A2(
 										_mgold$elm_animation$Animation$duration,
 										100,
 										A2(
 											_mgold$elm_animation$Animation$to,
-											_p25.angle,
+											_p23.angle,
 											A2(
 												_mgold$elm_animation$Animation$from,
 												0,
@@ -14383,34 +14495,34 @@ var _user$project$Main$update = F2(
 					};
 				}
 			case 'Resize':
-				var _p26 = _p23._0;
+				var _p24 = _p21._0;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							window: _p26,
+							window: _p24,
 							perspective: A4(
 								_elm_community$linear_algebra$Math_Matrix4$makePerspective,
 								45,
-								_elm_lang$core$Basics$toFloat(_p26.width) / _elm_lang$core$Basics$toFloat(_p26.height),
+								_elm_lang$core$Basics$toFloat(_p24.width) / _elm_lang$core$Basics$toFloat(_p24.height),
 								1.0e-2,
 								100)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'Down':
-				var _p29 = _p23._0;
-				var _p27 = model.state;
-				if (_p27.ctor === 'Initial') {
-					var _p28 = A2(_user$project$Main$selectCell, _p29, model);
-					if (_p28.ctor === 'Just') {
+				var _p27 = _p21._0;
+				var _p25 = model.state;
+				if (_p25.ctor === 'Initial') {
+					var _p26 = A2(_user$project$Main$selectCell, _p27, model);
+					if (_p26.ctor === 'Just') {
 						return {
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
 								model,
 								{
-									state: A2(_user$project$Types$TransformStart, _p28._0._0, _p29)
+									state: A2(_user$project$Types$TransformStart, _p26._0._0, _p27)
 								}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
@@ -14420,7 +14532,7 @@ var _user$project$Main$update = F2(
 							_0: _elm_lang$core$Native_Utils.update(
 								model,
 								{
-									state: _user$project$Types$Rotating(_p29)
+									state: _user$project$Types$Rotating(_p27)
 								}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
@@ -14429,39 +14541,39 @@ var _user$project$Main$update = F2(
 					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				}
 			case 'Move':
-				var _p32 = _p23._0;
-				var _p30 = model.state;
-				switch (_p30.ctor) {
+				var _p30 = _p21._0;
+				var _p28 = model.state;
+				switch (_p28.ctor) {
 					case 'Rotating':
 						return {
 							ctor: '_Tuple2',
-							_0: A3(_user$project$Main$rotate, _p30._0, _p32, model),
+							_0: A3(_user$project$Main$rotate, _p28._0, _p30, model),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					case 'TransformStart':
-						var _p31 = _p30._1;
+						var _p29 = _p28._1;
 						return (_elm_lang$core$Native_Utils.cmp(
-							Math.pow(_p31.x - _p32.x, 2) + Math.pow(_p31.y - _p32.y, 2),
+							Math.pow(_p29.x - _p30.x, 2) + Math.pow(_p29.y - _p30.y, 2),
 							100) > 0) ? {
 							ctor: '_Tuple2',
-							_0: A4(_user$project$Main$startTransforming, _p30._0, _p31, _p32, model),
+							_0: A4(_user$project$Main$startTransforming, _p28._0, _p29, _p30, model),
 							_1: _elm_lang$core$Platform_Cmd$none
 						} : {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 					case 'Transforming':
 						return {
 							ctor: '_Tuple2',
-							_0: A5(_user$project$Main$transforming, _p30._0, _p30._1, _p30._2, _p32, model),
+							_0: A5(_user$project$Main$transforming, _p28._0, _p28._1, _p28._2, _p30, model),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					default:
 						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				}
 			case 'Up':
-				var _p33 = model.state;
-				if (_p33.ctor === 'Transforming') {
-					var _p34 = _p33._1;
+				var _p31 = model.state;
+				if (_p31.ctor === 'Transforming') {
+					var _p32 = _p31._1;
 					var closestAngle = (_elm_lang$core$Basics$toFloat(
-						_elm_lang$core$Basics$round(_p34.angle / (_elm_lang$core$Basics$pi / 2))) * _elm_lang$core$Basics$pi) / 2;
+						_elm_lang$core$Basics$round(_p32.angle / (_elm_lang$core$Basics$pi / 2))) * _elm_lang$core$Basics$pi) / 2;
 					var animation = A2(
 						_mgold$elm_animation$Animation$duration,
 						100,
@@ -14470,7 +14582,7 @@ var _user$project$Main$update = F2(
 							closestAngle,
 							A2(
 								_mgold$elm_animation$Animation$from,
-								_p34.angle,
+								_p32.angle,
 								_mgold$elm_animation$Animation$animation(model.time))));
 					return {
 						ctor: '_Tuple2',
@@ -14480,7 +14592,7 @@ var _user$project$Main$update = F2(
 								state: A3(
 									_user$project$Types$Animating,
 									_elm_lang$core$Native_Utils.update(
-										_p34,
+										_p32,
 										{angle: closestAngle}),
 									{ctor: '[]'},
 									animation)
@@ -14498,17 +14610,17 @@ var _user$project$Main$update = F2(
 					};
 				}
 			default:
-				var time = model.time + _p23._0;
-				var _p35 = model.state;
-				if (_p35.ctor === 'Animating') {
-					if (A2(_mgold$elm_animation$Animation$isDone, time, _p35._2)) {
+				var time = model.time + _p21._0;
+				var _p33 = model.state;
+				if (_p33.ctor === 'Animating') {
+					if (A2(_mgold$elm_animation$Animation$isDone, time, _p33._2)) {
 						var newModel = _elm_lang$core$Native_Utils.update(
 							model,
 							{
-								cubik: A2(_user$project$Main$transform, _p35._0, model.cubik)
+								cubik: A2(_user$project$Main$transform, _p33._0, model.cubik)
 							});
-						var _p36 = _p35._1;
-						if (_p36.ctor === '[]') {
+						var _p34 = _p33._1;
+						if (_p34.ctor === '[]') {
 							return {
 								ctor: '_Tuple2',
 								_0: _elm_lang$core$Native_Utils.update(
@@ -14518,7 +14630,7 @@ var _user$project$Main$update = F2(
 									_user$project$Encode$model(newModel))
 							};
 						} else {
-							var _p37 = _p36._0;
+							var _p35 = _p34._0;
 							return {
 								ctor: '_Tuple2',
 								_0: _elm_lang$core$Native_Utils.update(
@@ -14526,14 +14638,14 @@ var _user$project$Main$update = F2(
 									{
 										state: A3(
 											_user$project$Types$Animating,
-											_p37,
-											_p36._1,
+											_p35,
+											_p34._1,
 											A2(
 												_mgold$elm_animation$Animation$duration,
 												200,
 												A2(
 													_mgold$elm_animation$Animation$to,
-													_p37.angle,
+													_p35.angle,
 													_mgold$elm_animation$Animation$animation(time)))),
 										time: time
 									}),
@@ -14566,7 +14678,7 @@ var _user$project$Main$main = _elm_lang$html$Html$programWithFlags(
 		init: _user$project$Main$init,
 		update: _user$project$Main$update,
 		view: _user$project$View$view,
-		subscriptions: function (_p38) {
+		subscriptions: function (_p36) {
 			return _elm_lang$core$Platform_Sub$batch(
 				{
 					ctor: '::',
