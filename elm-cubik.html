@@ -14029,8 +14029,16 @@ var _user$project$View$view = function (model) {
 			_0: _elm_community$webgl$WebGL$depth(1),
 			_1: {
 				ctor: '::',
-				_0: A4(_elm_community$webgl$WebGL$clearColor, 3.0e-3, 3.0e-3, 0.251, 1),
-				_1: {ctor: '[]'}
+				_0: _elm_community$webgl$WebGL$alpha(true),
+				_1: {
+					ctor: '::',
+					_0: _elm_community$webgl$WebGL$antialias,
+					_1: {
+						ctor: '::',
+						_0: A4(_elm_community$webgl$WebGL$clearColor, 3.0e-3, 3.0e-3, 0.251, 1),
+						_1: {ctor: '[]'}
+					}
+				}
 			}
 		},
 		{
