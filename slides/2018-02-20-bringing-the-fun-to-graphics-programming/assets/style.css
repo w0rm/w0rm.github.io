@@ -1,0 +1,60 @@
+@font-face {
+  font-family: 'FiraSans-Regular';
+  src: url('fonts/FiraSans-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FiraSans-Light';
+  src: url('fonts/FiraSans-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FiraSans-Book';
+  src: url('fonts/FiraSans-Book.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FiraCode';
+  src: url('fonts/FiraCode-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+html, body {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: FiraSans-Regular, sans-serif;
+  background: black;
+  color: #111;
+  font-size: 32px;
+}
+h1, h2, h3 {
+  font-family: FiraSans-Book, sans-serif;
+  font-weight: normal;
+  margin: 0.5em 0;
+}
+a {
+  text-decoration: none;
+  color: rgb(15,102,230);
+}
+a:hover {
+  text-decoration: underline;
+  color: rgb(234,21,122);
+}
+code {
+  font-size: 24px;
+  font-family: FiraCode, monospace;
+}
+li {
+  margin-bottom: 10px;
+}
+p {
+  margin: 0.5em 0;
+}
+pre {
+  margin: 0;
+}
