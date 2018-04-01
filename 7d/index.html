@@ -3179,6 +3179,2226 @@ _elm_community$basics_extra$Basics_Extra_ops['=>'] = F2(
 	function (v0, v1) {
 		return {ctor: '_Tuple2', _0: v0, _1: v1};
 	});
+
+/*
+ * Copyright (c) 2010 Mozilla Corporation
+ * Copyright (c) 2010 Vladimir Vukicevic
+ * Copyright (c) 2013 John Mayer
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+/*
+ * File: mjs
+ *
+ * Vector and Matrix math utilities for JavaScript, optimized for WebGL.
+ * Edited to work with the Elm Programming Language
+ */
+
+var _elm_community$linear_algebra$Native_MJS = function() {
+
+
+    /*
+     * Constant: MJS_VERSION
+     *
+     * mjs version number aa.bb.cc, encoded as an integer of the form:
+     * 0xaabbcc.
+     */
+    var MJS_VERSION = 0x000000;
+
+    /*
+     * Constant: MJS_DO_ASSERT
+     *
+     * Enables or disables runtime assertions.
+     *
+     * For potentially more performance, the assert methods can be
+     * commented out in each place where they are called.
+     */
+    // var MJS_DO_ASSERT = false;
+
+    /*
+     * Constant: MJS_FLOAT_ARRAY_TYPE
+     *
+     * The base float array type.  By default, WebGLFloatArray.
+     *
+     * mjs can work with any array-like elements, but if an array
+     * creation is requested, it will create an array of the type
+     * MJS_FLOAT_ARRAY_TYPE.  Also, the builtin constants such as (M4x4.I)
+     * will be of this type.
+     */
+    //MJS_FLOAT_ARRAY_TYPE = WebGLFloatArray;
+    //MJS_FLOAT_ARRAY_TYPE = Float32Array;
+    var MJS_FLOAT_ARRAY_TYPE = Float64Array;
+    //MJS_FLOAT_ARRAY_TYPE = Array;
+
+    /*
+    if (MJS_DO_ASSERT) {
+        function MathUtils_assert(cond, msg) {
+            if (!cond) {
+                throw "Assertion failed: " + msg;
+            }
+        }
+    } else {
+    */
+        function MathUtils_assert() { }
+    //}
+
+    /*
+     * Class: V3
+     *
+     * Methods for working with 3-element vectors.  A vector is represented by a 3-element array.
+     * Any valid JavaScript array type may be used, but if new
+     * vectors are created they are created using the configured MJS_FLOAT_ARRAY_TYPE.
+     */
+
+    var V3 = { };
+
+    V3._temp1 = new MJS_FLOAT_ARRAY_TYPE(3);
+    V3._temp2 = new MJS_FLOAT_ARRAY_TYPE(3);
+    V3._temp3 = new MJS_FLOAT_ARRAY_TYPE(3);
+
+    if (MJS_FLOAT_ARRAY_TYPE == Array) {
+        V3.x = [1.0, 0.0, 0.0];
+        V3.y = [0.0, 1.0, 0.0];
+        V3.z = [0.0, 0.0, 1.0];
+
+        V3.$ = function V3_$(x, y, z) {
+            return [x, y, z];
+        };
+    } else {
+        V3.x = new MJS_FLOAT_ARRAY_TYPE([1.0, 0.0, 0.0]);
+        V3.y = new MJS_FLOAT_ARRAY_TYPE([0.0, 1.0, 0.0]);
+        V3.z = new MJS_FLOAT_ARRAY_TYPE([0.0, 0.0, 1.0]);
+
+        /*
+         * Function: V3.$
+         *
+         * Creates a new 3-element vector with the given values.
+         *
+         * Parameters:
+         *
+         *   x,y,z - the 3 elements of the new vector.
+         *
+         * Returns:
+         *
+         * A new vector containing with the given argument values.
+         */
+
+        V3.$ = function V3_$(x, y, z) {
+            return new MJS_FLOAT_ARRAY_TYPE([x, y, z]);
+        };
+    }
+
+    V3.u = V3.x;
+    V3.v = V3.y;
+
+    V3.getX = function V3_getX(a) {
+        return a[0];
+    }
+    V3.getY = function V3_getY(a) {
+        return a[1];
+    }
+    V3.getZ = function V3_getZ(a) {
+        return a[2];
+    }
+    V3.setX = function V3_setX(x, a) {
+        return new MJS_FLOAT_ARRAY_TYPE([x, a[1], a[2]]);
+    }
+    V3.setY = function V3_setY(y, a) {
+        return new MJS_FLOAT_ARRAY_TYPE([a[0], y, a[2]]);
+    }
+    V3.setZ = function V3_setZ(z, a) {
+        return new MJS_FLOAT_ARRAY_TYPE([a[0], a[1], z]);
+    }
+
+    V3.toTuple3 = function V3_toTuple3(a) {
+      return {
+        ctor:"_Tuple3",
+        _0:a[0],
+        _1:a[1],
+        _2:a[2]
+      };
+    };
+    V3.fromTuple3 = function V3_fromTuple3(t) {
+      return new MJS_FLOAT_ARRAY_TYPE([t._0, t._1, t._2]);
+    };
+
+    V3.toRecord3 = function V3_toRecord3(a) {
+      return {
+        _:{},
+        x:a[0],
+        y:a[1],
+        z:a[2]
+      };
+    };
+    V3.fromRecord3 = function V3_fromRecord3(r) {
+      return new MJS_FLOAT_ARRAY_TYPE([r.x, r.y, r.z]);
+    };
+
+    /*
+     * Function: V3.add
+     *
+     * Perform r = a + b.
+     *
+     * Parameters:
+     *
+     *   a - the first vector operand
+     *   b - the second vector operand
+     *   r - optional vector to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 3-element vector with the result.
+     */
+    V3.add = function V3_add(a, b, r) {
+        //MathUtils_assert(a.length == 3, "a.length == 3");
+        //MathUtils_assert(b.length == 3, "b.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+        r[0] = a[0] + b[0];
+        r[1] = a[1] + b[1];
+        r[2] = a[2] + b[2];
+        return r;
+    };
+
+    /*
+     * Function: V3.sub
+     *
+     * Perform
+     * r = a - b.
+     *
+     * Parameters:
+     *
+     *   a - the first vector operand
+     *   b - the second vector operand
+     *   r - optional vector to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 3-element vector with the result.
+     */
+    V3.sub = function V3_sub(a, b, r) {
+        //MathUtils_assert(a.length == 3, "a.length == 3");
+        //MathUtils_assert(b.length == 3, "b.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+        r[0] = a[0] - b[0];
+        r[1] = a[1] - b[1];
+        r[2] = a[2] - b[2];
+        return r;
+    };
+
+    /*
+     * Function: V3.neg
+     *
+     * Perform
+     * r = - a.
+     *
+     * Parameters:
+     *
+     *   a - the vector operand
+     *   r - optional vector to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 3-element vector with the result.
+     */
+    V3.neg = function V3_neg(a, r) {
+        //MathUtils_assert(a.length == 3, "a.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+        r[0] = - a[0];
+        r[1] = - a[1];
+        r[2] = - a[2];
+        return r;
+    };
+
+    /*
+     * Function: V3.direction
+     *
+     * Perform
+     * r = (a - b) / |a - b|.  The result is the normalized
+     * direction from a to b.
+     *
+     * Parameters:
+     *
+     *   a - the first vector operand
+     *   b - the second vector operand
+     *   r - optional vector to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 3-element vector with the result.
+     */
+    V3.direction = function V3_direction(a, b, r) {
+        //MathUtils_assert(a.length == 3, "a.length == 3");
+        //MathUtils_assert(b.length == 3, "b.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+        return V3.normalize(V3.sub(a, b, r), r);
+    };
+
+    /*
+     * Function: V3.length
+     *
+     * Perform r = |a|.
+     *
+     * Parameters:
+     *
+     *   a - the vector operand
+     *
+     * Returns:
+     *
+     *   The length of the given vector.
+     */
+    V3.length = function V3_length(a) {
+        //MathUtils_assert(a.length == 3, "a.length == 3");
+
+        return Math.sqrt(a[0]*a[0] + a[1]*a[1] + a[2]*a[2]);
+    };
+
+    /*
+     * Function: V3.lengthSquard
+     *
+     * Perform r = |a|*|a|.
+     *
+     * Parameters:
+     *
+     *   a - the vector operand
+     *
+     * Returns:
+     *
+     *   The square of the length of the given vector.
+     */
+    V3.lengthSquared = function V3_lengthSquared(a) {
+        //MathUtils_assert(a.length == 3, "a.length == 3");
+
+        return a[0]*a[0] + a[1]*a[1] + a[2]*a[2];
+    };
+
+    V3.distance = function V3_distance(a, b) {
+        var dx = a[0] - b[0];
+        var dy = a[1] - b[1];
+        var dz = a[2] - b[2];
+        return Math.sqrt(dx * dx + dy * dy + dz * dz);
+    };
+
+    V3.distanceSquared = function V3_distanceSquared(a, b) {
+        var dx = a[0] - b[0];
+        var dy = a[1] - b[1];
+        var dz = a[2] - b[2];
+        return dx * dx + dy * dy + dz * dz;
+    };
+
+    /*
+     * Function: V3.normalize
+     *
+     * Perform r = a / |a|.
+     *
+     * Parameters:
+     *
+     *   a - the vector operand
+     *   r - optional vector to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 3-element vector with the result.
+     */
+    V3.normalize = function V3_normalize(a, r) {
+        //MathUtils_assert(a.length == 3, "a.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+        var im = 1.0 / V3.length(a);
+        r[0] = a[0] * im;
+        r[1] = a[1] * im;
+        r[2] = a[2] * im;
+        return r;
+    };
+
+    /*
+     * Function: V3.scale
+     *
+     * Perform r = k * a.
+     *
+     * Parameters:
+     *
+     *   a - the vector operand
+     *   k - a scalar value
+     *   r - optional vector to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 3-element vector with the result.
+     */
+    V3.scale = function V3_scale(k, a, r) {
+        //MathUtils_assert(a.length == 3, "a.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+        r[0] = a[0] * k;
+        r[1] = a[1] * k;
+        r[2] = a[2] * k;
+        return r;
+    };
+
+    /*
+     * Function: V3.dot
+     *
+     * Perform
+     * r = dot(a, b).
+     *
+     * Parameters:
+     *
+     *   a - the first vector operand
+     *   b - the second vector operand
+     *
+     * Returns:
+     *
+     *   The dot product of a and b.
+     */
+    V3.dot = function V3_dot(a, b) {
+        //MathUtils_assert(a.length == 3, "a.length == 3");
+        //MathUtils_assert(b.length == 3, "b.length == 3");
+
+        return a[0] * b[0] +
+            a[1] * b[1] +
+            a[2] * b[2];
+    };
+
+    /*
+     * Function: V3.cross
+     *
+     * Perform r = a x b.
+     *
+     * Parameters:
+     *
+     *   a - the first vector operand
+     *   b - the second vector operand
+     *   r - optional vector to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 3-element vector with the result.
+     */
+    V3.cross = function V3_cross(a, b, r) {
+        //MathUtils_assert(a.length == 3, "a.length == 3");
+        //MathUtils_assert(b.length == 3, "b.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+        r[0] = a[1]*b[2] - a[2]*b[1];
+        r[1] = a[2]*b[0] - a[0]*b[2];
+        r[2] = a[0]*b[1] - a[1]*b[0];
+        return r;
+    };
+
+    /*
+     * Function: V3.mul4x4
+     *
+     * Perform
+     * r = m * v.
+     *
+     * Parameters:
+     *
+     *   m - the 4x4 matrix operand
+     *   v - the 3-element vector operand
+     *   r - optional vector to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 3-element vector with the result.
+     *   The 4-element result vector is divided by the w component
+     *   and returned as a 3-element vector.
+     */
+    V3.mul4x4 = function V3_mul4x4(m, v, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(v.length == 3, "v.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+
+        var w;
+        var tmp = V3._temp1;
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+        tmp[0] = m[ 3];
+        tmp[1] = m[ 7];
+        tmp[2] = m[11];
+        w    =  V3.dot(v, tmp) + m[15];
+        tmp[0] = m[ 0];
+        tmp[1] = m[ 4];
+        tmp[2] = m[ 8];
+        r[0] = (V3.dot(v, tmp) + m[12])/w;
+        tmp[0] = m[ 1];
+        tmp[1] = m[ 5];
+        tmp[2] = m[ 9];
+        r[1] = (V3.dot(v, tmp) + m[13])/w;
+        tmp[0] = m[ 2];
+        tmp[1] = m[ 6];
+        tmp[2] = m[10];
+        r[2] = (V3.dot(v, tmp) + m[14])/w;
+        return r;
+    };
+
+    /*
+     * Class: M4x4
+     *
+     * Methods for working with 4x4 matrices.  A matrix is represented by a 16-element array
+     * in column-major order.  Any valid JavaScript array type may be used, but if new
+     * matrices are created they are created using the configured MJS_FLOAT_ARRAY_TYPE.
+     */
+
+    var M4x4 = { };
+
+    M4x4._temp1 = new MJS_FLOAT_ARRAY_TYPE(16);
+    M4x4._temp2 = new MJS_FLOAT_ARRAY_TYPE(16);
+
+    if (MJS_FLOAT_ARRAY_TYPE == Array) {
+        M4x4.I = [1.0, 0.0, 0.0, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+                0.0, 0.0, 1.0, 0.0,
+                0.0, 0.0, 0.0, 1.0];
+
+        M4x4.$ = function M4x4_$(m00, m01, m02, m03,
+                m04, m05, m06, m07,
+                m08, m09, m10, m11,
+                m12, m13, m14, m15)
+        {
+            return [m00, m01, m02, m03,
+            m04, m05, m06, m07,
+            m08, m09, m10, m11,
+            m12, m13, m14, m15];
+        };
+    } else {
+        M4x4.I = new MJS_FLOAT_ARRAY_TYPE([1.0, 0.0, 0.0, 0.0,
+                0.0, 1.0, 0.0, 0.0,
+                0.0, 0.0, 1.0, 0.0,
+                0.0, 0.0, 0.0, 1.0]);
+
+        /*
+         * Function: M4x4.$
+         *
+         * Creates a new 4x4 matrix with the given values.
+         *
+         * Parameters:
+         *
+         *   m00..m15 - the 16 elements of the new matrix.
+         *
+         * Returns:
+         *
+         * A new matrix filled with the given argument values.
+         */
+        M4x4.$ = function M4x4_$(m00, m01, m02, m03,
+                m04, m05, m06, m07,
+                m08, m09, m10, m11,
+                m12, m13, m14, m15)
+        {
+            return new MJS_FLOAT_ARRAY_TYPE([m00, m01, m02, m03,
+                    m04, m05, m06, m07,
+                    m08, m09, m10, m11,
+                    m12, m13, m14, m15]);
+        };
+    }
+
+    M4x4.identity = M4x4.I;
+
+    /*
+     * Function: M4x4.fromList
+     *
+     * Creates a new 4x4 matrix with the given values.
+     *
+     * Parameters:
+     *
+     *   list - A list of the 16 elements of the new matrix.
+     *
+     * Returns:
+     *
+     * Just a new matrix filled with the given argument values.
+     * Nothing, if the length of the list is not exactly 16.
+     */
+    M4x4.fromList = function(list) {
+        var m = _elm_lang$core$Native_List.toArray(list);
+        if (m.length === 16) {
+            return _elm_lang$core$Maybe$Just(M4x4.$(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7], m[8], m[9], m[10], m[11], m[12], m[13], m[14], m[15]));
+        } else {
+            return _elm_lang$core$Maybe$Nothing;
+        }
+    }
+
+    /*
+     * Function: M4x4.fromRecord
+     *
+     * Creates a new 4x4 matrix from the given record.
+     *
+     * Parameters:
+     *
+     * A record with m11..m44 attributes - the 16 elements of the new matrix
+     *
+     * Returns:
+     *
+     * A new matrix filled with the values from the given record.
+     */
+    M4x4.fromRecord = function(r) {
+        return new MJS_FLOAT_ARRAY_TYPE([
+            r.m11, r.m21, r.m31, r.m41,
+            r.m12, r.m22, r.m32, r.m42,
+            r.m13, r.m23, r.m33, r.m43,
+            r.m14, r.m24, r.m34, r.m44
+        ]);
+    }
+
+    /*
+     * Function: M4x4.toRecord
+     *
+     * Creates a record from the given matrix
+     *
+     * Parameters:
+     *
+     * A 4x4 matrix
+     *
+     * Returns:
+     *
+     * A new record with m11..m44 attributes - the 16 elements of the given matrix
+     */
+    M4x4.toRecord = function(m) {
+        return {
+            m11: m[0], m21: m[1], m31: m[2], m41: m[3],
+            m12: m[4], m22: m[5], m32: m[6], m42: m[7],
+            m13: m[8], m23: m[9], m33: m[10], m43: m[11],
+            m14: m[12], m24: m[13], m34: m[14], m44: m[15]
+        };
+    }
+
+    /*
+     * Function: M4x4.topLeft3x3
+     *
+     * Return the top left 3x3 matrix from the given 4x4 matrix m.
+     *
+     * Parameters:
+     *
+     *   m - the matrix
+     *   r - optional 3x3 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 3x3 matrix with the result.
+     */
+    M4x4.topLeft3x3 = function M4x4_topLeft3x3(m, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 9, "r == undefined || r.length == 9");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(9);
+        r[0] = m[0]; r[1] = m[1]; r[2] = m[2];
+        r[3] = m[4]; r[4] = m[5]; r[5] = m[6];
+        r[6] = m[8]; r[7] = m[9]; r[8] = m[10];
+        return r;
+    };
+
+    /*
+     * Function: M4x4.inverse
+     *
+     * Computes the inverse of the given matrix m.
+     *
+     * Parameters:
+     *
+     *   m - the matrix
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 4x4 matrix with the result.
+     */
+    M4x4.inverse = function M4x4_inverse(m, r) {
+        if (r == undefined) {
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+        }
+
+        r[0] = m[5] * m[10] * m[15] - m[5] * m[11] * m[14] - m[9] * m[6] * m[15] +
+            m[9] * m[7] * m[14] + m[13] * m[6] * m[11] - m[13] * m[7] * m[10];
+        r[4] = -m[4] * m[10] * m[15] + m[4] * m[11] * m[14] + m[8] * m[6] * m[15] -
+            m[8] * m[7] * m[14] - m[12] * m[6] * m[11] + m[12] * m[7] * m[10];
+        r[8] = m[4] * m[9] * m[15] - m[4] * m[11] * m[13] - m[8] * m[5] * m[15] +
+            m[8] * m[7] * m[13] + m[12] * m[5] * m[11] - m[12] * m[7] * m[9];
+        r[12] = -m[4] * m[9] * m[14] + m[4] * m[10] * m[13] + m[8] * m[5] * m[14] -
+            m[8] * m[6] * m[13] - m[12] * m[5] * m[10] + m[12] * m[6] * m[9];
+        r[1] = -m[1] * m[10] * m[15] + m[1] * m[11] * m[14] + m[9] * m[2] * m[15] -
+            m[9] * m[3] * m[14] - m[13] * m[2] * m[11] + m[13] * m[3] * m[10];
+        r[5] = m[0] * m[10] * m[15] - m[0] * m[11] * m[14] - m[8] * m[2] * m[15] +
+            m[8] * m[3] * m[14] + m[12] * m[2] * m[11] - m[12] * m[3] * m[10];
+        r[9] = -m[0] * m[9] * m[15] + m[0] * m[11] * m[13] + m[8] * m[1] * m[15] -
+            m[8] * m[3] * m[13] - m[12] * m[1] * m[11] + m[12] * m[3] * m[9];
+        r[13] = m[0] * m[9] * m[14] - m[0] * m[10] * m[13] - m[8] * m[1] * m[14] +
+            m[8] * m[2] * m[13] + m[12] * m[1] * m[10] - m[12] * m[2] * m[9];
+        r[2] = m[1] * m[6] * m[15] - m[1] * m[7] * m[14] - m[5] * m[2] * m[15] +
+            m[5] * m[3] * m[14] + m[13] * m[2] * m[7] - m[13] * m[3] * m[6];
+        r[6] = -m[0] * m[6] * m[15] + m[0] * m[7] * m[14] + m[4] * m[2] * m[15] -
+            m[4] * m[3] * m[14] - m[12] * m[2] * m[7] + m[12] * m[3] * m[6];
+        r[10] = m[0] * m[5] * m[15] - m[0] * m[7] * m[13] - m[4] * m[1] * m[15] +
+            m[4] * m[3] * m[13] + m[12] * m[1] * m[7] - m[12] * m[3] * m[5];
+        r[14] = -m[0] * m[5] * m[14] + m[0] * m[6] * m[13] + m[4] * m[1] * m[14] -
+            m[4] * m[2] * m[13] - m[12] * m[1] * m[6] + m[12] * m[2] * m[5];
+        r[3] = -m[1] * m[6] * m[11] + m[1] * m[7] * m[10] + m[5] * m[2] * m[11] -
+            m[5] * m[3] * m[10] - m[9] * m[2] * m[7] + m[9] * m[3] * m[6];
+        r[7] = m[0] * m[6] * m[11] - m[0] * m[7] * m[10] - m[4] * m[2] * m[11] +
+            m[4] * m[3] * m[10] + m[8] * m[2] * m[7] - m[8] * m[3] * m[6];
+        r[11] = -m[0] * m[5] * m[11] + m[0] * m[7] * m[9] + m[4] * m[1] * m[11] -
+            m[4] * m[3] * m[9] - m[8] * m[1] * m[7] + m[8] * m[3] * m[5];
+        r[15] = m[0] * m[5] * m[10] - m[0] * m[6] * m[9] - m[4] * m[1] * m[10] +
+            m[4] * m[2] * m[9] + m[8] * m[1] * m[6] - m[8] * m[2] * m[5];
+
+        var det = m[0] * r[0] + m[1] * r[4] + m[2] * r[8] + m[3] * r[12];
+
+        if (det === 0) {
+            return _elm_lang$core$Maybe$Nothing;
+        }
+
+        det = 1.0 / det;
+
+        for (var i = 0; i < 16; i = i + 1) {
+            r[i] = r[i] * det;
+        }
+
+        return _elm_lang$core$Maybe$Just(r);
+    };
+
+    /*
+     * Function: M4x4.inverseOrthonormal
+     *
+     * Computes the inverse of the given matrix m, assuming that
+     * the matrix is orthonormal.
+     *
+     * Parameters:
+     *
+     *   m - the matrix
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 4x4 matrix with the result.
+     */
+    M4x4.inverseOrthonormal = function M4x4_inverseOrthonormal(m, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+        //MathUtils_assert(m != r, "m != r");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+        M4x4.transpose(m, r);
+        var t = [m[12], m[13], m[14]];
+        r[3] = r[7] = r[11] = 0;
+        r[12] = -V3.dot([r[0], r[4], r[8]], t);
+        r[13] = -V3.dot([r[1], r[5], r[9]], t);
+        r[14] = -V3.dot([r[2], r[6], r[10]], t);
+        return r;
+    };
+
+    /*
+     * Function: M4x4.inverseTo3x3
+     *
+     * Computes the inverse of the given matrix m, but calculates
+     * only the top left 3x3 values of the result.
+     *
+     * Parameters:
+     *
+     *   m - the matrix
+     *   r - optional 3x3 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 3x3 matrix with the result.
+     */
+    M4x4.inverseTo3x3 = function M4x4_inverseTo3x3(m, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 9, "r == undefined || r.length == 9");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(9);
+
+        var a11 = m[10]*m[5]-m[6]*m[9],
+            a21 = -m[10]*m[1]+m[2]*m[9],
+            a31 = m[6]*m[1]-m[2]*m[5],
+            a12 = -m[10]*m[4]+m[6]*m[8],
+            a22 = m[10]*m[0]-m[2]*m[8],
+            a32 = -m[6]*m[0]+m[2]*m[4],
+            a13 = m[9]*m[4]-m[5]*m[8],
+            a23 = -m[9]*m[0]+m[1]*m[8],
+            a33 = m[5]*m[0]-m[1]*m[4];
+        var det = m[0]*(a11) + m[1]*(a12) + m[2]*(a13);
+        if (det == 0) // no inverse
+            throw "matrix not invertible";
+        var idet = 1.0 / det;
+
+        r[0] = idet*a11;
+        r[1] = idet*a21;
+        r[2] = idet*a31;
+        r[3] = idet*a12;
+        r[4] = idet*a22;
+        r[5] = idet*a32;
+        r[6] = idet*a13;
+        r[7] = idet*a23;
+        r[8] = idet*a33;
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.makeFrustum
+     *
+     * Creates a matrix for a projection frustum with the given parameters.
+     *
+     * Parameters:
+     *
+     *   left - the left coordinate of the frustum
+     *   right- the right coordinate of the frustum
+     *   bottom - the bottom coordinate of the frustum
+     *   top - the top coordinate of the frustum
+     *   znear - the near z distance of the frustum
+     *   zfar - the far z distance of the frustum
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after creating the projection matrix.
+     *   Otherwise, returns a new 4x4 matrix.
+     */
+    M4x4.makeFrustum = function M4x4_makeFrustum(left, right, bottom, top, znear, zfar, r) {
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        var X = 2*znear/(right-left);
+        var Y = 2*znear/(top-bottom);
+        var A = (right+left)/(right-left);
+        var B = (top+bottom)/(top-bottom);
+        var C = -(zfar+znear)/(zfar-znear);
+        var D = -2*zfar*znear/(zfar-znear);
+
+        r[0] = 2*znear/(right-left);
+        r[1] = 0;
+        r[2] = 0;
+        r[3] = 0;
+        r[4] = 0;
+        r[5] = 2*znear/(top-bottom);
+        r[6] = 0;
+        r[7] = 0;
+        r[8] = (right+left)/(right-left);
+        r[9] = (top+bottom)/(top-bottom);
+        r[10] = -(zfar+znear)/(zfar-znear);
+        r[11] = -1;
+        r[12] = 0;
+        r[13] = 0;
+        r[14] = -2*zfar*znear/(zfar-znear);
+        r[15] = 0;
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.makePerspective
+     *
+     * Creates a matrix for a perspective projection with the given parameters.
+     *
+     * Parameters:
+     *
+     *   fovy - field of view in the y axis, in degrees
+     *   aspect - aspect ratio
+     *   znear - the near z distance of the projection
+     *   zfar - the far z distance of the projection
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after creating the projection matrix.
+     *   Otherwise, returns a new 4x4 matrix.
+     */
+    M4x4.makePerspective = function M4x4_makePerspective (fovy, aspect, znear, zfar, r) {
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        var ymax = znear * Math.tan(fovy * Math.PI / 360.0);
+        var ymin = -ymax;
+        var xmin = ymin * aspect;
+        var xmax = ymax * aspect;
+
+        return M4x4.makeFrustum(xmin, xmax, ymin, ymax, znear, zfar, r);
+    };
+
+    /*
+     * Function: M4x4.makeOrtho
+     *
+     * Creates a matrix for an orthogonal frustum projection with the given parameters.
+     *
+     * Parameters:
+     *
+     *   left - the left coordinate of the frustum
+     *   right- the right coordinate of the frustum
+     *   bottom - the bottom coordinate of the frustum
+     *   top - the top coordinate of the frustum
+     *   znear - the near z distance of the frustum
+     *   zfar - the far z distance of the frustum
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after creating the projection matrix.
+     *   Otherwise, returns a new 4x4 matrix.
+     */
+    M4x4.makeOrtho = function M4x4_makeOrtho (left, right, bottom, top, znear, zfar, r) {
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        var tX = -(right+left)/(right-left);
+        var tY = -(top+bottom)/(top-bottom);
+        var tZ = -(zfar+znear)/(zfar-znear);
+        var X = 2 / (right-left);
+        var Y = 2 / (top-bottom);
+        var Z = -2 / (zfar-znear);
+
+        r[0] = 2 / (right-left);
+        r[1] = 0;
+        r[2] = 0;
+        r[3] = 0;
+        r[4] = 0;
+        r[5] = 2 / (top-bottom);
+        r[6] = 0;
+        r[7] = 0;
+        r[8] = 0;
+        r[9] = 0;
+        r[10] = -2 / (zfar-znear);
+        r[11] = 0;
+        r[12] = -(right+left)/(right-left);
+        r[13] = -(top+bottom)/(top-bottom);
+        r[14] = -(zfar+znear)/(zfar-znear);
+        r[15] = 1;
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.makeOrtho2D
+     *
+     * Creates a matrix for a 2D orthogonal frustum projection with the given parameters.
+     * znear and zfar are assumed to be -1 and 1, respectively.
+     *
+     * Parameters:
+     *
+     *   left - the left coordinate of the frustum
+     *   right- the right coordinate of the frustum
+     *   bottom - the bottom coordinate of the frustum
+     *   top - the top coordinate of the frustum
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after creating the projection matrix.
+     *   Otherwise, returns a new 4x4 matrix.
+     */
+    M4x4.makeOrtho2D = function M4x4_makeOrtho2D (left, right, bottom, top, r) {
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        return M4x4.makeOrtho(left, right, bottom, top, -1, 1, r);
+    };
+
+    /*
+     * Function: M4x4.mul
+     *
+     * Performs r = a * b.
+     *
+     * Parameters:
+     *
+     *   a - the first matrix operand
+     *   b - the second matrix operand
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 4x4 matrix with the result.
+     */
+    M4x4.mul = function M4x4_mul(a, b, r) {
+        //MathUtils_assert(a.length == 16, "a.length == 16");
+        //MathUtils_assert(b.length == 16, "b.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+        //MathUtils_assert(a != r && b != r, "a != r && b != r");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        var a11 = a[0];
+        var a21 = a[1];
+        var a31 = a[2];
+        var a41 = a[3];
+        var a12 = a[4];
+        var a22 = a[5];
+        var a32 = a[6];
+        var a42 = a[7];
+        var a13 = a[8];
+        var a23 = a[9];
+        var a33 = a[10];
+        var a43 = a[11];
+        var a14 = a[12];
+        var a24 = a[13];
+        var a34 = a[14];
+        var a44 = a[15];
+
+        var b11 = b[0];
+        var b21 = b[1];
+        var b31 = b[2];
+        var b41 = b[3];
+        var b12 = b[4];
+        var b22 = b[5];
+        var b32 = b[6];
+        var b42 = b[7];
+        var b13 = b[8];
+        var b23 = b[9];
+        var b33 = b[10];
+        var b43 = b[11];
+        var b14 = b[12];
+        var b24 = b[13];
+        var b34 = b[14];
+        var b44 = b[15];
+
+        r[0] = a11 * b11 + a12 * b21 + a13 * b31 + a14 * b41;
+        r[1] = a21 * b11 + a22 * b21 + a23 * b31 + a24 * b41;
+        r[2] = a31 * b11 + a32 * b21 + a33 * b31 + a34 * b41;
+        r[3] = a41 * b11 + a42 * b21 + a43 * b31 + a44 * b41;
+        r[4] = a11 * b12 + a12 * b22 + a13 * b32 + a14 * b42;
+        r[5] = a21 * b12 + a22 * b22 + a23 * b32 + a24 * b42;
+        r[6] = a31 * b12 + a32 * b22 + a33 * b32 + a34 * b42;
+        r[7] = a41 * b12 + a42 * b22 + a43 * b32 + a44 * b42;
+        r[8] = a11 * b13 + a12 * b23 + a13 * b33 + a14 * b43;
+        r[9] = a21 * b13 + a22 * b23 + a23 * b33 + a24 * b43;
+        r[10] = a31 * b13 + a32 * b23 + a33 * b33 + a34 * b43;
+        r[11] = a41 * b13 + a42 * b23 + a43 * b33 + a44 * b43;
+        r[12] = a11 * b14 + a12 * b24 + a13 * b34 + a14 * b44;
+        r[13] = a21 * b14 + a22 * b24 + a23 * b34 + a24 * b44;
+        r[14] = a31 * b14 + a32 * b24 + a33 * b34 + a34 * b44;
+        r[15] = a41 * b14 + a42 * b24 + a43 * b34 + a44 * b44;
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.mulAffine
+     *
+     * Performs r = a * b, assuming a and b are affine (elements 3,7,11,15 = 0,0,0,1)
+     *
+     * Parameters:
+     *
+     *   a - the first matrix operand
+     *   b - the second matrix operand
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 4x4 matrix with the result.
+     */
+    M4x4.mulAffine = function M4x4_mulAffine(a, b, r) {
+        //MathUtils_assert(a.length == 16, "a.length == 16");
+        //MathUtils_assert(b.length == 16, "b.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+        //MathUtils_assert(a != r && b != r, "a != r && b != r");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+        var a11 = a[0];
+        var a21 = a[1];
+        var a31 = a[2];
+        var a12 = a[4];
+        var a22 = a[5];
+        var a32 = a[6];
+        var a13 = a[8];
+        var a23 = a[9];
+        var a33 = a[10];
+        var a14 = a[12];
+        var a24 = a[13];
+        var a34 = a[14];
+
+        var b11 = b[0];
+        var b21 = b[1];
+        var b31 = b[2];
+        var b12 = b[4];
+        var b22 = b[5];
+        var b32 = b[6];
+        var b13 = b[8];
+        var b23 = b[9];
+        var b33 = b[10];
+        var b14 = b[12];
+        var b24 = b[13];
+        var b34 = b[14];
+
+        r[0] = a11 * b11 + a12 * b21 + a13 * b31;
+        r[1] = a21 * b11 + a22 * b21 + a23 * b31;
+        r[2] = a31 * b11 + a32 * b21 + a33 * b31;
+        r[3] = 0;
+        r[4] = a11 * b12 + a12 * b22 + a13 * b32;
+        r[5] = a21 * b12 + a22 * b22 + a23 * b32;
+        r[6] = a31 * b12 + a32 * b22 + a33 * b32;
+        r[7] = 0;
+        r[8] = a11 * b13 + a12 * b23 + a13 * b33;
+        r[9] = a21 * b13 + a22 * b23 + a23 * b33;
+        r[10] = a31 * b13 + a32 * b23 + a33 * b33;
+        r[11] = 0;
+        r[12] = a11 * b14 + a12 * b24 + a13 * b34 + a14;
+        r[13] = a21 * b14 + a22 * b24 + a23 * b34 + a24;
+        r[14] = a31 * b14 + a32 * b24 + a33 * b34 + a34;
+        r[15] = 1;
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.makeRotate
+     *
+     * Creates a transformation matrix for rotation by angle radians about the 3-element vector axis.
+     *
+     * Parameters:
+     *
+     *   angle - the angle of rotation, in radians
+     *   axis - the axis around which the rotation is performed, a 3-element vector
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after creating the matrix.
+     *   Otherwise, returns a new 4x4 matrix with the result.
+     */
+    M4x4.makeRotate = function M4x4_makeRotate(angle, axis, r) {
+        //MathUtils_assert(angle.length == 3, "angle.length == 3");
+        //MathUtils_assert(axis.length == 3, "axis.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        axis = V3.normalize(axis, V3._temp1);
+        var x = axis[0], y = axis[1], z = axis[2];
+        var c = Math.cos(angle);
+        var c1 = 1-c;
+        var s = Math.sin(angle);
+
+        r[0] = x*x*c1+c;
+        r[1] = y*x*c1+z*s;
+        r[2] = z*x*c1-y*s;
+        r[3] = 0;
+        r[4] = x*y*c1-z*s;
+        r[5] = y*y*c1+c;
+        r[6] = y*z*c1+x*s;
+        r[7] = 0;
+        r[8] = x*z*c1+y*s;
+        r[9] = y*z*c1-x*s;
+        r[10] = z*z*c1+c;
+        r[11] = 0;
+        r[12] = 0;
+        r[13] = 0;
+        r[14] = 0;
+        r[15] = 1;
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.rotate
+     *
+     * Concatenates a rotation of angle radians about the axis to the give matrix m.
+     *
+     * Parameters:
+     *
+     *   angle - the angle of rotation, in radians
+     *   axis - the axis around which the rotation is performed, a 3-element vector
+     *   m - the matrix to concatenate the rotation to
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after performing the operation.
+     *   Otherwise, returns a new 4x4 matrix with the result.
+     */
+    M4x4.rotate = function M4x4_rotate(angle, axis, m, r) {
+        //MathUtils_assert(angle.length == 3, "angle.length == 3");
+        //MathUtils_assert(axis.length == 3, "axis.length == 3");
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+        var a0=axis [0], a1=axis [1], a2=axis [2];
+        var l = Math.sqrt(a0*a0 + a1*a1 + a2*a2);
+        var x = a0, y = a1, z = a2;
+        if (l != 1.0) {
+            var im = 1.0 / l;
+            x *= im;
+            y *= im;
+            z *= im;
+        }
+        var c = Math.cos(angle);
+        var c1 = 1-c;
+        var s = Math.sin(angle);
+        var xs = x*s;
+        var ys = y*s;
+        var zs = z*s;
+        var xyc1 = x * y * c1;
+        var xzc1 = x * z * c1;
+        var yzc1 = y * z * c1;
+
+        var m11 = m[0];
+        var m21 = m[1];
+        var m31 = m[2];
+        var m41 = m[3];
+        var m12 = m[4];
+        var m22 = m[5];
+        var m32 = m[6];
+        var m42 = m[7];
+        var m13 = m[8];
+        var m23 = m[9];
+        var m33 = m[10];
+        var m43 = m[11];
+
+        var t11 = x * x * c1 + c;
+        var t21 = xyc1 + zs;
+        var t31 = xzc1 - ys;
+        var t12 = xyc1 - zs;
+        var t22 = y * y * c1 + c;
+        var t32 = yzc1 + xs;
+        var t13 = xzc1 + ys;
+        var t23 = yzc1 - xs;
+        var t33 = z * z * c1 + c;
+
+        r[0] = m11 * t11 + m12 * t21 + m13 * t31;
+        r[1] = m21 * t11 + m22 * t21 + m23 * t31;
+        r[2] = m31 * t11 + m32 * t21 + m33 * t31;
+        r[3] = m41 * t11 + m42 * t21 + m43 * t31;
+        r[4] = m11 * t12 + m12 * t22 + m13 * t32;
+        r[5] = m21 * t12 + m22 * t22 + m23 * t32;
+        r[6] = m31 * t12 + m32 * t22 + m33 * t32;
+        r[7] = m41 * t12 + m42 * t22 + m43 * t32;
+        r[8] = m11 * t13 + m12 * t23 + m13 * t33;
+        r[9] = m21 * t13 + m22 * t23 + m23 * t33;
+        r[10] = m31 * t13 + m32 * t23 + m33 * t33;
+        r[11] = m41 * t13 + m42 * t23 + m43 * t33;
+        if (r != m) {
+            r[12] = m[12];
+            r[13] = m[13];
+            r[14] = m[14];
+            r[15] = m[15];
+        }
+        return r;
+    };
+
+    /*
+     * Function: M4x4.makeScale3
+     *
+     * Creates a transformation matrix for scaling by 3 scalar values, one for
+     * each of the x, y, and z directions.
+     *
+     * Parameters:
+     *
+     *   x - the scale for the x axis
+     *   y - the scale for the y axis
+     *   z - the scale for the z axis
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after creating the matrix.
+     *   Otherwise, returns a new 4x4 matrix with the result.
+     */
+    M4x4.makeScale3 = function M4x4_makeScale3(x, y, z, r) {
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        r[0] = x;
+        r[1] = 0;
+        r[2] = 0;
+        r[3] = 0;
+        r[4] = 0;
+        r[5] = y;
+        r[6] = 0;
+        r[7] = 0;
+        r[8] = 0;
+        r[9] = 0;
+        r[10] = z;
+        r[11] = 0;
+        r[12] = 0;
+        r[13] = 0;
+        r[14] = 0;
+        r[15] = 1;
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.makeScale1
+     *
+     * Creates a transformation matrix for a uniform scale by a single scalar value.
+     *
+     * Parameters:
+     *
+     *   k - the scale factor
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after creating the matrix.
+     *   Otherwise, returns a new 4x4 matrix with the result.
+     */
+    M4x4.makeScale1 = function M4x4_makeScale1(k, r) {
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        return M4x4.makeScale3(k, k, k, r);
+    };
+
+    /*
+     * Function: M4x4.makeScale
+     *
+     * Creates a transformation matrix for scaling each of the x, y, and z axes by the amount
+     * given in the corresponding element of the 3-element vector.
+     *
+     * Parameters:
+     *
+     *   v - the 3-element vector containing the scale factors
+     *   r - optional 4x4 matrix to store the result in
+     *
+     * Returns:
+     *
+     *   If r is specified, returns r after creating the matrix.
+     *   Otherwise, returns a new 4x4 matrix with the result.
+     */
+    M4x4.makeScale = function M4x4_makeScale(v, r) {
+        //MathUtils_assert(v.length == 3, "v.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        return M4x4.makeScale3(v[0], v[1], v[2], r);
+    };
+
+    /*
+     * Function: M4x4.scale3
+     */
+    M4x4.scale3 = function M4x4_scale3(x, y, z, m, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        if (r == m) {
+            m[0] *= x;
+            m[1] *= x;
+            m[2] *= x;
+            m[3] *= x;
+            m[4] *= y;
+            m[5] *= y;
+            m[6] *= y;
+            m[7] *= y;
+            m[8] *= z;
+            m[9] *= z;
+            m[10] *= z;
+            m[11] *= z;
+            return m;
+        }
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        r[0] = m[0] * x;
+        r[1] = m[1] * x;
+        r[2] = m[2] * x;
+        r[3] = m[3] * x;
+        r[4] = m[4] * y;
+        r[5] = m[5] * y;
+        r[6] = m[6] * y;
+        r[7] = m[7] * y;
+        r[8] = m[8] * z;
+        r[9] = m[9] * z;
+        r[10] = m[10] * z;
+        r[11] = m[11] * z;
+        r[12] = m[12];
+        r[13] = m[13];
+        r[14] = m[14];
+        r[15] = m[15];
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.scale1
+     */
+    M4x4.scale1 = function M4x4_scale1(k, m, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+        if (r == m) {
+            m[0] *= k;
+            m[1] *= k;
+            m[2] *= k;
+            m[3] *= k;
+            m[4] *= k;
+            m[5] *= k;
+            m[6] *= k;
+            m[7] *= k;
+            m[8] *= k;
+            m[9] *= k;
+            m[10] *= k;
+            m[11] *= k;
+            return m;
+        }
+
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        r[0] = m[0] * k;
+        r[1] = m[1] * k;
+        r[2] = m[2] * k;
+        r[3] = m[3] * k;
+        r[4] = m[4] * k;
+        r[5] = m[5] * k;
+        r[6] = m[6] * k;
+        r[7] = m[7] * k;
+        r[8] = m[8] * k;
+        r[9] = m[9] * k;
+        r[10] = m[10] * k;
+        r[11] = m[11] * k;
+        r[12] = m[12];
+        r[13] = m[13];
+        r[14] = m[14];
+        r[15] = m[15];
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.scale1
+     */
+    M4x4.scale = function M4x4_scale(v, m, r) {
+        //MathUtils_assert(v.length == 3, "v.length == 3");
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+        var x = v[0], y = v[1], z = v[2];
+
+        if (r == m) {
+            m[0] *= x;
+            m[1] *= x;
+            m[2] *= x;
+            m[3] *= x;
+            m[4] *= y;
+            m[5] *= y;
+            m[6] *= y;
+            m[7] *= y;
+            m[8] *= z;
+            m[9] *= z;
+            m[10] *= z;
+            m[11] *= z;
+            return m;
+        }
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+
+        r[0] = m[0] * x;
+        r[1] = m[1] * x;
+        r[2] = m[2] * x;
+        r[3] = m[3] * x;
+        r[4] = m[4] * y;
+        r[5] = m[5] * y;
+        r[6] = m[6] * y;
+        r[7] = m[7] * y;
+        r[8] = m[8] * z;
+        r[9] = m[9] * z;
+        r[10] = m[10] * z;
+        r[11] = m[11] * z;
+        r[12] = m[12];
+        r[13] = m[13];
+        r[14] = m[14];
+        r[15] = m[15];
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.makeTranslate3
+     */
+    M4x4.makeTranslate3 = function M4x4_makeTranslate3(x, y, z, r) {
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        r[0] = 1;
+        r[1] = 0;
+        r[2] = 0;
+        r[3] = 0;
+        r[4] = 0;
+        r[5] = 1;
+        r[6] = 0;
+        r[7] = 0;
+        r[8] = 0;
+        r[9] = 0;
+        r[10] = 1;
+        r[11] = 0;
+        r[12] = x;
+        r[13] = y;
+        r[14] = z;
+        r[15] = 1;
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.makeTranslate1
+     */
+    M4x4.makeTranslate1 = function M4x4_makeTranslate1 (k, r) {
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        return M4x4.makeTranslate3(k, k, k, r);
+    };
+
+    /*
+     * Function: M4x4.makeTranslate
+     */
+    M4x4.makeTranslate = function M4x4_makeTranslate (v, r) {
+        //MathUtils_assert(v.length == 3, "v.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        return M4x4.makeTranslate3(v[0], v[1], v[2], r);
+    };
+
+    /*
+     * Function: M4x4.translate3Self
+     */
+    M4x4.translate3Self = function M4x4_translate3Self (x, y, z, m) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+        m[12] += m[0] * x + m[4] * y + m[8] * z;
+        m[13] += m[1] * x + m[5] * y + m[9] * z;
+        m[14] += m[2] * x + m[6] * y + m[10] * z;
+        m[15] += m[3] * x + m[7] * y + m[11] * z;
+        return m;
+    };
+
+    /*
+     * Function: M4x4.translate3
+     */
+    M4x4.translate3 = function M4x4_translate3 (x, y, z, m, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        if (r == m) {
+            m[12] += m[0] * x + m[4] * y + m[8] * z;
+            m[13] += m[1] * x + m[5] * y + m[9] * z;
+            m[14] += m[2] * x + m[6] * y + m[10] * z;
+            m[15] += m[3] * x + m[7] * y + m[11] * z;
+            return m;
+        }
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        var m11 = m[0];
+        var m21 = m[1];
+        var m31 = m[2];
+        var m41 = m[3];
+        var m12 = m[4];
+        var m22 = m[5];
+        var m32 = m[6];
+        var m42 = m[7];
+        var m13 = m[8];
+        var m23 = m[9];
+        var m33 = m[10];
+        var m43 = m[11];
+
+
+        r[0] = m11;
+        r[1] = m21;
+        r[2] = m31;
+        r[3] = m41;
+        r[4] = m12;
+        r[5] = m22;
+        r[6] = m32;
+        r[7] = m42;
+        r[8] = m13;
+        r[9] = m23;
+        r[10] = m33;
+        r[11] = m43;
+        r[12] = m11 * x + m12 * y + m13 * z + m[12];
+        r[13] = m21 * x + m22 * y + m23 * z + m[13];
+        r[14] = m31 * x + m32 * y + m33 * z + m[14];
+        r[15] = m41 * x + m42 * y + m43 * z + m[15];
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.translate1
+     */
+    M4x4.translate1 = function M4x4_translate1 (k, m, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        return M4x4.translate3(k, k, k, m, r);
+    };
+    /*
+     * Function: M4x4.translateSelf
+     */
+    M4x4.translateSelf = function M4x4_translateSelf (v, m) {
+        //MathUtils_assert(v.length == 3, "v.length == 3");
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        var x=v[0], y=v[1], z=v[2];
+        m[12] += m[0] * x + m[4] * y + m[8] * z;
+        m[13] += m[1] * x + m[5] * y + m[9] * z;
+        m[14] += m[2] * x + m[6] * y + m[10] * z;
+        m[15] += m[3] * x + m[7] * y + m[11] * z;
+        return m;
+    };
+    /*
+     * Function: M4x4.translate
+     */
+    M4x4.translate = function M4x4_translate (v, m, r) {
+        //MathUtils_assert(v.length == 3, "v.length == 3");
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+        var x=v[0], y=v[1], z=v[2];
+        if (r == m) {
+            m[12] += m[0] * x + m[4] * y + m[8] * z;
+            m[13] += m[1] * x + m[5] * y + m[9] * z;
+            m[14] += m[2] * x + m[6] * y + m[10] * z;
+            m[15] += m[3] * x + m[7] * y + m[11] * z;
+            return m;
+        }
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        var m11 = m[0];
+        var m21 = m[1];
+        var m31 = m[2];
+        var m41 = m[3];
+        var m12 = m[4];
+        var m22 = m[5];
+        var m32 = m[6];
+        var m42 = m[7];
+        var m13 = m[8];
+        var m23 = m[9];
+        var m33 = m[10];
+        var m43 = m[11];
+
+        r[0] = m11;
+        r[1] = m21;
+        r[2] = m31;
+        r[3] = m41;
+        r[4] = m12;
+        r[5] = m22;
+        r[6] = m32;
+        r[7] = m42;
+        r[8] = m13;
+        r[9] = m23;
+        r[10] = m33;
+        r[11] = m43;
+        r[12] = m11 * x + m12 * y + m13 * z + m[12];
+        r[13] = m21 * x + m22 * y + m23 * z + m[13];
+        r[14] = m31 * x + m32 * y + m33 * z + m[14];
+        r[15] = m41 * x + m42 * y + m43 * z + m[15];
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.makeLookAt
+     */
+    M4x4.makeLookAt = function M4x4_makeLookAt (eye, center, up, r) {
+        //MathUtils_assert(eye.length == 3, "eye.length == 3");
+        //MathUtils_assert(center.length == 3, "center.length == 3");
+        //MathUtils_assert(up.length == 3, "up.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        var z = V3.direction(eye, center, V3._temp1);
+        var x = V3.normalize(V3.cross(up, z, V3._temp2), V3._temp2);
+        var y = V3.normalize(V3.cross(z, x, V3._temp3), V3._temp3);
+
+        var tm1 = M4x4._temp1;
+        var tm2 = M4x4._temp2;
+
+        tm1[0] = x[0];
+        tm1[1] = y[0];
+        tm1[2] = z[0];
+        tm1[3] = 0;
+        tm1[4] = x[1];
+        tm1[5] = y[1];
+        tm1[6] = z[1];
+        tm1[7] = 0;
+        tm1[8] = x[2];
+        tm1[9] = y[2];
+        tm1[10] = z[2];
+        tm1[11] = 0;
+        tm1[12] = 0;
+        tm1[13] = 0;
+        tm1[14] = 0;
+        tm1[15] = 1;
+
+        tm2[0] = 1; tm2[1] = 0; tm2[2] = 0; tm2[3] = 0;
+        tm2[4] = 0; tm2[5] = 1; tm2[6] = 0; tm2[7] = 0;
+        tm2[8] = 0; tm2[9] = 0; tm2[10] = 1; tm2[11] = 0;
+        tm2[12] = -eye[0]; tm2[13] = -eye[1]; tm2[14] = -eye[2]; tm2[15] = 1;
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+        return M4x4.mul(tm1, tm2, r);
+    };
+
+    /*
+     * Function: M4x4.transposeSelf
+     */
+    M4x4.transposeSelf = function M4x4_transposeSelf (m) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        var tmp = m[1]; m[1] = m[4]; m[4] = tmp;
+        tmp = m[2]; m[2] = m[8]; m[8] = tmp;
+        tmp = m[3]; m[3] = m[12]; m[12] = tmp;
+        tmp = m[6]; m[6] = m[9]; m[9] = tmp;
+        tmp = m[7]; m[7] = m[13]; m[13] = tmp;
+        tmp = m[11]; m[11] = m[14]; m[14] = tmp;
+        return m;
+    };
+    /*
+     * Function: M4x4.transpose
+     */
+    M4x4.transpose = function M4x4_transpose (m, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(r == undefined || r.length == 16, "r == undefined || r.length == 16");
+
+        if (m == r) {
+            var tmp = 0.0;
+            tmp = m[1]; m[1] = m[4]; m[4] = tmp;
+            tmp = m[2]; m[2] = m[8]; m[8] = tmp;
+            tmp = m[3]; m[3] = m[12]; m[12] = tmp;
+            tmp = m[6]; m[6] = m[9]; m[9] = tmp;
+            tmp = m[7]; m[7] = m[13]; m[13] = tmp;
+            tmp = m[11]; m[11] = m[14]; m[14] = tmp;
+            return m;
+        }
+
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        r[0] = m[0]; r[1] = m[4]; r[2] = m[8]; r[3] = m[12];
+        r[4] = m[1]; r[5] = m[5]; r[6] = m[9]; r[7] = m[13];
+        r[8] = m[2]; r[9] = m[6]; r[10] = m[10]; r[11] = m[14];
+        r[12] = m[3]; r[13] = m[7]; r[14] = m[11]; r[15] = m[15];
+
+        return r;
+    };
+
+
+    /*
+     * Function: M4x4.transformPoint
+     */
+    M4x4.transformPoint = function M4x4_transformPoint (m, v, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(v.length == 3, "v.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+
+        var v0 = v[0], v1 = v[1], v2 = v[2];
+
+        r[0] = m[0] * v0 + m[4] * v1 + m[8] * v2 + m[12];
+        r[1] = m[1] * v0 + m[5] * v1 + m[9] * v2 + m[13];
+        r[2] = m[2] * v0 + m[6] * v1 + m[10] * v2 + m[14];
+        var w = m[3] * v0 + m[7] * v1 + m[11] * v2 + m[15];
+
+        if (w != 1.0) {
+            r[0] /= w;
+            r[1] /= w;
+            r[2] /= w;
+        }
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.transformLine
+     */
+    M4x4.transformLine = function M4x4_transformLine(m, v, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(v.length == 3, "v.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+
+        var v0 = v[0], v1 = v[1], v2 = v[2];
+        r[0] = m[0] * v0 + m[4] * v1 + m[8] * v2;
+        r[1] = m[1] * v0 + m[5] * v1 + m[9] * v2;
+        r[2] = m[2] * v0 + m[6] * v1 + m[10] * v2;
+        var w = m[3] * v0 + m[7] * v1 + m[11] * v2;
+
+        if (w != 1.0) {
+            r[0] /= w;
+            r[1] /= w;
+            r[2] /= w;
+        }
+
+        return r;
+    };
+
+
+    /*
+     * Function: M4x4.transformPointAffine
+     */
+    M4x4.transformPointAffine = function M4x4_transformPointAffine (m, v, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(v.length == 3, "v.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+
+        var v0 = v[0], v1 = v[1], v2 = v[2];
+
+        r[0] = m[0] * v0 + m[4] * v1 + m[8] * v2 + m[12];
+        r[1] = m[1] * v0 + m[5] * v1 + m[9] * v2 + m[13];
+        r[2] = m[2] * v0 + m[6] * v1 + m[10] * v2 + m[14];
+
+        return r;
+    };
+
+    /*
+     * Function: M4x4.transformLineAffine
+     */
+    M4x4.transformLineAffine = function M4x4_transformLineAffine(m, v, r) {
+        //MathUtils_assert(m.length == 16, "m.length == 16");
+        //MathUtils_assert(v.length == 3, "v.length == 3");
+        //MathUtils_assert(r == undefined || r.length == 3, "r == undefined || r.length == 3");
+        if (r == undefined)
+            r = new MJS_FLOAT_ARRAY_TYPE(3);
+
+        var v0 = v[0], v1 = v[1], v2 = v[2];
+        r[0] = m[0] * v0 + m[4] * v1 + m[8] * v2;
+        r[1] = m[1] * v0 + m[5] * v1 + m[9] * v2;
+        r[2] = m[2] * v0 + m[6] * v1 + m[10] * v2;
+
+        return r;
+    };
+
+    M4x4.makeBasis = function M4x4_makeBasis(vx,vy,vz) {
+
+        var r = new MJS_FLOAT_ARRAY_TYPE(16);
+
+        r[0] = vx[0];
+        r[1] = vx[1];
+        r[2] = vx[2];
+        r[3] = 0;
+        r[4] = vy[0];
+        r[5] = vy[1];
+        r[6] = vy[2];
+        r[7] = 0;
+        r[8] = vz[0];
+        r[9] = vz[1];
+        r[10] = vz[2];
+        r[11] = 0;
+        r[12] = 0;
+        r[13] = 0;
+        r[14] = 0;
+        r[15] = 1;
+
+        return r;
+
+    };
+
+    return {
+        vec3: F3(V3.$),
+        v3getX: V3.getX,
+        v3getY: V3.getY,
+        v3getZ: V3.getZ,
+        v3setX: F2(V3.setX),
+        v3setY: F2(V3.setY),
+        v3setZ: F2(V3.setZ),
+        toTuple3: V3.toTuple3,
+        toRecord3: V3.toRecord3,
+        fromTuple3: V3.fromTuple3,
+        fromRecord3: V3.fromRecord3,
+        v3add: F2(V3.add),
+        v3sub: F2(V3.sub),
+        v3neg: V3.neg,
+        v3direction: F2(V3.direction),
+        v3length: V3.length,
+        v3lengthSquared: V3.lengthSquared,
+        v3distance: F2(V3.distance),
+        v3distanceSquared: F2(V3.distanceSquared),
+        v3normalize: V3.normalize,
+        v3scale: F2(V3.scale),
+        v3dot: F2(V3.dot),
+        v3cross: F2(V3.cross),
+        v3mul4x4: F2(V3.mul4x4),
+        m4x4fromList: M4x4.fromList,
+        m4x4fromRecord: M4x4.fromRecord,
+        m4x4toRecord: M4x4.toRecord,
+        m4x4identity: M4x4.identity,
+        m4x4topLeft3x3: M4x4.topLeft3x3,
+        m4x4inverse: M4x4.inverse,
+        m4x4inverseOrthonormal: M4x4.inverseOrthonormal,
+        m4x4inverseTo3x3: M4x4.inverseTo3x3,
+        m4x4makeFrustum: F6(M4x4.makeFrustum),
+        m4x4makePerspective: F4(M4x4.makePerspective),
+        m4x4makeOrtho: F6(M4x4.makeOrtho),
+        m4x4makeOrtho2D: F4(M4x4.makeOrtho2D),
+        m4x4mul: F2(M4x4.mul),
+        m4x4Affine: F2(M4x4.mulAffine),
+        m4x4makeRotate: F2(M4x4.makeRotate),
+        m4x4rotate: F3(M4x4.rotate),
+        m4x4makeScale3: F3(M4x4.makeScale3),
+        m4x4makeScale1: M4x4.makeScale1,
+        m4x4makeScale: M4x4.makeScale,
+        m4x4scale3: F4(M4x4.scale3),
+        m4x4scale: F2(M4x4.scale),
+        m4x4makeTranslate3: F3(M4x4.makeTranslate3),
+        m4x4makeTranslate: M4x4.makeTranslate,
+        m4x4translate3: F4(M4x4.translate3),
+        m4x4translate: F2(M4x4.translate),
+        m4x4makeLookAt: F3(M4x4.makeLookAt),
+        m4x4transpose: M4x4.transpose,
+        m4x4transformPoint: F2(M4x4.transformPoint),
+        m4x4makeBasis: F3(M4x4.makeBasis)
+    };
+
+}();
+var _elm_community$linear_algebra$Math_Vector3$cross = _elm_community$linear_algebra$Native_MJS.v3cross;
+var _elm_community$linear_algebra$Math_Vector3$dot = _elm_community$linear_algebra$Native_MJS.v3dot;
+var _elm_community$linear_algebra$Math_Vector3$scale = _elm_community$linear_algebra$Native_MJS.v3scale;
+var _elm_community$linear_algebra$Math_Vector3$normalize = _elm_community$linear_algebra$Native_MJS.v3normalize;
+var _elm_community$linear_algebra$Math_Vector3$distanceSquared = _elm_community$linear_algebra$Native_MJS.v3distanceSquared;
+var _elm_community$linear_algebra$Math_Vector3$distance = _elm_community$linear_algebra$Native_MJS.v3distance;
+var _elm_community$linear_algebra$Math_Vector3$lengthSquared = _elm_community$linear_algebra$Native_MJS.v3lengthSquared;
+var _elm_community$linear_algebra$Math_Vector3$length = _elm_community$linear_algebra$Native_MJS.v3length;
+var _elm_community$linear_algebra$Math_Vector3$direction = _elm_community$linear_algebra$Native_MJS.v3direction;
+var _elm_community$linear_algebra$Math_Vector3$negate = _elm_community$linear_algebra$Native_MJS.v3neg;
+var _elm_community$linear_algebra$Math_Vector3$sub = _elm_community$linear_algebra$Native_MJS.v3sub;
+var _elm_community$linear_algebra$Math_Vector3$add = _elm_community$linear_algebra$Native_MJS.v3add;
+var _elm_community$linear_algebra$Math_Vector3$fromRecord = _elm_community$linear_algebra$Native_MJS.fromRecord3;
+var _elm_community$linear_algebra$Math_Vector3$fromTuple = _elm_community$linear_algebra$Native_MJS.fromTuple3;
+var _elm_community$linear_algebra$Math_Vector3$toRecord = _elm_community$linear_algebra$Native_MJS.toRecord3;
+var _elm_community$linear_algebra$Math_Vector3$toTuple = _elm_community$linear_algebra$Native_MJS.toTuple3;
+var _elm_community$linear_algebra$Math_Vector3$setZ = _elm_community$linear_algebra$Native_MJS.v3setZ;
+var _elm_community$linear_algebra$Math_Vector3$setY = _elm_community$linear_algebra$Native_MJS.v3setY;
+var _elm_community$linear_algebra$Math_Vector3$setX = _elm_community$linear_algebra$Native_MJS.v3setX;
+var _elm_community$linear_algebra$Math_Vector3$getZ = _elm_community$linear_algebra$Native_MJS.v3getZ;
+var _elm_community$linear_algebra$Math_Vector3$getY = _elm_community$linear_algebra$Native_MJS.v3getY;
+var _elm_community$linear_algebra$Math_Vector3$getX = _elm_community$linear_algebra$Native_MJS.v3getX;
+var _elm_community$linear_algebra$Math_Vector3$k = A3(_elm_community$linear_algebra$Native_MJS.vec3, 0, 0, 1);
+var _elm_community$linear_algebra$Math_Vector3$j = A3(_elm_community$linear_algebra$Native_MJS.vec3, 0, 1, 0);
+var _elm_community$linear_algebra$Math_Vector3$i = A3(_elm_community$linear_algebra$Native_MJS.vec3, 1, 0, 0);
+var _elm_community$linear_algebra$Math_Vector3$vec3 = _elm_community$linear_algebra$Native_MJS.vec3;
+var _elm_community$linear_algebra$Math_Vector3$Vec3 = {ctor: 'Vec3'};
+var _elm_community$linear_algebra$Math_Matrix4$fromRecord = _elm_community$linear_algebra$Native_MJS.m4x4fromRecord;
+var _elm_community$linear_algebra$Math_Matrix4$toRecord = _elm_community$linear_algebra$Native_MJS.m4x4toRecord;
+var _elm_community$linear_algebra$Math_Matrix4$makeFromList = _elm_community$linear_algebra$Native_MJS.m4x4fromList;
+var _elm_community$linear_algebra$Math_Matrix4$makeBasis = _elm_community$linear_algebra$Native_MJS.m4x4makeBasis;
+var _elm_community$linear_algebra$Math_Matrix4$transpose = _elm_community$linear_algebra$Native_MJS.m4x4transpose;
+var _elm_community$linear_algebra$Math_Matrix4$makeLookAt = _elm_community$linear_algebra$Native_MJS.m4x4makeLookAt;
+var _elm_community$linear_algebra$Math_Matrix4$translate = _elm_community$linear_algebra$Native_MJS.m4x4translate;
+var _elm_community$linear_algebra$Math_Matrix4$translate3 = _elm_community$linear_algebra$Native_MJS.m4x4translate3;
+var _elm_community$linear_algebra$Math_Matrix4$makeTranslate = _elm_community$linear_algebra$Native_MJS.m4x4makeTranslate;
+var _elm_community$linear_algebra$Math_Matrix4$makeTranslate3 = _elm_community$linear_algebra$Native_MJS.m4x4makeTranslate3;
+var _elm_community$linear_algebra$Math_Matrix4$scale = _elm_community$linear_algebra$Native_MJS.m4x4scale;
+var _elm_community$linear_algebra$Math_Matrix4$scale3 = _elm_community$linear_algebra$Native_MJS.m4x4scale3;
+var _elm_community$linear_algebra$Math_Matrix4$makeScale = _elm_community$linear_algebra$Native_MJS.m4x4makeScale;
+var _elm_community$linear_algebra$Math_Matrix4$makeScale3 = _elm_community$linear_algebra$Native_MJS.m4x4makeScale3;
+var _elm_community$linear_algebra$Math_Matrix4$rotate = _elm_community$linear_algebra$Native_MJS.m4x4rotate;
+var _elm_community$linear_algebra$Math_Matrix4$makeRotate = _elm_community$linear_algebra$Native_MJS.m4x4makeRotate;
+var _elm_community$linear_algebra$Math_Matrix4$mulAffine = _elm_community$linear_algebra$Native_MJS.m4x4mulAffine;
+var _elm_community$linear_algebra$Math_Matrix4$mul = _elm_community$linear_algebra$Native_MJS.m4x4mul;
+var _elm_community$linear_algebra$Math_Matrix4$makeOrtho2D = _elm_community$linear_algebra$Native_MJS.m4x4makeOrtho2D;
+var _elm_community$linear_algebra$Math_Matrix4$makeOrtho = _elm_community$linear_algebra$Native_MJS.m4x4makeOrtho;
+var _elm_community$linear_algebra$Math_Matrix4$makePerspective = _elm_community$linear_algebra$Native_MJS.m4x4makePerspective;
+var _elm_community$linear_algebra$Math_Matrix4$makeFrustum = _elm_community$linear_algebra$Native_MJS.m4x4makeFrustum;
+var _elm_community$linear_algebra$Math_Matrix4$inverseOrthonormal = _elm_community$linear_algebra$Native_MJS.m4x4inverseOrthonormal;
+var _elm_community$linear_algebra$Math_Matrix4$inverse = _elm_community$linear_algebra$Native_MJS.m4x4inverse;
+var _elm_community$linear_algebra$Math_Matrix4$identity = _elm_community$linear_algebra$Native_MJS.m4x4identity;
+var _elm_community$linear_algebra$Math_Matrix4$transform = _elm_community$linear_algebra$Native_MJS.v3mul4x4;
+var _elm_community$linear_algebra$Math_Matrix4$Mat4 = {ctor: 'Mat4'};
+
+/*
+ * Copyright (c) 2010 Mozilla Corporation
+ * Copyright (c) 2010 Vladimir Vukicevic
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+/*
+ * File: mjs
+ *
+ * Vector and Matrix math utilities for JavaScript, optimized for WebGL.
+ * Edited to work with the Elm Programming Language
+ */
+
+var _elm_community$linear_algebra$Native_Math_Vector4 = function() {
+
+    var MJS_FLOAT_ARRAY_TYPE = Float32Array;
+
+    var V4 = { };
+
+    if (MJS_FLOAT_ARRAY_TYPE == Array) {
+        V4.$ = function V4_$(x, y, z, w) {
+            return [x, y, z, w];
+        };
+    } else {
+        V4.$ = function V4_$(x, y, z, w) {
+            return new MJS_FLOAT_ARRAY_TYPE([x, y, z, w]);
+        };
+    }
+
+    V4.getX = function V4_getX(a) {
+        return a[0];
+    }
+    V4.getY = function V4_getY(a) {
+        return a[1];
+    }
+    V4.getZ = function V4_getZ(a) {
+        return a[2];
+    }
+    V4.getW = function V4_getW(a) {
+        return a[3];
+    }
+    V4.setX = function V4_setX(x, a) {
+        return new MJS_FLOAT_ARRAY_TYPE([x, a[1], a[2], a[3]]);
+    }
+    V4.setY = function V4_setY(y, a) {
+        return new MJS_FLOAT_ARRAY_TYPE([a[0], y, a[2], a[3]]);
+    }
+    V4.setZ = function V4_setZ(z, a) {
+        return new MJS_FLOAT_ARRAY_TYPE([a[0], a[1], z, a[3]]);
+    }
+    V4.setW = function V4_setW(w, a) {
+        return new MJS_FLOAT_ARRAY_TYPE([a[0], a[1], a[2], w]);
+    }
+
+    V4.toTuple = function V4_toTuple(a) {
+        return {
+            ctor:"_Tuple4",
+            _0:a[0],
+            _1:a[1],
+            _2:a[2],
+            _3:a[3]
+        };
+    };
+    V4.fromTuple = function V4_fromTuple(t) {
+        return new MJS_FLOAT_ARRAY_TYPE([t._0, t._1, t._2, t._3]);
+    };
+
+    V4.toRecord = function V4_toRecord(a) {
+        return {
+            _:{},
+            x:a[0],
+            y:a[1],
+            z:a[2],
+            w:a[3]
+        };
+    };
+    V4.fromRecord = function V4_fromRecord(r) {
+        return new MJS_FLOAT_ARRAY_TYPE([r.x, r.y, r.z, r.w]);
+    };
+
+    V4.add = function V4_add(a, b) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(4);
+        r[0] = a[0] + b[0];
+        r[1] = a[1] + b[1];
+        r[2] = a[2] + b[2];
+        r[3] = a[3] + b[3];
+        return r;
+    };
+
+    V4.sub = function V4_sub(a, b) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(4);
+        r[0] = a[0] - b[0];
+        r[1] = a[1] - b[1];
+        r[2] = a[2] - b[2];
+        r[3] = a[3] - b[3];
+        return r;
+    };
+
+    V4.neg = function V4_neg(a) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(4);
+        r[0] = - a[0];
+        r[1] = - a[1];
+        r[2] = - a[2];
+        r[3] = - a[3];
+        return r;
+    };
+
+    V4.direction = function V4_direction(a, b) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(4);
+        r[0] = a[0] - b[0];
+        r[1] = a[1] - b[1];
+        r[2] = a[2] - b[2];
+        r[3] = a[3] - b[3];
+        var im = 1.0 / V4.length(r);
+        r[0] = r[0] * im;
+        r[1] = r[1] * im;
+        r[2] = r[2] * im;
+        r[3] = r[3] * im;
+        return r;
+    };
+
+    V4.length = function V4_length(a) {
+        return Math.sqrt(a[0]*a[0] + a[1]*a[1] + a[2]*a[2] + a[3]*a[3]);
+    };
+
+    V4.lengthSquared = function V4_lengthSquared(a) {
+        return a[0]*a[0] + a[1]*a[1] + a[2]*a[2] + a[3]*a[3];
+    };
+
+    V4.distance = function V4_distance(a, b) {
+        var dx = a[0] - b[0];
+        var dy = a[1] - b[1];
+        var dz = a[2] - b[2];
+        var dw = a[3] - b[3];
+        return Math.sqrt(dx * dx + dy * dy + dz * dz + dw * dw);
+    };
+
+    V4.distanceSquared = function V4_distanceSquared(a, b) {
+        var dx = a[0] - b[0];
+        var dy = a[1] - b[1];
+        var dz = a[2] - b[2];
+        var dw = a[3] - b[3];
+        return dx * dx + dy * dy + dz * dz + dw * dw;
+    };
+
+    V4.normalize = function V4_normalize(a) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(4);
+        var im = 1.0 / V4.length(a);
+        r[0] = a[0] * im;
+        r[1] = a[1] * im;
+        r[2] = a[2] * im;
+        r[3] = a[3] * im;
+        return r;
+    };
+
+    V4.scale = function V4_scale(k, a) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(4);
+        r[0] = a[0] * k;
+        r[1] = a[1] * k;
+        r[2] = a[2] * k;
+        r[3] = a[3] * k;
+        return r;
+    };
+
+    V4.dot = function V4_dot(a, b) {
+        return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+    };
+
+    return {
+        vec4: F4(V4.$),
+        getX: V4.getX,
+        getY: V4.getY,
+        getZ: V4.getZ,
+        getW: V4.getW,
+        setX: F2(V4.setX),
+        setY: F2(V4.setY),
+        setZ: F2(V4.setZ),
+        setW: F2(V4.setW),
+        toTuple: V4.toTuple,
+        toRecord: V4.toRecord,
+        fromTuple: V4.fromTuple,
+        fromRecord: V4.fromRecord,
+        add: F2(V4.add),
+        sub: F2(V4.sub),
+        neg: V4.neg,
+        direction: F2(V4.direction),
+        length: V4.length,
+        lengthSquared: V4.lengthSquared,
+        distance: F2(V4.distance),
+        distanceSquared: F2(V4.distanceSquared),
+        normalize: V4.normalize,
+        scale: F2(V4.scale),
+        dot: F2(V4.dot)
+    };
+
+}();
+var _elm_community$linear_algebra$Math_Vector4$dot = _elm_community$linear_algebra$Native_Math_Vector4.dot;
+var _elm_community$linear_algebra$Math_Vector4$scale = _elm_community$linear_algebra$Native_Math_Vector4.scale;
+var _elm_community$linear_algebra$Math_Vector4$normalize = _elm_community$linear_algebra$Native_Math_Vector4.normalize;
+var _elm_community$linear_algebra$Math_Vector4$distanceSquared = _elm_community$linear_algebra$Native_Math_Vector4.distanceSquared;
+var _elm_community$linear_algebra$Math_Vector4$distance = _elm_community$linear_algebra$Native_Math_Vector4.distance;
+var _elm_community$linear_algebra$Math_Vector4$lengthSquared = _elm_community$linear_algebra$Native_Math_Vector4.lengthSquared;
+var _elm_community$linear_algebra$Math_Vector4$length = _elm_community$linear_algebra$Native_Math_Vector4.length;
+var _elm_community$linear_algebra$Math_Vector4$direction = _elm_community$linear_algebra$Native_Math_Vector4.direction;
+var _elm_community$linear_algebra$Math_Vector4$negate = _elm_community$linear_algebra$Native_Math_Vector4.neg;
+var _elm_community$linear_algebra$Math_Vector4$sub = _elm_community$linear_algebra$Native_Math_Vector4.sub;
+var _elm_community$linear_algebra$Math_Vector4$add = _elm_community$linear_algebra$Native_Math_Vector4.add;
+var _elm_community$linear_algebra$Math_Vector4$fromRecord = _elm_community$linear_algebra$Native_Math_Vector4.fromRecord;
+var _elm_community$linear_algebra$Math_Vector4$fromTuple = _elm_community$linear_algebra$Native_Math_Vector4.fromTuple;
+var _elm_community$linear_algebra$Math_Vector4$toRecord = _elm_community$linear_algebra$Native_Math_Vector4.toRecord;
+var _elm_community$linear_algebra$Math_Vector4$toTuple = _elm_community$linear_algebra$Native_Math_Vector4.toTuple;
+var _elm_community$linear_algebra$Math_Vector4$setW = _elm_community$linear_algebra$Native_Math_Vector4.setW;
+var _elm_community$linear_algebra$Math_Vector4$setZ = _elm_community$linear_algebra$Native_Math_Vector4.setZ;
+var _elm_community$linear_algebra$Math_Vector4$setY = _elm_community$linear_algebra$Native_Math_Vector4.setY;
+var _elm_community$linear_algebra$Math_Vector4$setX = _elm_community$linear_algebra$Native_Math_Vector4.setX;
+var _elm_community$linear_algebra$Math_Vector4$getW = _elm_community$linear_algebra$Native_Math_Vector4.getW;
+var _elm_community$linear_algebra$Math_Vector4$getZ = _elm_community$linear_algebra$Native_Math_Vector4.getZ;
+var _elm_community$linear_algebra$Math_Vector4$getY = _elm_community$linear_algebra$Native_Math_Vector4.getY;
+var _elm_community$linear_algebra$Math_Vector4$getX = _elm_community$linear_algebra$Native_Math_Vector4.getX;
+var _elm_community$linear_algebra$Math_Vector4$vec4 = _elm_community$linear_algebra$Native_Math_Vector4.vec4;
+var _elm_community$linear_algebra$Math_Vector4$Vec4 = {ctor: 'Vec4'};
 var _elm_lang$core$Task$onError = _elm_lang$core$Native_Scheduler.onError;
 var _elm_lang$core$Task$andThen = _elm_lang$core$Native_Scheduler.andThen;
 var _elm_lang$core$Task$spawnCmd = F2(
@@ -8856,9 +11076,6 @@ var _elm_lang$html$Html_Events$Options = F2(
 	function (a, b) {
 		return {stopPropagation: a, preventDefault: b};
 	});
-var _elm_lang$html$Html_Keyed$node = _elm_lang$virtual_dom$VirtualDom$keyedNode;
-var _elm_lang$html$Html_Keyed$ol = _elm_lang$html$Html_Keyed$node('ol');
-var _elm_lang$html$Html_Keyed$ul = _elm_lang$html$Html_Keyed$node('ul');
 var _elm_lang$mouse$Mouse_ops = _elm_lang$mouse$Mouse_ops || {};
 _elm_lang$mouse$Mouse_ops['&>'] = F2(
 	function (t1, t2) {
@@ -15511,6 +17728,72 @@ var _opensolid$geometry$OpenSolid_Polygon2d$placeIn = function (frame) {
 	return _opensolid$geometry$OpenSolid_Polygon2d$mapVertices(
 		_opensolid$geometry$OpenSolid_Point2d$placeIn(frame));
 };
+var _opensolid$linear_algebra_interop$OpenSolid_Interop_LinearAlgebra_Frame3d$toMat4 = function (frame) {
+	var _p0 = _opensolid$geometry$OpenSolid_Point3d$coordinates(
+		_opensolid$geometry$OpenSolid_Frame3d$originPoint(frame));
+	var m14 = _p0._0;
+	var m24 = _p0._1;
+	var m34 = _p0._2;
+	var _p1 = _opensolid$geometry$OpenSolid_Direction3d$components(
+		_opensolid$geometry$OpenSolid_Frame3d$zDirection(frame));
+	var m13 = _p1._0;
+	var m23 = _p1._1;
+	var m33 = _p1._2;
+	var _p2 = _opensolid$geometry$OpenSolid_Direction3d$components(
+		_opensolid$geometry$OpenSolid_Frame3d$yDirection(frame));
+	var m12 = _p2._0;
+	var m22 = _p2._1;
+	var m32 = _p2._2;
+	var _p3 = _opensolid$geometry$OpenSolid_Direction3d$components(
+		_opensolid$geometry$OpenSolid_Frame3d$xDirection(frame));
+	var m11 = _p3._0;
+	var m21 = _p3._1;
+	var m31 = _p3._2;
+	return _elm_community$linear_algebra$Math_Matrix4$fromRecord(
+		{m11: m11, m21: m21, m31: m31, m41: 0, m12: m12, m22: m22, m32: m32, m42: 0, m13: m13, m23: m23, m33: m33, m43: 0, m14: m14, m24: m24, m34: m34, m44: 1});
+};
+var _opensolid$linear_algebra_interop$OpenSolid_Interop_LinearAlgebra_Point3d$transformBy = F2(
+	function (matrix, point) {
+		var _p0 = _opensolid$geometry$OpenSolid_Point3d$coordinates(point);
+		var x = _p0._0;
+		var y = _p0._1;
+		var z = _p0._2;
+		var _p1 = _elm_community$linear_algebra$Math_Matrix4$toRecord(matrix);
+		var m11 = _p1.m11;
+		var m12 = _p1.m12;
+		var m13 = _p1.m13;
+		var m14 = _p1.m14;
+		var m21 = _p1.m21;
+		var m22 = _p1.m22;
+		var m23 = _p1.m23;
+		var m24 = _p1.m24;
+		var m31 = _p1.m31;
+		var m32 = _p1.m32;
+		var m33 = _p1.m33;
+		var m34 = _p1.m34;
+		var m41 = _p1.m41;
+		var m42 = _p1.m42;
+		var m43 = _p1.m43;
+		var m44 = _p1.m44;
+		var w = (((m41 * x) + (m42 * y)) + (m43 * z)) + m44;
+		return _opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
+			{ctor: '_Tuple3', _0: ((((m11 * x) + (m12 * y)) + (m13 * z)) + m14) / w, _1: ((((m21 * x) + (m22 * y)) + (m23 * z)) + m24) / w, _2: ((((m31 * x) + (m32 * y)) + (m33 * z)) + m34) / w});
+	});
+var _opensolid$linear_algebra_interop$OpenSolid_Interop_LinearAlgebra_Point3d$fromVec3 = function (vec) {
+	return _opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
+		_elm_community$linear_algebra$Math_Vector3$toTuple(vec));
+};
+var _opensolid$linear_algebra_interop$OpenSolid_Interop_LinearAlgebra_Point3d$toVec4 = function (point) {
+	var _p2 = _opensolid$geometry$OpenSolid_Point3d$coordinates(point);
+	var x = _p2._0;
+	var y = _p2._1;
+	var z = _p2._2;
+	return A4(_elm_community$linear_algebra$Math_Vector4$vec4, x, y, z, 1);
+};
+var _opensolid$linear_algebra_interop$OpenSolid_Interop_LinearAlgebra_Point3d$toVec3 = function (point) {
+	return _elm_community$linear_algebra$Math_Vector3$fromTuple(
+		_opensolid$geometry$OpenSolid_Point3d$coordinates(point));
+};
 var _opensolid$svg$OpenSolid_Svg_Internal$tip = F4(
 	function (_p0, basePoint, length, direction) {
 		var _p1 = _p0;
@@ -16464,31 +18747,30 @@ var _user$project$Structure$structureHelp = F3(
 var _user$project$Structure$initial = {
 	points: {
 		ctor: '::',
-		_0: {
-			number: 0,
-			point: _opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
-				{ctor: '_Tuple3', _0: 0, _1: 0, _2: 0})
-		},
+		_0: {number: 0, point: _opensolid$geometry$OpenSolid_Point3d$origin},
 		_1: {ctor: '[]'}
 	},
 	lines: {ctor: '[]'},
 	coordinates: {ctor: '[]'},
-	value: _opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
-		{ctor: '_Tuple3', _0: 0, _1: 0, _2: 0}),
-	hull: _opensolid$geometry$OpenSolid_BoundingBox3d$singleton(
-		_opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
-			{ctor: '_Tuple3', _0: 0, _1: 0, _2: 0}))
+	value: _opensolid$geometry$OpenSolid_Point3d$origin,
+	hull: _opensolid$geometry$OpenSolid_BoundingBox3d$singleton(_opensolid$geometry$OpenSolid_Point3d$origin)
 };
-var _user$project$Structure$sortLinesByDistanceToPlane = function (plane) {
+var _user$project$Structure$sortLinesByDistanceToPoint = function (point) {
 	return _elm_lang$core$List$sortBy(
 		function (_p10) {
 			return A2(
-				_opensolid$geometry$OpenSolid_Point3d$signedDistanceFrom,
-				plane,
-				_opensolid$geometry$OpenSolid_LineSegment3d$midpoint(
-					function (_) {
-						return _.line;
-					}(_p10)));
+				F2(
+					function (x, y) {
+						return x * y;
+					}),
+				-1,
+				A2(
+					_opensolid$geometry$OpenSolid_Point3d$distanceFrom,
+					point,
+					_opensolid$geometry$OpenSolid_LineSegment3d$midpoint(
+						function (_) {
+							return _.line;
+						}(_p10))));
 		});
 };
 var _user$project$Structure$dimensions = A2(
@@ -16513,7 +18795,7 @@ var _user$project$Structure$dimensions = A2(
 			ctor: '::',
 			_0: {
 				direction: _opensolid$geometry$OpenSolid_Vector3d$fromComponents(
-					{ctor: '_Tuple3', _0: 0, _1: 0, _2: 1}),
+					{ctor: '_Tuple3', _0: 0, _1: 0, _2: -1}),
 				distance: 1.618
 			},
 			_1: {
@@ -16641,6 +18923,161 @@ var _user$project$Structure$Line = F2(
 	function (a, b) {
 		return {number: a, line: b};
 	});
+var _user$project$OpenSolid_Viewpoint$modelViewMatrix = F2(
+	function (_p0, modelFrame) {
+		var _p1 = _p0;
+		return _opensolid$linear_algebra_interop$OpenSolid_Interop_LinearAlgebra_Frame3d$toMat4(
+			A2(_opensolid$geometry$OpenSolid_Frame3d$relativeTo, _p1._0, modelFrame));
+	});
+var _user$project$OpenSolid_Viewpoint$viewMatrix = function (_p2) {
+	var _p3 = _p2;
+	return _opensolid$linear_algebra_interop$OpenSolid_Interop_LinearAlgebra_Frame3d$toMat4(
+		A2(_opensolid$geometry$OpenSolid_Frame3d$relativeTo, _p3._0, _opensolid$geometry$OpenSolid_Frame3d$xyz));
+};
+var _user$project$OpenSolid_Viewpoint$yDirection = function (_p4) {
+	var _p5 = _p4;
+	return _opensolid$geometry$OpenSolid_Frame3d$yDirection(_p5._0);
+};
+var _user$project$OpenSolid_Viewpoint$xDirection = function (_p6) {
+	var _p7 = _p6;
+	return _opensolid$geometry$OpenSolid_Frame3d$xDirection(_p7._0);
+};
+var _user$project$OpenSolid_Viewpoint$viewPlane = function (_p8) {
+	var _p9 = _p8;
+	return _opensolid$geometry$OpenSolid_Frame3d$xySketchPlane(_p9._0);
+};
+var _user$project$OpenSolid_Viewpoint$viewDirection = function (_p10) {
+	var _p11 = _p10;
+	return _opensolid$geometry$OpenSolid_Direction3d$flip(
+		_opensolid$geometry$OpenSolid_Frame3d$zDirection(_p11._0));
+};
+var _user$project$OpenSolid_Viewpoint$eyePoint = function (_p12) {
+	var _p13 = _p12;
+	return _opensolid$geometry$OpenSolid_Frame3d$originPoint(_p13._0);
+};
+var _user$project$OpenSolid_Viewpoint$Viewpoint = function (a) {
+	return {ctor: 'Viewpoint', _0: a};
+};
+var _user$project$OpenSolid_Viewpoint$lookAt = function (_p14) {
+	var _p15 = _p14;
+	var _p20 = _p15.upDirection;
+	var _p19 = _p15.eyePoint;
+	var yVector = _opensolid$geometry$OpenSolid_Direction3d$toVector(_p20);
+	var zVector = A2(_opensolid$geometry$OpenSolid_Vector3d$from, _p15.focalPoint, _p19);
+	var xVector = A2(_opensolid$geometry$OpenSolid_Vector3d$crossProduct, yVector, zVector);
+	var _p16 = _opensolid$geometry$OpenSolid_Direction3d$orthonormalize(
+		{ctor: '_Tuple3', _0: zVector, _1: yVector, _2: xVector});
+	if (_p16.ctor === 'Just') {
+		return _user$project$OpenSolid_Viewpoint$Viewpoint(
+			_opensolid$geometry$OpenSolid_Frame3d$unsafe(
+				{originPoint: _p19, xDirection: _p16._0._2, yDirection: _p16._0._1, zDirection: _p16._0._0}));
+	} else {
+		var _p17 = _opensolid$geometry$OpenSolid_Vector3d$direction(zVector);
+		if (_p17.ctor === 'Just') {
+			return _user$project$OpenSolid_Viewpoint$Viewpoint(
+				_opensolid$geometry$OpenSolid_Frame3d$with(
+					{originPoint: _p19, zDirection: _p17._0}));
+		} else {
+			var _p18 = _opensolid$geometry$OpenSolid_Direction3d$perpendicularBasis(_p20);
+			var zDirection = _p18._0;
+			var xDirection = _p18._1;
+			return _user$project$OpenSolid_Viewpoint$Viewpoint(
+				_opensolid$geometry$OpenSolid_Frame3d$unsafe(
+					{originPoint: _p19, xDirection: xDirection, yDirection: _p20, zDirection: zDirection}));
+		}
+	}
+};
+var _user$project$OpenSolid_Camera$projectionMatrix = function (_p0) {
+	var _p1 = _p0;
+	return _p1._0.projectionMatrix;
+};
+var _user$project$OpenSolid_Camera$screenHeight = function (_p2) {
+	var _p3 = _p2;
+	return _p3._0.screenHeight;
+};
+var _user$project$OpenSolid_Camera$screenWidth = function (_p4) {
+	var _p5 = _p4;
+	return _p5._0.screenWidth;
+};
+var _user$project$OpenSolid_Camera$viewpoint = function (_p6) {
+	var _p7 = _p6;
+	return _p7._0.viewpoint;
+};
+var _user$project$OpenSolid_Camera$viewMatrix = function (camera) {
+	return _user$project$OpenSolid_Viewpoint$viewMatrix(
+		_user$project$OpenSolid_Camera$viewpoint(camera));
+};
+var _user$project$OpenSolid_Camera$modelViewMatrix = F2(
+	function (camera, modelFrame) {
+		return A2(
+			_user$project$OpenSolid_Viewpoint$modelViewMatrix,
+			_user$project$OpenSolid_Camera$viewpoint(camera),
+			modelFrame);
+	});
+var _user$project$OpenSolid_Camera$modelViewProjectionMatrix = F2(
+	function (camera, modelFrame) {
+		return A2(
+			_elm_community$linear_algebra$Math_Matrix4$mul,
+			_user$project$OpenSolid_Camera$projectionMatrix(camera),
+			A2(_user$project$OpenSolid_Camera$modelViewMatrix, camera, modelFrame));
+	});
+var _user$project$OpenSolid_Camera$Camera = function (a) {
+	return {ctor: 'Camera', _0: a};
+};
+var _user$project$OpenSolid_Camera$perspective = function (_p8) {
+	var _p9 = _p8;
+	var _p11 = _p9.screenWidth;
+	var _p10 = _p9.screenHeight;
+	var fovInDegrees = _elm_community$basics_extra$Basics_Extra$inDegrees(_p9.verticalFieldOfView);
+	var aspectRatio = _p11 / _p10;
+	var projectionMatrix = A4(_elm_community$linear_algebra$Math_Matrix4$makePerspective, fovInDegrees, aspectRatio, _p9.nearClipDistance, _p9.farClipDistance);
+	return _user$project$OpenSolid_Camera$Camera(
+		{viewpoint: _p9.viewpoint, screenWidth: _p11, screenHeight: _p10, projectionMatrix: projectionMatrix});
+};
+var _user$project$OpenSolid_Camera$orthographic = function (_p12) {
+	var _p13 = _p12;
+	var _p16 = _p13.viewportHeight;
+	var _p15 = _p13.screenWidth;
+	var _p14 = _p13.screenHeight;
+	var top = _p16 / 2;
+	var bottom = (0 - _p16) / 2;
+	var aspectRatio = _p15 / _p14;
+	var viewportWidth = aspectRatio * _p16;
+	var left = (0 - viewportWidth) / 2;
+	var right = viewportWidth / 2;
+	var projectionMatrix = A6(_elm_community$linear_algebra$Math_Matrix4$makeOrtho, left, right, bottom, top, _p13.nearClipDistance, _p13.farClipDistance);
+	return _user$project$OpenSolid_Camera$Camera(
+		{viewpoint: _p13.viewpoint, screenWidth: _p15, screenHeight: _p14, projectionMatrix: projectionMatrix});
+};
+var _user$project$OpenSolid_Camera_Point3d$toScreenSpace = function (camera) {
+	var halfHeight = 0.5 * _user$project$OpenSolid_Camera$screenHeight(camera);
+	var halfWidth = 0.5 * _user$project$OpenSolid_Camera$screenWidth(camera);
+	var viewMatrix = _user$project$OpenSolid_Camera$viewMatrix(camera);
+	var projectionMatrix = _user$project$OpenSolid_Camera$projectionMatrix(camera);
+	var viewProjectionMatrix = A2(_elm_community$linear_algebra$Math_Matrix4$mul, projectionMatrix, viewMatrix);
+	return function (point) {
+		var ndcPoint = A2(_opensolid$linear_algebra_interop$OpenSolid_Interop_LinearAlgebra_Point3d$transformBy, viewProjectionMatrix, point);
+		var _p0 = _opensolid$geometry$OpenSolid_Point3d$coordinates(ndcPoint);
+		var ndcX = _p0._0;
+		var ndcY = _p0._1;
+		return _opensolid$geometry$OpenSolid_Point2d$fromCoordinates(
+			{ctor: '_Tuple2', _0: halfWidth + (halfWidth * ndcX), _1: halfHeight + (halfHeight * ndcY)});
+	};
+};
+var _user$project$OpenSolid_Camera_LineSegment3d$toScreenSpace = function (camera) {
+	var project = _user$project$OpenSolid_Camera_Point3d$toScreenSpace(camera);
+	return function (lineSegment) {
+		var _p0 = _opensolid$geometry$OpenSolid_LineSegment3d$endpoints(lineSegment);
+		var p1 = _p0._0;
+		var p2 = _p0._1;
+		return _opensolid$geometry$OpenSolid_LineSegment2d$fromEndpoints(
+			{
+				ctor: '_Tuple2',
+				_0: project(p1),
+				_1: project(p2)
+			});
+	};
+};
 var _user$project$Main$viewStyle = A3(
 	_elm_lang$html$Html$node,
 	'style',
@@ -16726,29 +19163,26 @@ var _user$project$Main$scales = _elm_lang$core$Array$fromList(
 	});
 var _user$project$Main$viewLetter = function (valuesAndScales) {
 	var fontVariationSettings = A2(
-		_elm_lang$core$Debug$log,
-		'',
+		_elm_lang$core$String$join,
+		', ',
 		A2(
-			_elm_lang$core$String$join,
-			', ',
-			A2(
-				_elm_lang$core$List$map,
-				function (_p0) {
-					var _p1 = _p0;
-					var _p2 = _p1._1.min;
-					return A2(
+			_elm_lang$core$List$map,
+			function (_p0) {
+				var _p1 = _p0;
+				var _p2 = _p1._1.min;
+				return A2(
+					_elm_lang$core$Basics_ops['++'],
+					'\'',
+					A2(
 						_elm_lang$core$Basics_ops['++'],
-						'\'',
+						_p1._1.name,
 						A2(
 							_elm_lang$core$Basics_ops['++'],
-							_p1._1.name,
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'\' ',
-								_elm_lang$core$Basics$toString(
-									_elm_lang$core$Basics$round(_p2 + ((_p1._1.max - _p2) * _p1._0))))));
-				},
-				A2(_elm_lang$core$List$take, 3, valuesAndScales))));
+							'\' ',
+							_elm_lang$core$Basics$toString(
+								_elm_lang$core$Basics$round(_p2 + ((_p1._1.max - _p2) * _p1._0))))));
+			},
+			A2(_elm_lang$core$List$take, 3, valuesAndScales)));
 	return A2(
 		_elm_lang$html$Html$span,
 		{
@@ -16787,50 +19221,46 @@ var _user$project$Main$viewStructure = function (model) {
 			_1: 0 - _opensolid$geometry$OpenSolid_BoundingBox3d$midY(model.structure.hull),
 			_2: 0 - _opensolid$geometry$OpenSolid_BoundingBox3d$midZ(model.structure.hull)
 		});
-	var minDimension = _elm_lang$core$List$minimum(
-		{
-			ctor: '::',
-			_0: model.width,
-			_1: {
-				ctor: '::',
-				_0: model.height,
-				_1: {ctor: '[]'}
-			}
-		});
 	var _p3 = _opensolid$geometry$OpenSolid_BoundingBox3d$dimensions(model.structure.hull);
 	var x = _p3._0;
 	var y = _p3._1;
 	var z = _p3._2;
-	var maxDimension = _elm_lang$core$List$maximum(
-		{
-			ctor: '::',
-			_0: x,
-			_1: {
-				ctor: '::',
-				_0: y,
-				_1: {
-					ctor: '::',
-					_0: z,
-					_1: {
-						ctor: '::',
-						_0: 1,
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		});
-	var scale = A2(
+	var scale = (1 / A2(
 		_elm_lang$core$Maybe$withDefault,
 		1,
-		A3(
-			_elm_lang$core$Maybe$map2,
-			F2(
-				function (x, y) {
-					return x / y;
-				}),
-			minDimension,
-			maxDimension)) / 1.41;
-	var plane = model.sketchPlane;
+		_elm_lang$core$List$maximum(
+			{
+				ctor: '::',
+				_0: x,
+				_1: {
+					ctor: '::',
+					_0: y,
+					_1: {
+						ctor: '::',
+						_0: z,
+						_1: {
+							ctor: '::',
+							_0: 1,
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}))) / 1.4;
+	var upDirection = _opensolid$geometry$OpenSolid_SketchPlane3d$yDirection(model.sketchPlane);
+	var eyePoint = _opensolid$geometry$OpenSolid_SketchPlane3d$originPoint(
+		A2(_opensolid$geometry$OpenSolid_SketchPlane3d$offsetBy, -2, model.sketchPlane));
+	var viewpoint = _user$project$OpenSolid_Viewpoint$lookAt(
+		{eyePoint: eyePoint, focalPoint: _opensolid$geometry$OpenSolid_Point3d$origin, upDirection: upDirection});
+	var camera = model.perspective ? _user$project$OpenSolid_Camera$perspective(
+		{
+			viewpoint: viewpoint,
+			verticalFieldOfView: _elm_lang$core$Basics$degrees(30),
+			nearClipDistance: 0.1,
+			farClipDistance: 1000,
+			screenWidth: model.width,
+			screenHeight: model.height
+		}) : _user$project$OpenSolid_Camera$orthographic(
+		{viewpoint: viewpoint, viewportHeight: 1, nearClipDistance: 0.1, farClipDistance: 1000, screenWidth: model.width, screenHeight: model.height});
 	var mapLine = function (_p4) {
 		var _p5 = _p4;
 		return A2(
@@ -16848,8 +19278,8 @@ var _user$project$Main$viewStructure = function (model) {
 				}
 			},
 			A2(
-				_opensolid$geometry$OpenSolid_LineSegment3d$projectInto,
-				plane,
+				_user$project$OpenSolid_Camera_LineSegment3d$toScreenSpace,
+				camera,
 				A3(
 					_opensolid$geometry$OpenSolid_LineSegment3d$scaleAbout,
 					_opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
@@ -16882,8 +19312,8 @@ var _user$project$Main$viewStructure = function (model) {
 				}
 			},
 			A2(
-				_opensolid$geometry$OpenSolid_LineSegment3d$projectInto,
-				plane,
+				_user$project$OpenSolid_Camera_LineSegment3d$toScreenSpace,
+				camera,
 				A3(
 					_opensolid$geometry$OpenSolid_LineSegment3d$scaleAbout,
 					_opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
@@ -16903,8 +19333,8 @@ var _user$project$Main$viewStructure = function (model) {
 				_1: {ctor: '[]'}
 			},
 			A2(
-				_opensolid$geometry$OpenSolid_Point3d$projectInto,
-				plane,
+				_user$project$OpenSolid_Camera_Point3d$toScreenSpace,
+				camera,
 				A3(
 					_opensolid$geometry$OpenSolid_Point3d$scaleAbout,
 					_opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
@@ -16930,8 +19360,8 @@ var _user$project$Main$viewStructure = function (model) {
 				}
 			},
 			A2(
-				_opensolid$geometry$OpenSolid_Point3d$projectInto,
-				plane,
+				_user$project$OpenSolid_Camera_Point3d$toScreenSpace,
+				camera,
 				A3(
 					_opensolid$geometry$OpenSolid_Point3d$scaleAbout,
 					_opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
@@ -16948,10 +19378,7 @@ var _user$project$Main$viewStructure = function (model) {
 				_0: A2(
 					_elm_lang$core$List$map,
 					mapLine,
-					A2(
-						_user$project$Structure$sortLinesByDistanceToPlane,
-						_opensolid$geometry$OpenSolid_SketchPlane3d$plane(plane),
-						model.structure.lines)),
+					A2(_user$project$Structure$sortLinesByDistanceToPoint, eyePoint, model.structure.lines)),
 				_1: {
 					ctor: '::',
 					_0: A2(_elm_lang$core$List$map, mapPoint, model.structure.points),
@@ -17012,6 +19439,14 @@ var _user$project$Main$update = F2(
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'ChangePerspective':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{perspective: _p10._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 			case 'Resize':
 				return {
 					ctor: '_Tuple2',
@@ -17062,7 +19497,7 @@ var _user$project$Main$update = F2(
 									_opensolid$geometry$OpenSolid_SketchPlane3d$rotateAroundOwn,
 									_opensolid$geometry$OpenSolid_SketchPlane3d$yAxis,
 									-1.0e-4 * deltaX,
-									A3(_opensolid$geometry$OpenSolid_SketchPlane3d$rotateAroundOwn, _opensolid$geometry$OpenSolid_SketchPlane3d$xAxis, 1.0e-4 * deltaY, model.sketchPlane))
+									A3(_opensolid$geometry$OpenSolid_SketchPlane3d$rotateAroundOwn, _opensolid$geometry$OpenSolid_SketchPlane3d$xAxis, -1.0e-4 * deltaY, model.sketchPlane))
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
@@ -17071,15 +19506,18 @@ var _user$project$Main$update = F2(
 				}
 		}
 	});
-var _user$project$Main$Model = F8(
-	function (a, b, c, d, e, f, g, h) {
-		return {time: a, width: b, height: c, mouse: d, sketchPlane: e, structure: f, dimensions: g, values: h};
+var _user$project$Main$Model = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {time: a, width: b, height: c, mouse: d, sketchPlane: e, structure: f, dimensions: g, values: h, perspective: i};
 	});
 var _user$project$Main$Scale = F5(
 	function (a, b, c, d, e) {
 		return {name: a, title: b, min: c, max: d, step: e};
 	});
 var _user$project$Main$Noop = {ctor: 'Noop'};
+var _user$project$Main$ChangePerspective = function (a) {
+	return {ctor: 'ChangePerspective', _0: a};
+};
 var _user$project$Main$ChangeValue = F2(
 	function (a, b) {
 		return {ctor: 'ChangeValue', _0: a, _1: b};
@@ -17222,10 +19660,7 @@ var _user$project$Main$view = function (model) {
 				A2(_elm_lang$core$Array$get, n, model.values),
 				A2(_elm_lang$core$Array$get, n, _user$project$Main$scales));
 		},
-		A2(
-			_elm_lang$core$List$range,
-			0,
-			_elm_lang$core$Basics$round(model.dimensions) - 1));
+		A2(_elm_lang$core$List$range, 0, 7));
 	var centerFrame = _opensolid$geometry$OpenSolid_Frame2d$with(
 		{
 			originPoint: _opensolid$geometry$OpenSolid_Point2d$fromCoordinates(
@@ -17270,17 +19705,7 @@ var _user$project$Main$view = function (model) {
 							_1: {ctor: '[]'}
 						}
 					},
-					{
-						ctor: '::',
-						_0: A2(
-							_opensolid$svg$OpenSolid_Svg$relativeTo,
-							centerFrame,
-							A2(
-								_elm_lang$svg$Svg$g,
-								{ctor: '[]'},
-								_user$project$Main$viewStructure(model))),
-						_1: {ctor: '[]'}
-					}),
+					_user$project$Main$viewStructure(model)),
 				_1: {
 					ctor: '::',
 					_0: A2(
@@ -17423,17 +19848,72 @@ var _user$project$Main$view = function (model) {
 									_1: {
 										ctor: '::',
 										_0: A2(
-											_elm_lang$html$Html$div,
-											{ctor: '[]'},
-											A2(
-												_elm_lang$core$List$indexedMap,
-												F2(
-													function (n, _p21) {
-														var _p22 = _p21;
-														return A3(_user$project$Main$viewSlider, n, _p22._0, _p22._1);
+											_elm_lang$html$Html$label,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$style(
+													{
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'margin', _1: '0 0 15px'},
+															_1: {ctor: '[]'}
+														}
 													}),
-												valuesAndScales)),
-										_1: {ctor: '[]'}
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$input,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$type_('checkbox'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$checked(model.perspective),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Events$onCheck(_user$project$Main$ChangePerspective),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$style(
+																		{
+																			ctor: '::',
+																			_0: {ctor: '_Tuple2', _0: 'margin', _1: '0 10px 0 0'},
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													},
+													{ctor: '[]'}),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('Perspective projection'),
+													_1: {ctor: '[]'}
+												}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$div,
+												{ctor: '[]'},
+												A2(
+													_elm_lang$core$List$indexedMap,
+													F2(
+														function (n, _p21) {
+															var _p22 = _p21;
+															return A3(_user$project$Main$viewSlider, n, _p22._0, _p22._1);
+														}),
+													A2(
+														_elm_lang$core$List$take,
+														_elm_lang$core$Basics$round(model.dimensions),
+														valuesAndScales))),
+											_1: {ctor: '[]'}
+										}
 									}
 								}
 							}),
@@ -17494,17 +19974,18 @@ var _user$project$Main$init = function () {
 		ctor: '_Tuple2',
 		_0: {
 			time: 0,
-			width: 0,
-			height: 0,
+			width: 1,
+			height: 1,
 			mouse: _elm_lang$core$Maybe$Nothing,
 			sketchPlane: A3(
 				_opensolid$geometry$OpenSolid_SketchPlane3d$rotateAroundOwn,
 				_opensolid$geometry$OpenSolid_SketchPlane3d$yAxis,
 				(0 - _elm_lang$core$Basics$pi) / 13,
-				A3(_opensolid$geometry$OpenSolid_SketchPlane3d$rotateAroundOwn, _opensolid$geometry$OpenSolid_SketchPlane3d$xAxis, _elm_lang$core$Basics$pi / 8, _opensolid$geometry$OpenSolid_SketchPlane3d$xy)),
+				A3(_opensolid$geometry$OpenSolid_SketchPlane3d$rotateAroundOwn, _opensolid$geometry$OpenSolid_SketchPlane3d$xAxis, (0 - _elm_lang$core$Basics$pi) / 8, _opensolid$geometry$OpenSolid_SketchPlane3d$xy)),
 			structure: A2(_user$project$Structure$structure, values, 0),
 			dimensions: 0,
-			values: values
+			values: values,
+			perspective: false
 		},
 		_1: A2(_elm_lang$core$Task$perform, _user$project$Main$Resize, _elm_lang$window$Window$size)
 	};
