@@ -19161,58 +19161,6 @@ var _user$project$Main$scales = _elm_lang$core$Array$fromList(
 			}
 		}
 	});
-var _user$project$Main$viewLetter = function (valuesAndScales) {
-	var fontVariationSettings = A2(
-		_elm_lang$core$String$join,
-		', ',
-		A2(
-			_elm_lang$core$List$map,
-			function (_p0) {
-				var _p1 = _p0;
-				var _p2 = _p1._1.min;
-				return A2(
-					_elm_lang$core$Basics_ops['++'],
-					'\'',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						_p1._1.name,
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'\' ',
-							_elm_lang$core$Basics$toString(
-								_elm_lang$core$Basics$round(_p2 + ((_p1._1.max - _p2) * _p1._0))))));
-			},
-			A2(_elm_lang$core$List$take, 3, valuesAndScales)));
-	return A2(
-		_elm_lang$html$Html$span,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(
-				{
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'font-family', _1: '\'Voto Serif GX\''},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'font-size', _1: '200px'},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'text-rendering', _1: 'optimizeLegibility'},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'font-variation-settings', _1: fontVariationSettings},
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('A'),
-			_1: {ctor: '[]'}
-		});
-};
 var _user$project$Main$viewStructure = function (model) {
 	var offset = _opensolid$geometry$OpenSolid_Vector3d$fromComponents(
 		{
@@ -19221,10 +19169,10 @@ var _user$project$Main$viewStructure = function (model) {
 			_1: 0 - _opensolid$geometry$OpenSolid_BoundingBox3d$midY(model.structure.hull),
 			_2: 0 - _opensolid$geometry$OpenSolid_BoundingBox3d$midZ(model.structure.hull)
 		});
-	var _p3 = _opensolid$geometry$OpenSolid_BoundingBox3d$dimensions(model.structure.hull);
-	var x = _p3._0;
-	var y = _p3._1;
-	var z = _p3._2;
+	var _p0 = _opensolid$geometry$OpenSolid_BoundingBox3d$dimensions(model.structure.hull);
+	var x = _p0._0;
+	var y = _p0._1;
+	var z = _p0._2;
 	var scale = (1 / A2(
 		_elm_lang$core$Maybe$withDefault,
 		1,
@@ -19261,14 +19209,14 @@ var _user$project$Main$viewStructure = function (model) {
 			screenHeight: model.height
 		}) : _user$project$OpenSolid_Camera$orthographic(
 		{viewpoint: viewpoint, viewportHeight: 1, nearClipDistance: 0.1, farClipDistance: 1000, screenWidth: model.width, screenHeight: model.height});
-	var mapLine = function (_p4) {
-		var _p5 = _p4;
+	var mapLine = function (_p1) {
+		var _p2 = _p1;
 		return A2(
 			_opensolid$svg$OpenSolid_Svg$lineSegment2d,
 			{
 				ctor: '::',
 				_0: _elm_lang$svg$Svg_Attributes$stroke(
-					_user$project$Main$color(_p5.number)),
+					_user$project$Main$color(_p2.number)),
 				_1: {
 					ctor: '::',
 					_0: _elm_lang$svg$Svg_Attributes$strokeWidth(
@@ -19285,16 +19233,16 @@ var _user$project$Main$viewStructure = function (model) {
 					_opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
 						{ctor: '_Tuple3', _0: 0, _1: 0, _2: 0}),
 					scale,
-					A2(_opensolid$geometry$OpenSolid_LineSegment3d$translateBy, offset, _p5.line))));
+					A2(_opensolid$geometry$OpenSolid_LineSegment3d$translateBy, offset, _p2.line))));
 	};
-	var mapCoordinate = function (_p6) {
-		var _p7 = _p6;
+	var mapCoordinate = function (_p3) {
+		var _p4 = _p3;
 		return A2(
 			_opensolid$svg$OpenSolid_Svg$lineSegment2d,
 			{
 				ctor: '::',
 				_0: _elm_lang$svg$Svg_Attributes$stroke(
-					_user$project$Main$color(_p7.number)),
+					_user$project$Main$color(_p4.number)),
 				_1: {
 					ctor: '::',
 					_0: _elm_lang$svg$Svg_Attributes$strokeOpacity('0.5'),
@@ -19319,17 +19267,17 @@ var _user$project$Main$viewStructure = function (model) {
 					_opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
 						{ctor: '_Tuple3', _0: 0, _1: 0, _2: 0}),
 					scale,
-					A2(_opensolid$geometry$OpenSolid_LineSegment3d$translateBy, offset, _p7.line))));
+					A2(_opensolid$geometry$OpenSolid_LineSegment3d$translateBy, offset, _p4.line))));
 	};
-	var mapPoint = function (_p8) {
-		var _p9 = _p8;
+	var mapPoint = function (_p5) {
+		var _p6 = _p5;
 		return A3(
 			_opensolid$svg$OpenSolid_Svg$point2dWith,
 			{radius: 10 - model.dimensions},
 			{
 				ctor: '::',
 				_0: _elm_lang$svg$Svg_Attributes$fill(
-					_user$project$Main$color(_p9.number)),
+					_user$project$Main$color(_p6.number)),
 				_1: {ctor: '[]'}
 			},
 			A2(
@@ -19340,7 +19288,7 @@ var _user$project$Main$viewStructure = function (model) {
 					_opensolid$geometry$OpenSolid_Point3d$fromCoordinates(
 						{ctor: '_Tuple3', _0: 0, _1: 0, _2: 0}),
 					scale,
-					A2(_opensolid$geometry$OpenSolid_Point3d$translateBy, offset, _p9.point))));
+					A2(_opensolid$geometry$OpenSolid_Point3d$translateBy, offset, _p6.point))));
 	};
 	var mapValue = function (point) {
 		return A3(
@@ -19397,8 +19345,8 @@ var _user$project$Main$viewStructure = function (model) {
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p10 = msg;
-		switch (_p10.ctor) {
+		var _p7 = msg;
+		switch (_p7.ctor) {
 			case 'Noop':
 				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 			case 'Tick':
@@ -19406,11 +19354,11 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{time: _p10._0}),
+						{time: _p7._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'ChangeValue':
-				var values = A3(_elm_lang$core$Array$set, _p10._0, _p10._1, model.values);
+				var values = A3(_elm_lang$core$Array$set, _p7._0, _p7._1, model.values);
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -19425,17 +19373,17 @@ var _user$project$Main$update = F2(
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'ChangeDimensions':
-				var _p11 = _p10._0;
+				var _p8 = _p7._0;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							dimensions: _p11,
+							dimensions: _p8,
 							structure: A2(
 								_user$project$Structure$structure,
 								model.values,
-								_elm_lang$core$Basics$round(_p11))
+								_elm_lang$core$Basics$round(_p8))
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -19444,7 +19392,7 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{perspective: _p10._0}),
+						{perspective: _p7._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'Resize':
@@ -19453,8 +19401,8 @@ var _user$project$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							width: _elm_lang$core$Basics$toFloat(_p10._0.width),
-							height: _elm_lang$core$Basics$toFloat(_p10._0.height)
+							width: _elm_lang$core$Basics$toFloat(_p7._0.width),
+							height: _elm_lang$core$Basics$toFloat(_p7._0.height)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -19468,8 +19416,8 @@ var _user$project$Main$update = F2(
 								_opensolid$geometry$OpenSolid_Point2d$fromCoordinates(
 									{
 										ctor: '_Tuple2',
-										_0: _elm_lang$core$Basics$toFloat(_p10._0.x),
-										_1: _elm_lang$core$Basics$toFloat(_p10._0.y)
+										_0: _elm_lang$core$Basics$toFloat(_p7._0.x),
+										_1: _elm_lang$core$Basics$toFloat(_p7._0.y)
 									}))
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
@@ -19483,11 +19431,11 @@ var _user$project$Main$update = F2(
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
-				var _p12 = model.mouse;
-				if (_p12.ctor === 'Just') {
-					var _p13 = _p12._0;
-					var deltaY = _elm_lang$core$Basics$toFloat(_p10._0.y) - _opensolid$geometry$OpenSolid_Point2d$yCoordinate(_p13);
-					var deltaX = _elm_lang$core$Basics$toFloat(_p10._0.x) - _opensolid$geometry$OpenSolid_Point2d$xCoordinate(_p13);
+				var _p9 = model.mouse;
+				if (_p9.ctor === 'Just') {
+					var _p10 = _p9._0;
+					var deltaY = _elm_lang$core$Basics$toFloat(_p7._0.y) - _opensolid$geometry$OpenSolid_Point2d$yCoordinate(_p10);
+					var deltaX = _elm_lang$core$Basics$toFloat(_p7._0.x) - _opensolid$geometry$OpenSolid_Point2d$xCoordinate(_p10);
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
@@ -19515,6 +19463,102 @@ var _user$project$Main$Scale = F5(
 		return {name: a, title: b, min: c, max: d, step: e};
 	});
 var _user$project$Main$Noop = {ctor: 'Noop'};
+var _user$project$Main$viewLetter = function (valuesAndScales) {
+	var fontVariationSettings = A2(
+		_elm_lang$core$String$join,
+		', ',
+		A2(
+			_elm_lang$core$List$map,
+			function (_p11) {
+				var _p12 = _p11;
+				var _p13 = _p12._1.min;
+				return A2(
+					_elm_lang$core$Basics_ops['++'],
+					'\'',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_p12._1.name,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'\' ',
+							_elm_lang$core$Basics$toString(
+								_elm_lang$core$Basics$round(_p13 + ((_p12._1.max - _p13) * _p12._0))))));
+			},
+			A2(_elm_lang$core$List$take, 3, valuesAndScales)));
+	return A2(
+		_elm_lang$html$Html$input,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'font-family', _1: '\'Voto Serif GX\''},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'font-size', _1: '200px'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'text-rendering', _1: 'optimizeLegibility'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'font-variation-settings', _1: fontVariationSettings},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'width', _1: '50%'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'height', _1: '300px'},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'outline', _1: 'none'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'padding', _1: '0 50px'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'border', _1: 'none'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'background', _1: 'transparent'},
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A3(
+					_elm_lang$html$Html_Events$onWithOptions,
+					'mousedown',
+					{stopPropagation: true, preventDefault: false},
+					_elm_lang$core$Json_Decode$succeed(_user$project$Main$Noop)),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$defaultValue('Afg'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$spellcheck(false),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$autocomplete(false),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		},
+		{ctor: '[]'});
+};
 var _user$project$Main$ChangePerspective = function (a) {
 	return {ctor: 'ChangePerspective', _0: a};
 };
@@ -19702,7 +19746,16 @@ var _user$project$Main$view = function (model) {
 							ctor: '::',
 							_0: _elm_lang$svg$Svg_Attributes$height(
 								_elm_lang$core$Basics$toString(model.height)),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
 						}
 					},
 					_user$project$Main$viewStructure(model)),
@@ -19718,18 +19771,14 @@ var _user$project$Main$view = function (model) {
 									_0: {ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
 									_1: {
 										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'left', _1: '30px'},
+										_0: {ctor: '_Tuple2', _0: 'left', _1: '0'},
 										_1: {
 											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
+											_0: {ctor: '_Tuple2', _0: 'bottom', _1: '0'},
 											_1: {
 												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'width', _1: '200px'},
-												_1: {
-													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'bottom', _1: '30px'},
-													_1: {ctor: '[]'}
-												}
+												_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
+												_1: {ctor: '[]'}
 											}
 										}
 									}
