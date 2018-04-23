@@ -1,6 +1,4 @@
-<!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>Main</title><style>html,head,body { padding:0; margin:0; }
-body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">
+
 (function() {
 'use strict';
 
@@ -136,6 +134,7 @@ function A9(fun, a, b, c, d, e, f, g, h, i)
     ? fun.func(a, b, c, d, e, f, g, h, i)
     : fun(a)(b)(c)(d)(e)(f)(g)(h)(i);
 }
+
 
 /*
  * Copyright (c) 2010 Mozilla Corporation
@@ -2060,6 +2059,7 @@ var _elm_community$linear_algebra$Native_MJS = function() {
     };
 
 }();
+
 //import Native.Utils //
 
 var _elm_lang$core$Native_Basics = function() {
@@ -2200,7 +2200,8 @@ return {
 	isInfinite: isInfinite
 };
 
-}();//import //
+}();
+//import //
 
 var _elm_lang$core$Native_Utils = function() {
 
@@ -2687,7 +2688,8 @@ return {
 	toString: toString
 };
 
-}();var _elm_lang$core$Basics$never = function (_p0) {
+}();
+var _elm_lang$core$Basics$never = function (_p0) {
 	never:
 	while (true) {
 		var _p1 = _p0;
@@ -2812,6 +2814,7 @@ var _elm_lang$core$Basics$LT = {ctor: 'LT'};
 var _elm_lang$core$Basics$JustOneMore = function (a) {
 	return {ctor: 'JustOneMore', _0: a};
 };
+
 //import Native.Utils //
 
 var _elm_lang$core$Native_Debug = function() {
@@ -2841,8 +2844,10 @@ return {
 	log: F2(log)
 };
 
-}();var _elm_lang$core$Debug$crash = _elm_lang$core$Native_Debug.crash;
+}();
+var _elm_lang$core$Debug$crash = _elm_lang$core$Native_Debug.crash;
 var _elm_lang$core$Debug$log = _elm_lang$core$Native_Debug.log;
+
 var _elm_lang$core$Maybe$withDefault = F2(
 	function ($default, maybe) {
 		var _p0 = maybe;
@@ -2915,6 +2920,7 @@ var _elm_lang$core$Maybe$map5 = F6(
 			return _elm_lang$core$Maybe$Nothing;
 		}
 	});
+
 //import Native.Utils //
 
 var _elm_lang$core$Native_List = function() {
@@ -3051,7 +3057,8 @@ return {
 	sortWith: F2(sortWith)
 };
 
-}();var _elm_lang$core$List$sortWith = _elm_lang$core$Native_List.sortWith;
+}();
+var _elm_lang$core$List$sortWith = _elm_lang$core$Native_List.sortWith;
 var _elm_lang$core$List$sortBy = _elm_lang$core$Native_List.sortBy;
 var _elm_lang$core$List$sort = function (xs) {
 	return A2(_elm_lang$core$List$sortBy, _elm_lang$core$Basics$identity, xs);
@@ -3603,6 +3610,7 @@ var _elm_lang$core$List$indexedMap = F2(
 				_elm_lang$core$List$length(xs) - 1),
 			xs);
 	});
+
 var _elm_lang$core$Result$toMaybe = function (result) {
 	var _p0 = result;
 	if (_p0.ctor === 'Ok') {
@@ -3744,6 +3752,7 @@ var _elm_lang$core$Result$fromMaybe = F2(
 			return _elm_lang$core$Result$Err(err);
 		}
 	});
+
 //import Maybe, Native.List, Native.Utils, Result //
 
 var _elm_lang$core$Native_String = function() {
@@ -4083,6 +4092,7 @@ return {
 };
 
 }();
+
 //import Native.Utils //
 
 var _elm_lang$core$Native_Char = function() {
@@ -4096,7 +4106,8 @@ return {
 	toLocaleLower: function(c) { return _elm_lang$core$Native_Utils.chr(c.toLocaleLowerCase()); }
 };
 
-}();var _elm_lang$core$Char$fromCode = _elm_lang$core$Native_Char.fromCode;
+}();
+var _elm_lang$core$Char$fromCode = _elm_lang$core$Native_Char.fromCode;
 var _elm_lang$core$Char$toCode = _elm_lang$core$Native_Char.toCode;
 var _elm_lang$core$Char$toLocaleLower = _elm_lang$core$Native_Char.toLocaleLower;
 var _elm_lang$core$Char$toLocaleUpper = _elm_lang$core$Native_Char.toLocaleUpper;
@@ -4138,6 +4149,7 @@ var _elm_lang$core$Char$isHexDigit = function ($char) {
 		_elm_lang$core$Native_Utils.chr('F'),
 		$char));
 };
+
 var _elm_lang$core$String$fromList = _elm_lang$core$Native_String.fromList;
 var _elm_lang$core$String$toList = _elm_lang$core$Native_String.toList;
 var _elm_lang$core$String$toFloat = _elm_lang$core$Native_String.toFloat;
@@ -4181,6 +4193,7 @@ var _elm_lang$core$String$fromChar = function ($char) {
 	return A2(_elm_lang$core$String$cons, $char, '');
 };
 var _elm_lang$core$String$isEmpty = _elm_lang$core$Native_String.isEmpty;
+
 var _elm_lang$core$Tuple$mapSecond = F2(
 	function (func, _p0) {
 		var _p1 = _p0;
@@ -4207,6 +4220,7 @@ var _elm_lang$core$Tuple$first = function (_p6) {
 	var _p7 = _p6;
 	return _p7._0;
 };
+
 //import //
 
 var _elm_lang$core$Native_Platform = function() {
@@ -4766,6 +4780,7 @@ return {
 };
 
 }();
+
 //import Native.Utils //
 
 var _elm_lang$core$Native_Scheduler = function() {
@@ -5046,7 +5061,8 @@ return {
 	rawSend: rawSend
 };
 
-}();var _elm_lang$core$Platform_Cmd$batch = _elm_lang$core$Native_Platform.batch;
+}();
+var _elm_lang$core$Platform_Cmd$batch = _elm_lang$core$Native_Platform.batch;
 var _elm_lang$core$Platform_Cmd$none = _elm_lang$core$Platform_Cmd$batch(
 	{ctor: '[]'});
 var _elm_lang$core$Platform_Cmd_ops = _elm_lang$core$Platform_Cmd_ops || {};
@@ -5060,11 +5076,13 @@ _elm_lang$core$Platform_Cmd_ops['!'] = F2(
 	});
 var _elm_lang$core$Platform_Cmd$map = _elm_lang$core$Native_Platform.map;
 var _elm_lang$core$Platform_Cmd$Cmd = {ctor: 'Cmd'};
+
 var _elm_lang$core$Platform_Sub$batch = _elm_lang$core$Native_Platform.batch;
 var _elm_lang$core$Platform_Sub$none = _elm_lang$core$Platform_Sub$batch(
 	{ctor: '[]'});
 var _elm_lang$core$Platform_Sub$map = _elm_lang$core$Native_Platform.map;
 var _elm_lang$core$Platform_Sub$Sub = {ctor: 'Sub'};
+
 var _elm_lang$core$Platform$hack = _elm_lang$core$Native_Scheduler.succeed;
 var _elm_lang$core$Platform$sendToSelf = _elm_lang$core$Native_Platform.sendToSelf;
 var _elm_lang$core$Platform$sendToApp = _elm_lang$core$Native_Platform.sendToApp;
@@ -5074,6 +5092,7 @@ var _elm_lang$core$Platform$Program = {ctor: 'Program'};
 var _elm_lang$core$Platform$Task = {ctor: 'Task'};
 var _elm_lang$core$Platform$ProcessId = {ctor: 'ProcessId'};
 var _elm_lang$core$Platform$Router = {ctor: 'Router'};
+
 var _elm_community$linear_algebra$Math_Vector3$cross = _elm_community$linear_algebra$Native_MJS.v3cross;
 var _elm_community$linear_algebra$Math_Vector3$dot = _elm_community$linear_algebra$Native_MJS.v3dot;
 var _elm_community$linear_algebra$Math_Vector3$scale = _elm_community$linear_algebra$Native_MJS.v3scale;
@@ -5101,6 +5120,7 @@ var _elm_community$linear_algebra$Math_Vector3$j = A3(_elm_community$linear_alge
 var _elm_community$linear_algebra$Math_Vector3$i = A3(_elm_community$linear_algebra$Native_MJS.vec3, 1, 0, 0);
 var _elm_community$linear_algebra$Math_Vector3$vec3 = _elm_community$linear_algebra$Native_MJS.vec3;
 var _elm_community$linear_algebra$Math_Vector3$Vec3 = {ctor: 'Vec3'};
+
 var _elm_community$linear_algebra$Math_Matrix4$fromRecord = _elm_community$linear_algebra$Native_MJS.m4x4fromRecord;
 var _elm_community$linear_algebra$Math_Matrix4$toRecord = _elm_community$linear_algebra$Native_MJS.m4x4toRecord;
 var _elm_community$linear_algebra$Math_Matrix4$makeFromList = _elm_community$linear_algebra$Native_MJS.m4x4fromList;
@@ -5128,6 +5148,209 @@ var _elm_community$linear_algebra$Math_Matrix4$inverse = _elm_community$linear_a
 var _elm_community$linear_algebra$Math_Matrix4$identity = _elm_community$linear_algebra$Native_MJS.m4x4identity;
 var _elm_community$linear_algebra$Math_Matrix4$transform = _elm_community$linear_algebra$Native_MJS.v3mul4x4;
 var _elm_community$linear_algebra$Math_Matrix4$Mat4 = {ctor: 'Mat4'};
+
+
+/*
+ * Copyright (c) 2010 Mozilla Corporation
+ * Copyright (c) 2010 Vladimir Vukicevic
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+/*
+ * File: mjs
+ *
+ * Vector and Matrix math utilities for JavaScript, optimized for WebGL.
+ * Edited to work with the Elm Programming Language
+ */
+
+var _elm_community$linear_algebra$Native_Math_Vector2 = function() {
+
+    var MJS_FLOAT_ARRAY_TYPE = Float32Array;
+
+    var V2 = { };
+
+    if (MJS_FLOAT_ARRAY_TYPE == Array) {
+        V2.$ = function V2_$(x, y) {
+            return [x, y];
+        };
+    } else {
+        V2.$ = function V2_$(x, y) {
+            return new MJS_FLOAT_ARRAY_TYPE([x, y]);
+        };
+    }
+
+    V2.getX = function V2_getX(a) {
+        return a[0];
+    }
+    V2.getY = function V2_getY(a) {
+        return a[1];
+    }
+    V2.setX = function V2_setX(x, a) {
+        return new MJS_FLOAT_ARRAY_TYPE([x, a[1]]);
+    }
+    V2.setY = function V2_setY(y, a) {
+        return new MJS_FLOAT_ARRAY_TYPE([a[0], y]);
+    }
+
+    V2.toTuple = function V2_toTuple(a) {
+        return {
+            ctor:"_Tuple2",
+            _0:a[0],
+            _1:a[1]
+        };
+    };
+    V2.fromTuple = function V2_fromTuple(t) {
+        return new MJS_FLOAT_ARRAY_TYPE([t._0, t._1]);
+    };
+
+    V2.toRecord = function V2_toRecord(a) {
+        return {
+            _:{},
+            x:a[0],
+            y:a[1]
+        };
+    };
+    V2.fromRecord = function V2_fromRecord(r) {
+        return new MJS_FLOAT_ARRAY_TYPE([r.x, r.y]);
+    };
+
+    V2.add = function V2_add(a, b) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(2);
+        r[0] = a[0] + b[0];
+        r[1] = a[1] + b[1];
+        return r;
+    };
+
+    V2.sub = function V2_sub(a, b) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(2);
+        r[0] = a[0] - b[0];
+        r[1] = a[1] - b[1];
+        return r;
+    };
+
+    V2.neg = function V2_neg(a) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(2);
+        r[0] = - a[0];
+        r[1] = - a[1];
+        return r;
+    };
+
+    V2.direction = function V2_direction(a, b) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(2);
+        r[0] = a[0] - b[0];
+        r[1] = a[1] - b[1];
+        var im = 1.0 / V2.length(r);
+        r[0] = r[0] * im;
+        r[1] = r[1] * im;
+        return r;
+    };
+
+    V2.length = function V2_length(a) {
+        return Math.sqrt(a[0]*a[0] + a[1]*a[1]);
+    };
+
+    V2.lengthSquared = function V2_lengthSquared(a) {
+        return a[0]*a[0] + a[1]*a[1];
+    };
+
+    V2.distance = function V2_distance(a, b) {
+        var dx = a[0] - b[0];
+        var dy = a[1] - b[1];
+        return Math.sqrt(dx * dx + dy * dy);
+    };
+
+    V2.distanceSquared = function V2_distanceSquared(a, b) {
+        var dx = a[0] - b[0];
+        var dy = a[1] - b[1];
+        return dx * dx + dy * dy;
+    };
+
+    V2.normalize = function V2_normalize(a) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(2);
+        var im = 1.0 / V2.length(a);
+        r[0] = a[0] * im;
+        r[1] = a[1] * im;
+        return r;
+    };
+
+    V2.scale = function V2_scale(k, a) {
+        var r = new MJS_FLOAT_ARRAY_TYPE(2);
+        r[0] = a[0] * k;
+        r[1] = a[1] * k;
+        return r;
+    };
+
+    V2.dot = function V2_dot(a, b) {
+        return a[0] * b[0] + a[1] * b[1];
+    };
+
+    return {
+        vec2: F2(V2.$),
+        getX: V2.getX,
+        getY: V2.getY,
+        setX: F2(V2.setX),
+        setY: F2(V2.setY),
+        toTuple: V2.toTuple,
+        toRecord: V2.toRecord,
+        fromTuple: V2.fromTuple,
+        fromRecord: V2.fromRecord,
+        add: F2(V2.add),
+        sub: F2(V2.sub),
+        neg: V2.neg,
+        direction: F2(V2.direction),
+        length: V2.length,
+        lengthSquared: V2.lengthSquared,
+        distance: F2(V2.distance),
+        distanceSquared: F2(V2.distanceSquared),
+        normalize: V2.normalize,
+        scale: F2(V2.scale),
+        dot: F2(V2.dot)
+    };
+
+}();
+
+var _elm_community$linear_algebra$Math_Vector2$dot = _elm_community$linear_algebra$Native_Math_Vector2.dot;
+var _elm_community$linear_algebra$Math_Vector2$scale = _elm_community$linear_algebra$Native_Math_Vector2.scale;
+var _elm_community$linear_algebra$Math_Vector2$normalize = _elm_community$linear_algebra$Native_Math_Vector2.normalize;
+var _elm_community$linear_algebra$Math_Vector2$distanceSquared = _elm_community$linear_algebra$Native_Math_Vector2.distanceSquared;
+var _elm_community$linear_algebra$Math_Vector2$distance = _elm_community$linear_algebra$Native_Math_Vector2.distance;
+var _elm_community$linear_algebra$Math_Vector2$lengthSquared = _elm_community$linear_algebra$Native_Math_Vector2.lengthSquared;
+var _elm_community$linear_algebra$Math_Vector2$length = _elm_community$linear_algebra$Native_Math_Vector2.length;
+var _elm_community$linear_algebra$Math_Vector2$direction = _elm_community$linear_algebra$Native_Math_Vector2.direction;
+var _elm_community$linear_algebra$Math_Vector2$negate = _elm_community$linear_algebra$Native_Math_Vector2.neg;
+var _elm_community$linear_algebra$Math_Vector2$sub = _elm_community$linear_algebra$Native_Math_Vector2.sub;
+var _elm_community$linear_algebra$Math_Vector2$add = _elm_community$linear_algebra$Native_Math_Vector2.add;
+var _elm_community$linear_algebra$Math_Vector2$fromRecord = _elm_community$linear_algebra$Native_Math_Vector2.fromRecord;
+var _elm_community$linear_algebra$Math_Vector2$fromTuple = _elm_community$linear_algebra$Native_Math_Vector2.fromTuple;
+var _elm_community$linear_algebra$Math_Vector2$toRecord = _elm_community$linear_algebra$Native_Math_Vector2.toRecord;
+var _elm_community$linear_algebra$Math_Vector2$toTuple = _elm_community$linear_algebra$Native_Math_Vector2.toTuple;
+var _elm_community$linear_algebra$Math_Vector2$setY = _elm_community$linear_algebra$Native_Math_Vector2.setY;
+var _elm_community$linear_algebra$Math_Vector2$setX = _elm_community$linear_algebra$Native_Math_Vector2.setX;
+var _elm_community$linear_algebra$Math_Vector2$getY = _elm_community$linear_algebra$Native_Math_Vector2.getY;
+var _elm_community$linear_algebra$Math_Vector2$getX = _elm_community$linear_algebra$Native_Math_Vector2.getX;
+var _elm_community$linear_algebra$Math_Vector2$vec2 = _elm_community$linear_algebra$Native_Math_Vector2.vec2;
+var _elm_community$linear_algebra$Math_Vector2$Vec2 = {ctor: 'Vec2'};
+
 
 /*
  * Copyright (c) 2010 Mozilla Corporation
@@ -5345,6 +5568,7 @@ var _elm_community$linear_algebra$Native_Math_Vector4 = function() {
     };
 
 }();
+
 var _elm_community$linear_algebra$Math_Vector4$dot = _elm_community$linear_algebra$Native_Math_Vector4.dot;
 var _elm_community$linear_algebra$Math_Vector4$scale = _elm_community$linear_algebra$Native_Math_Vector4.scale;
 var _elm_community$linear_algebra$Math_Vector4$normalize = _elm_community$linear_algebra$Native_Math_Vector4.normalize;
@@ -5370,6 +5594,88 @@ var _elm_community$linear_algebra$Math_Vector4$getY = _elm_community$linear_alge
 var _elm_community$linear_algebra$Math_Vector4$getX = _elm_community$linear_algebra$Native_Math_Vector4.getX;
 var _elm_community$linear_algebra$Math_Vector4$vec4 = _elm_community$linear_algebra$Native_Math_Vector4.vec4;
 var _elm_community$linear_algebra$Math_Vector4$Vec4 = {ctor: 'Vec4'};
+
+// eslint-disable-next-line no-unused-vars, camelcase
+var _elm_community$webgl$Native_Texture = function () {
+
+  var NEAREST = 9728;
+  var LINEAR = 9729;
+  var CLAMP_TO_EDGE = 33071;
+
+  function guid() {
+    // eslint-disable-next-line camelcase
+    return _elm_lang$core$Native_Utils.guid();
+  }
+
+  function load(magnify, mininify, horizontalWrap, verticalWrap, flipY, url) {
+    // eslint-disable-next-line camelcase
+    var Scheduler = _elm_lang$core$Native_Scheduler;
+    var isMipmap = mininify !== NEAREST && mininify !== LINEAR;
+    return Scheduler.nativeBinding(function (callback) {
+      var img = new Image();
+      function createTexture(gl) {
+        var tex = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, flipY);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, magnify);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, mininify);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, horizontalWrap);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, verticalWrap);
+        if (isMipmap) {
+          gl.generateMipmap(gl.TEXTURE_2D);
+        }
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        return tex;
+      }
+      img.onload = function () {
+        var width = img.width;
+        var height = img.height;
+        var widthPowerOfTwo = (width & (width - 1)) === 0;
+        var heightPowerOfTwo = (height & (height - 1)) === 0;
+        var isSizeValid = (widthPowerOfTwo && heightPowerOfTwo) || (
+          !isMipmap
+          && horizontalWrap === CLAMP_TO_EDGE
+          && verticalWrap === CLAMP_TO_EDGE
+        );
+        if (isSizeValid) {
+          callback(Scheduler.succeed({
+            ctor: 'Texture',
+            id: guid(),
+            createTexture: createTexture,
+            width: width,
+            height: height
+          }));
+        } else {
+          callback(Scheduler.fail({
+            ctor: 'SizeError',
+            _0: width,
+            _1: height
+          }));
+        }
+      };
+      img.onerror = function () {
+        callback(Scheduler.fail({ ctor: 'LoadError' }));
+      };
+      if (url.slice(0, 5) !== 'data:') {
+        img.crossOrigin = 'Anonymous';
+      }
+      img.src = url;
+    });
+  }
+
+  function size(texture) {
+    // eslint-disable-next-line camelcase
+    return _elm_lang$core$Native_Utils.Tuple2(texture.width, texture.height);
+  }
+
+  return {
+    size: size,
+    load: F6(load)
+  };
+
+}();
+
 // eslint-disable-next-line no-unused-vars, camelcase
 var _elm_community$webgl$Native_WebGL = function () {
 
@@ -6026,6 +6332,7 @@ var _elm_community$webgl$Native_WebGL = function () {
   };
 
 }();
+
 //import Native.List //
 
 var _elm_lang$core$Native_Array = function() {
@@ -6992,7 +7299,8 @@ return {
 	fromJSArray: fromJSArray
 };
 
-}();var _elm_lang$core$Array$append = _elm_lang$core$Native_Array.append;
+}();
+var _elm_lang$core$Array$append = _elm_lang$core$Native_Array.append;
 var _elm_lang$core$Array$length = _elm_lang$core$Native_Array.length;
 var _elm_lang$core$Array$isEmpty = function (array) {
 	return _elm_lang$core$Native_Utils.eq(
@@ -7046,6 +7354,7 @@ var _elm_lang$core$Array$repeat = F2(
 			_elm_lang$core$Basics$always(e));
 	});
 var _elm_lang$core$Array$Array = {ctor: 'Array'};
+
 var _elm_lang$core$Dict$foldr = F3(
 	function (f, acc, t) {
 		foldr:
@@ -7962,6 +8271,7 @@ var _elm_lang$core$Dict$diff = F2(
 			t1,
 			t2);
 	});
+
 //import Maybe, Native.Array, Native.List, Native.Utils, Result //
 
 var _elm_lang$core$Native_Json = function() {
@@ -8537,6 +8847,7 @@ return {
 };
 
 }();
+
 var _elm_lang$core$Json_Encode$list = _elm_lang$core$Native_Json.encodeList;
 var _elm_lang$core$Json_Encode$array = _elm_lang$core$Native_Json.encodeArray;
 var _elm_lang$core$Json_Encode$object = _elm_lang$core$Native_Json.encodeObject;
@@ -8547,6 +8858,7 @@ var _elm_lang$core$Json_Encode$int = _elm_lang$core$Native_Json.identity;
 var _elm_lang$core$Json_Encode$string = _elm_lang$core$Native_Json.identity;
 var _elm_lang$core$Json_Encode$encode = _elm_lang$core$Native_Json.encode;
 var _elm_lang$core$Json_Encode$Value = {ctor: 'Value'};
+
 var _elm_lang$core$Json_Decode$null = _elm_lang$core$Native_Json.decodeNull;
 var _elm_lang$core$Json_Decode$value = _elm_lang$core$Native_Json.decodePrimitive('value');
 var _elm_lang$core$Json_Decode$andThen = _elm_lang$core$Native_Json.andThen;
@@ -8609,6 +8921,7 @@ var _elm_lang$core$Json_Decode$int = _elm_lang$core$Native_Json.decodePrimitive(
 var _elm_lang$core$Json_Decode$bool = _elm_lang$core$Native_Json.decodePrimitive('bool');
 var _elm_lang$core$Json_Decode$string = _elm_lang$core$Native_Json.decodePrimitive('string');
 var _elm_lang$core$Json_Decode$Decoder = {ctor: 'Decoder'};
+
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
 
@@ -10490,6 +10803,7 @@ return {
 };
 
 }();
+
 var _elm_lang$virtual_dom$VirtualDom$programWithFlags = function (impl) {
 	return A2(_elm_lang$virtual_dom$Native_VirtualDom.programWithFlags, _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags, impl);
 };
@@ -10520,6 +10834,7 @@ var _elm_lang$virtual_dom$VirtualDom$Options = F2(
 	});
 var _elm_lang$virtual_dom$VirtualDom$Node = {ctor: 'Node'};
 var _elm_lang$virtual_dom$VirtualDom$Property = {ctor: 'Property'};
+
 var _elm_lang$html$Html$programWithFlags = _elm_lang$virtual_dom$VirtualDom$programWithFlags;
 var _elm_lang$html$Html$program = _elm_lang$virtual_dom$VirtualDom$program;
 var _elm_lang$html$Html$beginnerProgram = function (_p0) {
@@ -10644,6 +10959,7 @@ var _elm_lang$html$Html$details = _elm_lang$html$Html$node('details');
 var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
+
 var _elm_community$webgl$WebGL_Settings_Internal$SampleAlphaToCoverage = {ctor: 'SampleAlphaToCoverage'};
 var _elm_community$webgl$WebGL_Settings_Internal$SampleCoverage = F2(
 	function (a, b) {
@@ -10712,6 +11028,7 @@ var _elm_community$webgl$WebGL_Settings_Internal$Blend = function (a) {
 		};
 	};
 };
+
 var _elm_community$webgl$WebGL_Settings$cullFace = function (_p0) {
 	var _p1 = _p0;
 	return _elm_community$webgl$WebGL_Settings_Internal$CullFace(_p1._0);
@@ -10727,6 +11044,7 @@ var _elm_community$webgl$WebGL_Settings$FaceMode = function (a) {
 var _elm_community$webgl$WebGL_Settings$front = _elm_community$webgl$WebGL_Settings$FaceMode(1028);
 var _elm_community$webgl$WebGL_Settings$back = _elm_community$webgl$WebGL_Settings$FaceMode(1029);
 var _elm_community$webgl$WebGL_Settings$frontAndBack = _elm_community$webgl$WebGL_Settings$FaceMode(1032);
+
 var _elm_community$webgl$WebGL_Settings_DepthTest$greaterOrEqual = function (_p0) {
 	var _p1 = _p0;
 	return A4(_elm_community$webgl$WebGL_Settings_Internal$DepthTest, 518, _p1.write, _p1.near, _p1.far);
@@ -10765,6 +11083,7 @@ var _elm_community$webgl$WebGL_Settings_DepthTest$Options = F3(
 	function (a, b, c) {
 		return {write: a, near: b, far: c};
 	});
+
 var _elm_community$webgl$WebGL$toHtmlWith = F3(
 	function (options, attributes, entities) {
 		return A3(_elm_community$webgl$Native_WebGL.toHtml, options, attributes, entities);
@@ -10846,6 +11165,165 @@ var _elm_community$webgl$WebGL$toHtml = _elm_community$webgl$WebGL$toHtmlWith(
 			}
 		}
 	});
+
+var _elm_community$webgl$WebGL_Settings_Blend$custom = function (_p0) {
+	var _p1 = _p0;
+	var expand = F2(
+		function (_p3, _p2) {
+			var _p4 = _p3;
+			var _p5 = _p2;
+			return _elm_community$webgl$WebGL_Settings_Internal$Blend(_p4._0)(_p4._1)(_p4._2)(_p5._0)(_p5._1)(_p5._2)(_p1.r)(_p1.g)(_p1.b)(_p1.a);
+		});
+	return A2(expand, _p1.color, _p1.alpha);
+};
+var _elm_community$webgl$WebGL_Settings_Blend$Factor = function (a) {
+	return {ctor: 'Factor', _0: a};
+};
+var _elm_community$webgl$WebGL_Settings_Blend$zero = _elm_community$webgl$WebGL_Settings_Blend$Factor(0);
+var _elm_community$webgl$WebGL_Settings_Blend$one = _elm_community$webgl$WebGL_Settings_Blend$Factor(1);
+var _elm_community$webgl$WebGL_Settings_Blend$srcColor = _elm_community$webgl$WebGL_Settings_Blend$Factor(768);
+var _elm_community$webgl$WebGL_Settings_Blend$oneMinusSrcColor = _elm_community$webgl$WebGL_Settings_Blend$Factor(769);
+var _elm_community$webgl$WebGL_Settings_Blend$dstColor = _elm_community$webgl$WebGL_Settings_Blend$Factor(774);
+var _elm_community$webgl$WebGL_Settings_Blend$oneMinusDstColor = _elm_community$webgl$WebGL_Settings_Blend$Factor(775);
+var _elm_community$webgl$WebGL_Settings_Blend$srcAlpha = _elm_community$webgl$WebGL_Settings_Blend$Factor(770);
+var _elm_community$webgl$WebGL_Settings_Blend$oneMinusSrcAlpha = _elm_community$webgl$WebGL_Settings_Blend$Factor(771);
+var _elm_community$webgl$WebGL_Settings_Blend$dstAlpha = _elm_community$webgl$WebGL_Settings_Blend$Factor(772);
+var _elm_community$webgl$WebGL_Settings_Blend$oneMinusDstAlpha = _elm_community$webgl$WebGL_Settings_Blend$Factor(773);
+var _elm_community$webgl$WebGL_Settings_Blend$srcAlphaSaturate = _elm_community$webgl$WebGL_Settings_Blend$Factor(776);
+var _elm_community$webgl$WebGL_Settings_Blend$constantColor = _elm_community$webgl$WebGL_Settings_Blend$Factor(32769);
+var _elm_community$webgl$WebGL_Settings_Blend$oneMinusConstantColor = _elm_community$webgl$WebGL_Settings_Blend$Factor(32770);
+var _elm_community$webgl$WebGL_Settings_Blend$constantAlpha = _elm_community$webgl$WebGL_Settings_Blend$Factor(32771);
+var _elm_community$webgl$WebGL_Settings_Blend$oneMinusConstantAlpha = _elm_community$webgl$WebGL_Settings_Blend$Factor(32772);
+var _elm_community$webgl$WebGL_Settings_Blend$Blender = F3(
+	function (a, b, c) {
+		return {ctor: 'Blender', _0: a, _1: b, _2: c};
+	});
+var _elm_community$webgl$WebGL_Settings_Blend$customAdd = F2(
+	function (_p7, _p6) {
+		var _p8 = _p7;
+		var _p9 = _p6;
+		return A3(_elm_community$webgl$WebGL_Settings_Blend$Blender, 32774, _p8._0, _p9._0);
+	});
+var _elm_community$webgl$WebGL_Settings_Blend$add = F2(
+	function (factor1, factor2) {
+		return _elm_community$webgl$WebGL_Settings_Blend$custom(
+			{
+				r: 0,
+				g: 0,
+				b: 0,
+				a: 0,
+				color: A2(_elm_community$webgl$WebGL_Settings_Blend$customAdd, factor1, factor2),
+				alpha: A2(_elm_community$webgl$WebGL_Settings_Blend$customAdd, factor1, factor2)
+			});
+	});
+var _elm_community$webgl$WebGL_Settings_Blend$customSubtract = F2(
+	function (_p11, _p10) {
+		var _p12 = _p11;
+		var _p13 = _p10;
+		return A3(_elm_community$webgl$WebGL_Settings_Blend$Blender, 32778, _p12._0, _p13._0);
+	});
+var _elm_community$webgl$WebGL_Settings_Blend$subtract = F2(
+	function (factor1, factor2) {
+		return _elm_community$webgl$WebGL_Settings_Blend$custom(
+			{
+				r: 0,
+				g: 0,
+				b: 0,
+				a: 0,
+				color: A2(_elm_community$webgl$WebGL_Settings_Blend$customSubtract, factor1, factor2),
+				alpha: A2(_elm_community$webgl$WebGL_Settings_Blend$customSubtract, factor1, factor2)
+			});
+	});
+var _elm_community$webgl$WebGL_Settings_Blend$customReverseSubtract = F2(
+	function (_p15, _p14) {
+		var _p16 = _p15;
+		var _p17 = _p14;
+		return A3(_elm_community$webgl$WebGL_Settings_Blend$Blender, 32779, _p16._0, _p17._0);
+	});
+var _elm_community$webgl$WebGL_Settings_Blend$reverseSubtract = F2(
+	function (factor1, factor2) {
+		return _elm_community$webgl$WebGL_Settings_Blend$custom(
+			{
+				r: 0,
+				g: 0,
+				b: 0,
+				a: 0,
+				color: A2(_elm_community$webgl$WebGL_Settings_Blend$customReverseSubtract, factor1, factor2),
+				alpha: A2(_elm_community$webgl$WebGL_Settings_Blend$customReverseSubtract, factor1, factor2)
+			});
+	});
+
+var _elm_community$webgl$WebGL_Settings_StencilTest$testSeparate = F3(
+	function (_p0, options1, options2) {
+		var _p1 = _p0;
+		var expandOp = F2(
+			function (_p2, fn) {
+				var _p3 = _p2;
+				return fn(_p3._0);
+			});
+		var expandTest = F2(
+			function (_p4, fn) {
+				var _p5 = _p4;
+				return fn(_p5._0);
+			});
+		var expand = function (_p6) {
+			var _p7 = _p6;
+			return function (_p8) {
+				return A2(
+					expandOp,
+					_p7.zpass,
+					A2(
+						expandOp,
+						_p7.zfail,
+						A2(
+							expandOp,
+							_p7.fail,
+							A2(expandTest, _p7.test, _p8))));
+			};
+		};
+		return A2(
+			expand,
+			options2,
+			A2(
+				expand,
+				options1,
+				A3(_elm_community$webgl$WebGL_Settings_Internal$StencilTest, _p1.ref, _p1.mask, _p1.writeMask)));
+	});
+var _elm_community$webgl$WebGL_Settings_StencilTest$test = function (_p9) {
+	var _p10 = _p9;
+	var _p14 = _p10.zpass;
+	var _p13 = _p10.zfail;
+	var _p12 = _p10.test;
+	var _p11 = _p10.fail;
+	return A3(
+		_elm_community$webgl$WebGL_Settings_StencilTest$testSeparate,
+		{ref: _p10.ref, mask: _p10.mask, writeMask: _p10.writeMask},
+		{test: _p12, fail: _p11, zfail: _p13, zpass: _p14},
+		{test: _p12, fail: _p11, zfail: _p13, zpass: _p14});
+};
+var _elm_community$webgl$WebGL_Settings_StencilTest$Test = function (a) {
+	return {ctor: 'Test', _0: a};
+};
+var _elm_community$webgl$WebGL_Settings_StencilTest$always = _elm_community$webgl$WebGL_Settings_StencilTest$Test(519);
+var _elm_community$webgl$WebGL_Settings_StencilTest$equal = _elm_community$webgl$WebGL_Settings_StencilTest$Test(514);
+var _elm_community$webgl$WebGL_Settings_StencilTest$never = _elm_community$webgl$WebGL_Settings_StencilTest$Test(512);
+var _elm_community$webgl$WebGL_Settings_StencilTest$less = _elm_community$webgl$WebGL_Settings_StencilTest$Test(513);
+var _elm_community$webgl$WebGL_Settings_StencilTest$greater = _elm_community$webgl$WebGL_Settings_StencilTest$Test(516);
+var _elm_community$webgl$WebGL_Settings_StencilTest$notEqual = _elm_community$webgl$WebGL_Settings_StencilTest$Test(517);
+var _elm_community$webgl$WebGL_Settings_StencilTest$lessOrEqual = _elm_community$webgl$WebGL_Settings_StencilTest$Test(515);
+var _elm_community$webgl$WebGL_Settings_StencilTest$greaterOrEqual = _elm_community$webgl$WebGL_Settings_StencilTest$Test(518);
+var _elm_community$webgl$WebGL_Settings_StencilTest$Operation = function (a) {
+	return {ctor: 'Operation', _0: a};
+};
+var _elm_community$webgl$WebGL_Settings_StencilTest$replace = _elm_community$webgl$WebGL_Settings_StencilTest$Operation(7681);
+var _elm_community$webgl$WebGL_Settings_StencilTest$keep = _elm_community$webgl$WebGL_Settings_StencilTest$Operation(7680);
+var _elm_community$webgl$WebGL_Settings_StencilTest$zero = _elm_community$webgl$WebGL_Settings_StencilTest$Operation(0);
+var _elm_community$webgl$WebGL_Settings_StencilTest$increment = _elm_community$webgl$WebGL_Settings_StencilTest$Operation(7682);
+var _elm_community$webgl$WebGL_Settings_StencilTest$decrement = _elm_community$webgl$WebGL_Settings_StencilTest$Operation(7683);
+var _elm_community$webgl$WebGL_Settings_StencilTest$invert = _elm_community$webgl$WebGL_Settings_StencilTest$Operation(5386);
+var _elm_community$webgl$WebGL_Settings_StencilTest$incrementWrap = _elm_community$webgl$WebGL_Settings_StencilTest$Operation(34055);
+var _elm_community$webgl$WebGL_Settings_StencilTest$decrementWrap = _elm_community$webgl$WebGL_Settings_StencilTest$Operation(34056);
+
 var _elm_lang$core$Task$onError = _elm_lang$core$Native_Scheduler.onError;
 var _elm_lang$core$Task$andThen = _elm_lang$core$Native_Scheduler.andThen;
 var _elm_lang$core$Task$spawnCmd = F2(
@@ -11042,6 +11520,51 @@ var _elm_lang$core$Task$cmdMap = F2(
 			A2(_elm_lang$core$Task$map, tagger, _p11._0));
 	});
 _elm_lang$core$Native_Platform.effectManagers['Task'] = {pkg: 'elm-lang/core', init: _elm_lang$core$Task$init, onEffects: _elm_lang$core$Task$onEffects, onSelfMsg: _elm_lang$core$Task$onSelfMsg, tag: 'cmd', cmdMap: _elm_lang$core$Task$cmdMap};
+
+var _elm_community$webgl$WebGL_Texture$size = _elm_community$webgl$Native_Texture.size;
+var _elm_community$webgl$WebGL_Texture$loadWith = F2(
+	function (_p0, url) {
+		var _p1 = _p0;
+		var expand = F4(
+			function (_p5, _p4, _p3, _p2) {
+				var _p6 = _p5;
+				var _p7 = _p4;
+				var _p8 = _p3;
+				var _p9 = _p2;
+				return A6(_elm_community$webgl$Native_Texture.load, _p6._0, _p7._0, _p8._0, _p9._0, _p1.flipY, url);
+			});
+		return A4(expand, _p1.magnify, _p1.minify, _p1.horizontalWrap, _p1.verticalWrap);
+	});
+var _elm_community$webgl$WebGL_Texture$Options = F5(
+	function (a, b, c, d, e) {
+		return {magnify: a, minify: b, horizontalWrap: c, verticalWrap: d, flipY: e};
+	});
+var _elm_community$webgl$WebGL_Texture$SizeError = F2(
+	function (a, b) {
+		return {ctor: 'SizeError', _0: a, _1: b};
+	});
+var _elm_community$webgl$WebGL_Texture$LoadError = {ctor: 'LoadError'};
+var _elm_community$webgl$WebGL_Texture$Resize = function (a) {
+	return {ctor: 'Resize', _0: a};
+};
+var _elm_community$webgl$WebGL_Texture$linear = _elm_community$webgl$WebGL_Texture$Resize(9729);
+var _elm_community$webgl$WebGL_Texture$nearest = _elm_community$webgl$WebGL_Texture$Resize(9728);
+var _elm_community$webgl$WebGL_Texture$nearestMipmapNearest = _elm_community$webgl$WebGL_Texture$Resize(9984);
+var _elm_community$webgl$WebGL_Texture$linearMipmapNearest = _elm_community$webgl$WebGL_Texture$Resize(9985);
+var _elm_community$webgl$WebGL_Texture$nearestMipmapLinear = _elm_community$webgl$WebGL_Texture$Resize(9986);
+var _elm_community$webgl$WebGL_Texture$linearMipmapLinear = _elm_community$webgl$WebGL_Texture$Resize(9987);
+var _elm_community$webgl$WebGL_Texture$Bigger = {ctor: 'Bigger'};
+var _elm_community$webgl$WebGL_Texture$Smaller = {ctor: 'Smaller'};
+var _elm_community$webgl$WebGL_Texture$Wrap = function (a) {
+	return {ctor: 'Wrap', _0: a};
+};
+var _elm_community$webgl$WebGL_Texture$repeat = _elm_community$webgl$WebGL_Texture$Wrap(10497);
+var _elm_community$webgl$WebGL_Texture$defaultOptions = {magnify: _elm_community$webgl$WebGL_Texture$linear, minify: _elm_community$webgl$WebGL_Texture$nearestMipmapLinear, horizontalWrap: _elm_community$webgl$WebGL_Texture$repeat, verticalWrap: _elm_community$webgl$WebGL_Texture$repeat, flipY: true};
+var _elm_community$webgl$WebGL_Texture$load = _elm_community$webgl$WebGL_Texture$loadWith(_elm_community$webgl$WebGL_Texture$defaultOptions);
+var _elm_community$webgl$WebGL_Texture$clampToEdge = _elm_community$webgl$WebGL_Texture$Wrap(33071);
+var _elm_community$webgl$WebGL_Texture$nonPowerOfTwoOptions = {magnify: _elm_community$webgl$WebGL_Texture$linear, minify: _elm_community$webgl$WebGL_Texture$nearest, horizontalWrap: _elm_community$webgl$WebGL_Texture$clampToEdge, verticalWrap: _elm_community$webgl$WebGL_Texture$clampToEdge, flipY: true};
+var _elm_community$webgl$WebGL_Texture$mirroredRepeat = _elm_community$webgl$WebGL_Texture$Wrap(33648);
+
 var _elm_lang$animation_frame$Native_AnimationFrame = function()
 {
 
@@ -11064,6 +11587,7 @@ return {
 };
 
 }();
+
 //import Native.Scheduler //
 
 var _elm_lang$core$Native_Time = function() {
@@ -11090,7 +11614,8 @@ return {
 	setInterval_: F2(setInterval_)
 };
 
-}();var _elm_lang$core$Time$setInterval = _elm_lang$core$Native_Time.setInterval_;
+}();
+var _elm_lang$core$Time$setInterval = _elm_lang$core$Native_Time.setInterval_;
 var _elm_lang$core$Time$spawnHelp = F3(
 	function (router, intervals, processes) {
 		var _p0 = intervals;
@@ -11277,9 +11802,11 @@ var _elm_lang$core$Time$subMap = F2(
 			});
 	});
 _elm_lang$core$Native_Platform.effectManagers['Time'] = {pkg: 'elm-lang/core', init: _elm_lang$core$Time$init, onEffects: _elm_lang$core$Time$onEffects, onSelfMsg: _elm_lang$core$Time$onSelfMsg, tag: 'sub', subMap: _elm_lang$core$Time$subMap};
+
 var _elm_lang$core$Process$kill = _elm_lang$core$Native_Scheduler.kill;
 var _elm_lang$core$Process$sleep = _elm_lang$core$Native_Scheduler.sleep;
 var _elm_lang$core$Process$spawn = _elm_lang$core$Native_Scheduler.spawn;
+
 var _elm_lang$animation_frame$AnimationFrame$rAF = _elm_lang$animation_frame$Native_AnimationFrame.create(
 	{ctor: '_Tuple0'});
 var _elm_lang$animation_frame$AnimationFrame$subscription = _elm_lang$core$Native_Platform.leaf('AnimationFrame');
@@ -11421,6 +11948,7 @@ var _elm_lang$animation_frame$AnimationFrame$subMap = F2(
 		}
 	});
 _elm_lang$core$Native_Platform.effectManagers['AnimationFrame'] = {pkg: 'elm-lang/animation-frame', init: _elm_lang$animation_frame$AnimationFrame$init, onEffects: _elm_lang$animation_frame$AnimationFrame$onEffects, onSelfMsg: _elm_lang$animation_frame$AnimationFrame$onSelfMsg, tag: 'sub', subMap: _elm_lang$animation_frame$AnimationFrame$subMap};
+
 var _elm_lang$core$Random$onSelfMsg = F3(
 	function (_p1, _p0, seed) {
 		return _elm_lang$core$Task$succeed(seed);
@@ -11799,6 +12327,7 @@ var _elm_lang$core$Random$cmdMap = F2(
 			A2(_elm_lang$core$Random$map, func, _p79._0));
 	});
 _elm_lang$core$Native_Platform.effectManagers['Random'] = {pkg: 'elm-lang/core', init: _elm_lang$core$Random$init, onEffects: _elm_lang$core$Random$onEffects, onSelfMsg: _elm_lang$core$Random$onSelfMsg, tag: 'cmd', cmdMap: _elm_lang$core$Random$cmdMap};
+
 var _elm_lang$dom$Native_Dom = function() {
 
 var fakeNode = {
@@ -11981,8 +12510,10 @@ return {
 };
 
 }();
+
 var _elm_lang$dom$Dom_LowLevel$onWindow = _elm_lang$dom$Native_Dom.onWindow;
 var _elm_lang$dom$Dom_LowLevel$onDocument = _elm_lang$dom$Native_Dom.onDocument;
+
 var _elm_lang$html$Html_Attributes$map = _elm_lang$virtual_dom$VirtualDom$mapProperty;
 var _elm_lang$html$Html_Attributes$attribute = _elm_lang$virtual_dom$VirtualDom$attribute;
 var _elm_lang$html$Html_Attributes$contextmenu = function (value) {
@@ -12332,6 +12863,7 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 				A2(_elm_lang$core$List$filter, _elm_lang$core$Tuple$second, list))));
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
+
 var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
 var _elm_lang$html$Html_Events$targetChecked = A2(
 	_elm_lang$core$Json_Decode$at,
@@ -12446,6 +12978,176 @@ var _elm_lang$html$Html_Events$Options = F2(
 	function (a, b) {
 		return {stopPropagation: a, preventDefault: b};
 	});
+
+var _elm_lang$keyboard$Keyboard$onSelfMsg = F3(
+	function (router, _p0, state) {
+		var _p1 = _p0;
+		var _p2 = A2(_elm_lang$core$Dict$get, _p1.category, state);
+		if (_p2.ctor === 'Nothing') {
+			return _elm_lang$core$Task$succeed(state);
+		} else {
+			var send = function (tagger) {
+				return A2(
+					_elm_lang$core$Platform$sendToApp,
+					router,
+					tagger(_p1.keyCode));
+			};
+			return A2(
+				_elm_lang$core$Task$andThen,
+				function (_p3) {
+					return _elm_lang$core$Task$succeed(state);
+				},
+				_elm_lang$core$Task$sequence(
+					A2(_elm_lang$core$List$map, send, _p2._0.taggers)));
+		}
+	});
+var _elm_lang$keyboard$Keyboard_ops = _elm_lang$keyboard$Keyboard_ops || {};
+_elm_lang$keyboard$Keyboard_ops['&>'] = F2(
+	function (task1, task2) {
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (_p4) {
+				return task2;
+			},
+			task1);
+	});
+var _elm_lang$keyboard$Keyboard$init = _elm_lang$core$Task$succeed(_elm_lang$core$Dict$empty);
+var _elm_lang$keyboard$Keyboard$categorizeHelpHelp = F2(
+	function (value, maybeValues) {
+		var _p5 = maybeValues;
+		if (_p5.ctor === 'Nothing') {
+			return _elm_lang$core$Maybe$Just(
+				{
+					ctor: '::',
+					_0: value,
+					_1: {ctor: '[]'}
+				});
+		} else {
+			return _elm_lang$core$Maybe$Just(
+				{ctor: '::', _0: value, _1: _p5._0});
+		}
+	});
+var _elm_lang$keyboard$Keyboard$categorizeHelp = F2(
+	function (subs, subDict) {
+		categorizeHelp:
+		while (true) {
+			var _p6 = subs;
+			if (_p6.ctor === '[]') {
+				return subDict;
+			} else {
+				var _v4 = _p6._1,
+					_v5 = A3(
+					_elm_lang$core$Dict$update,
+					_p6._0._0,
+					_elm_lang$keyboard$Keyboard$categorizeHelpHelp(_p6._0._1),
+					subDict);
+				subs = _v4;
+				subDict = _v5;
+				continue categorizeHelp;
+			}
+		}
+	});
+var _elm_lang$keyboard$Keyboard$categorize = function (subs) {
+	return A2(_elm_lang$keyboard$Keyboard$categorizeHelp, subs, _elm_lang$core$Dict$empty);
+};
+var _elm_lang$keyboard$Keyboard$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$keyboard$Keyboard$subscription = _elm_lang$core$Native_Platform.leaf('Keyboard');
+var _elm_lang$keyboard$Keyboard$Watcher = F2(
+	function (a, b) {
+		return {taggers: a, pid: b};
+	});
+var _elm_lang$keyboard$Keyboard$Msg = F2(
+	function (a, b) {
+		return {category: a, keyCode: b};
+	});
+var _elm_lang$keyboard$Keyboard$onEffects = F3(
+	function (router, newSubs, oldState) {
+		var rightStep = F3(
+			function (category, taggers, task) {
+				return A2(
+					_elm_lang$core$Task$andThen,
+					function (state) {
+						return A2(
+							_elm_lang$core$Task$andThen,
+							function (pid) {
+								return _elm_lang$core$Task$succeed(
+									A3(
+										_elm_lang$core$Dict$insert,
+										category,
+										A2(_elm_lang$keyboard$Keyboard$Watcher, taggers, pid),
+										state));
+							},
+							_elm_lang$core$Process$spawn(
+								A3(
+									_elm_lang$dom$Dom_LowLevel$onDocument,
+									category,
+									_elm_lang$keyboard$Keyboard$keyCode,
+									function (_p7) {
+										return A2(
+											_elm_lang$core$Platform$sendToSelf,
+											router,
+											A2(_elm_lang$keyboard$Keyboard$Msg, category, _p7));
+									})));
+					},
+					task);
+			});
+		var bothStep = F4(
+			function (category, _p8, taggers, task) {
+				var _p9 = _p8;
+				return A2(
+					_elm_lang$core$Task$map,
+					A2(
+						_elm_lang$core$Dict$insert,
+						category,
+						A2(_elm_lang$keyboard$Keyboard$Watcher, taggers, _p9.pid)),
+					task);
+			});
+		var leftStep = F3(
+			function (category, _p10, task) {
+				var _p11 = _p10;
+				return A2(
+					_elm_lang$keyboard$Keyboard_ops['&>'],
+					_elm_lang$core$Process$kill(_p11.pid),
+					task);
+			});
+		return A6(
+			_elm_lang$core$Dict$merge,
+			leftStep,
+			bothStep,
+			rightStep,
+			oldState,
+			_elm_lang$keyboard$Keyboard$categorize(newSubs),
+			_elm_lang$core$Task$succeed(_elm_lang$core$Dict$empty));
+	});
+var _elm_lang$keyboard$Keyboard$MySub = F2(
+	function (a, b) {
+		return {ctor: 'MySub', _0: a, _1: b};
+	});
+var _elm_lang$keyboard$Keyboard$presses = function (tagger) {
+	return _elm_lang$keyboard$Keyboard$subscription(
+		A2(_elm_lang$keyboard$Keyboard$MySub, 'keypress', tagger));
+};
+var _elm_lang$keyboard$Keyboard$downs = function (tagger) {
+	return _elm_lang$keyboard$Keyboard$subscription(
+		A2(_elm_lang$keyboard$Keyboard$MySub, 'keydown', tagger));
+};
+var _elm_lang$keyboard$Keyboard$ups = function (tagger) {
+	return _elm_lang$keyboard$Keyboard$subscription(
+		A2(_elm_lang$keyboard$Keyboard$MySub, 'keyup', tagger));
+};
+var _elm_lang$keyboard$Keyboard$subMap = F2(
+	function (func, _p12) {
+		var _p13 = _p12;
+		return A2(
+			_elm_lang$keyboard$Keyboard$MySub,
+			_p13._0,
+			function (_p14) {
+				return func(
+					_p13._1(_p14));
+			});
+	});
+_elm_lang$core$Native_Platform.effectManagers['Keyboard'] = {pkg: 'elm-lang/keyboard', init: _elm_lang$keyboard$Keyboard$init, onEffects: _elm_lang$keyboard$Keyboard$onEffects, onSelfMsg: _elm_lang$keyboard$Keyboard$onSelfMsg, tag: 'sub', subMap: _elm_lang$keyboard$Keyboard$subMap};
+
 var _elm_lang$mouse$Mouse_ops = _elm_lang$mouse$Mouse_ops || {};
 _elm_lang$mouse$Mouse_ops['&>'] = F2(
 	function (t1, t2) {
@@ -12628,6 +13330,409 @@ var _elm_lang$mouse$Mouse$subMap = F2(
 			});
 	});
 _elm_lang$core$Native_Platform.effectManagers['Mouse'] = {pkg: 'elm-lang/mouse', init: _elm_lang$mouse$Mouse$init, onEffects: _elm_lang$mouse$Mouse$onEffects, onSelfMsg: _elm_lang$mouse$Mouse$onSelfMsg, tag: 'sub', subMap: _elm_lang$mouse$Mouse$subMap};
+
+var _elm_lang$navigation$Native_Navigation = function() {
+
+
+// FAKE NAVIGATION
+
+function go(n)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		if (n !== 0)
+		{
+			history.go(n);
+		}
+		callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+	});
+}
+
+function pushState(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		history.pushState({}, '', url);
+		callback(_elm_lang$core$Native_Scheduler.succeed(getLocation()));
+	});
+}
+
+function replaceState(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		history.replaceState({}, '', url);
+		callback(_elm_lang$core$Native_Scheduler.succeed(getLocation()));
+	});
+}
+
+
+// REAL NAVIGATION
+
+function reloadPage(skipCache)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		document.location.reload(skipCache);
+		callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+	});
+}
+
+function setLocation(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		try
+		{
+			window.location = url;
+		}
+		catch(err)
+		{
+			// Only Firefox can throw a NS_ERROR_MALFORMED_URI exception here.
+			// Other browsers reload the page, so let's be consistent about that.
+			document.location.reload(false);
+		}
+		callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+	});
+}
+
+
+// GET LOCATION
+
+function getLocation()
+{
+	var location = document.location;
+
+	return {
+		href: location.href,
+		host: location.host,
+		hostname: location.hostname,
+		protocol: location.protocol,
+		origin: location.origin,
+		port_: location.port,
+		pathname: location.pathname,
+		search: location.search,
+		hash: location.hash,
+		username: location.username,
+		password: location.password
+	};
+}
+
+
+// DETECT IE11 PROBLEMS
+
+function isInternetExplorer11()
+{
+	return window.navigator.userAgent.indexOf('Trident') !== -1;
+}
+
+
+return {
+	go: go,
+	setLocation: setLocation,
+	reloadPage: reloadPage,
+	pushState: pushState,
+	replaceState: replaceState,
+	getLocation: getLocation,
+	isInternetExplorer11: isInternetExplorer11
+};
+
+}();
+
+var _elm_lang$navigation$Navigation$replaceState = _elm_lang$navigation$Native_Navigation.replaceState;
+var _elm_lang$navigation$Navigation$pushState = _elm_lang$navigation$Native_Navigation.pushState;
+var _elm_lang$navigation$Navigation$go = _elm_lang$navigation$Native_Navigation.go;
+var _elm_lang$navigation$Navigation$reloadPage = _elm_lang$navigation$Native_Navigation.reloadPage;
+var _elm_lang$navigation$Navigation$setLocation = _elm_lang$navigation$Native_Navigation.setLocation;
+var _elm_lang$navigation$Navigation_ops = _elm_lang$navigation$Navigation_ops || {};
+_elm_lang$navigation$Navigation_ops['&>'] = F2(
+	function (task1, task2) {
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (_p0) {
+				return task2;
+			},
+			task1);
+	});
+var _elm_lang$navigation$Navigation$notify = F3(
+	function (router, subs, location) {
+		var send = function (_p1) {
+			var _p2 = _p1;
+			return A2(
+				_elm_lang$core$Platform$sendToApp,
+				router,
+				_p2._0(location));
+		};
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Task$sequence(
+				A2(_elm_lang$core$List$map, send, subs)),
+			_elm_lang$core$Task$succeed(
+				{ctor: '_Tuple0'}));
+	});
+var _elm_lang$navigation$Navigation$cmdHelp = F3(
+	function (router, subs, cmd) {
+		var _p3 = cmd;
+		switch (_p3.ctor) {
+			case 'Jump':
+				return _elm_lang$navigation$Navigation$go(_p3._0);
+			case 'New':
+				return A2(
+					_elm_lang$core$Task$andThen,
+					A2(_elm_lang$navigation$Navigation$notify, router, subs),
+					_elm_lang$navigation$Navigation$pushState(_p3._0));
+			case 'Modify':
+				return A2(
+					_elm_lang$core$Task$andThen,
+					A2(_elm_lang$navigation$Navigation$notify, router, subs),
+					_elm_lang$navigation$Navigation$replaceState(_p3._0));
+			case 'Visit':
+				return _elm_lang$navigation$Navigation$setLocation(_p3._0);
+			default:
+				return _elm_lang$navigation$Navigation$reloadPage(_p3._0);
+		}
+	});
+var _elm_lang$navigation$Navigation$killPopWatcher = function (popWatcher) {
+	var _p4 = popWatcher;
+	if (_p4.ctor === 'Normal') {
+		return _elm_lang$core$Process$kill(_p4._0);
+	} else {
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Process$kill(_p4._0),
+			_elm_lang$core$Process$kill(_p4._1));
+	}
+};
+var _elm_lang$navigation$Navigation$onSelfMsg = F3(
+	function (router, location, state) {
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			A3(_elm_lang$navigation$Navigation$notify, router, state.subs, location),
+			_elm_lang$core$Task$succeed(state));
+	});
+var _elm_lang$navigation$Navigation$subscription = _elm_lang$core$Native_Platform.leaf('Navigation');
+var _elm_lang$navigation$Navigation$command = _elm_lang$core$Native_Platform.leaf('Navigation');
+var _elm_lang$navigation$Navigation$Location = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return {href: a, host: b, hostname: c, protocol: d, origin: e, port_: f, pathname: g, search: h, hash: i, username: j, password: k};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _elm_lang$navigation$Navigation$State = F2(
+	function (a, b) {
+		return {subs: a, popWatcher: b};
+	});
+var _elm_lang$navigation$Navigation$init = _elm_lang$core$Task$succeed(
+	A2(
+		_elm_lang$navigation$Navigation$State,
+		{ctor: '[]'},
+		_elm_lang$core$Maybe$Nothing));
+var _elm_lang$navigation$Navigation$Reload = function (a) {
+	return {ctor: 'Reload', _0: a};
+};
+var _elm_lang$navigation$Navigation$reload = _elm_lang$navigation$Navigation$command(
+	_elm_lang$navigation$Navigation$Reload(false));
+var _elm_lang$navigation$Navigation$reloadAndSkipCache = _elm_lang$navigation$Navigation$command(
+	_elm_lang$navigation$Navigation$Reload(true));
+var _elm_lang$navigation$Navigation$Visit = function (a) {
+	return {ctor: 'Visit', _0: a};
+};
+var _elm_lang$navigation$Navigation$load = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Visit(url));
+};
+var _elm_lang$navigation$Navigation$Modify = function (a) {
+	return {ctor: 'Modify', _0: a};
+};
+var _elm_lang$navigation$Navigation$modifyUrl = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Modify(url));
+};
+var _elm_lang$navigation$Navigation$New = function (a) {
+	return {ctor: 'New', _0: a};
+};
+var _elm_lang$navigation$Navigation$newUrl = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$New(url));
+};
+var _elm_lang$navigation$Navigation$Jump = function (a) {
+	return {ctor: 'Jump', _0: a};
+};
+var _elm_lang$navigation$Navigation$back = function (n) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Jump(0 - n));
+};
+var _elm_lang$navigation$Navigation$forward = function (n) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Jump(n));
+};
+var _elm_lang$navigation$Navigation$cmdMap = F2(
+	function (_p5, myCmd) {
+		var _p6 = myCmd;
+		switch (_p6.ctor) {
+			case 'Jump':
+				return _elm_lang$navigation$Navigation$Jump(_p6._0);
+			case 'New':
+				return _elm_lang$navigation$Navigation$New(_p6._0);
+			case 'Modify':
+				return _elm_lang$navigation$Navigation$Modify(_p6._0);
+			case 'Visit':
+				return _elm_lang$navigation$Navigation$Visit(_p6._0);
+			default:
+				return _elm_lang$navigation$Navigation$Reload(_p6._0);
+		}
+	});
+var _elm_lang$navigation$Navigation$Monitor = function (a) {
+	return {ctor: 'Monitor', _0: a};
+};
+var _elm_lang$navigation$Navigation$program = F2(
+	function (locationToMessage, stuff) {
+		var init = stuff.init(
+			_elm_lang$navigation$Native_Navigation.getLocation(
+				{ctor: '_Tuple0'}));
+		var subs = function (model) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: _elm_lang$navigation$Navigation$subscription(
+						_elm_lang$navigation$Navigation$Monitor(locationToMessage)),
+					_1: {
+						ctor: '::',
+						_0: stuff.subscriptions(model),
+						_1: {ctor: '[]'}
+					}
+				});
+		};
+		return _elm_lang$html$Html$program(
+			{init: init, view: stuff.view, update: stuff.update, subscriptions: subs});
+	});
+var _elm_lang$navigation$Navigation$programWithFlags = F2(
+	function (locationToMessage, stuff) {
+		var init = function (flags) {
+			return A2(
+				stuff.init,
+				flags,
+				_elm_lang$navigation$Native_Navigation.getLocation(
+					{ctor: '_Tuple0'}));
+		};
+		var subs = function (model) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: _elm_lang$navigation$Navigation$subscription(
+						_elm_lang$navigation$Navigation$Monitor(locationToMessage)),
+					_1: {
+						ctor: '::',
+						_0: stuff.subscriptions(model),
+						_1: {ctor: '[]'}
+					}
+				});
+		};
+		return _elm_lang$html$Html$programWithFlags(
+			{init: init, view: stuff.view, update: stuff.update, subscriptions: subs});
+	});
+var _elm_lang$navigation$Navigation$subMap = F2(
+	function (func, _p7) {
+		var _p8 = _p7;
+		return _elm_lang$navigation$Navigation$Monitor(
+			function (_p9) {
+				return func(
+					_p8._0(_p9));
+			});
+	});
+var _elm_lang$navigation$Navigation$InternetExplorer = F2(
+	function (a, b) {
+		return {ctor: 'InternetExplorer', _0: a, _1: b};
+	});
+var _elm_lang$navigation$Navigation$Normal = function (a) {
+	return {ctor: 'Normal', _0: a};
+};
+var _elm_lang$navigation$Navigation$spawnPopWatcher = function (router) {
+	var reportLocation = function (_p10) {
+		return A2(
+			_elm_lang$core$Platform$sendToSelf,
+			router,
+			_elm_lang$navigation$Native_Navigation.getLocation(
+				{ctor: '_Tuple0'}));
+	};
+	return _elm_lang$navigation$Native_Navigation.isInternetExplorer11(
+		{ctor: '_Tuple0'}) ? A3(
+		_elm_lang$core$Task$map2,
+		_elm_lang$navigation$Navigation$InternetExplorer,
+		_elm_lang$core$Process$spawn(
+			A3(_elm_lang$dom$Dom_LowLevel$onWindow, 'popstate', _elm_lang$core$Json_Decode$value, reportLocation)),
+		_elm_lang$core$Process$spawn(
+			A3(_elm_lang$dom$Dom_LowLevel$onWindow, 'hashchange', _elm_lang$core$Json_Decode$value, reportLocation))) : A2(
+		_elm_lang$core$Task$map,
+		_elm_lang$navigation$Navigation$Normal,
+		_elm_lang$core$Process$spawn(
+			A3(_elm_lang$dom$Dom_LowLevel$onWindow, 'popstate', _elm_lang$core$Json_Decode$value, reportLocation)));
+};
+var _elm_lang$navigation$Navigation$onEffects = F4(
+	function (router, cmds, subs, _p11) {
+		var _p12 = _p11;
+		var _p15 = _p12.popWatcher;
+		var stepState = function () {
+			var _p13 = {ctor: '_Tuple2', _0: subs, _1: _p15};
+			_v6_2:
+			do {
+				if (_p13._0.ctor === '[]') {
+					if (_p13._1.ctor === 'Just') {
+						return A2(
+							_elm_lang$navigation$Navigation_ops['&>'],
+							_elm_lang$navigation$Navigation$killPopWatcher(_p13._1._0),
+							_elm_lang$core$Task$succeed(
+								A2(_elm_lang$navigation$Navigation$State, subs, _elm_lang$core$Maybe$Nothing)));
+					} else {
+						break _v6_2;
+					}
+				} else {
+					if (_p13._1.ctor === 'Nothing') {
+						return A2(
+							_elm_lang$core$Task$map,
+							function (_p14) {
+								return A2(
+									_elm_lang$navigation$Navigation$State,
+									subs,
+									_elm_lang$core$Maybe$Just(_p14));
+							},
+							_elm_lang$navigation$Navigation$spawnPopWatcher(router));
+					} else {
+						break _v6_2;
+					}
+				}
+			} while(false);
+			return _elm_lang$core$Task$succeed(
+				A2(_elm_lang$navigation$Navigation$State, subs, _p15));
+		}();
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Task$sequence(
+				A2(
+					_elm_lang$core$List$map,
+					A2(_elm_lang$navigation$Navigation$cmdHelp, router, subs),
+					cmds)),
+			stepState);
+	});
+_elm_lang$core$Native_Platform.effectManagers['Navigation'] = {pkg: 'elm-lang/navigation', init: _elm_lang$navigation$Navigation$init, onEffects: _elm_lang$navigation$Navigation$onEffects, onSelfMsg: _elm_lang$navigation$Navigation$onSelfMsg, tag: 'fx', cmdMap: _elm_lang$navigation$Navigation$cmdMap, subMap: _elm_lang$navigation$Navigation$subMap};
+
 var _elm_lang$window$Native_Window = function()
 {
 
@@ -12642,7 +13747,8 @@ return {
 	size: size
 };
 
-}();var _elm_lang$window$Window_ops = _elm_lang$window$Window_ops || {};
+}();
+var _elm_lang$window$Window_ops = _elm_lang$window$Window_ops || {};
 _elm_lang$window$Window_ops['&>'] = F2(
 	function (task1, task2) {
 		return A2(
@@ -12748,1011 +13854,1039 @@ var _elm_lang$window$Window$subMap = F2(
 			});
 	});
 _elm_lang$core$Native_Platform.effectManagers['Window'] = {pkg: 'elm-lang/window', init: _elm_lang$window$Window$init, onEffects: _elm_lang$window$Window$onEffects, onSelfMsg: _elm_lang$window$Window$onSelfMsg, tag: 'sub', subMap: _elm_lang$window$Window$subMap};
-var _mgold$elm_animation$Animation$isStatic = function (_p0) {
-	var _p1 = _p0;
-	return _elm_lang$core$Native_Utils.eq(_p1._0.from, _p1._0.to);
-};
-var _mgold$elm_animation$Animation$isScheduled = F2(
-	function (t, _p2) {
-		var _p3 = _p2;
-		return (_elm_lang$core$Native_Utils.cmp(t, _p3._0.start + _p3._0.delay) < 1) && (!_mgold$elm_animation$Animation$isStatic(_p3));
-	});
-var _mgold$elm_animation$Animation$getTo = function (_p4) {
-	var _p5 = _p4;
-	return _p5._0.to;
-};
-var _mgold$elm_animation$Animation$getFrom = function (_p6) {
-	var _p7 = _p6;
-	return _p7._0.from;
-};
-var _mgold$elm_animation$Animation$getEase = function (_p8) {
-	var _p9 = _p8;
-	return _p9._0.ease;
-};
-var _mgold$elm_animation$Animation$getDelay = function (_p10) {
-	var _p11 = _p10;
-	return _p11._0.delay;
-};
-var _mgold$elm_animation$Animation$getStart = function (_p12) {
-	var _p13 = _p12;
-	return _p13._0.start;
-};
-var _mgold$elm_animation$Animation$timeElapsed = F2(
-	function (t, _p14) {
-		var _p15 = _p14;
-		return A2(_elm_lang$core$Basics$max, 0, t - (_p15._0.start + _p15._0.delay));
-	});
-var _mgold$elm_animation$Animation$defaultEase = function (x) {
-	return (1 - _elm_lang$core$Basics$cos(_elm_lang$core$Basics$pi * x)) / 2;
-};
-var _mgold$elm_animation$Animation$spd = F3(
-	function (dos, from, to) {
-		var _p16 = dos;
-		if (_p16.ctor === 'Duration') {
-			return _elm_lang$core$Basics$abs(to - from) / _p16._0;
-		} else {
-			return _p16._0;
-		}
-	});
-var _mgold$elm_animation$Animation$getSpeed = function (_p17) {
-	var _p18 = _p17;
-	return A3(_mgold$elm_animation$Animation$spd, _p18._0.dos, _p18._0.from, _p18._0.to);
-};
-var _mgold$elm_animation$Animation$dur = F3(
-	function (dos, from, to) {
-		var _p19 = dos;
-		if (_p19.ctor === 'Duration') {
-			return _p19._0;
-		} else {
-			return _elm_lang$core$Basics$abs(to - from) / _p19._0;
-		}
-	});
-var _mgold$elm_animation$Animation$animate = F2(
-	function (t, _p20) {
-		var _p21 = _p20;
-		var _p25 = _p21._0.to;
-		var _p24 = _p21._0.start;
-		var _p23 = _p21._0.from;
-		var duration = A3(_mgold$elm_animation$Animation$dur, _p21._0.dos, _p23, _p25);
-		var fr = A3(_elm_lang$core$Basics$clamp, 0, 1, ((t - _p24) - _p21._0.delay) / duration);
-		var eased = _p21._0.ease(fr);
-		var correction = function () {
-			var _p22 = _p21._0.ramp;
-			if (_p22.ctor === 'Nothing') {
-				return 0;
-			} else {
-				var from_ = _p22._0 * (t - _p24);
-				var eased_ = _mgold$elm_animation$Animation$defaultEase(fr);
-				return from_ - (from_ * eased_);
-			}
-		}();
-		return (_p23 + ((_p25 - _p23) * eased)) + correction;
-	});
-var _mgold$elm_animation$Animation$velocity = F2(
-	function (t, u) {
-		var forwDiff = A2(_mgold$elm_animation$Animation$animate, t + 10, u);
-		var backDiff = A2(_mgold$elm_animation$Animation$animate, t - 10, u);
-		return (forwDiff - backDiff) / 20;
-	});
-var _mgold$elm_animation$Animation$timeRemaining = F2(
-	function (t, _p26) {
-		var _p27 = _p26;
-		var duration = A3(_mgold$elm_animation$Animation$dur, _p27._0.dos, _p27._0.from, _p27._0.to);
-		return A2(_elm_lang$core$Basics$max, 0, ((_p27._0.start + _p27._0.delay) + duration) - t);
-	});
-var _mgold$elm_animation$Animation$getDuration = function (_p28) {
-	var _p29 = _p28;
-	return A3(_mgold$elm_animation$Animation$dur, _p29._0.dos, _p29._0.from, _p29._0.to);
-};
-var _mgold$elm_animation$Animation$equals = F2(
-	function (_p31, _p30) {
-		var _p32 = _p31;
-		var _p35 = _p32._0;
-		var _p33 = _p30;
-		var _p34 = _p33._0;
-		return _elm_lang$core$Native_Utils.eq(_p35.start + _p35.delay, _p34.start + _p34.delay) && (_elm_lang$core$Native_Utils.eq(_p35.from, _p34.from) && (_elm_lang$core$Native_Utils.eq(_p35.to, _p34.to) && (_elm_lang$core$Native_Utils.eq(_p35.ramp, _p34.ramp) && ((_elm_lang$core$Native_Utils.eq(_p35.dos, _p34.dos) || (_elm_lang$core$Native_Utils.cmp(
-			1.0e-3,
-			_elm_lang$core$Basics$abs(
-				A3(_mgold$elm_animation$Animation$dur, _p35.dos, _p35.from, _p35.to) - A3(_mgold$elm_animation$Animation$dur, _p34.dos, _p34.from, _p34.to))) > -1)) && A2(
-			_elm_lang$core$List$all,
-			function (t) {
-				return _elm_lang$core$Native_Utils.eq(
-					_p35.ease(t),
-					_p34.ease(t));
-			},
-			{
-				ctor: '::',
-				_0: 0.1,
-				_1: {
-					ctor: '::',
-					_0: 0.3,
-					_1: {
-						ctor: '::',
-						_0: 0.7,
-						_1: {
-							ctor: '::',
-							_0: 0.9,
-							_1: {ctor: '[]'}
-						}
-					}
-				}
-			})))));
-	});
-var _mgold$elm_animation$Animation$isRunning = F2(
-	function (t, _p36) {
-		var _p37 = _p36;
-		var _p39 = _p37._0.start;
-		var _p38 = _p37._0.delay;
-		var duration = A3(_mgold$elm_animation$Animation$dur, _p37._0.dos, _p37._0.from, _p37._0.to);
-		return (_elm_lang$core$Native_Utils.cmp(t, _p39 + _p38) > 0) && ((_elm_lang$core$Native_Utils.cmp(t, (_p39 + _p38) + duration) < 0) && (!_mgold$elm_animation$Animation$isStatic(_p37)));
-	});
-var _mgold$elm_animation$Animation$isDone = F2(
-	function (t, _p40) {
-		var _p41 = _p40;
-		var duration = A3(_mgold$elm_animation$Animation$dur, _p41._0.dos, _p41._0.from, _p41._0.to);
-		return _mgold$elm_animation$Animation$isStatic(_p41) || (_elm_lang$core$Native_Utils.cmp(t, (_p41._0.start + _p41._0.delay) + duration) > -1);
-	});
-var _mgold$elm_animation$Animation$AnimRecord = F7(
-	function (a, b, c, d, e, f, g) {
-		return {start: a, delay: b, dos: c, ramp: d, ease: e, from: f, to: g};
-	});
-var _mgold$elm_animation$Animation$Speed = function (a) {
-	return {ctor: 'Speed', _0: a};
-};
-var _mgold$elm_animation$Animation$Duration = function (a) {
-	return {ctor: 'Duration', _0: a};
-};
-var _mgold$elm_animation$Animation$defaultDuration = _mgold$elm_animation$Animation$Duration(750 * _elm_lang$core$Time$millisecond);
-var _mgold$elm_animation$Animation$A = function (a) {
-	return {ctor: 'A', _0: a};
-};
-var _mgold$elm_animation$Animation$animation = function (t) {
-	return _mgold$elm_animation$Animation$A(
-		A7(_mgold$elm_animation$Animation$AnimRecord, t, 0, _mgold$elm_animation$Animation$defaultDuration, _elm_lang$core$Maybe$Nothing, _mgold$elm_animation$Animation$defaultEase, 0, 1));
-};
-var _mgold$elm_animation$Animation$static = function (x) {
-	return _mgold$elm_animation$Animation$A(
-		A7(_mgold$elm_animation$Animation$AnimRecord, 0, 0, _mgold$elm_animation$Animation$defaultDuration, _elm_lang$core$Maybe$Nothing, _mgold$elm_animation$Animation$defaultEase, x, x));
-};
-var _mgold$elm_animation$Animation$undo = F2(
-	function (t, _p42) {
-		var _p43 = _p42;
-		var _p44 = _p43._0;
-		return _mgold$elm_animation$Animation$A(
-			_elm_lang$core$Native_Utils.update(
-				_p44,
-				{
-					from: _p44.to,
-					to: _p44.from,
-					start: t,
-					delay: 0 - A2(_mgold$elm_animation$Animation$timeRemaining, t, _p43),
-					ramp: _elm_lang$core$Maybe$Nothing,
-					ease: function (t) {
-						return 1 - _p44.ease(1 - t);
-					}
-				}));
-	});
-var _mgold$elm_animation$Animation$retarget = F3(
-	function (t, newTo, _p45) {
-		var _p46 = _p45;
-		var _p49 = _p46;
-		var _p48 = _p46._0;
-		if (_elm_lang$core$Native_Utils.eq(newTo, _p48.to)) {
-			return _p49;
-		} else {
-			if (_mgold$elm_animation$Animation$isStatic(_p49)) {
-				return _mgold$elm_animation$Animation$A(
-					_elm_lang$core$Native_Utils.update(
-						_p48,
-						{start: t, to: newTo, ramp: _elm_lang$core$Maybe$Nothing}));
-			} else {
-				if (A2(_mgold$elm_animation$Animation$isScheduled, t, _p49)) {
-					return _mgold$elm_animation$Animation$A(
-						_elm_lang$core$Native_Utils.update(
-							_p48,
-							{to: newTo, ramp: _elm_lang$core$Maybe$Nothing}));
-				} else {
-					if (A2(_mgold$elm_animation$Animation$isDone, t, _p49)) {
-						return _mgold$elm_animation$Animation$A(
-							_elm_lang$core$Native_Utils.update(
-								_p48,
-								{start: t, delay: 0, from: _p48.to, to: newTo, ramp: _elm_lang$core$Maybe$Nothing}));
-					} else {
-						var newSpeed = function () {
-							var _p47 = _p48.dos;
-							if (_p47.ctor === 'Speed') {
-								return _p48.dos;
-							} else {
-								return _mgold$elm_animation$Animation$Speed(
-									A3(_mgold$elm_animation$Animation$spd, _p48.dos, _p48.from, _p48.to));
-							}
-						}();
-						var pos = A2(_mgold$elm_animation$Animation$animate, t, _p49);
-						var vel = A2(_mgold$elm_animation$Animation$velocity, t, _p49);
-						return _mgold$elm_animation$Animation$A(
-							A7(
-								_mgold$elm_animation$Animation$AnimRecord,
-								t,
-								0,
-								newSpeed,
-								_elm_lang$core$Maybe$Just(vel),
-								_p48.ease,
-								pos,
-								newTo));
-					}
-				}
-			}
-		}
-	});
-var _mgold$elm_animation$Animation$duration = F2(
-	function (x, _p50) {
-		var _p51 = _p50;
-		return _mgold$elm_animation$Animation$A(
-			_elm_lang$core$Native_Utils.update(
-				_p51._0,
-				{
-					dos: _mgold$elm_animation$Animation$Duration(x)
-				}));
-	});
-var _mgold$elm_animation$Animation$speed = F2(
-	function (x, _p52) {
-		var _p53 = _p52;
-		return _mgold$elm_animation$Animation$A(
-			_elm_lang$core$Native_Utils.update(
-				_p53._0,
-				{
-					dos: _mgold$elm_animation$Animation$Speed(
-						_elm_lang$core$Basics$abs(x))
-				}));
-	});
-var _mgold$elm_animation$Animation$delay = F2(
-	function (x, _p54) {
-		var _p55 = _p54;
-		return _mgold$elm_animation$Animation$A(
-			_elm_lang$core$Native_Utils.update(
-				_p55._0,
-				{delay: x}));
-	});
-var _mgold$elm_animation$Animation$ease = F2(
-	function (x, _p56) {
-		var _p57 = _p56;
-		return _mgold$elm_animation$Animation$A(
-			_elm_lang$core$Native_Utils.update(
-				_p57._0,
-				{ease: x}));
-	});
-var _mgold$elm_animation$Animation$from = F2(
-	function (x, _p58) {
-		var _p59 = _p58;
-		return _mgold$elm_animation$Animation$A(
-			_elm_lang$core$Native_Utils.update(
-				_p59._0,
-				{from: x, ramp: _elm_lang$core$Maybe$Nothing}));
-	});
-var _mgold$elm_animation$Animation$to = F2(
-	function (x, _p60) {
-		var _p61 = _p60;
-		return _mgold$elm_animation$Animation$A(
-			_elm_lang$core$Native_Utils.update(
-				_p61._0,
-				{to: x, ramp: _elm_lang$core$Maybe$Nothing}));
-	});
-var _mpizenberg$elm_touch_events$Private_Touch$stopOptions = {stopPropagation: true, preventDefault: true};
-var _mpizenberg$elm_touch_events$Private_Touch$toTuple = function (touch) {
-	return {ctor: '_Tuple2', _0: touch.identifier, _1: touch.coordinates};
-};
-var _mpizenberg$elm_touch_events$Private_Touch$Event = F3(
-	function (a, b, c) {
-		return {changedTouches: a, targetTouches: b, touches: c};
-	});
-var _mpizenberg$elm_touch_events$Private_Touch$Touch = F2(
-	function (a, b) {
-		return {identifier: a, coordinates: b};
-	});
-var _mpizenberg$elm_touch_events$Private_Touch$Coordinates = F2(
-	function (a, b) {
-		return {clientX: a, clientY: b};
-	});
-var _mpizenberg$elm_touch_events$Private_Touch$decode = A3(
-	_elm_lang$core$Json_Decode$map2,
-	_mpizenberg$elm_touch_events$Private_Touch$Touch,
-	A2(_elm_lang$core$Json_Decode$field, 'identifier', _elm_lang$core$Json_Decode$int),
-	A3(
-		_elm_lang$core$Json_Decode$map2,
-		_mpizenberg$elm_touch_events$Private_Touch$Coordinates,
-		A2(_elm_lang$core$Json_Decode$field, 'clientX', _elm_lang$core$Json_Decode$float),
-		A2(_elm_lang$core$Json_Decode$field, 'clientY', _elm_lang$core$Json_Decode$float)));
-var _mpizenberg$elm_touch_events$Touch$clientPos = function (coordinates) {
-	return {
-		ctor: '_Tuple2',
-		_0: function (_) {
-			return _.clientX;
-		}(coordinates),
-		_1: function (_) {
-			return _.clientY;
-		}(coordinates)
+
+var _evancz$elm_markdown$Native_Markdown = function() {
+
+
+// VIRTUAL-DOM WIDGETS
+
+function toHtml(options, factList, rawMarkdown)
+{
+	var model = {
+		options: options,
+		markdown: rawMarkdown
 	};
+	return _elm_lang$virtual_dom$Native_VirtualDom.custom(factList, model, implementation);
+}
+
+
+// WIDGET IMPLEMENTATION
+
+var implementation = {
+	render: render,
+	diff: diff
 };
-var _mpizenberg$elm_touch_events$Touch$touches = function (_) {
-	return _.touches;
-};
-var _mpizenberg$elm_touch_events$Touch$targetTouches = function (_) {
-	return _.targetTouches;
-};
-var _mpizenberg$elm_touch_events$Touch$changedTouches = function (_) {
-	return _.changedTouches;
-};
-var _mpizenberg$elm_touch_events$SingleTouch$decodeCoordinates = A2(
-	_elm_lang$core$Json_Decode$map,
-	function (_) {
-		return _.coordinates;
-	},
-	A2(
-		_elm_lang$core$Json_Decode$at,
+
+function render(model)
+{
+	var html = marked(model.markdown, formatOptions(model.options));
+	var div = document.createElement('div');
+	div.innerHTML = html;
+	return div;
+}
+
+function diff(a, b)
+{
+	
+	if (a.model.markdown === b.model.markdown && a.model.options === b.model.options)
+	{
+		return null;
+	}
+
+	return {
+		applyPatch: applyPatch,
+		data: marked(b.model.markdown, formatOptions(b.model.options))
+	};
+}
+
+function applyPatch(domNode, data)
+{
+	domNode.innerHTML = data;
+	return domNode;
+}
+
+
+// ACTUAL MARKDOWN PARSER
+
+var marked = function() {
+	// catch the `marked` object regardless of the outer environment.
+	// (ex. a CommonJS module compatible environment.)
+	// note that this depends on marked's implementation of environment detection.
+	var module = {};
+	var exports = module.exports = {};
+
+	/**
+	 * marked - a markdown parser
+	 * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
+	 * https://github.com/chjj/marked
+	 * commit cd2f6f5b7091154c5526e79b5f3bfb4d15995a51
+	 */
+	(function(){var block={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:noop,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:noop,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:noop,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};block.bullet=/(?:[*+-]|\d+\.)/;block.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/;block.item=replace(block.item,"gm")(/bull/g,block.bullet)();block.list=replace(block.list)(/bull/g,block.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+block.def.source+")")();block.blockquote=replace(block.blockquote)("def",block.def)();block._tag="(?!(?:"+"a|em|strong|small|s|cite|q|dfn|abbr|data|time|code"+"|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo"+"|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b";block.html=replace(block.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,block._tag)();block.paragraph=replace(block.paragraph)("hr",block.hr)("heading",block.heading)("lheading",block.lheading)("blockquote",block.blockquote)("tag","<"+block._tag)("def",block.def)();block.normal=merge({},block);block.gfm=merge({},block.normal,{fences:/^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,paragraph:/^/,heading:/^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/});block.gfm.paragraph=replace(block.paragraph)("(?!","(?!"+block.gfm.fences.source.replace("\\1","\\2")+"|"+block.list.source.replace("\\1","\\3")+"|")();block.tables=merge({},block.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/});function Lexer(options){this.tokens=[];this.tokens.links={};this.options=options||marked.defaults;this.rules=block.normal;if(this.options.gfm){if(this.options.tables){this.rules=block.tables}else{this.rules=block.gfm}}}Lexer.rules=block;Lexer.lex=function(src,options){var lexer=new Lexer(options);return lexer.lex(src)};Lexer.prototype.lex=function(src){src=src.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n");return this.token(src,true)};Lexer.prototype.token=function(src,top,bq){var src=src.replace(/^ +$/gm,""),next,loose,cap,bull,b,item,space,i,l;while(src){if(cap=this.rules.newline.exec(src)){src=src.substring(cap[0].length);if(cap[0].length>1){this.tokens.push({type:"space"})}}if(cap=this.rules.code.exec(src)){src=src.substring(cap[0].length);cap=cap[0].replace(/^ {4}/gm,"");this.tokens.push({type:"code",text:!this.options.pedantic?cap.replace(/\n+$/,""):cap});continue}if(cap=this.rules.fences.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"code",lang:cap[2],text:cap[3]||""});continue}if(cap=this.rules.heading.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"heading",depth:cap[1].length,text:cap[2]});continue}if(top&&(cap=this.rules.nptable.exec(src))){src=src.substring(cap[0].length);item={type:"table",header:cap[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:cap[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:cap[3].replace(/\n$/,"").split("\n")};for(i=0;i<item.align.length;i++){if(/^ *-+: *$/.test(item.align[i])){item.align[i]="right"}else if(/^ *:-+: *$/.test(item.align[i])){item.align[i]="center"}else if(/^ *:-+ *$/.test(item.align[i])){item.align[i]="left"}else{item.align[i]=null}}for(i=0;i<item.cells.length;i++){item.cells[i]=item.cells[i].split(/ *\| */)}this.tokens.push(item);continue}if(cap=this.rules.lheading.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"heading",depth:cap[2]==="="?1:2,text:cap[1]});continue}if(cap=this.rules.hr.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"hr"});continue}if(cap=this.rules.blockquote.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"blockquote_start"});cap=cap[0].replace(/^ *> ?/gm,"");this.token(cap,top,true);this.tokens.push({type:"blockquote_end"});continue}if(cap=this.rules.list.exec(src)){src=src.substring(cap[0].length);bull=cap[2];this.tokens.push({type:"list_start",ordered:bull.length>1});cap=cap[0].match(this.rules.item);next=false;l=cap.length;i=0;for(;i<l;i++){item=cap[i];space=item.length;item=item.replace(/^ *([*+-]|\d+\.) +/,"");if(~item.indexOf("\n ")){space-=item.length;item=!this.options.pedantic?item.replace(new RegExp("^ {1,"+space+"}","gm"),""):item.replace(/^ {1,4}/gm,"")}if(this.options.smartLists&&i!==l-1){b=block.bullet.exec(cap[i+1])[0];if(bull!==b&&!(bull.length>1&&b.length>1)){src=cap.slice(i+1).join("\n")+src;i=l-1}}loose=next||/\n\n(?!\s*$)/.test(item);if(i!==l-1){next=item.charAt(item.length-1)==="\n";if(!loose)loose=next}this.tokens.push({type:loose?"loose_item_start":"list_item_start"});this.token(item,false,bq);this.tokens.push({type:"list_item_end"})}this.tokens.push({type:"list_end"});continue}if(cap=this.rules.html.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:!this.options.sanitizer&&(cap[1]==="pre"||cap[1]==="script"||cap[1]==="style"),text:cap[0]});continue}if(!bq&&top&&(cap=this.rules.def.exec(src))){src=src.substring(cap[0].length);this.tokens.links[cap[1].toLowerCase()]={href:cap[2],title:cap[3]};continue}if(top&&(cap=this.rules.table.exec(src))){src=src.substring(cap[0].length);item={type:"table",header:cap[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:cap[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:cap[3].replace(/(?: *\| *)?\n$/,"").split("\n")};for(i=0;i<item.align.length;i++){if(/^ *-+: *$/.test(item.align[i])){item.align[i]="right"}else if(/^ *:-+: *$/.test(item.align[i])){item.align[i]="center"}else if(/^ *:-+ *$/.test(item.align[i])){item.align[i]="left"}else{item.align[i]=null}}for(i=0;i<item.cells.length;i++){item.cells[i]=item.cells[i].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */)}this.tokens.push(item);continue}if(top&&(cap=this.rules.paragraph.exec(src))){src=src.substring(cap[0].length);this.tokens.push({type:"paragraph",text:cap[1].charAt(cap[1].length-1)==="\n"?cap[1].slice(0,-1):cap[1]});continue}if(cap=this.rules.text.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"text",text:cap[0]});continue}if(src){throw new Error("Infinite loop on byte: "+src.charCodeAt(0))}}return this.tokens};var inline={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:noop,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:noop,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};inline._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;inline._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;inline.link=replace(inline.link)("inside",inline._inside)("href",inline._href)();inline.reflink=replace(inline.reflink)("inside",inline._inside)();inline.normal=merge({},inline);inline.pedantic=merge({},inline.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/});inline.gfm=merge({},inline.normal,{escape:replace(inline.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:replace(inline.text)("]|","~]|")("|","|https?://|")()});inline.breaks=merge({},inline.gfm,{br:replace(inline.br)("{2,}","*")(),text:replace(inline.gfm.text)("{2,}","*")()});function InlineLexer(links,options){this.options=options||marked.defaults;this.links=links;this.rules=inline.normal;this.renderer=this.options.renderer||new Renderer;this.renderer.options=this.options;if(!this.links){throw new Error("Tokens array requires a `links` property.")}if(this.options.gfm){if(this.options.breaks){this.rules=inline.breaks}else{this.rules=inline.gfm}}else if(this.options.pedantic){this.rules=inline.pedantic}}InlineLexer.rules=inline;InlineLexer.output=function(src,links,options){var inline=new InlineLexer(links,options);return inline.output(src)};InlineLexer.prototype.output=function(src){var out="",link,text,href,cap;while(src){if(cap=this.rules.escape.exec(src)){src=src.substring(cap[0].length);out+=cap[1];continue}if(cap=this.rules.autolink.exec(src)){src=src.substring(cap[0].length);if(cap[2]==="@"){text=cap[1].charAt(6)===":"?this.mangle(cap[1].substring(7)):this.mangle(cap[1]);href=this.mangle("mailto:")+text}else{text=escape(cap[1]);href=text}out+=this.renderer.link(href,null,text);continue}if(!this.inLink&&(cap=this.rules.url.exec(src))){src=src.substring(cap[0].length);text=escape(cap[1]);href=text;out+=this.renderer.link(href,null,text);continue}if(cap=this.rules.tag.exec(src)){if(!this.inLink&&/^<a /i.test(cap[0])){this.inLink=true}else if(this.inLink&&/^<\/a>/i.test(cap[0])){this.inLink=false}src=src.substring(cap[0].length);out+=this.options.sanitize?this.options.sanitizer?this.options.sanitizer(cap[0]):escape(cap[0]):cap[0];continue}if(cap=this.rules.link.exec(src)){src=src.substring(cap[0].length);this.inLink=true;out+=this.outputLink(cap,{href:cap[2],title:cap[3]});this.inLink=false;continue}if((cap=this.rules.reflink.exec(src))||(cap=this.rules.nolink.exec(src))){src=src.substring(cap[0].length);link=(cap[2]||cap[1]).replace(/\s+/g," ");link=this.links[link.toLowerCase()];if(!link||!link.href){out+=cap[0].charAt(0);src=cap[0].substring(1)+src;continue}this.inLink=true;out+=this.outputLink(cap,link);this.inLink=false;continue}if(cap=this.rules.strong.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.strong(this.output(cap[2]||cap[1]));continue}if(cap=this.rules.em.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.em(this.output(cap[2]||cap[1]));continue}if(cap=this.rules.code.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.codespan(escape(cap[2],true));continue}if(cap=this.rules.br.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.br();continue}if(cap=this.rules.del.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.del(this.output(cap[1]));continue}if(cap=this.rules.text.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.text(escape(this.smartypants(cap[0])));continue}if(src){throw new Error("Infinite loop on byte: "+src.charCodeAt(0))}}return out};InlineLexer.prototype.outputLink=function(cap,link){var href=escape(link.href),title=link.title?escape(link.title):null;return cap[0].charAt(0)!=="!"?this.renderer.link(href,title,this.output(cap[1])):this.renderer.image(href,title,escape(cap[1]))};InlineLexer.prototype.smartypants=function(text){if(!this.options.smartypants)return text;return text.replace(/---/g,"—").replace(/--/g,"–").replace(/(^|[-\u2014\/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014\/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…")};InlineLexer.prototype.mangle=function(text){if(!this.options.mangle)return text;var out="",l=text.length,i=0,ch;for(;i<l;i++){ch=text.charCodeAt(i);if(Math.random()>.5){ch="x"+ch.toString(16)}out+="&#"+ch+";"}return out};function Renderer(options){this.options=options||{}}Renderer.prototype.code=function(code,lang,escaped){if(this.options.highlight){var out=this.options.highlight(code,lang);if(out!=null&&out!==code){escaped=true;code=out}}if(!lang){return"<pre><code>"+(escaped?code:escape(code,true))+"\n</code></pre>"}return'<pre><code class="'+this.options.langPrefix+escape(lang,true)+'">'+(escaped?code:escape(code,true))+"\n</code></pre>\n"};Renderer.prototype.blockquote=function(quote){return"<blockquote>\n"+quote+"</blockquote>\n"};Renderer.prototype.html=function(html){return html};Renderer.prototype.heading=function(text,level,raw){return"<h"+level+' id="'+this.options.headerPrefix+raw.toLowerCase().replace(/[^\w]+/g,"-")+'">'+text+"</h"+level+">\n"};Renderer.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"};Renderer.prototype.list=function(body,ordered){var type=ordered?"ol":"ul";return"<"+type+">\n"+body+"</"+type+">\n"};Renderer.prototype.listitem=function(text){return"<li>"+text+"</li>\n"};Renderer.prototype.paragraph=function(text){return"<p>"+text+"</p>\n"};Renderer.prototype.table=function(header,body){return"<table>\n"+"<thead>\n"+header+"</thead>\n"+"<tbody>\n"+body+"</tbody>\n"+"</table>\n"};Renderer.prototype.tablerow=function(content){return"<tr>\n"+content+"</tr>\n"};Renderer.prototype.tablecell=function(content,flags){var type=flags.header?"th":"td";var tag=flags.align?"<"+type+' style="text-align:'+flags.align+'">':"<"+type+">";return tag+content+"</"+type+">\n"};Renderer.prototype.strong=function(text){return"<strong>"+text+"</strong>"};Renderer.prototype.em=function(text){return"<em>"+text+"</em>"};Renderer.prototype.codespan=function(text){return"<code>"+text+"</code>"};Renderer.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"};Renderer.prototype.del=function(text){return"<del>"+text+"</del>"};Renderer.prototype.link=function(href,title,text){if(this.options.sanitize){try{var prot=decodeURIComponent(unescape(href)).replace(/[^\w:]/g,"").toLowerCase()}catch(e){return""}if(prot.indexOf("javascript:")===0||prot.indexOf("vbscript:")===0||prot.indexOf("data:")===0){return""}}var out='<a href="'+href+'"';if(title){out+=' title="'+title+'"'}out+=">"+text+"</a>";return out};Renderer.prototype.image=function(href,title,text){var out='<img src="'+href+'" alt="'+text+'"';if(title){out+=' title="'+title+'"'}out+=this.options.xhtml?"/>":">";return out};Renderer.prototype.text=function(text){return text};function Parser(options){this.tokens=[];this.token=null;this.options=options||marked.defaults;this.options.renderer=this.options.renderer||new Renderer;this.renderer=this.options.renderer;this.renderer.options=this.options}Parser.parse=function(src,options,renderer){var parser=new Parser(options,renderer);return parser.parse(src)};Parser.prototype.parse=function(src){this.inline=new InlineLexer(src.links,this.options,this.renderer);this.tokens=src.reverse();var out="";while(this.next()){out+=this.tok()}return out};Parser.prototype.next=function(){return this.token=this.tokens.pop()};Parser.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0};Parser.prototype.parseText=function(){var body=this.token.text;while(this.peek().type==="text"){body+="\n"+this.next().text}return this.inline.output(body)};Parser.prototype.tok=function(){switch(this.token.type){case"space":{return""}case"hr":{return this.renderer.hr()}case"heading":{return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text)}case"code":{return this.renderer.code(this.token.text,this.token.lang,this.token.escaped)}case"table":{var header="",body="",i,row,cell,flags,j;cell="";for(i=0;i<this.token.header.length;i++){flags={header:true,align:this.token.align[i]};cell+=this.renderer.tablecell(this.inline.output(this.token.header[i]),{header:true,align:this.token.align[i]})}header+=this.renderer.tablerow(cell);for(i=0;i<this.token.cells.length;i++){row=this.token.cells[i];cell="";for(j=0;j<row.length;j++){cell+=this.renderer.tablecell(this.inline.output(row[j]),{header:false,align:this.token.align[j]})}body+=this.renderer.tablerow(cell)}return this.renderer.table(header,body)}case"blockquote_start":{var body="";while(this.next().type!=="blockquote_end"){body+=this.tok()}return this.renderer.blockquote(body)}case"list_start":{var body="",ordered=this.token.ordered;while(this.next().type!=="list_end"){body+=this.tok()}return this.renderer.list(body,ordered)}case"list_item_start":{var body="";while(this.next().type!=="list_item_end"){body+=this.token.type==="text"?this.parseText():this.tok()}return this.renderer.listitem(body)}case"loose_item_start":{var body="";while(this.next().type!=="list_item_end"){body+=this.tok()}return this.renderer.listitem(body)}case"html":{var html=!this.token.pre&&!this.options.pedantic?this.inline.output(this.token.text):this.token.text;return this.renderer.html(html)}case"paragraph":{return this.renderer.paragraph(this.inline.output(this.token.text))}case"text":{return this.renderer.paragraph(this.parseText())}}};function escape(html,encode){return html.replace(!encode?/&(?!#?\w+;)/g:/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function unescape(html){return html.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/g,function(_,n){n=n.toLowerCase();if(n==="colon")return":";if(n.charAt(0)==="#"){return n.charAt(1)==="x"?String.fromCharCode(parseInt(n.substring(2),16)):String.fromCharCode(+n.substring(1))}return""})}function replace(regex,opt){regex=regex.source;opt=opt||"";return function self(name,val){if(!name)return new RegExp(regex,opt);val=val.source||val;val=val.replace(/(^|[^\[])\^/g,"$1");regex=regex.replace(name,val);return self}}function noop(){}noop.exec=noop;function merge(obj){var i=1,target,key;for(;i<arguments.length;i++){target=arguments[i];for(key in target){if(Object.prototype.hasOwnProperty.call(target,key)){obj[key]=target[key]}}}return obj}function marked(src,opt,callback){if(callback||typeof opt==="function"){if(!callback){callback=opt;opt=null}opt=merge({},marked.defaults,opt||{});var highlight=opt.highlight,tokens,pending,i=0;try{tokens=Lexer.lex(src,opt)}catch(e){return callback(e)}pending=tokens.length;var done=function(err){if(err){opt.highlight=highlight;return callback(err)}var out;try{out=Parser.parse(tokens,opt)}catch(e){err=e}opt.highlight=highlight;return err?callback(err):callback(null,out)};if(!highlight||highlight.length<3){return done()}delete opt.highlight;if(!pending)return done();for(;i<tokens.length;i++){(function(token){if(token.type!=="code"){return--pending||done()}return highlight(token.text,token.lang,function(err,code){if(err)return done(err);if(code==null||code===token.text){return--pending||done()}token.text=code;token.escaped=true;--pending||done()})})(tokens[i])}return}try{if(opt)opt=merge({},marked.defaults,opt);return Parser.parse(Lexer.lex(src,opt),opt)}catch(e){e.message+="\nPlease report this to https://github.com/chjj/marked.";if((opt||marked.defaults).silent){return"<p>An error occured:</p><pre>"+escape(e.message+"",true)+"</pre>"}throw e}}marked.options=marked.setOptions=function(opt){merge(marked.defaults,opt);return marked};marked.defaults={gfm:true,tables:true,breaks:false,pedantic:false,sanitize:false,sanitizer:null,mangle:true,smartLists:false,silent:false,highlight:null,langPrefix:"lang-",smartypants:false,headerPrefix:"",renderer:new Renderer,xhtml:false};marked.Parser=Parser;marked.parser=Parser.parse;marked.Renderer=Renderer;marked.Lexer=Lexer;marked.lexer=Lexer.lex;marked.InlineLexer=InlineLexer;marked.inlineLexer=InlineLexer.output;marked.parse=marked;if(typeof module!=="undefined"&&typeof exports==="object"){module.exports=marked}else if(typeof define==="function"&&define.amd){define(function(){return marked})}else{this.marked=marked}}).call(function(){return this||(typeof window!=="undefined"?window:global)}());
+
+	return module.exports;
+}();
+
+
+// FORMAT OPTIONS FOR MARKED IMPLEMENTATION
+
+function formatOptions(options)
+{
+	function toHighlight(code, lang)
+	{
+		if (!lang && options.defaultHighlighting.ctor === 'Just')
 		{
-			ctor: '::',
-			_0: 'changedTouches',
-			_1: {
-				ctor: '::',
-				_0: '0',
-				_1: {ctor: '[]'}
-			}
-		},
-		_mpizenberg$elm_touch_events$Private_Touch$decode));
-var _mpizenberg$elm_touch_events$SingleTouch$on = F2(
-	function (event, tag) {
-		return A3(
-			_elm_lang$html$Html_Events$onWithOptions,
-			event,
-			_mpizenberg$elm_touch_events$Private_Touch$stopOptions,
-			A2(_elm_lang$core$Json_Decode$map, tag, _mpizenberg$elm_touch_events$SingleTouch$decodeCoordinates));
-	});
-var _mpizenberg$elm_touch_events$SingleTouch$onCancel = function (tag) {
-	return A2(_mpizenberg$elm_touch_events$SingleTouch$on, 'touchcancel', tag);
-};
-var _mpizenberg$elm_touch_events$SingleTouch$onEnd = function (tag) {
-	return A2(_mpizenberg$elm_touch_events$SingleTouch$on, 'touchend', tag);
-};
-var _mpizenberg$elm_touch_events$SingleTouch$onMove = function (tag) {
-	return A2(_mpizenberg$elm_touch_events$SingleTouch$on, 'touchmove', tag);
-};
-var _mpizenberg$elm_touch_events$SingleTouch$onStart = function (tag) {
-	return A2(_mpizenberg$elm_touch_events$SingleTouch$on, 'touchstart', tag);
-};
-var _user$project$Types$Cell = F3(
-	function (a, b, c) {
-		return {transform: a, color: b, normal: c};
-	});
-var _user$project$Types$Transformation = F3(
-	function (a, b, c) {
-		return {axis: a, angle: b, coord: c};
-	});
-var _user$project$Types$Attributes = function (a) {
-	return {position: a};
-};
-var _user$project$Types$Model = F8(
-	function (a, b, c, d, e, f, g, h) {
-		return {state: a, rotation: b, perspective: c, camera: d, window: e, devicePixelRatio: f, cubik: g, time: h};
-	});
-var _user$project$Types$Yellow = {ctor: 'Yellow'};
-var _user$project$Types$Orange = {ctor: 'Orange'};
-var _user$project$Types$Blue = {ctor: 'Blue'};
-var _user$project$Types$White = {ctor: 'White'};
-var _user$project$Types$Green = {ctor: 'Green'};
-var _user$project$Types$Red = {ctor: 'Red'};
-var _user$project$Types$ZAxis = {ctor: 'ZAxis'};
-var _user$project$Types$YAxis = {ctor: 'YAxis'};
-var _user$project$Types$XAxis = {ctor: 'XAxis'};
-var _user$project$Types$Animating = F3(
-	function (a, b, c) {
-		return {ctor: 'Animating', _0: a, _1: b, _2: c};
-	});
-var _user$project$Types$Transforming = F3(
-	function (a, b, c) {
-		return {ctor: 'Transforming', _0: a, _1: b, _2: c};
-	});
-var _user$project$Types$TransformStart = F2(
-	function (a, b) {
-		return {ctor: 'TransformStart', _0: a, _1: b};
-	});
-var _user$project$Types$Rotating = function (a) {
-	return {ctor: 'Rotating', _0: a};
-};
-var _user$project$Types$Initial = {ctor: 'Initial'};
-var _user$project$Types$Transform = function (a) {
-	return {ctor: 'Transform', _0: a};
-};
-var _user$project$Types$Down = function (a) {
-	return {ctor: 'Down', _0: a};
-};
-var _user$project$Types$Up = function (a) {
-	return {ctor: 'Up', _0: a};
-};
-var _user$project$Types$Move = function (a) {
-	return {ctor: 'Move', _0: a};
-};
-var _user$project$Types$Resize = function (a) {
-	return {ctor: 'Resize', _0: a};
-};
-var _user$project$Types$Tick = function (a) {
-	return {ctor: 'Tick', _0: a};
-};
-var _user$project$Utils$colorToVec3 = function (color) {
-	var _p0 = color;
-	switch (_p0.ctor) {
-		case 'Red':
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.757, 0.117, 0.227);
-		case 'Green':
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 3.0e-3, 0.619, 0.372);
-		case 'White':
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 1);
-		case 'Blue':
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0.317, 0.729);
-		case 'Orange':
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.937, 0.321, 1.5e-2);
-		default:
-			return A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 0.835, 0);
-	}
-};
-var _user$project$Utils$colorToInt = function (color) {
-	var _p1 = color;
-	switch (_p1.ctor) {
-		case 'Red':
-			return 0;
-		case 'Green':
-			return 1;
-		case 'White':
-			return 2;
-		case 'Blue':
-			return 3;
-		case 'Orange':
-			return 4;
-		default:
-			return 5;
-	}
-};
-var _user$project$Utils$rayTriangleIntersect = F3(
-	function (rayOrigin, rayDirection, _p2) {
-		var _p3 = _p2;
-		var _p4 = _p3._0;
-		var edge2 = A2(_elm_community$linear_algebra$Math_Vector3$sub, _p3._1, _p4);
-		var pvec = A2(_elm_community$linear_algebra$Math_Vector3$cross, rayDirection, edge2);
-		var edge1 = A2(_elm_community$linear_algebra$Math_Vector3$sub, _p3._2, _p4);
-		var det = A2(_elm_community$linear_algebra$Math_Vector3$dot, edge1, pvec);
-		var epsilon = 1.0e-6;
-		if (_elm_lang$core$Native_Utils.cmp(det, epsilon) < 0) {
-			return _elm_lang$core$Maybe$Nothing;
-		} else {
-			var tvec = A2(_elm_community$linear_algebra$Math_Vector3$sub, rayOrigin, _p4);
-			var u = A2(_elm_community$linear_algebra$Math_Vector3$dot, tvec, pvec);
-			if ((_elm_lang$core$Native_Utils.cmp(u, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(u, det) > 0)) {
-				return _elm_lang$core$Maybe$Nothing;
-			} else {
-				var qvec = A2(_elm_community$linear_algebra$Math_Vector3$cross, tvec, edge1);
-				var v = A2(_elm_community$linear_algebra$Math_Vector3$dot, rayDirection, qvec);
-				return ((_elm_lang$core$Native_Utils.cmp(v, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(u + v, det) > 0)) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
-					A2(
-						_elm_community$linear_algebra$Math_Vector3$add,
-						rayOrigin,
-						A2(
-							_elm_community$linear_algebra$Math_Vector3$scale,
-							A2(_elm_community$linear_algebra$Math_Vector3$dot, edge2, qvec) / det,
-							rayDirection)));
-			}
+			lang = options.defaultHighlighting._0;
 		}
-	});
-var _user$project$Utils$rayPlaneIntersect = F4(
-	function (rayOrigin, rayDirection, point, normal) {
-		var vectorDotNormal = A2(_elm_community$linear_algebra$Math_Vector3$dot, rayDirection, normal);
-		var epsilon = 1.0e-6;
-		if (_elm_lang$core$Native_Utils.cmp(vectorDotNormal, 0 - epsilon) > 0) {
-			return _elm_lang$core$Maybe$Nothing;
-		} else {
-			var t = A2(
-				_elm_community$linear_algebra$Math_Vector3$dot,
-				A2(_elm_community$linear_algebra$Math_Vector3$sub, point, rayOrigin),
-				normal) / vectorDotNormal;
-			return _elm_lang$core$Maybe$Just(
-				A2(
-					_elm_community$linear_algebra$Math_Vector3$add,
-					rayOrigin,
-					A2(_elm_community$linear_algebra$Math_Vector3$scale, t, rayDirection)));
+
+		if (typeof hljs !== 'undefined' && lang && hljs.listLanguages().indexOf(lang) >= 0)
+		{
+			return hljs.highlight(lang, code, true).value;
 		}
-	});
-var _user$project$Utils$round3 = function (v) {
-	var _p5 = _elm_community$linear_algebra$Math_Vector3$toTuple(v);
-	var x = _p5._0;
-	var y = _p5._1;
-	var z = _p5._2;
+
+		return code;
+	}
+
+	var gfm = options.githubFlavored;
+	if (gfm.ctor === 'Just')
+	{
+		return {
+			highlight: toHighlight,
+			gfm: true,
+			tables: gfm._0.tables,
+			breaks: gfm._0.breaks,
+			sanitize: options.sanitize,
+			smartypants: options.smartypants
+		};
+	}
+
 	return {
-		ctor: '_Tuple3',
-		_0: _elm_lang$core$Basics$round(x),
-		_1: _elm_lang$core$Basics$round(y),
-		_2: _elm_lang$core$Basics$round(z)
+		highlight: toHighlight,
+		gfm: false,
+		tables: false,
+		breaks: false,
+		sanitize: options.sanitize,
+		smartypants: options.smartypants
 	};
+}
+
+
+// EXPORTS
+
+return {
+	toHtml: F3(toHtml)
 };
-var _user$project$Utils$transform4 = F2(
-	function (mat, v) {
-		var r = _elm_community$linear_algebra$Math_Matrix4$toRecord(mat);
-		return A4(
-			_elm_community$linear_algebra$Math_Vector4$vec4,
-			A2(
-				_elm_community$linear_algebra$Math_Vector4$dot,
-				A4(_elm_community$linear_algebra$Math_Vector4$vec4, r.m11, r.m12, r.m13, r.m14),
-				v),
-			A2(
-				_elm_community$linear_algebra$Math_Vector4$dot,
-				A4(_elm_community$linear_algebra$Math_Vector4$vec4, r.m21, r.m22, r.m23, r.m24),
-				v),
-			A2(
-				_elm_community$linear_algebra$Math_Vector4$dot,
-				A4(_elm_community$linear_algebra$Math_Vector4$vec4, r.m31, r.m32, r.m33, r.m34),
-				v),
-			A2(
-				_elm_community$linear_algebra$Math_Vector4$dot,
-				A4(_elm_community$linear_algebra$Math_Vector4$vec4, r.m41, r.m42, r.m43, r.m44),
-				v));
-	});
-var _user$project$Utils$cellPosition = function (cell) {
-	return A2(
-		_elm_community$linear_algebra$Math_Matrix4$transform,
-		cell.transform,
-		A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -0.45));
+
+}();
+
+var _evancz$elm_markdown$Markdown$toHtmlWith = _evancz$elm_markdown$Native_Markdown.toHtml;
+var _evancz$elm_markdown$Markdown$defaultOptions = {
+	githubFlavored: _elm_lang$core$Maybe$Just(
+		{tables: false, breaks: false}),
+	defaultHighlighting: _elm_lang$core$Maybe$Nothing,
+	sanitize: false,
+	smartypants: false
 };
-var _user$project$Utils$makeRotation = F2(
-	function (rotation, angle) {
-		var _p6 = rotation;
-		switch (_p6.ctor) {
-			case 'XAxis':
-				return A2(_elm_community$linear_algebra$Math_Matrix4$makeRotate, angle, _elm_community$linear_algebra$Math_Vector3$i);
-			case 'YAxis':
-				return A2(_elm_community$linear_algebra$Math_Matrix4$makeRotate, angle, _elm_community$linear_algebra$Math_Vector3$j);
-			default:
-				return A2(_elm_community$linear_algebra$Math_Matrix4$makeRotate, angle, _elm_community$linear_algebra$Math_Vector3$k);
-		}
+var _evancz$elm_markdown$Markdown$toHtml = F2(
+	function (attrs, string) {
+		return A3(_evancz$elm_markdown$Native_Markdown.toHtml, _evancz$elm_markdown$Markdown$defaultOptions, attrs, string);
 	});
-var _user$project$Utils$rotateCell = F3(
-	function (rotation, angle, cell) {
-		var rotationMat4 = A2(_user$project$Utils$makeRotation, rotation, angle);
-		return _elm_lang$core$Native_Utils.update(
-			cell,
-			{
-				transform: A2(_elm_community$linear_algebra$Math_Matrix4$mul, rotationMat4, cell.transform),
-				normal: A2(_elm_community$linear_algebra$Math_Matrix4$transform, rotationMat4, cell.normal)
-			});
+var _evancz$elm_markdown$Markdown$Options = F4(
+	function (a, b, c, d) {
+		return {githubFlavored: a, defaultHighlighting: b, sanitize: c, smartypants: d};
 	});
-var _user$project$Utils$cellRotationCoord = F2(
-	function (axis, cell) {
-		var _p7 = axis;
-		switch (_p7.ctor) {
-			case 'XAxis':
-				return _elm_lang$core$Basics$round(
-					_elm_community$linear_algebra$Math_Vector3$getX(
-						_user$project$Utils$cellPosition(cell)));
-			case 'YAxis':
-				return _elm_lang$core$Basics$round(
-					_elm_community$linear_algebra$Math_Vector3$getY(
-						_user$project$Utils$cellPosition(cell)));
-			default:
-				return _elm_lang$core$Basics$round(
-					_elm_community$linear_algebra$Math_Vector3$getZ(
-						_user$project$Utils$cellPosition(cell)));
-		}
+
+var _ohanhi$keyboard_extra$Keyboard_Extra$boolToInt = function (bool) {
+	return bool ? 1 : 0;
+};
+var _ohanhi$keyboard_extra$Keyboard_Extra$remove = F2(
+	function (code, list) {
+		return A2(
+			_elm_lang$core$List$filter,
+			F2(
+				function (x, y) {
+					return !_elm_lang$core$Native_Utils.eq(x, y);
+				})(code),
+			list);
 	});
-var _user$project$Utils$randomAngle = A2(
-	_elm_lang$core$Random$map,
-	function (_p8) {
+var _ohanhi$keyboard_extra$Keyboard_Extra$insert = F2(
+	function (code, list) {
 		return A2(
 			F2(
 				function (x, y) {
-					return x * y;
+					return {ctor: '::', _0: x, _1: y};
 				}),
-			_elm_lang$core$Basics$pi / 2,
-			_elm_lang$core$Basics$toFloat(_p8));
-	},
-	A2(_elm_lang$core$Random$int, -2, 2));
-var _user$project$Utils$randomRotation = A2(
-	_elm_lang$core$Random$map,
-	function (i) {
-		var _p9 = i;
-		switch (_p9) {
-			case 0:
-				return _user$project$Types$XAxis;
-			case 1:
-				return _user$project$Types$YAxis;
-			default:
-				return _user$project$Types$ZAxis;
-		}
-	},
-	A2(_elm_lang$core$Random$int, 0, 2));
-var _user$project$Utils$randomTransformation = A4(
-	_elm_lang$core$Random$map3,
-	_user$project$Types$Transformation,
-	_user$project$Utils$randomRotation,
-	_user$project$Utils$randomAngle,
-	A2(_elm_lang$core$Random$int, -1, 1));
-var _user$project$Utils$randomTransformationsHelp = function (i) {
-	return _elm_lang$core$Native_Utils.eq(i, 0) ? _elm_lang$core$Basics$identity : function (_p10) {
-		return A2(
-			_user$project$Utils$randomTransformationsHelp,
-			i - 1,
-			A2(
-				_elm_lang$core$Random$andThen,
-				function (transforms) {
-					return A2(
-						_elm_lang$core$Random$map,
-						function (t) {
-							return {ctor: '::', _0: t, _1: transforms};
-						},
-						_user$project$Utils$randomTransformation);
-				},
-				_p10));
-	};
-};
-var _user$project$Utils$randomTransformations = function (i) {
-	return A2(
-		_user$project$Utils$randomTransformationsHelp,
-		i - 1,
-		A2(
-			_elm_lang$core$Random$map,
-			function (t) {
-				return {
-					ctor: '::',
-					_0: t,
-					_1: {ctor: '[]'}
-				};
-			},
-			_user$project$Utils$randomTransformation));
-};
-var _user$project$Utils$checkSolvedHelp = F2(
-	function (memo, list) {
-		checkSolvedHelp:
-		while (true) {
-			var _p11 = list;
-			if (_p11.ctor === '[]') {
-				return true;
-			} else {
-				var _p14 = _p11._1;
-				var _p13 = _p11._0.color;
-				var roundNormal = _user$project$Utils$round3(_p11._0.normal);
-				var intColor = _user$project$Utils$colorToInt(_p13);
-				var _p12 = A2(_elm_lang$core$Dict$get, intColor, memo);
-				if (_p12.ctor === 'Just') {
-					if (_elm_lang$core$Native_Utils.eq(roundNormal, _p12._0)) {
-						var _v8 = memo,
-							_v9 = _p14;
-						memo = _v8;
-						list = _v9;
-						continue checkSolvedHelp;
-					} else {
-						return false;
-					}
-				} else {
-					var _v10 = A3(
-						_elm_lang$core$Dict$insert,
-						_user$project$Utils$colorToInt(_p13),
-						roundNormal,
-						memo),
-						_v11 = _p14;
-					memo = _v10;
-					list = _v11;
-					continue checkSolvedHelp;
-				}
-			}
+			code,
+			A2(_ohanhi$keyboard_extra$Keyboard_Extra$remove, code, list));
+	});
+var _ohanhi$keyboard_extra$Keyboard_Extra$update = F2(
+	function (msg, state) {
+		var _p0 = msg;
+		if (_p0.ctor === 'Down') {
+			return A2(_ohanhi$keyboard_extra$Keyboard_Extra$insert, _p0._0, state);
+		} else {
+			return A2(_ohanhi$keyboard_extra$Keyboard_Extra$remove, _p0._0, state);
 		}
 	});
-var _user$project$Utils$checkSolved = function (_p15) {
-	return A2(
-		_user$project$Utils$checkSolvedHelp,
-		_elm_lang$core$Dict$empty,
-		_elm_lang$core$Dict$values(_p15));
+var _ohanhi$keyboard_extra$Keyboard_Extra$Arrows = F2(
+	function (a, b) {
+		return {x: a, y: b};
+	});
+var _ohanhi$keyboard_extra$Keyboard_Extra$Up = function (a) {
+	return {ctor: 'Up', _0: a};
 };
-var _user$project$Decode$frontFace = function (color) {
-	return A2(
-		_elm_lang$core$List$concatMap,
-		function (x) {
-			return A2(
-				_elm_lang$core$List$map,
-				function (y) {
-					return A3(
-						_user$project$Types$Cell,
-						A3(
-							_elm_community$linear_algebra$Math_Matrix4$makeTranslate3,
-							_elm_lang$core$Basics$toFloat(x),
-							_elm_lang$core$Basics$toFloat(y),
-							-1),
-						color,
-						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -1));
-				},
-				A2(_elm_lang$core$List$range, -1, 1));
-		},
-		A2(_elm_lang$core$List$range, -1, 1));
+var _ohanhi$keyboard_extra$Keyboard_Extra$Down = function (a) {
+	return {ctor: 'Down', _0: a};
 };
-var _user$project$Decode$makeSide = function (color) {
-	var _p0 = color;
-	switch (_p0.ctor) {
-		case 'Green':
-			return _user$project$Decode$frontFace(color);
-		case 'Blue':
-			return A2(
-				_elm_lang$core$List$map,
-				A2(_user$project$Utils$rotateCell, _user$project$Types$XAxis, _elm_lang$core$Basics$pi),
-				_user$project$Decode$frontFace(color));
-		case 'White':
-			return A2(
-				_elm_lang$core$List$map,
-				A2(_user$project$Utils$rotateCell, _user$project$Types$XAxis, _elm_lang$core$Basics$pi / 2),
-				_user$project$Decode$frontFace(color));
-		case 'Yellow':
-			return A2(
-				_elm_lang$core$List$map,
-				A2(_user$project$Utils$rotateCell, _user$project$Types$XAxis, (0 - _elm_lang$core$Basics$pi) / 2),
-				_user$project$Decode$frontFace(color));
-		case 'Orange':
-			return A2(
-				_elm_lang$core$List$map,
-				A2(_user$project$Utils$rotateCell, _user$project$Types$YAxis, (0 - _elm_lang$core$Basics$pi) / 2),
-				_user$project$Decode$frontFace(color));
-		default:
-			return A2(
-				_elm_lang$core$List$map,
-				A2(_user$project$Utils$rotateCell, _user$project$Types$YAxis, _elm_lang$core$Basics$pi / 2),
-				_user$project$Decode$frontFace(color));
-	}
+var _ohanhi$keyboard_extra$Keyboard_Extra$KeyUp = function (a) {
+	return {ctor: 'KeyUp', _0: a};
 };
-var _user$project$Decode$defaultCubik = _elm_lang$core$Dict$fromList(
-	A2(
-		_elm_lang$core$List$indexedMap,
-		F2(
-			function (v0, v1) {
-				return {ctor: '_Tuple2', _0: v0, _1: v1};
-			}),
-		A2(
-			_elm_lang$core$List$concatMap,
-			_user$project$Decode$makeSide,
-			{
-				ctor: '::',
-				_0: _user$project$Types$Red,
-				_1: {
-					ctor: '::',
-					_0: _user$project$Types$Green,
-					_1: {
-						ctor: '::',
-						_0: _user$project$Types$White,
-						_1: {
-							ctor: '::',
-							_0: _user$project$Types$Blue,
-							_1: {
-								ctor: '::',
-								_0: _user$project$Types$Orange,
-								_1: {
-									ctor: '::',
-									_0: _user$project$Types$Yellow,
-									_1: {ctor: '[]'}
-								}
-							}
-						}
+var _ohanhi$keyboard_extra$Keyboard_Extra$KeyDown = function (a) {
+	return {ctor: 'KeyDown', _0: a};
+};
+var _ohanhi$keyboard_extra$Keyboard_Extra$updateWithKeyChange = F2(
+	function (msg, state) {
+		var _p1 = msg;
+		if (_p1.ctor === 'Down') {
+			var _p2 = _p1._0;
+			var nextState = A2(_ohanhi$keyboard_extra$Keyboard_Extra$insert, _p2, state);
+			var change = (!_elm_lang$core$Native_Utils.eq(
+				_elm_lang$core$List$length(nextState),
+				_elm_lang$core$List$length(state))) ? _elm_lang$core$Maybe$Just(
+				_ohanhi$keyboard_extra$Keyboard_Extra$KeyDown(_p2)) : _elm_lang$core$Maybe$Nothing;
+			return {ctor: '_Tuple2', _0: nextState, _1: change};
+		} else {
+			var _p3 = _p1._0;
+			var nextState = A2(_ohanhi$keyboard_extra$Keyboard_Extra$remove, _p3, state);
+			var change = (!_elm_lang$core$Native_Utils.eq(
+				_elm_lang$core$List$length(nextState),
+				_elm_lang$core$List$length(state))) ? _elm_lang$core$Maybe$Just(
+				_ohanhi$keyboard_extra$Keyboard_Extra$KeyUp(_p3)) : _elm_lang$core$Maybe$Nothing;
+			return {ctor: '_Tuple2', _0: nextState, _1: change};
+		}
+	});
+var _ohanhi$keyboard_extra$Keyboard_Extra$NoDirection = {ctor: 'NoDirection'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$NorthWest = {ctor: 'NorthWest'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$West = {ctor: 'West'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$SouthWest = {ctor: 'SouthWest'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$South = {ctor: 'South'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$SouthEast = {ctor: 'SouthEast'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$East = {ctor: 'East'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$NorthEast = {ctor: 'NorthEast'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$North = {ctor: 'North'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$arrowsToDir = function (_p4) {
+	var _p5 = _p4;
+	var _p6 = {ctor: '_Tuple2', _0: _p5.x, _1: _p5.y};
+	_v3_8:
+	do {
+		if (_p6.ctor === '_Tuple2') {
+			switch (_p6._0) {
+				case 1:
+					switch (_p6._1) {
+						case 1:
+							return _ohanhi$keyboard_extra$Keyboard_Extra$NorthEast;
+						case 0:
+							return _ohanhi$keyboard_extra$Keyboard_Extra$East;
+						case -1:
+							return _ohanhi$keyboard_extra$Keyboard_Extra$SouthEast;
+						default:
+							break _v3_8;
 					}
-				}
-			})));
-var _user$project$Decode$defaultRotation = A2(
-	_elm_community$linear_algebra$Math_Matrix4$mul,
-	A2(_elm_community$linear_algebra$Math_Matrix4$makeRotate, (0 - _elm_lang$core$Basics$pi) / 4, _elm_community$linear_algebra$Math_Vector3$i),
-	A2(
-		_elm_community$linear_algebra$Math_Matrix4$mul,
-		A2(_elm_community$linear_algebra$Math_Matrix4$makeRotate, _elm_lang$core$Basics$pi / 4, _elm_community$linear_algebra$Math_Vector3$j),
-		_elm_community$linear_algebra$Math_Matrix4$identity));
-var _user$project$Decode$mat4 = A2(
-	_elm_lang$core$Json_Decode$andThen,
-	function (l) {
-		var _p1 = l;
-		if (((((((((((((((((_p1.ctor === '::') && (_p1._1.ctor === '::')) && (_p1._1._1.ctor === '::')) && (_p1._1._1._1.ctor === '::')) && (_p1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1._1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1._1._1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1._1._1._1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1._1._1._1._1._1._1._1._1._1.ctor === '::')) && (_p1._1._1._1._1._1._1._1._1._1._1._1._1._1._1._1._1.ctor === '[]')) {
-			return _elm_lang$core$Json_Decode$succeed(
-				_elm_community$linear_algebra$Math_Matrix4$fromRecord(
-					{m11: _p1._0, m21: _p1._1._0, m31: _p1._1._1._0, m41: _p1._1._1._1._0, m12: _p1._1._1._1._1._0, m22: _p1._1._1._1._1._1._0, m32: _p1._1._1._1._1._1._1._0, m42: _p1._1._1._1._1._1._1._1._0, m13: _p1._1._1._1._1._1._1._1._1._0, m23: _p1._1._1._1._1._1._1._1._1._1._0, m33: _p1._1._1._1._1._1._1._1._1._1._1._0, m43: _p1._1._1._1._1._1._1._1._1._1._1._1._0, m14: _p1._1._1._1._1._1._1._1._1._1._1._1._1._0, m24: _p1._1._1._1._1._1._1._1._1._1._1._1._1._1._0, m34: _p1._1._1._1._1._1._1._1._1._1._1._1._1._1._1._0, m44: _p1._1._1._1._1._1._1._1._1._1._1._1._1._1._1._1._0}));
+				case 0:
+					switch (_p6._1) {
+						case 1:
+							return _ohanhi$keyboard_extra$Keyboard_Extra$North;
+						case -1:
+							return _ohanhi$keyboard_extra$Keyboard_Extra$South;
+						default:
+							break _v3_8;
+					}
+				case -1:
+					switch (_p6._1) {
+						case -1:
+							return _ohanhi$keyboard_extra$Keyboard_Extra$SouthWest;
+						case 0:
+							return _ohanhi$keyboard_extra$Keyboard_Extra$West;
+						case 1:
+							return _ohanhi$keyboard_extra$Keyboard_Extra$NorthWest;
+						default:
+							break _v3_8;
+					}
+				default:
+					break _v3_8;
+			}
 		} else {
-			return _elm_lang$core$Json_Decode$fail('Wrong number of matrix components');
+			break _v3_8;
 		}
-	},
-	_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$float));
-var _user$project$Decode$vec3 = A2(
-	_elm_lang$core$Json_Decode$andThen,
-	function (l) {
-		var _p2 = l;
-		if ((((_p2.ctor === '::') && (_p2._1.ctor === '::')) && (_p2._1._1.ctor === '::')) && (_p2._1._1._1.ctor === '[]')) {
-			return _elm_lang$core$Json_Decode$succeed(
-				A3(_elm_community$linear_algebra$Math_Vector3$vec3, _p2._0, _p2._1._0, _p2._1._1._0));
-		} else {
-			return _elm_lang$core$Json_Decode$fail('Wrong number of vector components');
-		}
-	},
-	_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$float));
-var _user$project$Decode$color = A2(
-	_elm_lang$core$Json_Decode$andThen,
-	function (c) {
-		var _p3 = c;
-		switch (_p3) {
-			case 'red':
-				return _elm_lang$core$Json_Decode$succeed(_user$project$Types$Red);
-			case 'white':
-				return _elm_lang$core$Json_Decode$succeed(_user$project$Types$White);
-			case 'blue':
-				return _elm_lang$core$Json_Decode$succeed(_user$project$Types$Blue);
-			case 'orange':
-				return _elm_lang$core$Json_Decode$succeed(_user$project$Types$Orange);
-			case 'yellow':
-				return _elm_lang$core$Json_Decode$succeed(_user$project$Types$Yellow);
-			case 'green':
-				return _elm_lang$core$Json_Decode$succeed(_user$project$Types$Green);
-			default:
-				return _elm_lang$core$Json_Decode$fail(
-					A2(_elm_lang$core$Basics_ops['++'], 'Unknown color: ', _p3));
-		}
-	},
-	_elm_lang$core$Json_Decode$string);
-var _user$project$Decode$cell = A4(
-	_elm_lang$core$Json_Decode$map3,
-	_user$project$Types$Cell,
-	A2(_elm_lang$core$Json_Decode$field, 'transform', _user$project$Decode$mat4),
-	A2(_elm_lang$core$Json_Decode$field, 'color', _user$project$Decode$color),
-	A2(_elm_lang$core$Json_Decode$field, 'normal', _user$project$Decode$vec3));
-var _user$project$Decode$cells = A2(
-	_elm_lang$core$Json_Decode$map,
-	function (_p4) {
-		return _elm_lang$core$Dict$fromList(
-			A2(
-				_elm_lang$core$List$indexedMap,
-				F2(
-					function (v0, v1) {
-						return {ctor: '_Tuple2', _0: v0, _1: v1};
-					}),
-				_p4));
-	},
-	_elm_lang$core$Json_Decode$list(_user$project$Decode$cell));
-var _user$project$Decode$origin = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -11);
-var _user$project$Decode$model = function (value) {
-	var cubik = A2(
-		_elm_lang$core$Result$withDefault,
-		_user$project$Decode$defaultCubik,
-		A2(
-			_elm_lang$core$Json_Decode$decodeValue,
-			A2(_elm_lang$core$Json_Decode$field, 'cubik', _user$project$Decode$cells),
-			value));
-	var rotation = A2(
-		_elm_lang$core$Result$withDefault,
-		_user$project$Decode$defaultRotation,
-		A2(
-			_elm_lang$core$Json_Decode$decodeValue,
-			A2(_elm_lang$core$Json_Decode$field, 'rotation', _user$project$Decode$mat4),
-			value));
-	var devicePixelRatio = A2(
-		_elm_lang$core$Result$withDefault,
-		2,
-		A2(
-			_elm_lang$core$Json_Decode$decodeValue,
-			A2(_elm_lang$core$Json_Decode$field, 'devicePixelRatio', _elm_lang$core$Json_Decode$float),
-			value));
-	var height = A2(
-		_elm_lang$core$Result$withDefault,
-		0,
-		A2(
-			_elm_lang$core$Json_Decode$decodeValue,
-			A2(_elm_lang$core$Json_Decode$field, 'height', _elm_lang$core$Json_Decode$int),
-			value));
-	var width = A2(
-		_elm_lang$core$Result$withDefault,
-		0,
-		A2(
-			_elm_lang$core$Json_Decode$decodeValue,
-			A2(_elm_lang$core$Json_Decode$field, 'width', _elm_lang$core$Json_Decode$int),
-			value));
-	return {
-		state: _user$project$Types$Initial,
-		rotation: rotation,
-		perspective: _elm_community$linear_algebra$Math_Matrix4$identity,
-		camera: A3(
-			_elm_community$linear_algebra$Math_Matrix4$makeLookAt,
-			_user$project$Decode$origin,
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
-			_elm_community$linear_algebra$Math_Vector3$j),
-		window: A2(_elm_lang$window$Window$Size, width, height),
-		devicePixelRatio: devicePixelRatio,
-		cubik: cubik,
-		time: 0
+	} while(false);
+	return _ohanhi$keyboard_extra$Keyboard_Extra$NoDirection;
+};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Other = {ctor: 'Other'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Altgr = {ctor: 'Altgr'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Meta = {ctor: 'Meta'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Quote = {ctor: 'Quote'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CloseBracket = {ctor: 'CloseBracket'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$BackSlash = {ctor: 'BackSlash'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$OpenBracket = {ctor: 'OpenBracket'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$BackQuote = {ctor: 'BackQuote'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Slash = {ctor: 'Slash'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Period = {ctor: 'Period'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Minus = {ctor: 'Minus'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Comma = {ctor: 'Comma'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$VolumeUp = {ctor: 'VolumeUp'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$VolumeDown = {ctor: 'VolumeDown'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$VolumeMute = {ctor: 'VolumeMute'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Tilde = {ctor: 'Tilde'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CloseCurlyBracket = {ctor: 'CloseCurlyBracket'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$OpenCurlyBracket = {ctor: 'OpenCurlyBracket'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$HyphenMinus = {ctor: 'HyphenMinus'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Pipe = {ctor: 'Pipe'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Plus = {ctor: 'Plus'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Asterisk = {ctor: 'Asterisk'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CloseParen = {ctor: 'CloseParen'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$OpenParen = {ctor: 'OpenParen'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Underscore = {ctor: 'Underscore'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Ampersand = {ctor: 'Ampersand'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Percent = {ctor: 'Percent'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Dollar = {ctor: 'Dollar'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Hash = {ctor: 'Hash'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$DoubleQuote = {ctor: 'DoubleQuote'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Exclamation = {ctor: 'Exclamation'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Circumflex = {ctor: 'Circumflex'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$ScrollLock = {ctor: 'ScrollLock'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$NumLock = {ctor: 'NumLock'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F24 = {ctor: 'F24'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F23 = {ctor: 'F23'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F22 = {ctor: 'F22'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F21 = {ctor: 'F21'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F20 = {ctor: 'F20'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F19 = {ctor: 'F19'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F18 = {ctor: 'F18'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F17 = {ctor: 'F17'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F16 = {ctor: 'F16'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F15 = {ctor: 'F15'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F14 = {ctor: 'F14'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F13 = {ctor: 'F13'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F12 = {ctor: 'F12'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F11 = {ctor: 'F11'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F10 = {ctor: 'F10'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F9 = {ctor: 'F9'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F8 = {ctor: 'F8'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F7 = {ctor: 'F7'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F6 = {ctor: 'F6'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F5 = {ctor: 'F5'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F4 = {ctor: 'F4'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F3 = {ctor: 'F3'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F2 = {ctor: 'F2'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$F1 = {ctor: 'F1'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Divide = {ctor: 'Divide'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Decimal = {ctor: 'Decimal'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Subtract = {ctor: 'Subtract'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Separator = {ctor: 'Separator'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Add = {ctor: 'Add'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Multiply = {ctor: 'Multiply'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Numpad9 = {ctor: 'Numpad9'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Numpad8 = {ctor: 'Numpad8'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Numpad7 = {ctor: 'Numpad7'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Numpad6 = {ctor: 'Numpad6'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Numpad5 = {ctor: 'Numpad5'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Numpad4 = {ctor: 'Numpad4'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Numpad3 = {ctor: 'Numpad3'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Numpad2 = {ctor: 'Numpad2'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Numpad1 = {ctor: 'Numpad1'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Numpad0 = {ctor: 'Numpad0'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Sleep = {ctor: 'Sleep'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$ContextMenu = {ctor: 'ContextMenu'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Super = {ctor: 'Super'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharZ = {ctor: 'CharZ'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharY = {ctor: 'CharY'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharX = {ctor: 'CharX'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharW = {ctor: 'CharW'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharV = {ctor: 'CharV'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharU = {ctor: 'CharU'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharT = {ctor: 'CharT'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharS = {ctor: 'CharS'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharR = {ctor: 'CharR'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharQ = {ctor: 'CharQ'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharP = {ctor: 'CharP'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharO = {ctor: 'CharO'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharN = {ctor: 'CharN'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharM = {ctor: 'CharM'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharL = {ctor: 'CharL'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharK = {ctor: 'CharK'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharJ = {ctor: 'CharJ'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharI = {ctor: 'CharI'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharH = {ctor: 'CharH'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharG = {ctor: 'CharG'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharF = {ctor: 'CharF'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharE = {ctor: 'CharE'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharD = {ctor: 'CharD'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharC = {ctor: 'CharC'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharB = {ctor: 'CharB'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CharA = {ctor: 'CharA'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$wasd = function (keys) {
+	var toInt = function (key) {
+		return _ohanhi$keyboard_extra$Keyboard_Extra$boolToInt(
+			A2(_elm_lang$core$List$member, key, keys));
 	};
+	var x = toInt(_ohanhi$keyboard_extra$Keyboard_Extra$CharD) - toInt(_ohanhi$keyboard_extra$Keyboard_Extra$CharA);
+	var y = toInt(_ohanhi$keyboard_extra$Keyboard_Extra$CharW) - toInt(_ohanhi$keyboard_extra$Keyboard_Extra$CharS);
+	return {x: x, y: y};
 };
-var _user$project$Encode$color = function (col) {
-	var _p0 = col;
-	switch (_p0.ctor) {
-		case 'Red':
-			return _elm_lang$core$Json_Encode$string('red');
-		case 'White':
-			return _elm_lang$core$Json_Encode$string('white');
-		case 'Blue':
-			return _elm_lang$core$Json_Encode$string('blue');
-		case 'Orange':
-			return _elm_lang$core$Json_Encode$string('orange');
-		case 'Yellow':
-			return _elm_lang$core$Json_Encode$string('yellow');
-		default:
-			return _elm_lang$core$Json_Encode$string('green');
-	}
+var _ohanhi$keyboard_extra$Keyboard_Extra$wasdDirection = function (_p7) {
+	return _ohanhi$keyboard_extra$Keyboard_Extra$arrowsToDir(
+		_ohanhi$keyboard_extra$Keyboard_Extra$wasd(_p7));
 };
-var _user$project$Encode$vec3 = function (vec) {
-	var r = _elm_community$linear_algebra$Math_Vector3$toRecord(vec);
-	return _elm_lang$core$Json_Encode$list(
-		A2(
-			_elm_lang$core$List$map,
-			_elm_lang$core$Json_Encode$float,
-			{
+var _ohanhi$keyboard_extra$Keyboard_Extra$At = {ctor: 'At'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$QuestionMark = {ctor: 'QuestionMark'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$GreaterThan = {ctor: 'GreaterThan'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Equals = {ctor: 'Equals'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$LessThan = {ctor: 'LessThan'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Semicolon = {ctor: 'Semicolon'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Colon = {ctor: 'Colon'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Number9 = {ctor: 'Number9'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Number8 = {ctor: 'Number8'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Number7 = {ctor: 'Number7'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Number6 = {ctor: 'Number6'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Number5 = {ctor: 'Number5'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Number4 = {ctor: 'Number4'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Number3 = {ctor: 'Number3'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Number2 = {ctor: 'Number2'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Number1 = {ctor: 'Number1'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Number0 = {ctor: 'Number0'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Delete = {ctor: 'Delete'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Insert = {ctor: 'Insert'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$PrintScreen = {ctor: 'PrintScreen'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Execute = {ctor: 'Execute'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Print = {ctor: 'Print'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Select = {ctor: 'Select'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$ArrowDown = {ctor: 'ArrowDown'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$ArrowRight = {ctor: 'ArrowRight'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$ArrowUp = {ctor: 'ArrowUp'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$ArrowLeft = {ctor: 'ArrowLeft'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$arrows = function (keys) {
+	var toInt = function (key) {
+		return _ohanhi$keyboard_extra$Keyboard_Extra$boolToInt(
+			A2(_elm_lang$core$List$member, key, keys));
+	};
+	var x = toInt(_ohanhi$keyboard_extra$Keyboard_Extra$ArrowRight) - toInt(_ohanhi$keyboard_extra$Keyboard_Extra$ArrowLeft);
+	var y = toInt(_ohanhi$keyboard_extra$Keyboard_Extra$ArrowUp) - toInt(_ohanhi$keyboard_extra$Keyboard_Extra$ArrowDown);
+	return {x: x, y: y};
+};
+var _ohanhi$keyboard_extra$Keyboard_Extra$arrowsDirection = function (_p8) {
+	return _ohanhi$keyboard_extra$Keyboard_Extra$arrowsToDir(
+		_ohanhi$keyboard_extra$Keyboard_Extra$arrows(_p8));
+};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Home = {ctor: 'Home'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$End = {ctor: 'End'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$PageDown = {ctor: 'PageDown'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$PageUp = {ctor: 'PageUp'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Space = {ctor: 'Space'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$ModeChange = {ctor: 'ModeChange'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Accept = {ctor: 'Accept'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$NonConvert = {ctor: 'NonConvert'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Convert = {ctor: 'Convert'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Escape = {ctor: 'Escape'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$CapsLock = {ctor: 'CapsLock'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Pause = {ctor: 'Pause'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Alt = {ctor: 'Alt'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Control = {ctor: 'Control'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Shift = {ctor: 'Shift'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Enter = {ctor: 'Enter'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Clear = {ctor: 'Clear'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Tab = {ctor: 'Tab'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$BackSpace = {ctor: 'BackSpace'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Help = {ctor: 'Help'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$Cancel = {ctor: 'Cancel'};
+var _ohanhi$keyboard_extra$Keyboard_Extra$codeBook = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 3, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Cancel},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 6, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Help},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 8, _1: _ohanhi$keyboard_extra$Keyboard_Extra$BackSpace},
+			_1: {
 				ctor: '::',
-				_0: r.x,
+				_0: {ctor: '_Tuple2', _0: 9, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Tab},
 				_1: {
 					ctor: '::',
-					_0: r.y,
+					_0: {ctor: '_Tuple2', _0: 12, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Clear},
 					_1: {
 						ctor: '::',
-						_0: r.z,
-						_1: {ctor: '[]'}
-					}
-				}
-			}));
-};
-var _user$project$Encode$mat4 = function (mat) {
-	var r = _elm_community$linear_algebra$Math_Matrix4$toRecord(mat);
-	return _elm_lang$core$Json_Encode$list(
-		A2(
-			_elm_lang$core$List$map,
-			_elm_lang$core$Json_Encode$float,
-			{
-				ctor: '::',
-				_0: r.m11,
-				_1: {
-					ctor: '::',
-					_0: r.m21,
-					_1: {
-						ctor: '::',
-						_0: r.m31,
+						_0: {ctor: '_Tuple2', _0: 13, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Enter},
 						_1: {
 							ctor: '::',
-							_0: r.m41,
+							_0: {ctor: '_Tuple2', _0: 16, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Shift},
 							_1: {
 								ctor: '::',
-								_0: r.m12,
+								_0: {ctor: '_Tuple2', _0: 17, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Control},
 								_1: {
 									ctor: '::',
-									_0: r.m22,
+									_0: {ctor: '_Tuple2', _0: 18, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Alt},
 									_1: {
 										ctor: '::',
-										_0: r.m32,
+										_0: {ctor: '_Tuple2', _0: 19, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Pause},
 										_1: {
 											ctor: '::',
-											_0: r.m42,
+											_0: {ctor: '_Tuple2', _0: 20, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CapsLock},
 											_1: {
 												ctor: '::',
-												_0: r.m13,
+												_0: {ctor: '_Tuple2', _0: 27, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Escape},
 												_1: {
 													ctor: '::',
-													_0: r.m23,
+													_0: {ctor: '_Tuple2', _0: 28, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Convert},
 													_1: {
 														ctor: '::',
-														_0: r.m33,
+														_0: {ctor: '_Tuple2', _0: 29, _1: _ohanhi$keyboard_extra$Keyboard_Extra$NonConvert},
 														_1: {
 															ctor: '::',
-															_0: r.m43,
+															_0: {ctor: '_Tuple2', _0: 30, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Accept},
 															_1: {
 																ctor: '::',
-																_0: r.m14,
+																_0: {ctor: '_Tuple2', _0: 31, _1: _ohanhi$keyboard_extra$Keyboard_Extra$ModeChange},
 																_1: {
 																	ctor: '::',
-																	_0: r.m24,
+																	_0: {ctor: '_Tuple2', _0: 32, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Space},
 																	_1: {
 																		ctor: '::',
-																		_0: r.m34,
+																		_0: {ctor: '_Tuple2', _0: 33, _1: _ohanhi$keyboard_extra$Keyboard_Extra$PageUp},
 																		_1: {
 																			ctor: '::',
-																			_0: r.m44,
-																			_1: {ctor: '[]'}
+																			_0: {ctor: '_Tuple2', _0: 34, _1: _ohanhi$keyboard_extra$Keyboard_Extra$PageDown},
+																			_1: {
+																				ctor: '::',
+																				_0: {ctor: '_Tuple2', _0: 35, _1: _ohanhi$keyboard_extra$Keyboard_Extra$End},
+																				_1: {
+																					ctor: '::',
+																					_0: {ctor: '_Tuple2', _0: 36, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Home},
+																					_1: {
+																						ctor: '::',
+																						_0: {ctor: '_Tuple2', _0: 37, _1: _ohanhi$keyboard_extra$Keyboard_Extra$ArrowLeft},
+																						_1: {
+																							ctor: '::',
+																							_0: {ctor: '_Tuple2', _0: 38, _1: _ohanhi$keyboard_extra$Keyboard_Extra$ArrowUp},
+																							_1: {
+																								ctor: '::',
+																								_0: {ctor: '_Tuple2', _0: 39, _1: _ohanhi$keyboard_extra$Keyboard_Extra$ArrowRight},
+																								_1: {
+																									ctor: '::',
+																									_0: {ctor: '_Tuple2', _0: 40, _1: _ohanhi$keyboard_extra$Keyboard_Extra$ArrowDown},
+																									_1: {
+																										ctor: '::',
+																										_0: {ctor: '_Tuple2', _0: 41, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Select},
+																										_1: {
+																											ctor: '::',
+																											_0: {ctor: '_Tuple2', _0: 42, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Print},
+																											_1: {
+																												ctor: '::',
+																												_0: {ctor: '_Tuple2', _0: 43, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Execute},
+																												_1: {
+																													ctor: '::',
+																													_0: {ctor: '_Tuple2', _0: 44, _1: _ohanhi$keyboard_extra$Keyboard_Extra$PrintScreen},
+																													_1: {
+																														ctor: '::',
+																														_0: {ctor: '_Tuple2', _0: 45, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Insert},
+																														_1: {
+																															ctor: '::',
+																															_0: {ctor: '_Tuple2', _0: 46, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Delete},
+																															_1: {
+																																ctor: '::',
+																																_0: {ctor: '_Tuple2', _0: 48, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Number0},
+																																_1: {
+																																	ctor: '::',
+																																	_0: {ctor: '_Tuple2', _0: 49, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Number1},
+																																	_1: {
+																																		ctor: '::',
+																																		_0: {ctor: '_Tuple2', _0: 50, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Number2},
+																																		_1: {
+																																			ctor: '::',
+																																			_0: {ctor: '_Tuple2', _0: 51, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Number3},
+																																			_1: {
+																																				ctor: '::',
+																																				_0: {ctor: '_Tuple2', _0: 52, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Number4},
+																																				_1: {
+																																					ctor: '::',
+																																					_0: {ctor: '_Tuple2', _0: 53, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Number5},
+																																					_1: {
+																																						ctor: '::',
+																																						_0: {ctor: '_Tuple2', _0: 54, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Number6},
+																																						_1: {
+																																							ctor: '::',
+																																							_0: {ctor: '_Tuple2', _0: 55, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Number7},
+																																							_1: {
+																																								ctor: '::',
+																																								_0: {ctor: '_Tuple2', _0: 56, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Number8},
+																																								_1: {
+																																									ctor: '::',
+																																									_0: {ctor: '_Tuple2', _0: 57, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Number9},
+																																									_1: {
+																																										ctor: '::',
+																																										_0: {ctor: '_Tuple2', _0: 58, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Colon},
+																																										_1: {
+																																											ctor: '::',
+																																											_0: {ctor: '_Tuple2', _0: 59, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Semicolon},
+																																											_1: {
+																																												ctor: '::',
+																																												_0: {ctor: '_Tuple2', _0: 60, _1: _ohanhi$keyboard_extra$Keyboard_Extra$LessThan},
+																																												_1: {
+																																													ctor: '::',
+																																													_0: {ctor: '_Tuple2', _0: 61, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Equals},
+																																													_1: {
+																																														ctor: '::',
+																																														_0: {ctor: '_Tuple2', _0: 62, _1: _ohanhi$keyboard_extra$Keyboard_Extra$GreaterThan},
+																																														_1: {
+																																															ctor: '::',
+																																															_0: {ctor: '_Tuple2', _0: 63, _1: _ohanhi$keyboard_extra$Keyboard_Extra$QuestionMark},
+																																															_1: {
+																																																ctor: '::',
+																																																_0: {ctor: '_Tuple2', _0: 64, _1: _ohanhi$keyboard_extra$Keyboard_Extra$At},
+																																																_1: {
+																																																	ctor: '::',
+																																																	_0: {ctor: '_Tuple2', _0: 65, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharA},
+																																																	_1: {
+																																																		ctor: '::',
+																																																		_0: {ctor: '_Tuple2', _0: 66, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharB},
+																																																		_1: {
+																																																			ctor: '::',
+																																																			_0: {ctor: '_Tuple2', _0: 67, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharC},
+																																																			_1: {
+																																																				ctor: '::',
+																																																				_0: {ctor: '_Tuple2', _0: 68, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharD},
+																																																				_1: {
+																																																					ctor: '::',
+																																																					_0: {ctor: '_Tuple2', _0: 69, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharE},
+																																																					_1: {
+																																																						ctor: '::',
+																																																						_0: {ctor: '_Tuple2', _0: 70, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharF},
+																																																						_1: {
+																																																							ctor: '::',
+																																																							_0: {ctor: '_Tuple2', _0: 71, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharG},
+																																																							_1: {
+																																																								ctor: '::',
+																																																								_0: {ctor: '_Tuple2', _0: 72, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharH},
+																																																								_1: {
+																																																									ctor: '::',
+																																																									_0: {ctor: '_Tuple2', _0: 73, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharI},
+																																																									_1: {
+																																																										ctor: '::',
+																																																										_0: {ctor: '_Tuple2', _0: 74, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharJ},
+																																																										_1: {
+																																																											ctor: '::',
+																																																											_0: {ctor: '_Tuple2', _0: 75, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharK},
+																																																											_1: {
+																																																												ctor: '::',
+																																																												_0: {ctor: '_Tuple2', _0: 76, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharL},
+																																																												_1: {
+																																																													ctor: '::',
+																																																													_0: {ctor: '_Tuple2', _0: 77, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharM},
+																																																													_1: {
+																																																														ctor: '::',
+																																																														_0: {ctor: '_Tuple2', _0: 78, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharN},
+																																																														_1: {
+																																																															ctor: '::',
+																																																															_0: {ctor: '_Tuple2', _0: 79, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharO},
+																																																															_1: {
+																																																																ctor: '::',
+																																																																_0: {ctor: '_Tuple2', _0: 80, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharP},
+																																																																_1: {
+																																																																	ctor: '::',
+																																																																	_0: {ctor: '_Tuple2', _0: 81, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharQ},
+																																																																	_1: {
+																																																																		ctor: '::',
+																																																																		_0: {ctor: '_Tuple2', _0: 82, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharR},
+																																																																		_1: {
+																																																																			ctor: '::',
+																																																																			_0: {ctor: '_Tuple2', _0: 83, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharS},
+																																																																			_1: {
+																																																																				ctor: '::',
+																																																																				_0: {ctor: '_Tuple2', _0: 84, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharT},
+																																																																				_1: {
+																																																																					ctor: '::',
+																																																																					_0: {ctor: '_Tuple2', _0: 85, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharU},
+																																																																					_1: {
+																																																																						ctor: '::',
+																																																																						_0: {ctor: '_Tuple2', _0: 86, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharV},
+																																																																						_1: {
+																																																																							ctor: '::',
+																																																																							_0: {ctor: '_Tuple2', _0: 87, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharW},
+																																																																							_1: {
+																																																																								ctor: '::',
+																																																																								_0: {ctor: '_Tuple2', _0: 88, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharX},
+																																																																								_1: {
+																																																																									ctor: '::',
+																																																																									_0: {ctor: '_Tuple2', _0: 89, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharY},
+																																																																									_1: {
+																																																																										ctor: '::',
+																																																																										_0: {ctor: '_Tuple2', _0: 90, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CharZ},
+																																																																										_1: {
+																																																																											ctor: '::',
+																																																																											_0: {ctor: '_Tuple2', _0: 91, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Super},
+																																																																											_1: {
+																																																																												ctor: '::',
+																																																																												_0: {ctor: '_Tuple2', _0: 93, _1: _ohanhi$keyboard_extra$Keyboard_Extra$ContextMenu},
+																																																																												_1: {
+																																																																													ctor: '::',
+																																																																													_0: {ctor: '_Tuple2', _0: 95, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Sleep},
+																																																																													_1: {
+																																																																														ctor: '::',
+																																																																														_0: {ctor: '_Tuple2', _0: 96, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Numpad0},
+																																																																														_1: {
+																																																																															ctor: '::',
+																																																																															_0: {ctor: '_Tuple2', _0: 97, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Numpad1},
+																																																																															_1: {
+																																																																																ctor: '::',
+																																																																																_0: {ctor: '_Tuple2', _0: 98, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Numpad2},
+																																																																																_1: {
+																																																																																	ctor: '::',
+																																																																																	_0: {ctor: '_Tuple2', _0: 99, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Numpad3},
+																																																																																	_1: {
+																																																																																		ctor: '::',
+																																																																																		_0: {ctor: '_Tuple2', _0: 100, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Numpad4},
+																																																																																		_1: {
+																																																																																			ctor: '::',
+																																																																																			_0: {ctor: '_Tuple2', _0: 101, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Numpad5},
+																																																																																			_1: {
+																																																																																				ctor: '::',
+																																																																																				_0: {ctor: '_Tuple2', _0: 102, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Numpad6},
+																																																																																				_1: {
+																																																																																					ctor: '::',
+																																																																																					_0: {ctor: '_Tuple2', _0: 103, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Numpad7},
+																																																																																					_1: {
+																																																																																						ctor: '::',
+																																																																																						_0: {ctor: '_Tuple2', _0: 104, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Numpad8},
+																																																																																						_1: {
+																																																																																							ctor: '::',
+																																																																																							_0: {ctor: '_Tuple2', _0: 105, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Numpad9},
+																																																																																							_1: {
+																																																																																								ctor: '::',
+																																																																																								_0: {ctor: '_Tuple2', _0: 106, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Multiply},
+																																																																																								_1: {
+																																																																																									ctor: '::',
+																																																																																									_0: {ctor: '_Tuple2', _0: 107, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Add},
+																																																																																									_1: {
+																																																																																										ctor: '::',
+																																																																																										_0: {ctor: '_Tuple2', _0: 108, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Separator},
+																																																																																										_1: {
+																																																																																											ctor: '::',
+																																																																																											_0: {ctor: '_Tuple2', _0: 109, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Subtract},
+																																																																																											_1: {
+																																																																																												ctor: '::',
+																																																																																												_0: {ctor: '_Tuple2', _0: 110, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Decimal},
+																																																																																												_1: {
+																																																																																													ctor: '::',
+																																																																																													_0: {ctor: '_Tuple2', _0: 111, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Divide},
+																																																																																													_1: {
+																																																																																														ctor: '::',
+																																																																																														_0: {ctor: '_Tuple2', _0: 112, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F1},
+																																																																																														_1: {
+																																																																																															ctor: '::',
+																																																																																															_0: {ctor: '_Tuple2', _0: 113, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F2},
+																																																																																															_1: {
+																																																																																																ctor: '::',
+																																																																																																_0: {ctor: '_Tuple2', _0: 114, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F3},
+																																																																																																_1: {
+																																																																																																	ctor: '::',
+																																																																																																	_0: {ctor: '_Tuple2', _0: 115, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F4},
+																																																																																																	_1: {
+																																																																																																		ctor: '::',
+																																																																																																		_0: {ctor: '_Tuple2', _0: 116, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F5},
+																																																																																																		_1: {
+																																																																																																			ctor: '::',
+																																																																																																			_0: {ctor: '_Tuple2', _0: 117, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F6},
+																																																																																																			_1: {
+																																																																																																				ctor: '::',
+																																																																																																				_0: {ctor: '_Tuple2', _0: 118, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F7},
+																																																																																																				_1: {
+																																																																																																					ctor: '::',
+																																																																																																					_0: {ctor: '_Tuple2', _0: 119, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F8},
+																																																																																																					_1: {
+																																																																																																						ctor: '::',
+																																																																																																						_0: {ctor: '_Tuple2', _0: 120, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F9},
+																																																																																																						_1: {
+																																																																																																							ctor: '::',
+																																																																																																							_0: {ctor: '_Tuple2', _0: 121, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F10},
+																																																																																																							_1: {
+																																																																																																								ctor: '::',
+																																																																																																								_0: {ctor: '_Tuple2', _0: 122, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F11},
+																																																																																																								_1: {
+																																																																																																									ctor: '::',
+																																																																																																									_0: {ctor: '_Tuple2', _0: 123, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F12},
+																																																																																																									_1: {
+																																																																																																										ctor: '::',
+																																																																																																										_0: {ctor: '_Tuple2', _0: 124, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F13},
+																																																																																																										_1: {
+																																																																																																											ctor: '::',
+																																																																																																											_0: {ctor: '_Tuple2', _0: 125, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F14},
+																																																																																																											_1: {
+																																																																																																												ctor: '::',
+																																																																																																												_0: {ctor: '_Tuple2', _0: 126, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F15},
+																																																																																																												_1: {
+																																																																																																													ctor: '::',
+																																																																																																													_0: {ctor: '_Tuple2', _0: 127, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F16},
+																																																																																																													_1: {
+																																																																																																														ctor: '::',
+																																																																																																														_0: {ctor: '_Tuple2', _0: 128, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F17},
+																																																																																																														_1: {
+																																																																																																															ctor: '::',
+																																																																																																															_0: {ctor: '_Tuple2', _0: 129, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F18},
+																																																																																																															_1: {
+																																																																																																																ctor: '::',
+																																																																																																																_0: {ctor: '_Tuple2', _0: 130, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F19},
+																																																																																																																_1: {
+																																																																																																																	ctor: '::',
+																																																																																																																	_0: {ctor: '_Tuple2', _0: 131, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F20},
+																																																																																																																	_1: {
+																																																																																																																		ctor: '::',
+																																																																																																																		_0: {ctor: '_Tuple2', _0: 132, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F21},
+																																																																																																																		_1: {
+																																																																																																																			ctor: '::',
+																																																																																																																			_0: {ctor: '_Tuple2', _0: 133, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F22},
+																																																																																																																			_1: {
+																																																																																																																				ctor: '::',
+																																																																																																																				_0: {ctor: '_Tuple2', _0: 134, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F23},
+																																																																																																																				_1: {
+																																																																																																																					ctor: '::',
+																																																																																																																					_0: {ctor: '_Tuple2', _0: 135, _1: _ohanhi$keyboard_extra$Keyboard_Extra$F24},
+																																																																																																																					_1: {
+																																																																																																																						ctor: '::',
+																																																																																																																						_0: {ctor: '_Tuple2', _0: 144, _1: _ohanhi$keyboard_extra$Keyboard_Extra$NumLock},
+																																																																																																																						_1: {
+																																																																																																																							ctor: '::',
+																																																																																																																							_0: {ctor: '_Tuple2', _0: 145, _1: _ohanhi$keyboard_extra$Keyboard_Extra$ScrollLock},
+																																																																																																																							_1: {
+																																																																																																																								ctor: '::',
+																																																																																																																								_0: {ctor: '_Tuple2', _0: 160, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Circumflex},
+																																																																																																																								_1: {
+																																																																																																																									ctor: '::',
+																																																																																																																									_0: {ctor: '_Tuple2', _0: 161, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Exclamation},
+																																																																																																																									_1: {
+																																																																																																																										ctor: '::',
+																																																																																																																										_0: {ctor: '_Tuple2', _0: 162, _1: _ohanhi$keyboard_extra$Keyboard_Extra$DoubleQuote},
+																																																																																																																										_1: {
+																																																																																																																											ctor: '::',
+																																																																																																																											_0: {ctor: '_Tuple2', _0: 163, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Hash},
+																																																																																																																											_1: {
+																																																																																																																												ctor: '::',
+																																																																																																																												_0: {ctor: '_Tuple2', _0: 164, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Dollar},
+																																																																																																																												_1: {
+																																																																																																																													ctor: '::',
+																																																																																																																													_0: {ctor: '_Tuple2', _0: 165, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Percent},
+																																																																																																																													_1: {
+																																																																																																																														ctor: '::',
+																																																																																																																														_0: {ctor: '_Tuple2', _0: 166, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Ampersand},
+																																																																																																																														_1: {
+																																																																																																																															ctor: '::',
+																																																																																																																															_0: {ctor: '_Tuple2', _0: 167, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Underscore},
+																																																																																																																															_1: {
+																																																																																																																																ctor: '::',
+																																																																																																																																_0: {ctor: '_Tuple2', _0: 168, _1: _ohanhi$keyboard_extra$Keyboard_Extra$OpenParen},
+																																																																																																																																_1: {
+																																																																																																																																	ctor: '::',
+																																																																																																																																	_0: {ctor: '_Tuple2', _0: 169, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CloseParen},
+																																																																																																																																	_1: {
+																																																																																																																																		ctor: '::',
+																																																																																																																																		_0: {ctor: '_Tuple2', _0: 170, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Asterisk},
+																																																																																																																																		_1: {
+																																																																																																																																			ctor: '::',
+																																																																																																																																			_0: {ctor: '_Tuple2', _0: 171, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Plus},
+																																																																																																																																			_1: {
+																																																																																																																																				ctor: '::',
+																																																																																																																																				_0: {ctor: '_Tuple2', _0: 172, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Pipe},
+																																																																																																																																				_1: {
+																																																																																																																																					ctor: '::',
+																																																																																																																																					_0: {ctor: '_Tuple2', _0: 173, _1: _ohanhi$keyboard_extra$Keyboard_Extra$HyphenMinus},
+																																																																																																																																					_1: {
+																																																																																																																																						ctor: '::',
+																																																																																																																																						_0: {ctor: '_Tuple2', _0: 174, _1: _ohanhi$keyboard_extra$Keyboard_Extra$OpenCurlyBracket},
+																																																																																																																																						_1: {
+																																																																																																																																							ctor: '::',
+																																																																																																																																							_0: {ctor: '_Tuple2', _0: 175, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CloseCurlyBracket},
+																																																																																																																																							_1: {
+																																																																																																																																								ctor: '::',
+																																																																																																																																								_0: {ctor: '_Tuple2', _0: 176, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Tilde},
+																																																																																																																																								_1: {
+																																																																																																																																									ctor: '::',
+																																																																																																																																									_0: {ctor: '_Tuple2', _0: 181, _1: _ohanhi$keyboard_extra$Keyboard_Extra$VolumeMute},
+																																																																																																																																									_1: {
+																																																																																																																																										ctor: '::',
+																																																																																																																																										_0: {ctor: '_Tuple2', _0: 182, _1: _ohanhi$keyboard_extra$Keyboard_Extra$VolumeDown},
+																																																																																																																																										_1: {
+																																																																																																																																											ctor: '::',
+																																																																																																																																											_0: {ctor: '_Tuple2', _0: 183, _1: _ohanhi$keyboard_extra$Keyboard_Extra$VolumeUp},
+																																																																																																																																											_1: {
+																																																																																																																																												ctor: '::',
+																																																																																																																																												_0: {ctor: '_Tuple2', _0: 186, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Semicolon},
+																																																																																																																																												_1: {
+																																																																																																																																													ctor: '::',
+																																																																																																																																													_0: {ctor: '_Tuple2', _0: 187, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Equals},
+																																																																																																																																													_1: {
+																																																																																																																																														ctor: '::',
+																																																																																																																																														_0: {ctor: '_Tuple2', _0: 188, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Comma},
+																																																																																																																																														_1: {
+																																																																																																																																															ctor: '::',
+																																																																																																																																															_0: {ctor: '_Tuple2', _0: 189, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Minus},
+																																																																																																																																															_1: {
+																																																																																																																																																ctor: '::',
+																																																																																																																																																_0: {ctor: '_Tuple2', _0: 190, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Period},
+																																																																																																																																																_1: {
+																																																																																																																																																	ctor: '::',
+																																																																																																																																																	_0: {ctor: '_Tuple2', _0: 191, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Slash},
+																																																																																																																																																	_1: {
+																																																																																																																																																		ctor: '::',
+																																																																																																																																																		_0: {ctor: '_Tuple2', _0: 192, _1: _ohanhi$keyboard_extra$Keyboard_Extra$BackQuote},
+																																																																																																																																																		_1: {
+																																																																																																																																																			ctor: '::',
+																																																																																																																																																			_0: {ctor: '_Tuple2', _0: 219, _1: _ohanhi$keyboard_extra$Keyboard_Extra$OpenBracket},
+																																																																																																																																																			_1: {
+																																																																																																																																																				ctor: '::',
+																																																																																																																																																				_0: {ctor: '_Tuple2', _0: 220, _1: _ohanhi$keyboard_extra$Keyboard_Extra$BackSlash},
+																																																																																																																																																				_1: {
+																																																																																																																																																					ctor: '::',
+																																																																																																																																																					_0: {ctor: '_Tuple2', _0: 221, _1: _ohanhi$keyboard_extra$Keyboard_Extra$CloseBracket},
+																																																																																																																																																					_1: {
+																																																																																																																																																						ctor: '::',
+																																																																																																																																																						_0: {ctor: '_Tuple2', _0: 222, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Quote},
+																																																																																																																																																						_1: {
+																																																																																																																																																							ctor: '::',
+																																																																																																																																																							_0: {ctor: '_Tuple2', _0: 224, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Meta},
+																																																																																																																																																							_1: {
+																																																																																																																																																								ctor: '::',
+																																																																																																																																																								_0: {ctor: '_Tuple2', _0: 225, _1: _ohanhi$keyboard_extra$Keyboard_Extra$Altgr},
+																																																																																																																																																								_1: {ctor: '[]'}
+																																																																																																																																																							}
+																																																																																																																																																						}
+																																																																																																																																																					}
+																																																																																																																																																				}
+																																																																																																																																																			}
+																																																																																																																																																		}
+																																																																																																																																																	}
+																																																																																																																																																}
+																																																																																																																																															}
+																																																																																																																																														}
+																																																																																																																																													}
+																																																																																																																																												}
+																																																																																																																																											}
+																																																																																																																																										}
+																																																																																																																																									}
+																																																																																																																																								}
+																																																																																																																																							}
+																																																																																																																																						}
+																																																																																																																																					}
+																																																																																																																																				}
+																																																																																																																																			}
+																																																																																																																																		}
+																																																																																																																																	}
+																																																																																																																																}
+																																																																																																																															}
+																																																																																																																														}
+																																																																																																																													}
+																																																																																																																												}
+																																																																																																																											}
+																																																																																																																										}
+																																																																																																																									}
+																																																																																																																								}
+																																																																																																																							}
+																																																																																																																						}
+																																																																																																																					}
+																																																																																																																				}
+																																																																																																																			}
+																																																																																																																		}
+																																																																																																																	}
+																																																																																																																}
+																																																																																																															}
+																																																																																																														}
+																																																																																																													}
+																																																																																																												}
+																																																																																																											}
+																																																																																																										}
+																																																																																																									}
+																																																																																																								}
+																																																																																																							}
+																																																																																																						}
+																																																																																																					}
+																																																																																																				}
+																																																																																																			}
+																																																																																																		}
+																																																																																																	}
+																																																																																																}
+																																																																																															}
+																																																																																														}
+																																																																																													}
+																																																																																												}
+																																																																																											}
+																																																																																										}
+																																																																																									}
+																																																																																								}
+																																																																																							}
+																																																																																						}
+																																																																																					}
+																																																																																				}
+																																																																																			}
+																																																																																		}
+																																																																																	}
+																																																																																}
+																																																																															}
+																																																																														}
+																																																																													}
+																																																																												}
+																																																																											}
+																																																																										}
+																																																																									}
+																																																																								}
+																																																																							}
+																																																																						}
+																																																																					}
+																																																																				}
+																																																																			}
+																																																																		}
+																																																																	}
+																																																																}
+																																																															}
+																																																														}
+																																																													}
+																																																												}
+																																																											}
+																																																										}
+																																																									}
+																																																								}
+																																																							}
+																																																						}
+																																																					}
+																																																				}
+																																																			}
+																																																		}
+																																																	}
+																																																}
+																																															}
+																																														}
+																																													}
+																																												}
+																																											}
+																																										}
+																																									}
+																																								}
+																																							}
+																																						}
+																																					}
+																																				}
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
 																		}
 																	}
 																}
@@ -13768,281 +14902,1758 @@ var _user$project$Encode$mat4 = function (mat) {
 						}
 					}
 				}
-			}));
-};
-var _user$project$Encode$cell = function (c) {
-	return _elm_lang$core$Json_Encode$object(
-		{
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: 'transform',
-				_1: _user$project$Encode$mat4(c.transform)
-			},
-			_1: {
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'color',
-					_1: _user$project$Encode$color(c.color)
-				},
-				_1: {
-					ctor: '::',
-					_0: {
-						ctor: '_Tuple2',
-						_0: 'normal',
-						_1: _user$project$Encode$vec3(c.normal)
-					},
-					_1: {ctor: '[]'}
-				}
 			}
-		});
+		}
+	}
 };
-var _user$project$Encode$model = function (_p1) {
-	var _p2 = _p1;
-	return _elm_lang$core$Json_Encode$object(
-		{
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: 'cubik',
-				_1: _elm_lang$core$Json_Encode$list(
-					A2(
-						_elm_lang$core$List$map,
-						_user$project$Encode$cell,
-						_elm_lang$core$Dict$values(_p2.cubik)))
-			},
-			_1: {
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'rotation',
-					_1: _user$project$Encode$mat4(_p2.rotation)
-				},
-				_1: {ctor: '[]'}
-			}
-		});
-};
-var _user$project$View$fragmentShader = {'src': '\n        precision mediump float;\n        uniform vec3 color;\n\n        void main () {\n          gl_FragColor = vec4(color, 1.0);\n        }\n    '};
-var _user$project$View$vertexShader = {'src': '\n        attribute vec3 position;\n        uniform mat4 camera;\n        uniform mat4 perspective;\n        uniform mat4 rotation;\n        uniform mat4 transform;\n\n        void main () {\n          gl_Position = perspective * camera * rotation * transform * vec4(position, 1.0);\n        }\n    '};
-var _user$project$View$touchToMouse = function (coordinates) {
-	var _p0 = _mpizenberg$elm_touch_events$Touch$clientPos(coordinates);
-	var x = _p0._0;
-	var y = _p0._1;
+var _ohanhi$keyboard_extra$Keyboard_Extra$toCode = function (key) {
 	return A2(
-		_elm_lang$mouse$Mouse$Position,
-		_elm_lang$core$Basics$round(x),
-		_elm_lang$core$Basics$round(y));
+		_elm_lang$core$Maybe$withDefault,
+		0,
+		_elm_lang$core$List$head(
+			A2(
+				_elm_lang$core$List$map,
+				_elm_lang$core$Tuple$first,
+				A2(
+					_elm_lang$core$List$filter,
+					function (_p9) {
+						return A2(
+							F2(
+								function (x, y) {
+									return _elm_lang$core$Native_Utils.eq(x, y);
+								}),
+							key,
+							_elm_lang$core$Tuple$second(_p9));
+					},
+					_ohanhi$keyboard_extra$Keyboard_Extra$codeBook))));
 };
-var _user$project$View$face = F4(
-	function (a, b, c, d) {
-		return {
+var _ohanhi$keyboard_extra$Keyboard_Extra$codeDict = _elm_lang$core$Dict$fromList(_ohanhi$keyboard_extra$Keyboard_Extra$codeBook);
+var _ohanhi$keyboard_extra$Keyboard_Extra$fromCode = function (code) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		_ohanhi$keyboard_extra$Keyboard_Extra$Other,
+		A2(_elm_lang$core$Dict$get, code, _ohanhi$keyboard_extra$Keyboard_Extra$codeDict));
+};
+var _ohanhi$keyboard_extra$Keyboard_Extra$downs = function (toMsg) {
+	return _elm_lang$keyboard$Keyboard$downs(
+		function (_p10) {
+			return toMsg(
+				_ohanhi$keyboard_extra$Keyboard_Extra$fromCode(_p10));
+		});
+};
+var _ohanhi$keyboard_extra$Keyboard_Extra$ups = function (toMsg) {
+	return _elm_lang$keyboard$Keyboard$ups(
+		function (_p11) {
+			return toMsg(
+				_ohanhi$keyboard_extra$Keyboard_Extra$fromCode(_p11));
+		});
+};
+var _ohanhi$keyboard_extra$Keyboard_Extra$subscriptions = _elm_lang$core$Platform_Sub$batch(
+	{
+		ctor: '::',
+		_0: _elm_lang$keyboard$Keyboard$downs(
+			function (_p12) {
+				return _ohanhi$keyboard_extra$Keyboard_Extra$Down(
+					_ohanhi$keyboard_extra$Keyboard_Extra$fromCode(_p12));
+			}),
+		_1: {
 			ctor: '::',
-			_0: {
-				ctor: '_Tuple3',
-				_0: _user$project$Types$Attributes(a),
-				_1: _user$project$Types$Attributes(b),
-				_2: _user$project$Types$Attributes(c)
-			},
-			_1: {
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple3',
-					_0: _user$project$Types$Attributes(c),
-					_1: _user$project$Types$Attributes(d),
-					_2: _user$project$Types$Attributes(a)
-				},
-				_1: {ctor: '[]'}
-			}
-		};
+			_0: _elm_lang$keyboard$Keyboard$ups(
+				function (_p13) {
+					return _ohanhi$keyboard_extra$Keyboard_Extra$Up(
+						_ohanhi$keyboard_extra$Keyboard_Extra$fromCode(_p13));
+				}),
+			_1: {ctor: '[]'}
+		}
 	});
-var _user$project$View$cubeMesh = function () {
-	var lbb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, -0.5);
-	var lfb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, -0.5);
-	var rfb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, -0.5);
-	var rbb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, -0.5);
-	var rbt = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, 0.5);
-	var lbt = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, 0.5);
-	var lft = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, 0.5);
-	var rft = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0.5);
-	return _elm_community$webgl$WebGL$triangles(
-		_elm_lang$core$List$concat(
+var _ohanhi$keyboard_extra$Keyboard_Extra$targetKey = A2(
+	_elm_lang$core$Json_Decode$map,
+	_ohanhi$keyboard_extra$Keyboard_Extra$fromCode,
+	A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int));
+
+var _w0rm$elm_slice_show$Animation2D_Main$fragmentShader = {'src': '\n\n  precision mediump float;\n  uniform sampler2D texture;\n  uniform vec2 textureSize;\n  uniform vec2 frameSize;\n  uniform int frame;\n  varying vec2 texturePos;\n\n  void main () {\n    vec2 size = frameSize / textureSize;\n    int frames = int(1.0 / size.x);\n    vec2 frameOffset = vec2(float(frame - frame / frames * frames), float(frame / frames));\n    vec2 textureSpace = size * (texturePos + frameOffset);\n    vec4 temp = texture2D(texture, vec2(textureSpace.x, -textureSpace.y));\n    float a = temp.a;\n    gl_FragColor = vec4(temp.r * a, temp.g * a, temp.b * a, a);\n  }\n\n'};
+var _w0rm$elm_slice_show$Animation2D_Main$vertexShader = {'src': '\n\n  precision mediump float;\n  attribute vec2 position;\n  uniform vec2 screenSize;\n  uniform vec2 frameSize;\n  varying vec2 texturePos;\n\n  void main () {\n    vec2 clipSpace = position * frameSize / screenSize * 2.0 - 1.0;\n    gl_Position = vec4(clipSpace.x, -clipSpace.y, 0, 1);\n    texturePos = position;\n  }\n\n'};
+var _w0rm$elm_slice_show$Animation2D_Main$size = {width: 128, height: 256};
+var _w0rm$elm_slice_show$Animation2D_Main$animate = F2(
+	function (elapsed, model) {
+		var newElapsed = elapsed + model.elapsed;
+		var timeout = 150;
+		return (_elm_lang$core$Native_Utils.cmp(newElapsed, timeout) > 0) ? _elm_lang$core$Native_Utils.update(
+			model,
 			{
-				ctor: '::',
-				_0: A4(_user$project$View$face, rft, rfb, rbb, rbt),
-				_1: {
-					ctor: '::',
-					_0: A4(_user$project$View$face, rft, rfb, lfb, lft),
-					_1: {
-						ctor: '::',
-						_0: A4(_user$project$View$face, rft, lft, lbt, rbt),
-						_1: {
-							ctor: '::',
-							_0: A4(_user$project$View$face, rfb, lfb, lbb, rbb),
-							_1: {
-								ctor: '::',
-								_0: A4(_user$project$View$face, lft, lfb, lbb, lbt),
-								_1: {
-									ctor: '::',
-									_0: A4(_user$project$View$face, rbt, rbb, lbb, lbt),
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					}
-				}
-			}));
-}();
-var _user$project$View$cellAttributes = {
-	ctor: '::',
-	_0: {
-		ctor: '_Tuple3',
-		_0: _user$project$Types$Attributes(
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.45, 0.45, -0.5)),
-		_1: _user$project$Types$Attributes(
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.45, -0.45, -0.5)),
-		_2: _user$project$Types$Attributes(
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.45, 0.45, -0.5))
-	},
-	_1: {
+				frame: A2(_elm_lang$core$Basics_ops['%'], model.frame + 1, 24),
+				elapsed: newElapsed - timeout
+			}) : _elm_lang$core$Native_Utils.update(
+			model,
+			{elapsed: newElapsed});
+	});
+var _w0rm$elm_slice_show$Animation2D_Main$Model = F4(
+	function (a, b, c, d) {
+		return {texture: a, elapsed: b, frame: c, path: d};
+	});
+var _w0rm$elm_slice_show$Animation2D_Main$Vertex = function (a) {
+	return {position: a};
+};
+var _w0rm$elm_slice_show$Animation2D_Main$mesh = _elm_community$webgl$WebGL$triangles(
+	{
 		ctor: '::',
 		_0: {
 			ctor: '_Tuple3',
-			_0: _user$project$Types$Attributes(
-				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.45, 0.45, -0.5)),
-			_1: _user$project$Types$Attributes(
-				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.45, -0.45, -0.5)),
-			_2: _user$project$Types$Attributes(
-				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.45, -0.45, -0.5))
+			_0: _w0rm$elm_slice_show$Animation2D_Main$Vertex(
+				A2(_elm_community$linear_algebra$Math_Vector2$vec2, 0, 0)),
+			_1: _w0rm$elm_slice_show$Animation2D_Main$Vertex(
+				A2(_elm_community$linear_algebra$Math_Vector2$vec2, 1, 1)),
+			_2: _w0rm$elm_slice_show$Animation2D_Main$Vertex(
+				A2(_elm_community$linear_algebra$Math_Vector2$vec2, 1, 0))
 		},
-		_1: {ctor: '[]'}
-	}
-};
-var _user$project$View$cellMesh = _elm_community$webgl$WebGL$triangles(_user$project$View$cellAttributes);
-var _user$project$View$cellEntity = F3(
-	function (model, id, cell) {
-		var _p1 = function () {
-			var _p2 = model.state;
-			switch (_p2.ctor) {
-				case 'TransformStart':
-					return {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.eq(_p2._0, id),
-						_1: _elm_lang$core$Basics$identity
-					};
-				case 'Transforming':
-					var _p3 = _p2._1.axis;
-					return _elm_lang$core$Native_Utils.eq(
-						A2(_user$project$Utils$cellRotationCoord, _p3, cell),
-						_p2._1.coord) ? {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.eq(_p2._0, id),
-						_1: _elm_community$linear_algebra$Math_Matrix4$mul(
-							A2(_user$project$Utils$makeRotation, _p3, _p2._1.angle))
-					} : {ctor: '_Tuple2', _0: false, _1: _elm_lang$core$Basics$identity};
-				case 'Animating':
-					var _p4 = _p2._0.axis;
-					return _elm_lang$core$Native_Utils.eq(
-						A2(_user$project$Utils$cellRotationCoord, _p4, cell),
-						_p2._0.coord) ? {
-						ctor: '_Tuple2',
-						_0: false,
-						_1: _elm_community$linear_algebra$Math_Matrix4$mul(
-							A2(
-								_user$project$Utils$makeRotation,
-								_p4,
-								A2(_mgold$elm_animation$Animation$animate, model.time, _p2._2)))
-					} : {ctor: '_Tuple2', _0: false, _1: _elm_lang$core$Basics$identity};
-				default:
-					return {ctor: '_Tuple2', _0: false, _1: _elm_lang$core$Basics$identity};
-			}
-		}();
-		var isHighlighted = _p1._0;
-		var rotationFunc = _p1._1;
-		var highlightFunc = isHighlighted ? _elm_community$linear_algebra$Math_Vector3$scale(0.6) : _elm_lang$core$Basics$identity;
-		var perspective = A4(
-			_elm_community$linear_algebra$Math_Matrix4$makePerspective,
-			45,
-			_elm_lang$core$Basics$toFloat(model.window.width) / _elm_lang$core$Basics$toFloat(model.window.height),
-			1.0e-2,
-			100);
-		return F2(
-			function (x, y) {
-				return A2(_elm_lang$core$Basics_ops['++'], x, y);
-			})(
-			{
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple3',
+				_0: _w0rm$elm_slice_show$Animation2D_Main$Vertex(
+					A2(_elm_community$linear_algebra$Math_Vector2$vec2, 0, 0)),
+				_1: _w0rm$elm_slice_show$Animation2D_Main$Vertex(
+					A2(_elm_community$linear_algebra$Math_Vector2$vec2, 0, 1)),
+				_2: _w0rm$elm_slice_show$Animation2D_Main$Vertex(
+					A2(_elm_community$linear_algebra$Math_Vector2$vec2, 1, 1))
+			},
+			_1: {ctor: '[]'}
+		}
+	});
+var _w0rm$elm_slice_show$Animation2D_Main$view = function (_p0) {
+	var _p1 = _p0;
+	return A2(
+		_elm_community$webgl$WebGL$toHtml,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$width(_w0rm$elm_slice_show$Animation2D_Main$size.width),
+			_1: {
 				ctor: '::',
-				_0: A5(
-					_elm_community$webgl$WebGL$entityWith,
-					{
-						ctor: '::',
-						_0: _elm_community$webgl$WebGL_Settings$cullFace(_elm_community$webgl$WebGL_Settings$front),
-						_1: {
-							ctor: '::',
-							_0: _elm_community$webgl$WebGL_Settings_DepthTest$default,
-							_1: {ctor: '[]'}
-						}
-					},
-					_user$project$View$vertexShader,
-					_user$project$View$fragmentShader,
-					_user$project$View$cellMesh,
-					{
-						camera: model.camera,
-						perspective: perspective,
-						rotation: model.rotation,
-						transform: rotationFunc(cell.transform),
-						color: highlightFunc(
-							_user$project$Utils$colorToVec3(cell.color))
-					}),
+				_0: _elm_lang$html$Html_Attributes$height(_w0rm$elm_slice_show$Animation2D_Main$size.height),
 				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		function () {
+			var _p2 = _p1.texture;
+			if (_p2.ctor === 'Success') {
+				var _p3 = _p2._0;
+				return {
 					ctor: '::',
 					_0: A5(
 						_elm_community$webgl$WebGL$entityWith,
 						{
 							ctor: '::',
-							_0: _elm_community$webgl$WebGL_Settings_DepthTest$default,
-							_1: {
-								ctor: '::',
-								_0: A2(_elm_community$webgl$WebGL_Settings$polygonOffset, 5, 5),
-								_1: {ctor: '[]'}
+							_0: A2(_elm_community$webgl$WebGL_Settings_Blend$add, _elm_community$webgl$WebGL_Settings_Blend$one, _elm_community$webgl$WebGL_Settings_Blend$oneMinusSrcAlpha),
+							_1: {ctor: '[]'}
+						},
+						_w0rm$elm_slice_show$Animation2D_Main$vertexShader,
+						_w0rm$elm_slice_show$Animation2D_Main$fragmentShader,
+						_w0rm$elm_slice_show$Animation2D_Main$mesh,
+						{
+							screenSize: A2(
+								_elm_community$linear_algebra$Math_Vector2$vec2,
+								_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Animation2D_Main$size.width),
+								_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Animation2D_Main$size.height)),
+							texture: _p3,
+							frame: _p1.frame,
+							textureSize: A2(
+								_elm_community$linear_algebra$Math_Vector2$vec2,
+								_elm_lang$core$Basics$toFloat(
+									_elm_lang$core$Tuple$first(
+										_elm_community$webgl$WebGL_Texture$size(_p3))),
+								_elm_lang$core$Basics$toFloat(
+									_elm_lang$core$Tuple$second(
+										_elm_community$webgl$WebGL_Texture$size(_p3)))),
+							frameSize: A2(_elm_community$linear_algebra$Math_Vector2$vec2, 128, 256)
+						}),
+					_1: {ctor: '[]'}
+				};
+			} else {
+				return {ctor: '[]'};
+			}
+		}());
+};
+var _w0rm$elm_slice_show$Animation2D_Main$TextureError = function (a) {
+	return {ctor: 'TextureError', _0: a};
+};
+var _w0rm$elm_slice_show$Animation2D_Main$TextureLoad = function (a) {
+	return {ctor: 'TextureLoad', _0: a};
+};
+var _w0rm$elm_slice_show$Animation2D_Main$Animate = function (a) {
+	return {ctor: 'Animate', _0: a};
+};
+var _w0rm$elm_slice_show$Animation2D_Main$subscriptions = function (_p4) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: _elm_lang$animation_frame$AnimationFrame$diffs(_w0rm$elm_slice_show$Animation2D_Main$Animate),
+			_1: {ctor: '[]'}
+		});
+};
+var _w0rm$elm_slice_show$Animation2D_Main$Failure = function (a) {
+	return {ctor: 'Failure', _0: a};
+};
+var _w0rm$elm_slice_show$Animation2D_Main$Success = function (a) {
+	return {ctor: 'Success', _0: a};
+};
+var _w0rm$elm_slice_show$Animation2D_Main$Initial = {ctor: 'Initial'};
+var _w0rm$elm_slice_show$Animation2D_Main$initial = function (path) {
+	return {texture: _w0rm$elm_slice_show$Animation2D_Main$Initial, elapsed: 0, frame: 0, path: path};
+};
+var _w0rm$elm_slice_show$Animation2D_Main$update = F2(
+	function (action, model) {
+		var _p5 = action;
+		switch (_p5.ctor) {
+			case 'Animate':
+				var _p7 = _p5._0;
+				return _elm_lang$core$Native_Utils.eq(model.texture, _w0rm$elm_slice_show$Animation2D_Main$Initial) ? {
+					ctor: '_Tuple2',
+					_0: A2(_w0rm$elm_slice_show$Animation2D_Main$animate, _p7, model),
+					_1: A2(
+						_elm_lang$core$Task$attempt,
+						function (result) {
+							var _p6 = result;
+							if (_p6.ctor === 'Err') {
+								return _w0rm$elm_slice_show$Animation2D_Main$TextureError(_p6._0);
+							} else {
+								return _w0rm$elm_slice_show$Animation2D_Main$TextureLoad(_p6._0);
 							}
 						},
-						_user$project$View$vertexShader,
-						_user$project$View$fragmentShader,
-						_user$project$View$cubeMesh,
+						_elm_community$webgl$WebGL_Texture$load(model.path))
+				} : {
+					ctor: '_Tuple2',
+					_0: A2(_w0rm$elm_slice_show$Animation2D_Main$animate, _p7, model),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'TextureLoad':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
 						{
-							camera: model.camera,
-							perspective: perspective,
-							rotation: model.rotation,
-							transform: rotationFunc(cell.transform),
-							color: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 3.0e-3, 3.0e-3, 0.251)
+							texture: _w0rm$elm_slice_show$Animation2D_Main$Success(_p5._0)
 						}),
+					{ctor: '[]'});
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							texture: _w0rm$elm_slice_show$Animation2D_Main$Failure(_p5._0)
+						}),
+					{ctor: '[]'});
+		}
+	});
+
+var _w0rm$elm_slice_show$SliceShow_State$Visited = {ctor: 'Visited'};
+var _w0rm$elm_slice_show$SliceShow_State$Active = {ctor: 'Active'};
+var _w0rm$elm_slice_show$SliceShow_State$Hidden = {ctor: 'Hidden'};
+var _w0rm$elm_slice_show$SliceShow_State$Inactive = {ctor: 'Inactive'};
+var _w0rm$elm_slice_show$SliceShow_State$activate = function (state) {
+	var _p0 = state;
+	switch (_p0.ctor) {
+		case 'Hidden':
+			return _w0rm$elm_slice_show$SliceShow_State$Active;
+		case 'Active':
+			return _w0rm$elm_slice_show$SliceShow_State$Visited;
+		case 'Inactive':
+			return _w0rm$elm_slice_show$SliceShow_State$Inactive;
+		default:
+			return _w0rm$elm_slice_show$SliceShow_State$Visited;
+	}
+};
+
+var _w0rm$elm_slice_show$SliceShow_ContentData$subscriptions = F2(
+	function (customSubscription, elements) {
+		subscriptions:
+		while (true) {
+			var _p0 = elements;
+			if (_p0.ctor === '[]') {
+				return {ctor: '[]'};
+			} else {
+				switch (_p0._0.ctor) {
+					case 'Custom':
+						var _p1 = _p0._1;
+						if (!_elm_lang$core$Native_Utils.eq(_p0._0._0, _w0rm$elm_slice_show$SliceShow_State$Hidden)) {
+							return {
+								ctor: '::',
+								_0: customSubscription(_p0._0._1),
+								_1: A2(_w0rm$elm_slice_show$SliceShow_ContentData$subscriptions, customSubscription, _p1)
+							};
+						} else {
+							var _v1 = customSubscription,
+								_v2 = _p1;
+							customSubscription = _v1;
+							elements = _v2;
+							continue subscriptions;
+						}
+					case 'Container':
+						var _p2 = _p0._1;
+						if (!_elm_lang$core$Native_Utils.eq(_p0._0._0, _w0rm$elm_slice_show$SliceShow_State$Hidden)) {
+							return A2(
+								_elm_lang$core$Basics_ops['++'],
+								A2(_w0rm$elm_slice_show$SliceShow_ContentData$subscriptions, customSubscription, _p0._0._2),
+								A2(_w0rm$elm_slice_show$SliceShow_ContentData$subscriptions, customSubscription, _p2));
+						} else {
+							var _v3 = customSubscription,
+								_v4 = _p2;
+							customSubscription = _v3;
+							elements = _v4;
+							continue subscriptions;
+						}
+					default:
+						var _v5 = customSubscription,
+							_v6 = _p0._1;
+						customSubscription = _v5;
+						elements = _v6;
+						continue subscriptions;
+				}
+			}
+		}
+	});
+var _w0rm$elm_slice_show$SliceShow_ContentData$visited = function (state) {
+	var _p3 = state;
+	if (_p3.ctor === 'Active') {
+		return _w0rm$elm_slice_show$SliceShow_State$Visited;
+	} else {
+		return state;
+	}
+};
+var _w0rm$elm_slice_show$SliceShow_ContentData$hasHidden = function (elements) {
+	hasHidden:
+	while (true) {
+		var _p4 = elements;
+		if (_p4.ctor === '[]') {
+			return false;
+		} else {
+			switch (_p4._0.ctor) {
+				case 'Item':
+					var _p5 = _p4._0._0;
+					if (_p5.ctor === 'Hidden') {
+						return true;
+					} else {
+						var _v10 = _p4._1;
+						elements = _v10;
+						continue hasHidden;
+					}
+				case 'Custom':
+					var _p6 = _p4._0._0;
+					if (_p6.ctor === 'Hidden') {
+						return true;
+					} else {
+						var _v12 = _p4._1;
+						elements = _v12;
+						continue hasHidden;
+					}
+				default:
+					var _p7 = _p4._0._0;
+					if (_p7.ctor === 'Hidden') {
+						return true;
+					} else {
+						return _w0rm$elm_slice_show$SliceShow_ContentData$hasHidden(_p4._0._2) || _w0rm$elm_slice_show$SliceShow_ContentData$hasHidden(_p4._1);
+					}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$SliceShow_ContentData$state = function (element) {
+	var _p8 = element;
+	switch (_p8.ctor) {
+		case 'Container':
+			return _p8._0;
+		case 'Item':
+			return _p8._0;
+		default:
+			return _p8._0;
+	}
+};
+var _w0rm$elm_slice_show$SliceShow_ContentData$Custom = F2(
+	function (a, b) {
+		return {ctor: 'Custom', _0: a, _1: b};
+	});
+var _w0rm$elm_slice_show$SliceShow_ContentData$Item = F2(
+	function (a, b) {
+		return {ctor: 'Item', _0: a, _1: b};
+	});
+var _w0rm$elm_slice_show$SliceShow_ContentData$Container = F3(
+	function (a, b, c) {
+		return {ctor: 'Container', _0: a, _1: b, _2: c};
+	});
+var _w0rm$elm_slice_show$SliceShow_ContentData$next = function (elements) {
+	var _p9 = elements;
+	if (_p9.ctor === '[]') {
+		return {ctor: '[]'};
+	} else {
+		switch (_p9._0.ctor) {
+			case 'Item':
+				var _p13 = _p9._0._0;
+				var _p12 = _p9._1;
+				var _p11 = _p9._0._1;
+				var _p10 = _p13;
+				if (_p10.ctor === 'Hidden') {
+					return {
+						ctor: '::',
+						_0: A2(_w0rm$elm_slice_show$SliceShow_ContentData$Item, _w0rm$elm_slice_show$SliceShow_State$Active, _p11),
+						_1: _p12
+					};
+				} else {
+					return {
+						ctor: '::',
+						_0: A2(
+							_w0rm$elm_slice_show$SliceShow_ContentData$Item,
+							_w0rm$elm_slice_show$SliceShow_ContentData$visited(_p13),
+							_p11),
+						_1: _w0rm$elm_slice_show$SliceShow_ContentData$next(_p12)
+					};
+				}
+			case 'Custom':
+				var _p17 = _p9._0._0;
+				var _p16 = _p9._1;
+				var _p15 = _p9._0._1;
+				var _p14 = _p17;
+				if (_p14.ctor === 'Hidden') {
+					return {
+						ctor: '::',
+						_0: A2(_w0rm$elm_slice_show$SliceShow_ContentData$Custom, _w0rm$elm_slice_show$SliceShow_State$Active, _p15),
+						_1: _p16
+					};
+				} else {
+					return {
+						ctor: '::',
+						_0: A2(
+							_w0rm$elm_slice_show$SliceShow_ContentData$Custom,
+							_w0rm$elm_slice_show$SliceShow_ContentData$visited(_p17),
+							_p15),
+						_1: _w0rm$elm_slice_show$SliceShow_ContentData$next(_p16)
+					};
+				}
+			default:
+				var _p22 = _p9._0._0;
+				var _p21 = _p9._1;
+				var _p20 = _p9._0._1;
+				var _p19 = _p9._0._2;
+				var _p18 = _p22;
+				if (_p18.ctor === 'Hidden') {
+					return {
+						ctor: '::',
+						_0: A3(_w0rm$elm_slice_show$SliceShow_ContentData$Container, _w0rm$elm_slice_show$SliceShow_State$Active, _p20, _p19),
+						_1: _p21
+					};
+				} else {
+					return _w0rm$elm_slice_show$SliceShow_ContentData$hasHidden(_p19) ? {
+						ctor: '::',
+						_0: A3(
+							_w0rm$elm_slice_show$SliceShow_ContentData$Container,
+							_w0rm$elm_slice_show$SliceShow_ContentData$visited(_p22),
+							_p20,
+							_w0rm$elm_slice_show$SliceShow_ContentData$next(_p19)),
+						_1: _p21
+					} : {
+						ctor: '::',
+						_0: A3(
+							_w0rm$elm_slice_show$SliceShow_ContentData$Container,
+							_w0rm$elm_slice_show$SliceShow_ContentData$visited(_p22),
+							_p20,
+							_p19),
+						_1: _w0rm$elm_slice_show$SliceShow_ContentData$next(_p21)
+					};
+				}
+		}
+	}
+};
+var _w0rm$elm_slice_show$SliceShow_ContentData$update = F3(
+	function (updateCustom, action, elements) {
+		var _p23 = elements;
+		if (_p23.ctor === '[]') {
+			return {
+				ctor: '_Tuple2',
+				_0: {ctor: '[]'},
+				_1: {ctor: '[]'}
+			};
+		} else {
+			switch (_p23._0.ctor) {
+				case 'Custom':
+					var _p29 = _p23._0._0;
+					var _p28 = _p23._1;
+					var _p27 = _p23._0._1;
+					if (!_elm_lang$core$Native_Utils.eq(_p29, _w0rm$elm_slice_show$SliceShow_State$Hidden)) {
+						var _p24 = A3(_w0rm$elm_slice_show$SliceShow_ContentData$update, updateCustom, action, _p28);
+						var updatedSiblings = _p24._0;
+						var siblingsCmd = _p24._1;
+						var _p25 = A2(updateCustom, action, _p27);
+						var updatedSelf = _p25._0;
+						var selfEffect = _p25._1;
+						return _elm_lang$core$Native_Utils.eq(selfEffect, _elm_lang$core$Platform_Cmd$none) ? {
+							ctor: '_Tuple2',
+							_0: {
+								ctor: '::',
+								_0: A2(_w0rm$elm_slice_show$SliceShow_ContentData$Custom, _p29, updatedSelf),
+								_1: updatedSiblings
+							},
+							_1: siblingsCmd
+						} : {
+							ctor: '_Tuple2',
+							_0: {
+								ctor: '::',
+								_0: A2(_w0rm$elm_slice_show$SliceShow_ContentData$Custom, _p29, updatedSelf),
+								_1: updatedSiblings
+							},
+							_1: {ctor: '::', _0: selfEffect, _1: siblingsCmd}
+						};
+					} else {
+						var _p26 = A3(_w0rm$elm_slice_show$SliceShow_ContentData$update, updateCustom, action, _p28);
+						var updatedSiblings = _p26._0;
+						var siblingsCmd = _p26._1;
+						return {
+							ctor: '_Tuple2',
+							_0: {
+								ctor: '::',
+								_0: A2(_w0rm$elm_slice_show$SliceShow_ContentData$Custom, _p29, _p27),
+								_1: updatedSiblings
+							},
+							_1: siblingsCmd
+						};
+					}
+				case 'Container':
+					var _p30 = A3(_w0rm$elm_slice_show$SliceShow_ContentData$update, updateCustom, action, _p23._1);
+					var updatedSiblings = _p30._0;
+					var siblingsCmd = _p30._1;
+					var _p31 = A3(_w0rm$elm_slice_show$SliceShow_ContentData$update, updateCustom, action, _p23._0._2);
+					var updatedChildren = _p31._0;
+					var childrenCmd = _p31._1;
+					return {
+						ctor: '_Tuple2',
+						_0: {
+							ctor: '::',
+							_0: A3(_w0rm$elm_slice_show$SliceShow_ContentData$Container, _p23._0._0, _p23._0._1, updatedChildren),
+							_1: updatedSiblings
+						},
+						_1: A2(_elm_lang$core$Basics_ops['++'], childrenCmd, siblingsCmd)
+					};
+				default:
+					var _p32 = A3(_w0rm$elm_slice_show$SliceShow_ContentData$update, updateCustom, action, _p23._1);
+					var updatedSiblings = _p32._0;
+					var siblingsCmd = _p32._1;
+					return {
+						ctor: '_Tuple2',
+						_0: {
+							ctor: '::',
+							_0: A2(_w0rm$elm_slice_show$SliceShow_ContentData$Item, _p23._0._0, _p23._0._1),
+							_1: updatedSiblings
+						},
+						_1: siblingsCmd
+					};
+			}
+		}
+	});
+
+var _w0rm$elm_slice_show$SliceShow_Content$hide = function (content) {
+	var _p0 = content;
+	switch (_p0.ctor) {
+		case 'Container':
+			return A3(_w0rm$elm_slice_show$SliceShow_ContentData$Container, _w0rm$elm_slice_show$SliceShow_State$Hidden, _p0._1, _p0._2);
+		case 'Item':
+			return A2(_w0rm$elm_slice_show$SliceShow_ContentData$Item, _w0rm$elm_slice_show$SliceShow_State$Hidden, _p0._1);
+		default:
+			return A2(_w0rm$elm_slice_show$SliceShow_ContentData$Custom, _w0rm$elm_slice_show$SliceShow_State$Hidden, _p0._1);
+	}
+};
+var _w0rm$elm_slice_show$SliceShow_Content$container = _w0rm$elm_slice_show$SliceShow_ContentData$Container(_w0rm$elm_slice_show$SliceShow_State$Inactive);
+var _w0rm$elm_slice_show$SliceShow_Content$custom = _w0rm$elm_slice_show$SliceShow_ContentData$Custom(_w0rm$elm_slice_show$SliceShow_State$Inactive);
+var _w0rm$elm_slice_show$SliceShow_Content$item = _w0rm$elm_slice_show$SliceShow_ContentData$Item(_w0rm$elm_slice_show$SliceShow_State$Inactive);
+
+var _w0rm$elm_slice_show$Formatting$scale = function (ratio) {
+	return _w0rm$elm_slice_show$SliceShow_Content$container(
+		_elm_lang$html$Html$div(
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'transform',
+							_1: A2(
+								_elm_lang$core$Basics_ops['++'],
+								'scale(',
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									_elm_lang$core$Basics$toString(ratio),
+									')'))
+						},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'transform-origin', _1: '0 0'},
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}));
+};
+var _w0rm$elm_slice_show$Formatting$group = _w0rm$elm_slice_show$SliceShow_Content$container(
+	_elm_lang$html$Html$div(
+		{ctor: '[]'}));
+var _w0rm$elm_slice_show$Formatting$char = function (str) {
+	return _w0rm$elm_slice_show$SliceShow_Content$item(
+		A2(
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'font', _1: '30px/60px FiraSans-Regular, sans-serif'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'vertical-align', _1: 'middle'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'color', _1: '#666'},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(str),
+				_1: {ctor: '[]'}
+			}));
+};
+var _w0rm$elm_slice_show$Formatting$split = F2(
+	function (leftContent, rightContent) {
+		return A2(
+			_w0rm$elm_slice_show$SliceShow_Content$container,
+			_elm_lang$html$Html$table(
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'table-layout', _1: 'fixed'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'border-spacing', _1: '0'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'border-collapse', _1: 'collapse'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'vertical-align', _1: 'top'},
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			{
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$SliceShow_Content$container,
+					_elm_lang$html$Html$td(
+						{ctor: '[]'}),
+					leftContent),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_w0rm$elm_slice_show$SliceShow_Content$container,
+						_elm_lang$html$Html$td(
+							{ctor: '[]'}),
+						rightContent),
 					_1: {ctor: '[]'}
 				}
 			});
 	});
-var _user$project$View$view = function (model) {
-	return A3(
-		_elm_community$webgl$WebGL$toHtmlWith,
+var _w0rm$elm_slice_show$Formatting$bulletLink = F2(
+	function (str, url) {
+		return _w0rm$elm_slice_show$SliceShow_Content$item(
+			A2(
+				_elm_lang$html$Html$li,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href(url),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(str),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}));
+	});
+var _w0rm$elm_slice_show$Formatting$bullet = function (str) {
+	return _w0rm$elm_slice_show$SliceShow_Content$item(
+		A2(
+			_elm_lang$html$Html$li,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(str),
+				_1: {ctor: '[]'}
+			}));
+};
+var _w0rm$elm_slice_show$Formatting$bullets = _w0rm$elm_slice_show$SliceShow_Content$container(
+	_elm_lang$html$Html$ul(
+		{ctor: '[]'}));
+var _w0rm$elm_slice_show$Formatting$demo = function (url) {
+	return _w0rm$elm_slice_show$SliceShow_Content$item(
+		A2(
+			_elm_lang$html$Html$iframe,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$src(url),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'left', _1: '0'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'top', _1: '0'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'height', _1: '100%'},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'border', _1: '0'},
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}
+			},
+			{ctor: '[]'}));
+};
+var _w0rm$elm_slice_show$Formatting$position = function (_p0) {
+	var _p1 = _p0;
+	return _w0rm$elm_slice_show$SliceShow_Content$container(
+		_elm_lang$html$Html$div(
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'left',
+								_1: A2(
+									_elm_lang$core$Basics_ops['++'],
+									_elm_lang$core$Basics$toString(_p1._0),
+									'px')
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'top',
+									_1: A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(_p1._1),
+										'px')
+								},
+								_1: {ctor: '[]'}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}));
+};
+var _w0rm$elm_slice_show$Formatting$spacing = function (px) {
+	return _w0rm$elm_slice_show$SliceShow_Content$item(
+		A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'height',
+							_1: A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(px),
+								'px')
+						},
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			},
+			{ctor: '[]'}));
+};
+var _w0rm$elm_slice_show$Formatting$code = F2(
+	function (lang, str) {
+		return _w0rm$elm_slice_show$SliceShow_Content$item(
+			A2(
+				_evancz$elm_markdown$Markdown$toHtml,
+				{ctor: '[]'},
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					'```',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						lang,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'\n',
+							A2(_elm_lang$core$Basics_ops['++'], str, '\n```'))))));
+	});
+var _w0rm$elm_slice_show$Formatting$richtext = function (_p2) {
+	return _w0rm$elm_slice_show$SliceShow_Content$item(
+		A2(
+			_evancz$elm_markdown$Markdown$toHtml,
+			{ctor: '[]'},
+			_p2));
+};
+var _w0rm$elm_slice_show$Formatting$imageLink = F3(
+	function (_p3, url, linkUrl) {
+		var _p4 = _p3;
+		return _w0rm$elm_slice_show$SliceShow_Content$item(
+			A2(
+				_elm_lang$html$Html$a,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$href(linkUrl),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$img,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$src(url),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$width(_p4._0),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$height(_p4._1),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$style(
+											{
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'border', _1: 'none'},
+													_1: {ctor: '[]'}
+												}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {ctor: '[]'}
+				}));
+	});
+var _w0rm$elm_slice_show$Formatting$image = F2(
+	function (_p5, url) {
+		var _p6 = _p5;
+		return _w0rm$elm_slice_show$SliceShow_Content$item(
+			A2(
+				_elm_lang$html$Html$img,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$src(url),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$width(_p6._0),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$height(_p6._1),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'vertical-align', _1: 'middle'},
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				{ctor: '[]'}));
+	});
+var _w0rm$elm_slice_show$Formatting$icon = function (name) {
+	return A2(
+		_w0rm$elm_slice_show$Formatting$image,
+		{ctor: '_Tuple2', _0: 60, _1: 60},
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'assets/',
+			A2(_elm_lang$core$Basics_ops['++'], name, '.png')));
+};
+var _w0rm$elm_slice_show$Formatting$title = function (message) {
+	return _w0rm$elm_slice_show$SliceShow_Content$item(
+		A2(
+			_elm_lang$html$Html$h1,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(message),
+				_1: {ctor: '[]'}
+			}));
+};
+var _w0rm$elm_slice_show$Formatting$align = function (align) {
+	var alignValue = function () {
+		var _p7 = align;
+		switch (_p7.ctor) {
+			case 'Left':
+				return 'left';
+			case 'Right':
+				return 'right';
+			default:
+				return 'center';
+		}
+	}();
+	return _w0rm$elm_slice_show$SliceShow_Content$container(
+		_elm_lang$html$Html$div(
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'text-align', _1: alignValue},
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}));
+};
+var _w0rm$elm_slice_show$Formatting$slidePadding = '50px 100px';
+var _w0rm$elm_slice_show$Formatting$padded = _w0rm$elm_slice_show$SliceShow_Content$container(
+	_elm_lang$html$Html$div(
 		{
 			ctor: '::',
-			_0: _elm_community$webgl$WebGL$depth(1),
-			_1: {
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'padding', _1: _w0rm$elm_slice_show$Formatting$slidePadding},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}));
+var _w0rm$elm_slice_show$Formatting$background = function (url) {
+	return _w0rm$elm_slice_show$SliceShow_Content$container(
+		_elm_lang$html$Html$div(
+			{
 				ctor: '::',
-				_0: A4(_elm_community$webgl$WebGL$clearColor, 3.0e-3, 3.0e-3, 0.251, 1),
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'height', _1: '100%'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'box-sizing', _1: 'border-box'},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'background-image',
+									_1: A2(
+										_elm_lang$core$Basics_ops['++'],
+										'url(',
+										A2(_elm_lang$core$Basics_ops['++'], url, ')'))
+								},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'background-size', _1: 'cover'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'padding', _1: _w0rm$elm_slice_show$Formatting$slidePadding},
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}),
 				_1: {ctor: '[]'}
-			}
+			}));
+};
+var _w0rm$elm_slice_show$Formatting$shout = function (str) {
+	return _w0rm$elm_slice_show$SliceShow_Content$item(
+		A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'left', _1: '0'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'right', _1: '0'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'top', _1: '0'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'bottom', _1: '20%'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'padding', _1: _w0rm$elm_slice_show$Formatting$slidePadding},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'font', _1: '90px/1.2 FiraSans-Light, sans-serif'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'letter-spacing', _1: '-2px'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'left'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: 'align-items', _1: 'center'},
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(str),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}));
+};
+var _w0rm$elm_slice_show$Formatting$Center = {ctor: 'Center'};
+var _w0rm$elm_slice_show$Formatting$Right = {ctor: 'Right'};
+var _w0rm$elm_slice_show$Formatting$Left = {ctor: 'Left'};
+
+var _w0rm$elm_slice_show$SliceShow_SlideData$next = function (slide) {
+	return _elm_lang$core$Native_Utils.update(
+		slide,
+		{
+			elements: _w0rm$elm_slice_show$SliceShow_ContentData$next(slide.elements)
+		});
+};
+var _w0rm$elm_slice_show$SliceShow_SlideData$hasHiddenElements = function (_p0) {
+	var _p1 = _p0;
+	return _w0rm$elm_slice_show$SliceShow_ContentData$hasHidden(_p1.elements);
+};
+var _w0rm$elm_slice_show$SliceShow_SlideData$subscriptions = F2(
+	function (customSubscription, slide) {
+		return _elm_lang$core$Platform_Sub$batch(
+			A2(_w0rm$elm_slice_show$SliceShow_ContentData$subscriptions, customSubscription, slide.elements));
+	});
+var _w0rm$elm_slice_show$SliceShow_SlideData$update = F3(
+	function (updateCustom, customAction, slide) {
+		var _p2 = A3(_w0rm$elm_slice_show$SliceShow_ContentData$update, updateCustom, customAction, slide.elements);
+		var newElements = _p2._0;
+		var effects = _p2._1;
+		return {
+			ctor: '_Tuple2',
+			_0: _elm_lang$core$Native_Utils.update(
+				slide,
+				{elements: newElements}),
+			_1: _elm_lang$core$Platform_Cmd$batch(effects)
+		};
+	});
+var _w0rm$elm_slice_show$SliceShow_SlideData$SlideData = F3(
+	function (a, b, c) {
+		return {state: a, elements: b, dimensions: c};
+	});
+
+var _w0rm$elm_slice_show$SliceShow_Model$init = function (slides) {
+	return {
+		currentSlide: _elm_lang$core$Maybe$Nothing,
+		slides: slides,
+		dimensions: A2(_elm_lang$window$Window$Size, 0, 0)
+	};
+};
+var _w0rm$elm_slice_show$SliceShow_Model$resize = F2(
+	function (dimensions, model) {
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{dimensions: dimensions});
+	});
+var _w0rm$elm_slice_show$SliceShow_Model$open = F2(
+	function (hash, model) {
+		var _p0 = _elm_lang$core$String$toInt(
+			A2(_elm_lang$core$String$dropLeft, 1, hash));
+		if (_p0.ctor === 'Ok') {
+			var _p1 = _p0._0;
+			return ((_elm_lang$core$Native_Utils.cmp(_p1, 0) > 0) && (_elm_lang$core$Native_Utils.cmp(
+				_p1,
+				_elm_lang$core$List$length(model.slides)) < 1)) ? _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					currentSlide: _elm_lang$core$Maybe$Just(_p1 - 1)
+				}) : _elm_lang$core$Native_Utils.update(
+				model,
+				{currentSlide: _elm_lang$core$Maybe$Nothing});
+		} else {
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{currentSlide: _elm_lang$core$Maybe$Nothing});
+		}
+	});
+var _w0rm$elm_slice_show$SliceShow_Model$replaceCurrent = F2(
+	function (slide, model) {
+		var replaceWith = F3(
+			function (atIndex, currentIndex, currentSlide) {
+				return _elm_lang$core$Native_Utils.eq(atIndex, currentIndex) ? slide : currentSlide;
+			});
+		var _p2 = model.currentSlide;
+		if (_p2.ctor === 'Just') {
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					slides: A2(
+						_elm_lang$core$List$indexedMap,
+						replaceWith(_p2._0),
+						model.slides)
+				});
+		} else {
+			return model;
+		}
+	});
+var _w0rm$elm_slice_show$SliceShow_Model$currentSlide = function (_p3) {
+	var _p4 = _p3;
+	return A2(
+		_elm_lang$core$Maybe$andThen,
+		_elm_lang$core$List$head,
+		A2(
+			_elm_lang$core$Maybe$map,
+			A2(_elm_lang$core$Basics$flip, _elm_lang$core$List$drop, _p4.slides),
+			_p4.currentSlide));
+};
+var _w0rm$elm_slice_show$SliceShow_Model$update = F3(
+	function (updateCustom, customAction, model) {
+		var _p5 = _w0rm$elm_slice_show$SliceShow_Model$currentSlide(model);
+		if (_p5.ctor === 'Just') {
+			var _p6 = A3(_w0rm$elm_slice_show$SliceShow_SlideData$update, updateCustom, customAction, _p5._0);
+			var newSlide = _p6._0;
+			var cmd = _p6._1;
+			return {
+				ctor: '_Tuple2',
+				_0: A2(_w0rm$elm_slice_show$SliceShow_Model$replaceCurrent, newSlide, model),
+				_1: cmd
+			};
+		} else {
+			return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		}
+	});
+var _w0rm$elm_slice_show$SliceShow_Model$subscriptions = F2(
+	function (customSubscription, model) {
+		var _p7 = _w0rm$elm_slice_show$SliceShow_Model$currentSlide(model);
+		if (_p7.ctor === 'Just') {
+			return A2(_w0rm$elm_slice_show$SliceShow_SlideData$subscriptions, customSubscription, _p7._0);
+		} else {
+			return _elm_lang$core$Platform_Sub$none;
+		}
+	});
+var _w0rm$elm_slice_show$SliceShow_Model$hash = function (model) {
+	var _p8 = model.currentSlide;
+	if (_p8.ctor === 'Nothing') {
+		return '#';
+	} else {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			'#',
+			_elm_lang$core$Basics$toString(_p8._0 + 1));
+	}
+};
+var _w0rm$elm_slice_show$SliceShow_Model$offset = F2(
+	function (offset, model) {
+		var _p9 = model.currentSlide;
+		if (_p9.ctor === 'Nothing') {
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					currentSlide: _elm_lang$core$Maybe$Just(0)
+				});
+		} else {
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					currentSlide: _elm_lang$core$Maybe$Just(
+						A3(
+							_elm_lang$core$Basics$clamp,
+							0,
+							_elm_lang$core$List$length(model.slides) - 1,
+							_p9._0 + offset))
+				});
+		}
+	});
+var _w0rm$elm_slice_show$SliceShow_Model$next = function (model) {
+	var _p10 = _w0rm$elm_slice_show$SliceShow_Model$currentSlide(model);
+	if (_p10.ctor === 'Just') {
+		var _p11 = _p10._0;
+		return _w0rm$elm_slice_show$SliceShow_SlideData$hasHiddenElements(_p11) ? A2(
+			_w0rm$elm_slice_show$SliceShow_Model$replaceCurrent,
+			_w0rm$elm_slice_show$SliceShow_SlideData$next(_p11),
+			model) : A2(_w0rm$elm_slice_show$SliceShow_Model$offset, 1, model);
+	} else {
+		return A2(_w0rm$elm_slice_show$SliceShow_Model$offset, 1, model);
+	}
+};
+var _w0rm$elm_slice_show$SliceShow_Model$prev = _w0rm$elm_slice_show$SliceShow_Model$offset(-1);
+var _w0rm$elm_slice_show$SliceShow_Model$Model = F3(
+	function (a, b, c) {
+		return {currentSlide: a, slides: b, dimensions: c};
+	});
+
+var _w0rm$elm_slice_show$SliceShow_Messages$Custom = function (a) {
+	return {ctor: 'Custom', _0: a};
+};
+var _w0rm$elm_slice_show$SliceShow_Messages$Noop = {ctor: 'Noop'};
+var _w0rm$elm_slice_show$SliceShow_Messages$Index = {ctor: 'Index'};
+var _w0rm$elm_slice_show$SliceShow_Messages$Resize = function (a) {
+	return {ctor: 'Resize', _0: a};
+};
+var _w0rm$elm_slice_show$SliceShow_Messages$Open = function (a) {
+	return {ctor: 'Open', _0: a};
+};
+var _w0rm$elm_slice_show$SliceShow_Messages$Goto = function (a) {
+	return {ctor: 'Goto', _0: a};
+};
+var _w0rm$elm_slice_show$SliceShow_Messages$Prev = {ctor: 'Prev'};
+var _w0rm$elm_slice_show$SliceShow_Messages$Next = {ctor: 'Next'};
+
+var _w0rm$elm_slice_show$SliceShow_Update$withHashChange = function (model) {
+	return {
+		ctor: '_Tuple2',
+		_0: model,
+		_1: _elm_lang$navigation$Navigation$newUrl(
+			_w0rm$elm_slice_show$SliceShow_Model$hash(model))
+	};
+};
+var _w0rm$elm_slice_show$SliceShow_Update$update = F3(
+	function (updateCustom, message, model) {
+		var _p0 = message;
+		switch (_p0.ctor) {
+			case 'Next':
+				return _w0rm$elm_slice_show$SliceShow_Update$withHashChange(
+					_w0rm$elm_slice_show$SliceShow_Model$next(model));
+			case 'Prev':
+				return _w0rm$elm_slice_show$SliceShow_Update$withHashChange(
+					_w0rm$elm_slice_show$SliceShow_Model$prev(model));
+			case 'Index':
+				return _w0rm$elm_slice_show$SliceShow_Update$withHashChange(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{currentSlide: _elm_lang$core$Maybe$Nothing}));
+			case 'Goto':
+				return _w0rm$elm_slice_show$SliceShow_Update$withHashChange(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							currentSlide: _elm_lang$core$Maybe$Just(_p0._0)
+						}));
+			case 'Open':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_w0rm$elm_slice_show$SliceShow_Model$open, _p0._0, model),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Resize':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{dimensions: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Noop':
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			default:
+				var _p1 = A3(_w0rm$elm_slice_show$SliceShow_Model$update, updateCustom, _p0._0, model);
+				var newModel = _p1._0;
+				var effects = _p1._1;
+				return {
+					ctor: '_Tuple2',
+					_0: newModel,
+					_1: A2(_elm_lang$core$Platform_Cmd$map, _w0rm$elm_slice_show$SliceShow_Messages$Custom, effects)
+				};
+		}
+	});
+
+var _w0rm$elm_slice_show$SliceShow_View$viewElements = F2(
+	function (renderCustom, elements) {
+		return A2(
+			_elm_lang$core$List$map,
+			_w0rm$elm_slice_show$SliceShow_View$viewElement(renderCustom),
+			A2(
+				_elm_lang$core$List$filter,
+				function (c) {
+					return !_elm_lang$core$Native_Utils.eq(
+						_w0rm$elm_slice_show$SliceShow_ContentData$state(c),
+						_w0rm$elm_slice_show$SliceShow_State$Hidden);
+				},
+				elements));
+	});
+var _w0rm$elm_slice_show$SliceShow_View$viewElement = F2(
+	function (renderCustom, content) {
+		var _p0 = content;
+		switch (_p0.ctor) {
+			case 'Container':
+				return _p0._1(
+					A2(_w0rm$elm_slice_show$SliceShow_View$viewElements, renderCustom, _p0._2));
+			case 'Item':
+				return _p0._1;
+			default:
+				return renderCustom(_p0._1);
+		}
+	});
+var _w0rm$elm_slice_show$SliceShow_View_ops = _w0rm$elm_slice_show$SliceShow_View_ops || {};
+_w0rm$elm_slice_show$SliceShow_View_ops['=>'] = F2(
+	function (v0, v1) {
+		return {ctor: '_Tuple2', _0: v0, _1: v1};
+	});
+var _w0rm$elm_slice_show$SliceShow_View$toPx = function (x) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		_elm_lang$core$Basics$toString(x),
+		'px');
+};
+var _w0rm$elm_slice_show$SliceShow_View$fit = F2(
+	function (_p2, _p1) {
+		var _p3 = _p2;
+		var _p8 = _p3._0;
+		var _p7 = _p3._1;
+		var _p4 = _p1;
+		var _p6 = _p4._0;
+		var _p5 = _p4._1;
+		return (_elm_lang$core$Native_Utils.cmp(_p8 * _p5, _p6 * _p7) < 0) ? (_elm_lang$core$Basics$toFloat(_p8) / _elm_lang$core$Basics$toFloat(_p6)) : (_elm_lang$core$Basics$toFloat(_p7) / _elm_lang$core$Basics$toFloat(_p5));
+	});
+var _w0rm$elm_slice_show$SliceShow_View$viewSlide = F3(
+	function (renderCustom, _p9, slide) {
+		var _p10 = _p9;
+		return A2(
+			_elm_lang$html$Html$map,
+			_w0rm$elm_slice_show$SliceShow_Messages$Custom,
+			A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: A2(
+								_w0rm$elm_slice_show$SliceShow_View_ops['=>'],
+								'transform',
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'scale(',
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(
+											A2(
+												_w0rm$elm_slice_show$SliceShow_View$fit,
+												{ctor: '_Tuple2', _0: _p10.width, _1: _p10.height},
+												slide.dimensions)),
+										')'))),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_w0rm$elm_slice_show$SliceShow_View_ops['=>'],
+									'width',
+									_w0rm$elm_slice_show$SliceShow_View$toPx(
+										_elm_lang$core$Tuple$first(slide.dimensions))),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_w0rm$elm_slice_show$SliceShow_View_ops['=>'],
+										'height',
+										_w0rm$elm_slice_show$SliceShow_View$toPx(
+											_elm_lang$core$Tuple$second(slide.dimensions))),
+									_1: {
+										ctor: '::',
+										_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'position', 'absolute'),
+										_1: {
+											ctor: '::',
+											_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'left', '50%'),
+											_1: {
+												ctor: '::',
+												_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'top', '50%'),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_w0rm$elm_slice_show$SliceShow_View_ops['=>'],
+														'margin-left',
+														_w0rm$elm_slice_show$SliceShow_View$toPx(
+															(_elm_lang$core$Tuple$first(slide.dimensions) / -2) | 0)),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_w0rm$elm_slice_show$SliceShow_View_ops['=>'],
+															'margin-top',
+															_w0rm$elm_slice_show$SliceShow_View$toPx(
+																(_elm_lang$core$Tuple$second(slide.dimensions) / -2) | 0)),
+														_1: {
+															ctor: '::',
+															_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'background', '#fff'),
+															_1: {
+																ctor: '::',
+																_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'box-sizing', 'border-box'),
+																_1: {
+																	ctor: '::',
+																	_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'text-align', 'left'),
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				},
+				A2(_w0rm$elm_slice_show$SliceShow_View$viewElements, renderCustom, slide.elements)));
+	});
+var _w0rm$elm_slice_show$SliceShow_View$viewSlideItem = F3(
+	function (renderCustom, index, slide) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'position', 'relative'),
+						_1: {
+							ctor: '::',
+							_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'width', '240px'),
+							_1: {
+								ctor: '::',
+								_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'height', '150px'),
+								_1: {
+									ctor: '::',
+									_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'display', 'inline-block'),
+									_1: {
+										ctor: '::',
+										_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'margin', '20px 0 0 20px'),
+										_1: {
+											ctor: '::',
+											_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'cursor', 'pointer'),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A3(
+						_elm_lang$html$Html_Events$onWithOptions,
+						'click',
+						{preventDefault: true, stopPropagation: false},
+						_elm_lang$core$Json_Decode$succeed(
+							_w0rm$elm_slice_show$SliceShow_Messages$Goto(index))),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A3(
+					_w0rm$elm_slice_show$SliceShow_View$viewSlide,
+					renderCustom,
+					A2(_elm_lang$window$Window$Size, 240, 150),
+					slide),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								{
+									ctor: '::',
+									_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'position', 'absolute'),
+									_1: {
+										ctor: '::',
+										_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'left', '0'),
+										_1: {
+											ctor: '::',
+											_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'top', '0'),
+											_1: {
+												ctor: '::',
+												_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'width', '240px'),
+												_1: {
+													ctor: '::',
+													_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'height', '150px'),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$href(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'#',
+										_elm_lang$core$Basics$toString(index + 1))),
+								_1: {ctor: '[]'}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _w0rm$elm_slice_show$SliceShow_View$viewContainer = F2(
+	function (renderCustom, model) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: A2(_w0rm$elm_slice_show$SliceShow_View_ops['=>'], 'text-align', 'center'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			},
+			A2(
+				_elm_lang$core$List$indexedMap,
+				_w0rm$elm_slice_show$SliceShow_View$viewSlideItem(renderCustom),
+				model.slides));
+	});
+var _w0rm$elm_slice_show$SliceShow_View$view = F2(
+	function (renderCustom, model) {
+		var _p11 = _w0rm$elm_slice_show$SliceShow_Model$currentSlide(model);
+		if (_p11.ctor === 'Nothing') {
+			return A2(_w0rm$elm_slice_show$SliceShow_View$viewContainer, renderCustom, model);
+		} else {
+			return A3(_w0rm$elm_slice_show$SliceShow_View$viewSlide, renderCustom, model.dimensions, _p11._0);
+		}
+	});
+
+var _w0rm$elm_slice_show$SliceShow_Protected$Protected = function (a) {
+	return {ctor: 'Protected', _0: a};
+};
+
+var _w0rm$elm_slice_show$SliceShow_Slide$setDimensions = F2(
+	function (dimensions, _p0) {
+		var _p1 = _p0;
+		return _w0rm$elm_slice_show$SliceShow_Protected$Protected(
+			_elm_lang$core$Native_Utils.update(
+				_p1._0,
+				{dimensions: dimensions}));
+	});
+var _w0rm$elm_slice_show$SliceShow_Slide$slide = function (elements) {
+	return _w0rm$elm_slice_show$SliceShow_Protected$Protected(
+		{
+			elements: elements,
+			state: _w0rm$elm_slice_show$SliceShow_State$Hidden,
+			dimensions: {ctor: '_Tuple2', _0: 1024, _1: 640}
+		});
+};
+
+var _w0rm$elm_slice_show$SliceShow$show = function (_p0) {
+	var _p1 = _p0;
+	return A2(
+		_elm_lang$navigation$Navigation$program,
+		function (_p2) {
+			return _w0rm$elm_slice_show$SliceShow_Messages$Open(
+				function (_) {
+					return _.hash;
+				}(_p2));
 		},
 		{
+			init: function (_p3) {
+				var _p4 = _p3;
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_w0rm$elm_slice_show$SliceShow_Model$open, _p4.hash, _p1._0.model),
+					_1: A2(_elm_lang$core$Task$perform, _w0rm$elm_slice_show$SliceShow_Messages$Resize, _elm_lang$window$Window$size)
+				};
+			},
+			update: _w0rm$elm_slice_show$SliceShow_Update$update(_p1._0.update),
+			view: _w0rm$elm_slice_show$SliceShow_View$view(_p1._0.view),
+			subscriptions: function (model) {
+				return _elm_lang$core$Platform_Sub$batch(
+					{
+						ctor: '::',
+						_0: _elm_lang$keyboard$Keyboard$downs(
+							function (code) {
+								var _p5 = code;
+								switch (_p5) {
+									case 37:
+										return _w0rm$elm_slice_show$SliceShow_Messages$Prev;
+									case 39:
+										return _w0rm$elm_slice_show$SliceShow_Messages$Next;
+									case 27:
+										return _w0rm$elm_slice_show$SliceShow_Messages$Index;
+									default:
+										return _w0rm$elm_slice_show$SliceShow_Messages$Noop;
+								}
+							}),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$window$Window$resizes(_w0rm$elm_slice_show$SliceShow_Messages$Resize),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$core$Platform_Sub$map,
+									_w0rm$elm_slice_show$SliceShow_Messages$Custom,
+									A2(_w0rm$elm_slice_show$SliceShow_Model$subscriptions, _p1._0.subscriptions, model)),
+								_1: {ctor: '[]'}
+							}
+						}
+					});
+			}
+		});
+};
+var _w0rm$elm_slice_show$SliceShow$setSubscriptions = F2(
+	function (subscriptions, _p6) {
+		var _p7 = _p6;
+		return _w0rm$elm_slice_show$SliceShow_Protected$Protected(
+			_elm_lang$core$Native_Utils.update(
+				_p7._0,
+				{subscriptions: subscriptions}));
+	});
+var _w0rm$elm_slice_show$SliceShow$setUpdate = F2(
+	function (update, _p8) {
+		var _p9 = _p8;
+		return _w0rm$elm_slice_show$SliceShow_Protected$Protected(
+			_elm_lang$core$Native_Utils.update(
+				_p9._0,
+				{update: update}));
+	});
+var _w0rm$elm_slice_show$SliceShow$setView = F2(
+	function (view, _p10) {
+		var _p11 = _p10;
+		return _w0rm$elm_slice_show$SliceShow_Protected$Protected(
+			_elm_lang$core$Native_Utils.update(
+				_p11._0,
+				{view: view}));
+	});
+var _w0rm$elm_slice_show$SliceShow$init = function (slides) {
+	return _w0rm$elm_slice_show$SliceShow_Protected$Protected(
+		{
+			model: _w0rm$elm_slice_show$SliceShow_Model$init(
+				A2(
+					_elm_lang$core$List$map,
+					function (_p12) {
+						var _p13 = _p12;
+						return _p13._0;
+					},
+					slides)),
+			view: function (_p14) {
+				return _elm_lang$html$Html$text('');
+			},
+			update: F2(
+				function (_p15, a) {
+					return {ctor: '_Tuple2', _0: a, _1: _elm_lang$core$Platform_Cmd$none};
+				}),
+			subscriptions: function (_p16) {
+				return _elm_lang$core$Platform_Sub$none;
+			}
+		});
+};
+var _w0rm$elm_slice_show$SliceShow$PrivateConfig = F4(
+	function (a, b, c, d) {
+		return {model: a, update: b, view: c, subscriptions: d};
+	});
+
+var _w0rm$elm_slice_show$Triangle_Main$fragmentShader = {'src': '\n  precision mediump float;\n  varying vec3 vColor;\n  void main () {\n    gl_FragColor = vec4(vColor, 1.0);\n  }\n'};
+var _w0rm$elm_slice_show$Triangle_Main$vertexShader = {'src': '\n  attribute vec3 position;\n  attribute vec3 color;\n  varying vec3 vColor;\n  uniform mat4 rotation;\n  void main () {\n    gl_Position = rotation * vec4(position, 1.0);\n    vColor = color;\n  }\n'};
+var _w0rm$elm_slice_show$Triangle_Main$triangle = _elm_community$webgl$WebGL$triangles(
+	{
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple3',
+			_0: {
+				position: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0),
+				color: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 0, 0)
+			},
+			_1: {
+				position: A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, -1, 0),
+				color: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0)
+			},
+			_2: {
+				position: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, -1, 0),
+				color: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 1)
+			}
+		},
+		_1: {ctor: '[]'}
+	});
+var _w0rm$elm_slice_show$Triangle_Main$view = function (_p0) {
+	var _p1 = _p0;
+	return A2(
+		_elm_community$webgl$WebGL$toHtml,
+		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$width(
-				_elm_lang$core$Basics$round(
-					_elm_lang$core$Basics$toFloat(model.window.width) * model.devicePixelRatio)),
+			_0: _elm_lang$html$Html_Attributes$width(300),
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$height(
-					_elm_lang$core$Basics$round(
-						_elm_lang$core$Basics$toFloat(model.window.height) * model.devicePixelRatio)),
+				_0: _elm_lang$html$Html_Attributes$height(300),
 				_1: {
 					ctor: '::',
 					_0: _elm_lang$html$Html_Attributes$style(
@@ -14051,662 +16662,3130 @@ var _user$project$View$view = function (model) {
 							_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
 							_1: {
 								ctor: '::',
-								_0: {
-									ctor: '_Tuple2',
-									_0: 'width',
-									_1: A2(
-										_elm_lang$core$Basics_ops['++'],
-										_elm_lang$core$Basics$toString(model.window.width),
-										'px')
-								},
+								_0: {ctor: '_Tuple2', _0: 'margin', _1: 'auto'},
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A4(
+				_elm_community$webgl$WebGL$entity,
+				_w0rm$elm_slice_show$Triangle_Main$vertexShader,
+				_w0rm$elm_slice_show$Triangle_Main$fragmentShader,
+				_w0rm$elm_slice_show$Triangle_Main$triangle,
+				{
+					rotation: A2(
+						_elm_community$linear_algebra$Math_Matrix4$makeRotate,
+						_p1._0,
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0))
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _w0rm$elm_slice_show$Triangle_Main$Attribute = F2(
+	function (a, b) {
+		return {position: a, color: b};
+	});
+var _w0rm$elm_slice_show$Triangle_Main$Uniform = function (a) {
+	return {rotation: a};
+};
+var _w0rm$elm_slice_show$Triangle_Main$Varying = function (a) {
+	return {vColor: a};
+};
+var _w0rm$elm_slice_show$Triangle_Main$Message = function (a) {
+	return {ctor: 'Message', _0: a};
+};
+var _w0rm$elm_slice_show$Triangle_Main$subscriptions = function (_p2) {
+	return _elm_lang$animation_frame$AnimationFrame$diffs(_w0rm$elm_slice_show$Triangle_Main$Message);
+};
+var _w0rm$elm_slice_show$Triangle_Main$Model = function (a) {
+	return {ctor: 'Model', _0: a};
+};
+var _w0rm$elm_slice_show$Triangle_Main$update = F2(
+	function (_p4, _p3) {
+		var _p5 = _p4;
+		var _p6 = _p3;
+		return {
+			ctor: '_Tuple2',
+			_0: _w0rm$elm_slice_show$Triangle_Main$Model(_p6._0 + (_p5._0 / 1000)),
+			_1: _elm_lang$core$Platform_Cmd$none
+		};
+	});
+var _w0rm$elm_slice_show$Triangle_Main$initial = _w0rm$elm_slice_show$Triangle_Main$Model(0);
+
+var _w0rm$elm_slice_show$Tangram_Shader$fragment = {'src': '\n    precision mediump float;\n    varying highp float vlighting;\n    uniform vec3 color;\n    void main () {\n        gl_FragColor = vec4(color.rgb * vlighting, 1.0);\n    }\n'};
+var _w0rm$elm_slice_show$Tangram_Shader$vertex = {'src': '\n    attribute vec3 position;\n    attribute vec3 normal;\n    varying highp float vlighting;\n    uniform mat4 rotate;\n    uniform mat4 scale;\n    uniform mat4 translate;\n    uniform mat4 camera;\n    highp float ambientLight = 0.4;\n    highp float directionalLight = 0.6;\n    highp vec3 directionalVector = vec3(0.0, 0.0, 1.0);\n    void main () {\n        gl_Position = camera * translate * rotate * scale * vec4(position, 1.0);\n        highp vec4 transformedNormal = normalize(rotate * vec4(normal, 1.0));\n        highp float directional = max(dot(transformedNormal.xyz, directionalVector), 0.0);\n        vlighting = ambientLight + directional * directionalLight;\n    }\n'};
+var _w0rm$elm_slice_show$Tangram_Shader$Attribute = F2(
+	function (a, b) {
+		return {position: a, normal: b};
+	});
+var _w0rm$elm_slice_show$Tangram_Shader$Varying = function (a) {
+	return {vlighting: a};
+};
+var _w0rm$elm_slice_show$Tangram_Shader$Uniform = F5(
+	function (a, b, c, d, e) {
+		return {color: a, rotate: b, scale: c, translate: d, camera: e};
+	});
+
+var _w0rm$elm_slice_show$Tangram_Mesh$sqrt2 = _elm_lang$core$Basics$sqrt(2);
+var _w0rm$elm_slice_show$Tangram_Mesh$attribute = F3(
+	function (v1, v2, v3) {
+		var normal = A2(
+			_elm_community$linear_algebra$Math_Vector3$cross,
+			A2(_elm_community$linear_algebra$Math_Vector3$sub, v1, v2),
+			A2(_elm_community$linear_algebra$Math_Vector3$sub, v1, v3));
+		return {
+			ctor: '_Tuple3',
+			_0: A2(_w0rm$elm_slice_show$Tangram_Shader$Attribute, v1, normal),
+			_1: A2(_w0rm$elm_slice_show$Tangram_Shader$Attribute, v2, normal),
+			_2: A2(_w0rm$elm_slice_show$Tangram_Shader$Attribute, v3, normal)
+		};
+	});
+var _w0rm$elm_slice_show$Tangram_Mesh$parallelogramPyramid = _elm_community$webgl$WebGL$triangles(
+	{
+		ctor: '::',
+		_0: A3(
+			_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -3, 1, 0),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 3, -1, 0),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 0)),
+		_1: {
+			ctor: '::',
+			_0: A3(
+				_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -3, 1, 0),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, -1, 0),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 3, -1, 0)),
+			_1: {
+				ctor: '::',
+				_0: A3(
+					_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, -3, 1, 0),
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 0),
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -2)),
+				_1: {
+					ctor: '::',
+					_0: A3(
+						_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 0),
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 3, -1, 0),
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -2)),
+					_1: {
+						ctor: '::',
+						_0: A3(
+							_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 3, -1, 0),
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, -1, 0),
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -2)),
+						_1: {
+							ctor: '::',
+							_0: A3(
+								_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, -3, 1, 0),
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -2),
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, -1, 0)),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		}
+	});
+var _w0rm$elm_slice_show$Tangram_Mesh$squarePyramid = _elm_community$webgl$WebGL$triangles(
+	{
+		ctor: '::',
+		_0: A3(
+			_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 0, 0),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 0, 0),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0)),
+		_1: {
+			ctor: '::',
+			_0: A3(
+				_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 0, 0),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -1, 0),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 0, 0)),
+			_1: {
+				ctor: '::',
+				_0: A3(
+					_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 0, 0),
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0),
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0 - _w0rm$elm_slice_show$Tangram_Mesh$sqrt2)),
+				_1: {
+					ctor: '::',
+					_0: A3(
+						_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0),
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 0, 0),
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0 - _w0rm$elm_slice_show$Tangram_Mesh$sqrt2)),
+					_1: {
+						ctor: '::',
+						_0: A3(
+							_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 0, 0),
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0 - _w0rm$elm_slice_show$Tangram_Mesh$sqrt2),
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -1, 0)),
+						_1: {
+							ctor: '::',
+							_0: A3(
+								_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 0, 0),
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -1, 0),
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0 - _w0rm$elm_slice_show$Tangram_Mesh$sqrt2)),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		}
+	});
+var _w0rm$elm_slice_show$Tangram_Mesh$tetrahedron = _elm_community$webgl$WebGL$triangles(
+	{
+		ctor: '::',
+		_0: A3(
+			_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 0, 0),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -1, 0)),
+		_1: {
+			ctor: '::',
+			_0: A3(
+				_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, -1),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 0, 0),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0)),
+			_1: {
+				ctor: '::',
+				_0: A3(
+					_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, -1),
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -1, 0),
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 0, 0)),
+				_1: {
+					ctor: '::',
+					_0: A3(
+						_w0rm$elm_slice_show$Tangram_Mesh$attribute,
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, -1),
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0),
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -1, 0)),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	});
+
+var _w0rm$elm_slice_show$Tangram_Shape$morphValue = F3(
+	function (d, v1, v2) {
+		return v1 + ((v2 - v1) * d);
+	});
+var _w0rm$elm_slice_show$Tangram_Shape$e1 = 0.1;
+var _w0rm$elm_slice_show$Tangram_Shape$Position = F5(
+	function (a, b, c, d, e) {
+		return {rotateZ: a, rotateY: b, x: c, y: d, z: e};
+	});
+var _w0rm$elm_slice_show$Tangram_Shape$defaultPosition = A5(_w0rm$elm_slice_show$Tangram_Shape$Position, 0, 0, 0, 0, 0);
+var _w0rm$elm_slice_show$Tangram_Shape$elm = {
+	parallelogramPyramid: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, 0, 0, -1 - _w0rm$elm_slice_show$Tangram_Shape$e1, 3 + (_w0rm$elm_slice_show$Tangram_Shape$e1 * 3), 0),
+	orangeTetrahedron1: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, 90, 0, 0, 2 + (_w0rm$elm_slice_show$Tangram_Shape$e1 * 2), 1.0e-2),
+	orangeTetrahedron2: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, 0, 0, 4 + (_w0rm$elm_slice_show$Tangram_Shape$e1 * 2), -2, 0),
+	squarePyramid: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, 0, 0, 2 + _w0rm$elm_slice_show$Tangram_Shape$e1, _w0rm$elm_slice_show$Tangram_Shape$e1, 0),
+	grayTetrahedron: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, 180, 0, -4 - _w0rm$elm_slice_show$Tangram_Shape$e1, _w0rm$elm_slice_show$Tangram_Shape$e1, 0),
+	blueTetrahedron1: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, -135, 0, 2 + (_w0rm$elm_slice_show$Tangram_Shape$e1 * 1.4), 2 + (_w0rm$elm_slice_show$Tangram_Shape$e1 * 2.5), 0),
+	blueTetrahedron2: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, -90, 0, 0, -4, 0)
+};
+var _w0rm$elm_slice_show$Tangram_Shape$elmCommunity = {
+	parallelogramPyramid: A5(
+		_w0rm$elm_slice_show$Tangram_Shape$Position,
+		-135,
+		0,
+		-3,
+		(-3 - _elm_lang$core$Basics$sqrt(2)) - _w0rm$elm_slice_show$Tangram_Shape$e1,
+		0),
+	orangeTetrahedron1: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, 45, 0, 5 - _w0rm$elm_slice_show$Tangram_Shape$e1, -7 - _w0rm$elm_slice_show$Tangram_Shape$e1, 0),
+	orangeTetrahedron2: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, -45, 0, -6, -6, 0),
+	squarePyramid: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, 0, 0, 3 + _w0rm$elm_slice_show$Tangram_Shape$e1, 5, 0),
+	grayTetrahedron: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, 90, 0, 3 + _w0rm$elm_slice_show$Tangram_Shape$e1, 3, 0),
+	blueTetrahedron1: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, -135, 0, 3, -5 - _w0rm$elm_slice_show$Tangram_Shape$e1, 0),
+	blueTetrahedron2: A5(_w0rm$elm_slice_show$Tangram_Shape$Position, -90, 0, 1, -3, 0)
+};
+var _w0rm$elm_slice_show$Tangram_Shape$morphPosition = F3(
+	function (d, p1, p2) {
+		return A5(
+			_w0rm$elm_slice_show$Tangram_Shape$Position,
+			A3(_w0rm$elm_slice_show$Tangram_Shape$morphValue, d, p1.rotateZ, p2.rotateZ),
+			A3(_w0rm$elm_slice_show$Tangram_Shape$morphValue, d, p1.rotateY, p2.rotateY),
+			A3(_w0rm$elm_slice_show$Tangram_Shape$morphValue, d, p1.x, p2.x),
+			A3(_w0rm$elm_slice_show$Tangram_Shape$morphValue, d, p1.y, p2.y),
+			A3(_w0rm$elm_slice_show$Tangram_Shape$morphValue, d, p1.z, p2.z));
+	});
+var _w0rm$elm_slice_show$Tangram_Shape$morph = F3(
+	function (d, s1, s2) {
+		return {
+			parallelogramPyramid: A3(_w0rm$elm_slice_show$Tangram_Shape$morphPosition, d, s1.parallelogramPyramid, s2.parallelogramPyramid),
+			orangeTetrahedron1: A3(_w0rm$elm_slice_show$Tangram_Shape$morphPosition, d, s1.orangeTetrahedron1, s2.orangeTetrahedron1),
+			orangeTetrahedron2: A3(_w0rm$elm_slice_show$Tangram_Shape$morphPosition, d, s1.orangeTetrahedron2, s2.orangeTetrahedron2),
+			squarePyramid: A3(_w0rm$elm_slice_show$Tangram_Shape$morphPosition, d, s1.squarePyramid, s2.squarePyramid),
+			grayTetrahedron: A3(_w0rm$elm_slice_show$Tangram_Shape$morphPosition, d, s1.grayTetrahedron, s2.grayTetrahedron),
+			blueTetrahedron1: A3(_w0rm$elm_slice_show$Tangram_Shape$morphPosition, d, s1.blueTetrahedron1, s2.blueTetrahedron1),
+			blueTetrahedron2: A3(_w0rm$elm_slice_show$Tangram_Shape$morphPosition, d, s1.blueTetrahedron2, s2.blueTetrahedron2)
+		};
+	});
+var _w0rm$elm_slice_show$Tangram_Shape$Shape = F7(
+	function (a, b, c, d, e, f, g) {
+		return {parallelogramPyramid: a, orangeTetrahedron1: b, orangeTetrahedron2: c, squarePyramid: d, grayTetrahedron: e, blueTetrahedron1: f, blueTetrahedron2: g};
+	});
+var _w0rm$elm_slice_show$Tangram_Shape$default = A7(_w0rm$elm_slice_show$Tangram_Shape$Shape, _w0rm$elm_slice_show$Tangram_Shape$defaultPosition, _w0rm$elm_slice_show$Tangram_Shape$defaultPosition, _w0rm$elm_slice_show$Tangram_Shape$defaultPosition, _w0rm$elm_slice_show$Tangram_Shape$defaultPosition, _w0rm$elm_slice_show$Tangram_Shape$defaultPosition, _w0rm$elm_slice_show$Tangram_Shape$defaultPosition, _w0rm$elm_slice_show$Tangram_Shape$defaultPosition);
+
+var _w0rm$elm_slice_show$Tangram_Main$scaleMat = function (s) {
+	return _elm_community$linear_algebra$Math_Matrix4$makeScale(
+		A3(_elm_community$linear_algebra$Math_Vector3$vec3, s, s, s));
+};
+var _w0rm$elm_slice_show$Tangram_Main$clamp_ = function (x) {
+	return (A3(
+		_elm_lang$core$Basics$clamp,
+		0.2,
+		0.8,
+		Math.pow(x, 2)) - 0.2) / 0.6;
+};
+var _w0rm$elm_slice_show$Tangram_Main$interpolate = F2(
+	function (shapes, t) {
+		var current = _elm_lang$core$Basics$truncate(t / _elm_lang$core$Basics$pi);
+		var shape1 = A2(
+			_elm_lang$core$Maybe$withDefault,
+			_w0rm$elm_slice_show$Tangram_Shape$default,
+			_elm_lang$core$List$head(
+				A2(
+					_elm_lang$core$List$drop,
+					A2(
+						_elm_lang$core$Basics_ops['%'],
+						current,
+						_elm_lang$core$List$length(shapes)),
+					shapes)));
+		var shape2 = A2(
+			_elm_lang$core$Maybe$withDefault,
+			_w0rm$elm_slice_show$Tangram_Shape$default,
+			_elm_lang$core$List$head(
+				A2(
+					_elm_lang$core$List$drop,
+					A2(
+						_elm_lang$core$Basics_ops['%'],
+						current + 1,
+						_elm_lang$core$List$length(shapes)),
+					shapes)));
+		var d = _w0rm$elm_slice_show$Tangram_Main$clamp_(
+			_elm_lang$core$Basics$sin(
+				(t - (_elm_lang$core$Basics$toFloat(current) * _elm_lang$core$Basics$pi)) / 2));
+		return A3(_w0rm$elm_slice_show$Tangram_Shape$morph, d, shape1, shape2);
+	});
+var _w0rm$elm_slice_show$Tangram_Main$f = function (t) {
+	return _w0rm$elm_slice_show$Tangram_Main$clamp_(
+		_elm_lang$core$Basics$cos(t));
+};
+var _w0rm$elm_slice_show$Tangram_Main$rotateMat = F3(
+	function (rotateZ, rotateY, t) {
+		return A2(
+			_elm_community$linear_algebra$Math_Matrix4$mul,
+			A2(
+				_elm_community$linear_algebra$Math_Matrix4$makeRotate,
+				((rotateY * _elm_lang$core$Basics$pi) / 180) + (2 * (1 - _w0rm$elm_slice_show$Tangram_Main$f(t))),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0)),
+			A2(
+				_elm_community$linear_algebra$Math_Matrix4$makeRotate,
+				((rotateZ * _elm_lang$core$Basics$pi) / 180) * _w0rm$elm_slice_show$Tangram_Main$f(t),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 1)));
+	});
+var _w0rm$elm_slice_show$Tangram_Main$translateMat = F4(
+	function (x, y, z, t) {
+		return _elm_community$linear_algebra$Math_Matrix4$makeTranslate(
+			A3(
+				_elm_community$linear_algebra$Math_Vector3$vec3,
+				x / (_w0rm$elm_slice_show$Tangram_Main$f(t) * _w0rm$elm_slice_show$Tangram_Main$f(t)),
+				y / (_w0rm$elm_slice_show$Tangram_Main$f(t) * _w0rm$elm_slice_show$Tangram_Main$f(t)),
+				z / (_w0rm$elm_slice_show$Tangram_Main$f(t) * _w0rm$elm_slice_show$Tangram_Main$f(t))));
+	});
+var _w0rm$elm_slice_show$Tangram_Main$camera = function (ratio) {
+	var center = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0);
+	var eye = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 25);
+	return A2(
+		_elm_community$linear_algebra$Math_Matrix4$mul,
+		A4(_elm_community$linear_algebra$Math_Matrix4$makePerspective, 45, ratio, 1.0e-2, 100),
+		A3(_elm_community$linear_algebra$Math_Matrix4$makeLookAt, eye, center, _elm_community$linear_algebra$Math_Vector3$j));
+};
+var _w0rm$elm_slice_show$Tangram_Main$colors = {
+	gray: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.353, 0.388, 0.47),
+	green: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.514, 0.784, 0.2),
+	orange: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.937, 0.647, 0),
+	blue: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.372, 0.706, 0.792)
+};
+var _w0rm$elm_slice_show$Tangram_Main$render = F6(
+	function (ratio, shape, color, scaleMat, _p0, t) {
+		var _p1 = _p0;
+		return A4(
+			_elm_community$webgl$WebGL$entity,
+			_w0rm$elm_slice_show$Tangram_Shader$vertex,
+			_w0rm$elm_slice_show$Tangram_Shader$fragment,
+			shape,
+			A5(
+				_w0rm$elm_slice_show$Tangram_Shader$Uniform,
+				color,
+				A3(_w0rm$elm_slice_show$Tangram_Main$rotateMat, _p1.rotateZ, _p1.rotateY, t),
+				scaleMat,
+				A4(_w0rm$elm_slice_show$Tangram_Main$translateMat, _p1.x, _p1.y + 1, _p1.z, t),
+				_w0rm$elm_slice_show$Tangram_Main$camera(ratio)));
+	});
+var _w0rm$elm_slice_show$Tangram_Main$shapes = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Tangram_Shape$elm,
+	_1: {
+		ctor: '::',
+		_0: _w0rm$elm_slice_show$Tangram_Shape$elmCommunity,
+		_1: {ctor: '[]'}
+	}
+};
+var _w0rm$elm_slice_show$Tangram_Main$view = function (_p2) {
+	var _p3 = _p2;
+	var _p4 = _p3._0;
+	var ratio = 1280 / 720;
+	var shape = A2(_w0rm$elm_slice_show$Tangram_Main$interpolate, _w0rm$elm_slice_show$Tangram_Main$shapes, _p4);
+	return A2(
+		_elm_community$webgl$WebGL$toHtml,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$width(1280),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$height(720),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A6(
+				_w0rm$elm_slice_show$Tangram_Main$render,
+				ratio,
+				_w0rm$elm_slice_show$Tangram_Mesh$parallelogramPyramid,
+				_w0rm$elm_slice_show$Tangram_Main$colors.green,
+				_w0rm$elm_slice_show$Tangram_Main$scaleMat(1),
+				shape.parallelogramPyramid,
+				_p4),
+			_1: {
+				ctor: '::',
+				_0: A6(
+					_w0rm$elm_slice_show$Tangram_Main$render,
+					ratio,
+					_w0rm$elm_slice_show$Tangram_Mesh$tetrahedron,
+					_w0rm$elm_slice_show$Tangram_Main$colors.orange,
+					_w0rm$elm_slice_show$Tangram_Main$scaleMat(2),
+					shape.orangeTetrahedron1,
+					_p4),
+				_1: {
+					ctor: '::',
+					_0: A6(
+						_w0rm$elm_slice_show$Tangram_Main$render,
+						ratio,
+						_w0rm$elm_slice_show$Tangram_Mesh$squarePyramid,
+						_w0rm$elm_slice_show$Tangram_Main$colors.green,
+						_w0rm$elm_slice_show$Tangram_Main$scaleMat(2),
+						shape.squarePyramid,
+						_p4),
+					_1: {
+						ctor: '::',
+						_0: A6(
+							_w0rm$elm_slice_show$Tangram_Main$render,
+							ratio,
+							_w0rm$elm_slice_show$Tangram_Mesh$tetrahedron,
+							_w0rm$elm_slice_show$Tangram_Main$colors.orange,
+							_w0rm$elm_slice_show$Tangram_Main$scaleMat(2),
+							shape.orangeTetrahedron2,
+							_p4),
+						_1: {
+							ctor: '::',
+							_0: A6(
+								_w0rm$elm_slice_show$Tangram_Main$render,
+								ratio,
+								_w0rm$elm_slice_show$Tangram_Mesh$tetrahedron,
+								_w0rm$elm_slice_show$Tangram_Main$colors.gray,
+								_w0rm$elm_slice_show$Tangram_Main$scaleMat(4),
+								shape.grayTetrahedron,
+								_p4),
+							_1: {
+								ctor: '::',
+								_0: A6(
+									_w0rm$elm_slice_show$Tangram_Main$render,
+									ratio,
+									_w0rm$elm_slice_show$Tangram_Mesh$tetrahedron,
+									_w0rm$elm_slice_show$Tangram_Main$colors.blue,
+									_w0rm$elm_slice_show$Tangram_Main$scaleMat(4),
+									shape.blueTetrahedron2,
+									_p4),
 								_1: {
 									ctor: '::',
-									_0: {
-										ctor: '_Tuple2',
-										_0: 'height',
-										_1: A2(
-											_elm_lang$core$Basics_ops['++'],
-											_elm_lang$core$Basics$toString(model.window.height),
-											'px')
-									},
+									_0: A6(
+										_w0rm$elm_slice_show$Tangram_Main$render,
+										ratio,
+										_w0rm$elm_slice_show$Tangram_Mesh$tetrahedron,
+										_w0rm$elm_slice_show$Tangram_Main$colors.blue,
+										_w0rm$elm_slice_show$Tangram_Main$scaleMat(
+											_elm_lang$core$Basics$sqrt(2) * 2),
+										shape.blueTetrahedron1,
+										_p4),
 									_1: {ctor: '[]'}
 								}
 							}
-						}),
+						}
+					}
+				}
+			}
+		});
+};
+var _w0rm$elm_slice_show$Tangram_Main$Message = function (a) {
+	return {ctor: 'Message', _0: a};
+};
+var _w0rm$elm_slice_show$Tangram_Main$subscriptions = function (_p5) {
+	var _p6 = _p5;
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: _elm_lang$animation_frame$AnimationFrame$diffs(_w0rm$elm_slice_show$Tangram_Main$Message),
+			_1: {ctor: '[]'}
+		});
+};
+var _w0rm$elm_slice_show$Tangram_Main$Model = function (a) {
+	return {ctor: 'Model', _0: a};
+};
+var _w0rm$elm_slice_show$Tangram_Main$initial = _w0rm$elm_slice_show$Tangram_Main$Model(0);
+var _w0rm$elm_slice_show$Tangram_Main$update = F2(
+	function (_p8, _p7) {
+		var _p9 = _p8;
+		var _p10 = _p7;
+		return A2(
+			_elm_lang$core$Platform_Cmd_ops['!'],
+			_w0rm$elm_slice_show$Tangram_Main$Model(_p10._0 + (_p9._0 * 5.0e-4)),
+			{ctor: '[]'});
+	});
+
+var _w0rm$elm_slice_show$Sphere_Main$fragmentShader = {'src': '\n        precision mediump float;\n        varying highp float vlighting;\n        uniform vec3 color;\n        void main () {\n            gl_FragColor = vec4(color * vlighting, 1.0);\n        }\n    '};
+var _w0rm$elm_slice_show$Sphere_Main$vertexShader = {'src': '\n        attribute vec3 position;\n        attribute vec3 normal;\n        uniform mat4 camera;\n        uniform mat4 rotation;\n        uniform vec3 light;\n        varying highp float vlighting;\n        void main () {\n            highp float ambientLight = 0.5;\n            highp float directionalLight = 0.5;\n            gl_Position = camera * rotation * vec4(position, 1.0);\n            vlighting = ambientLight + max(dot((rotation * vec4(normal, 1.0)).xyz, light), 0.0) * directionalLight;\n        }\n    '};
+var _w0rm$elm_slice_show$Sphere_Main$octahedron = {
+	ctor: '::',
+	_0: {
+		ctor: '_Tuple3',
+		_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0, 0),
+		_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0.5, 0),
+		_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0.5)
+	},
+	_1: {
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple3',
+			_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0.5, 0),
+			_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, 0),
+			_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0.5)
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple3',
+				_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, 0),
+				_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -0.5, 0),
+				_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0.5)
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple3',
+					_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -0.5, 0),
+					_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0, 0),
+					_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0.5)
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple3',
+						_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0, 0),
+						_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -0.5),
+						_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0.5, 0)
+					},
 					_1: {
 						ctor: '::',
-						_0: _mpizenberg$elm_touch_events$SingleTouch$onStart(
-							function (_p5) {
-								return _user$project$Types$Down(
-									_user$project$View$touchToMouse(_p5));
-							}),
+						_0: {
+							ctor: '_Tuple3',
+							_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0.5, 0),
+							_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -0.5),
+							_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, 0)
+						},
 						_1: {
 							ctor: '::',
-							_0: _mpizenberg$elm_touch_events$SingleTouch$onMove(
-								function (_p6) {
-									return _user$project$Types$Move(
-										_user$project$View$touchToMouse(_p6));
-								}),
+							_0: {
+								ctor: '_Tuple3',
+								_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, 0),
+								_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -0.5),
+								_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -0.5, 0)
+							},
 							_1: {
 								ctor: '::',
-								_0: _mpizenberg$elm_touch_events$SingleTouch$onEnd(
-									function (_p7) {
-										return _user$project$Types$Up(
-											_user$project$View$touchToMouse(_p7));
-									}),
+								_0: {
+									ctor: '_Tuple3',
+									_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -0.5, 0),
+									_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -0.5),
+									_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0, 0)
+								},
 								_1: {ctor: '[]'}
 							}
 						}
 					}
 				}
 			}
-		},
-		A3(
-			_elm_lang$core$Dict$foldl,
-			_user$project$View$cellEntity(model),
-			{ctor: '[]'},
-			model.cubik));
+		}
+	}
 };
-var _user$project$View$Uniforms = F5(
-	function (a, b, c, d, e) {
-		return {color: a, camera: b, perspective: c, rotation: d, transform: e};
+var _w0rm$elm_slice_show$Sphere_Main$divide = function (_p0) {
+	var _p1 = _p0;
+	var _p4 = _p1._2;
+	var _p3 = _p1._1;
+	var _p2 = _p1._0;
+	var c = A2(
+		_elm_community$linear_algebra$Math_Vector3$scale,
+		0.5,
+		_elm_community$linear_algebra$Math_Vector3$normalize(
+			A2(_elm_community$linear_algebra$Math_Vector3$add, _p3, _p4)));
+	var b = A2(
+		_elm_community$linear_algebra$Math_Vector3$scale,
+		0.5,
+		_elm_community$linear_algebra$Math_Vector3$normalize(
+			A2(_elm_community$linear_algebra$Math_Vector3$add, _p2, _p3)));
+	var a = A2(
+		_elm_community$linear_algebra$Math_Vector3$scale,
+		0.5,
+		_elm_community$linear_algebra$Math_Vector3$normalize(
+			A2(_elm_community$linear_algebra$Math_Vector3$add, _p2, _p4)));
+	return {
+		ctor: '::',
+		_0: {ctor: '_Tuple3', _0: _p2, _1: b, _2: a},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple3', _0: b, _1: _p3, _2: c},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple3', _0: a, _1: b, _2: c},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple3', _0: a, _1: c, _2: _p4},
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	};
+};
+var _w0rm$elm_slice_show$Sphere_Main$divideSphere = F2(
+	function (step, triangles) {
+		divideSphere:
+		while (true) {
+			if (_elm_lang$core$Native_Utils.eq(step, 0)) {
+				return triangles;
+			} else {
+				var _v1 = step - 1,
+					_v2 = A2(_elm_lang$core$List$concatMap, _w0rm$elm_slice_show$Sphere_Main$divide, triangles);
+				step = _v1;
+				triangles = _v2;
+				continue divideSphere;
+			}
+		}
 	});
-var _user$project$Main$getMousePosition = F2(
-	function (_p0, mouse) {
-		var _p1 = _p0;
-		var _p2 = _p1.window;
-		var invertedProjectionMatrix = A2(
-			_elm_lang$core$Maybe$withDefault,
-			_elm_community$linear_algebra$Math_Matrix4$identity,
-			_elm_community$linear_algebra$Math_Matrix4$inverse(_p1.perspective));
-		var homogeneousClipCoordinates = A4(
-			_elm_community$linear_algebra$Math_Vector4$vec4,
-			((_elm_lang$core$Basics$toFloat(mouse.x) * 2) / _elm_lang$core$Basics$toFloat(_p2.width)) - 1,
-			1 - ((_elm_lang$core$Basics$toFloat(mouse.y) * 2) / _elm_lang$core$Basics$toFloat(_p2.height)),
-			-1,
-			1);
-		var vec4CameraCoordinates = A2(_user$project$Utils$transform4, invertedProjectionMatrix, homogeneousClipCoordinates);
-		var direction = A4(
-			_elm_community$linear_algebra$Math_Vector4$vec4,
-			_elm_community$linear_algebra$Math_Vector4$getX(vec4CameraCoordinates),
-			_elm_community$linear_algebra$Math_Vector4$getY(vec4CameraCoordinates),
-			-1,
-			0);
-		var vec4WorldCoordinates = A2(
-			_user$project$Utils$transform4,
-			_elm_community$linear_algebra$Math_Matrix4$inverseOrthonormal(_p1.camera),
-			direction);
-		var vec3WorldCoordinates = A3(
-			_elm_community$linear_algebra$Math_Vector3$vec3,
-			_elm_community$linear_algebra$Math_Vector4$getX(vec4WorldCoordinates),
-			_elm_community$linear_algebra$Math_Vector4$getY(vec4WorldCoordinates),
-			_elm_community$linear_algebra$Math_Vector4$getZ(vec4WorldCoordinates));
-		return _elm_community$linear_algebra$Math_Vector3$normalize(vec3WorldCoordinates);
+var _w0rm$elm_slice_show$Sphere_Main$light = _elm_community$linear_algebra$Math_Vector3$normalize(
+	A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 1, 3));
+var _w0rm$elm_slice_show$Sphere_Main$camera = function (ratio) {
+	var center = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0);
+	var eye = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 1.5);
+	var c = 0;
+	return A2(
+		_elm_community$linear_algebra$Math_Matrix4$mul,
+		A4(_elm_community$linear_algebra$Math_Matrix4$makePerspective, 45, ratio, 1.0e-2, 100),
+		A3(_elm_community$linear_algebra$Math_Matrix4$makeLookAt, eye, center, _elm_community$linear_algebra$Math_Vector3$j));
+};
+var _w0rm$elm_slice_show$Sphere_Main$update = F2(
+	function (_p5, model) {
+		var _p6 = _p5;
+		return {
+			ctor: '_Tuple2',
+			_0: _elm_lang$core$Native_Utils.update(
+				model,
+				{angle: model.angle + (_p6._0 / 5000)}),
+			_1: _elm_lang$core$Platform_Cmd$none
+		};
 	});
-var _user$project$Main$rotationDirection = F4(
-	function (cell, model, source, dest) {
-		var toCoord = A4(
-			_user$project$Utils$rayPlaneIntersect,
-			_user$project$Decode$origin,
-			A2(_user$project$Main$getMousePosition, model, dest),
+var _w0rm$elm_slice_show$Sphere_Main$Model = F4(
+	function (a, b, c, d) {
+		return {angle: a, width: b, height: c, iterations: d};
+	});
+var _w0rm$elm_slice_show$Sphere_Main$initial = _w0rm$elm_slice_show$Sphere_Main$Model(0);
+var _w0rm$elm_slice_show$Sphere_Main$Attributes = F2(
+	function (a, b) {
+		return {position: a, normal: b};
+	});
+var _w0rm$elm_slice_show$Sphere_Main$attributes = F3(
+	function (p1, p2, p3) {
+		var normal = _elm_community$linear_algebra$Math_Vector3$normalize(
 			A2(
-				_elm_community$linear_algebra$Math_Matrix4$transform,
-				model.rotation,
-				_user$project$Utils$cellPosition(cell)),
-			A2(_elm_community$linear_algebra$Math_Matrix4$transform, model.rotation, cell.normal));
-		var fromCoord = A4(
-			_user$project$Utils$rayPlaneIntersect,
-			_user$project$Decode$origin,
-			A2(_user$project$Main$getMousePosition, model, source),
+				_elm_community$linear_algebra$Math_Vector3$cross,
+				A2(_elm_community$linear_algebra$Math_Vector3$sub, p1, p2),
+				A2(_elm_community$linear_algebra$Math_Vector3$sub, p1, p3)));
+		return {
+			ctor: '_Tuple3',
+			_0: A2(_w0rm$elm_slice_show$Sphere_Main$Attributes, p1, normal),
+			_1: A2(_w0rm$elm_slice_show$Sphere_Main$Attributes, p2, normal),
+			_2: A2(_w0rm$elm_slice_show$Sphere_Main$Attributes, p3, normal)
+		};
+	});
+var _w0rm$elm_slice_show$Sphere_Main$spheres = A2(
+	_elm_lang$core$List$map,
+	function (i) {
+		return _elm_community$webgl$WebGL$triangles(
 			A2(
-				_elm_community$linear_algebra$Math_Matrix4$transform,
-				model.rotation,
-				_user$project$Utils$cellPosition(cell)),
-			A2(_elm_community$linear_algebra$Math_Matrix4$transform, model.rotation, cell.normal));
-		var inverseRot = _elm_community$linear_algebra$Math_Matrix4$inverseOrthonormal(model.rotation);
-		return A2(
-			_elm_lang$core$Maybe$withDefault,
-			{ctor: '_Tuple3', _0: 0, _1: 0, _2: 0},
-			A2(
-				_elm_lang$core$Maybe$map,
-				function (_p3) {
-					return _elm_community$linear_algebra$Math_Vector3$toTuple(
-						A2(_elm_community$linear_algebra$Math_Matrix4$transform, inverseRot, _p3));
+				_elm_lang$core$List$map,
+				function (_p7) {
+					var _p8 = _p7;
+					return A3(_w0rm$elm_slice_show$Sphere_Main$attributes, _p8._0, _p8._1, _p8._2);
 				},
-				A3(_elm_lang$core$Maybe$map2, _elm_community$linear_algebra$Math_Vector3$sub, fromCoord, toCoord)));
+				A2(_w0rm$elm_slice_show$Sphere_Main$divideSphere, i, _w0rm$elm_slice_show$Sphere_Main$octahedron)));
+	},
+	{
+		ctor: '::',
+		_0: 0,
+		_1: {
+			ctor: '::',
+			_0: 1,
+			_1: {
+				ctor: '::',
+				_0: 2,
+				_1: {
+					ctor: '::',
+					_0: 3,
+					_1: {ctor: '[]'}
+				}
+			}
+		}
 	});
-var _user$project$Main$cellClickCoordinates = F2(
-	function (destination, transform) {
-		return _elm_lang$core$List$head(
+var _w0rm$elm_slice_show$Sphere_Main$sphere = _elm_community$webgl$WebGL$triangles(
+	A2(
+		_elm_lang$core$List$map,
+		function (_p9) {
+			var _p10 = _p9;
+			return A3(_w0rm$elm_slice_show$Sphere_Main$attributes, _p10._0, _p10._1, _p10._2);
+		},
+		A2(_w0rm$elm_slice_show$Sphere_Main$divideSphere, 4, _w0rm$elm_slice_show$Sphere_Main$octahedron)));
+var _w0rm$elm_slice_show$Sphere_Main$Uniforms = F4(
+	function (a, b, c, d) {
+		return {color: a, camera: b, rotation: c, light: d};
+	});
+var _w0rm$elm_slice_show$Sphere_Main$appleView = F3(
+	function (ratio, angle, iterations) {
+		return A4(
+			_elm_community$webgl$WebGL$entity,
+			_w0rm$elm_slice_show$Sphere_Main$vertexShader,
+			_w0rm$elm_slice_show$Sphere_Main$fragmentShader,
 			A2(
-				_elm_lang$core$List$filterMap,
-				A2(_user$project$Utils$rayTriangleIntersect, _user$project$Decode$origin, destination),
+				_elm_lang$core$Maybe$withDefault,
+				_w0rm$elm_slice_show$Sphere_Main$sphere,
+				_elm_lang$core$List$head(
+					A2(_elm_lang$core$List$drop, iterations, _w0rm$elm_slice_show$Sphere_Main$spheres))),
+			A4(
+				_w0rm$elm_slice_show$Sphere_Main$Uniforms,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.2, 0.2, 1),
+				_w0rm$elm_slice_show$Sphere_Main$camera(ratio),
+				A2(
+					_elm_community$linear_algebra$Math_Matrix4$makeRotate,
+					angle,
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0)),
+				_w0rm$elm_slice_show$Sphere_Main$light));
+	});
+var _w0rm$elm_slice_show$Sphere_Main$view = function (model) {
+	var ratio = _elm_lang$core$Basics$toFloat(model.width) / _elm_lang$core$Basics$toFloat(model.height);
+	return A2(
+		_elm_community$webgl$WebGL$toHtml,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
 				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$width(model.width),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$height(model.height),
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A3(_w0rm$elm_slice_show$Sphere_Main$appleView, ratio, model.angle, model.iterations),
+			_1: {ctor: '[]'}
+		});
+};
+var _w0rm$elm_slice_show$Sphere_Main$Varying = function (a) {
+	return {vlighting: a};
+};
+var _w0rm$elm_slice_show$Sphere_Main$Message = function (a) {
+	return {ctor: 'Message', _0: a};
+};
+var _w0rm$elm_slice_show$Sphere_Main$subscriptions = function (_p11) {
+	return _elm_lang$animation_frame$AnimationFrame$diffs(_w0rm$elm_slice_show$Sphere_Main$Message);
+};
+
+var _w0rm$elm_slice_show$Shadertoy_Main$fragmentShader = {'src': '\n\n        precision mediump float;\n\n        varying vec2      vFragCoord;\n        uniform vec3      iResolution;           // viewport resolution (in pixels)\n        uniform float     iGlobalTime;           // shader playback time (in seconds)\n        uniform vec4      iMouse;                // mouse pixel coords. xy: current (if MLB down), zw: click\n\n        /*\n         * \"Seascape\" by Alexander Alekseev aka TDM - 2014\n         * License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.\n         * Contact: tdmaav@gmail.com\n         */\n\n        const int NUM_STEPS = 8;\n        const float PI\t \t= 3.1415;\n        const float EPSILON\t= 1e-3;\n\n        // sea\n        const int ITER_GEOMETRY = 3;\n        const int ITER_FRAGMENT = 5;\n        const float SEA_HEIGHT = 0.6;\n        const float SEA_CHOPPY = 4.0;\n        const float SEA_SPEED = 0.8;\n        const float SEA_FREQ = 0.16;\n        const vec3 SEA_BASE = vec3(0.1,0.19,0.22);\n        const vec3 SEA_WATER_COLOR = vec3(0.8,0.9,0.6);\n        const mat2 octave_m = mat2(1.6,1.2,-1.2,1.6);\n\n        // math\n        mat3 fromEuler(vec3 ang) {\n        \t  vec2 a1 = vec2(sin(ang.x),cos(ang.x));\n            vec2 a2 = vec2(sin(ang.y),cos(ang.y));\n            vec2 a3 = vec2(sin(ang.z),cos(ang.z));\n            mat3 m;\n            m[0] = vec3(a1.y*a3.y+a1.x*a2.x*a3.x,a1.y*a2.x*a3.x+a3.y*a1.x,-a2.y*a3.x);\n        \t  m[1] = vec3(-a2.y*a1.x,a1.y*a2.y,a2.x);\n        \t  m[2] = vec3(a3.y*a1.x*a2.x+a1.y*a3.x,a1.x*a3.x-a1.y*a3.y*a2.x,a2.y*a3.y);\n        \t  return m;\n        }\n        float hash( vec2 p ) {\n          \tfloat h = dot(p,vec2(127.1,311.7));\n            return fract(sin(h)*43758.5453123);\n        }\n        float noise( in vec2 p ) {\n            vec2 i = floor( p );\n            vec2 f = fract( p );\n          \tvec2 u = f*f*(3.0-2.0*f);\n            return -1.0 + 2.0 * mix(\n              mix(\n                hash(i + vec2(0.0,0.0)),\n                hash(i + vec2(1.0,0.0)),\n                u.x\n              ),\n              mix(\n                hash(i + vec2(0.0,1.0)),\n                hash(i + vec2(1.0,1.0)),\n                u.x\n              ),\n              u.y\n            );\n        }\n\n        // lighting\n        float diffuse(vec3 n,vec3 l,float p) {\n            return pow(dot(n,l) * 0.4 + 0.6,p);\n        }\n        float specular(vec3 n,vec3 l,vec3 e,float s) {\n            float nrm = (s + 8.0) / (3.1415 * 8.0);\n            return pow(max(dot(reflect(e,n),l),0.0),s) * nrm;\n        }\n\n        // sky\n        vec3 getSkyColor(vec3 e) {\n            e.y = max(e.y,0.0);\n            return vec3(pow(1.0-e.y,2.0), 1.0-e.y, 0.6+(1.0-e.y)*0.4);\n        }\n\n        // sea\n        float sea_octave(vec2 uv, float choppy) {\n            uv += noise(uv);\n            vec2 wv = 1.0-abs(sin(uv));\n            vec2 swv = abs(cos(uv));\n            wv = mix(wv,swv,wv);\n            return pow(1.0-pow(wv.x * wv.y,0.65),choppy);\n        }\n\n        float map(vec3 p) {\n            float SEA_TIME = 1.0 + iGlobalTime * SEA_SPEED;\n            float freq = SEA_FREQ;\n            float amp = SEA_HEIGHT;\n            float choppy = SEA_CHOPPY;\n            vec2 uv = p.xz; uv.x *= 0.75;\n\n            float d, h = 0.0;\n            for(int i = 0; i < ITER_GEOMETRY; i++) {\n              \td = sea_octave((uv+SEA_TIME)*freq,choppy);\n              \td += sea_octave((uv-SEA_TIME)*freq,choppy);\n                h += d * amp;\n              \tuv *= octave_m; freq *= 1.9; amp *= 0.22;\n                choppy = mix(choppy,1.0,0.2);\n            }\n            return p.y - h;\n        }\n\n        float map_detailed(vec3 p) {\n            float SEA_TIME = 1.0 + iGlobalTime * SEA_SPEED;\n            float freq = SEA_FREQ;\n            float amp = SEA_HEIGHT;\n            float choppy = SEA_CHOPPY;\n            vec2 uv = p.xz; uv.x *= 0.75;\n\n            float d, h = 0.0;\n            for(int i = 0; i < ITER_FRAGMENT; i++) {\n                d = sea_octave((uv+SEA_TIME)*freq,choppy);\n            \t  d += sea_octave((uv-SEA_TIME)*freq,choppy);\n                h += d * amp;\n            \t  uv *= octave_m; freq *= 1.9; amp *= 0.22;\n                choppy = mix(choppy,1.0,0.2);\n            }\n            return p.y - h;\n        }\n\n        vec3 getSeaColor(vec3 p, vec3 n, vec3 l, vec3 eye, vec3 dist) {\n            float fresnel = clamp(1.0 - dot(n,-eye), 0.0, 1.0);\n            fresnel = pow(fresnel,3.0) * 0.65;\n\n            vec3 reflected = getSkyColor(reflect(eye,n));\n            vec3 refracted = SEA_BASE + diffuse(n,l,80.0) * SEA_WATER_COLOR * 0.12;\n\n            vec3 color = mix(refracted,reflected,fresnel);\n\n            float atten = max(1.0 - dot(dist,dist) * 0.001, 0.0);\n            color += SEA_WATER_COLOR * (p.y - SEA_HEIGHT) * 0.18 * atten;\n\n            color += vec3(specular(n,l,eye,60.0));\n\n            return color;\n        }\n\n        // tracing\n        vec3 getNormal(vec3 p, float eps) {\n            vec3 n;\n            n.y = map_detailed(p);\n            n.x = map_detailed(vec3(p.x+eps,p.y,p.z)) - n.y;\n            n.z = map_detailed(vec3(p.x,p.y,p.z+eps)) - n.y;\n            n.y = eps;\n            return normalize(n);\n        }\n\n        float heightMapTracing(vec3 ori, vec3 dir, out vec3 p) {\n            float tm = 0.0;\n            float tx = 1000.0;\n            float hx = map(ori + dir * tx);\n            if(hx > 0.0) return tx;\n            float hm = map(ori + dir * tm);\n            float tmid = 0.0;\n            for(int i = 0; i < NUM_STEPS; i++) {\n                tmid = mix(tm,tx, hm/(hm-hx));\n                p = ori + dir * tmid;\n            \t  float hmid = map(p);\n            \t\tif (hmid < 0.0) {\n                    tx = tmid;\n                    hx = hmid;\n                } else {\n                    tm = tmid;\n                    hm = hmid;\n                }\n            }\n            return tmid;\n        }\n\n        // main\n        void mainImage( out vec4 fragColor, in vec2 fragCoord ) {\n        \t  vec2 uv = fragCoord.xy / iResolution.xy;\n            uv = uv * 2.0 - 1.0;\n            uv.x *= iResolution.x / iResolution.y;\n            float time = iGlobalTime * 0.3 + iMouse.x*0.01;\n\n            // ray\n            vec3 ang = vec3(sin(time*3.0)*0.1,sin(time)*0.2+0.3,time);\n            vec3 ori = vec3(0.0,3.5,time*5.0);\n            vec3 dir = normalize(vec3(uv.xy,-2.0)); dir.z += length(uv) * 0.15;\n            dir = normalize(dir) * fromEuler(ang);\n\n            // tracing\n            vec3 p;\n            heightMapTracing(ori,dir,p);\n            vec3 dist = p - ori;\n            float EPSILON_NRM = 0.1 / iResolution.x;\n            vec3 n = getNormal(p, dot(dist,dist) * EPSILON_NRM);\n            vec3 light = normalize(vec3(0.0,1.0,0.8));\n\n            // color\n            vec3 color = mix(\n                getSkyColor(dir),\n                getSeaColor(p,n,light,dir,dist),\n            \t  pow(smoothstep(0.0,-0.05,dir.y),0.3)\n            );\n\n            // post\n        \t  fragColor = vec4(pow(color,vec3(0.75)), 1.0);\n        }\n\n        void main() {\n          mainImage(gl_FragColor, vFragCoord);\n        }\n\n    '};
+var _w0rm$elm_slice_show$Shadertoy_Main$vertexShader = {'src': '\n\n        precision mediump float;\n\n        attribute vec3 position;\n        varying vec2 vFragCoord;\n        uniform vec3 iResolution;\n\n        void main () {\n            gl_Position = vec4(position, 1.0);\n            vFragCoord = (position.xy + 1.0) / 2.0 * iResolution.xy;\n        }\n\n    '};
+var _w0rm$elm_slice_show$Shadertoy_Main$size = A2(_elm_lang$window$Window$Size, 640, 400);
+var _w0rm$elm_slice_show$Shadertoy_Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Diff':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{time: model.time + _p0._0}),
+					{ctor: '[]'});
+			case 'Move':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{position: _p0._0}),
+					{ctor: '[]'});
+			case 'Press':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{pressed: _p0._0}),
+					{ctor: '[]'});
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{size: _p0._0}),
+					{ctor: '[]'});
+		}
+	});
+var _w0rm$elm_slice_show$Shadertoy_Main$Model = F4(
+	function (a, b, c, d) {
+		return {size: a, position: b, pressed: c, time: d};
+	});
+var _w0rm$elm_slice_show$Shadertoy_Main$initial = A4(
+	_w0rm$elm_slice_show$Shadertoy_Main$Model,
+	A2(_elm_lang$window$Window$Size, 0, 0),
+	A2(_elm_lang$mouse$Mouse$Position, 0, 0),
+	false,
+	0);
+var _w0rm$elm_slice_show$Shadertoy_Main$Vertex = function (a) {
+	return {position: a};
+};
+var _w0rm$elm_slice_show$Shadertoy_Main$mesh = _elm_community$webgl$WebGL$triangles(
+	{
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple3',
+			_0: _w0rm$elm_slice_show$Shadertoy_Main$Vertex(
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 1, 0)),
+			_1: _w0rm$elm_slice_show$Shadertoy_Main$Vertex(
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 0)),
+			_2: _w0rm$elm_slice_show$Shadertoy_Main$Vertex(
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, -1, 0))
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple3',
+				_0: _w0rm$elm_slice_show$Shadertoy_Main$Vertex(
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, -1, 0)),
+				_1: _w0rm$elm_slice_show$Shadertoy_Main$Vertex(
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 0)),
+				_2: _w0rm$elm_slice_show$Shadertoy_Main$Vertex(
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, -1, 0))
+			},
+			_1: {ctor: '[]'}
+		}
+	});
+var _w0rm$elm_slice_show$Shadertoy_Main$view = function (_p1) {
+	var _p2 = _p1;
+	var _p3 = _p2.position;
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_community$webgl$WebGL$toHtml,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$width(_w0rm$elm_slice_show$Shadertoy_Main$size.width),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$height(_w0rm$elm_slice_show$Shadertoy_Main$size.height),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								{
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: 'width',
+											_1: A2(
+												_elm_lang$core$Basics_ops['++'],
+												_elm_lang$core$Basics$toString(_w0rm$elm_slice_show$Shadertoy_Main$size.width),
+												'px')
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: 'height',
+												_1: A2(
+													_elm_lang$core$Basics_ops['++'],
+													_elm_lang$core$Basics$toString(_w0rm$elm_slice_show$Shadertoy_Main$size.height),
+													'px')
+											},
+											_1: {ctor: '[]'}
+										}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				{
+					ctor: '::',
+					_0: A4(
+						_elm_community$webgl$WebGL$entity,
+						_w0rm$elm_slice_show$Shadertoy_Main$vertexShader,
+						_w0rm$elm_slice_show$Shadertoy_Main$fragmentShader,
+						_w0rm$elm_slice_show$Shadertoy_Main$mesh,
+						{
+							iResolution: A3(
+								_elm_community$linear_algebra$Math_Vector3$vec3,
+								_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Shadertoy_Main$size.width),
+								_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Shadertoy_Main$size.height),
+								0),
+							iGlobalTime: _p2.time / 1000,
+							iMouse: A4(
+								_elm_community$linear_algebra$Math_Vector4$vec4,
+								_elm_lang$core$Basics$toFloat(_p3.x),
+								_elm_lang$core$Basics$toFloat(_p3.y),
+								0,
+								0)
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _w0rm$elm_slice_show$Shadertoy_Main$Uniforms = F3(
+	function (a, b, c) {
+		return {iResolution: a, iGlobalTime: b, iMouse: c};
+	});
+var _w0rm$elm_slice_show$Shadertoy_Main$Resize = function (a) {
+	return {ctor: 'Resize', _0: a};
+};
+var _w0rm$elm_slice_show$Shadertoy_Main$Press = function (a) {
+	return {ctor: 'Press', _0: a};
+};
+var _w0rm$elm_slice_show$Shadertoy_Main$Move = function (a) {
+	return {ctor: 'Move', _0: a};
+};
+var _w0rm$elm_slice_show$Shadertoy_Main$Diff = function (a) {
+	return {ctor: 'Diff', _0: a};
+};
+var _w0rm$elm_slice_show$Shadertoy_Main$subscriptions = function (_p4) {
+	var _p5 = _p4;
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: _elm_lang$animation_frame$AnimationFrame$diffs(_w0rm$elm_slice_show$Shadertoy_Main$Diff),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$window$Window$resizes(_w0rm$elm_slice_show$Shadertoy_Main$Resize),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$mouse$Mouse$downs(
+						_elm_lang$core$Basics$always(
+							_w0rm$elm_slice_show$Shadertoy_Main$Press(true))),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$mouse$Mouse$ups(
+							_elm_lang$core$Basics$always(
+								_w0rm$elm_slice_show$Shadertoy_Main$Press(false))),
+						_1: {
+							ctor: '::',
+							_0: _p5.pressed ? _elm_lang$mouse$Mouse$moves(_w0rm$elm_slice_show$Shadertoy_Main$Move) : _elm_lang$core$Platform_Sub$none,
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		});
+};
+
+var _w0rm$elm_slice_show$Snake_Main$shadowFragmentShader = {'src': '\n        precision mediump float;\n        uniform vec3 color;\n        void main () {\n            gl_FragColor = vec4(color, 1.0);\n        }\n    '};
+var _w0rm$elm_slice_show$Snake_Main$shadowVertexShader = {'src': '\n        attribute vec3 position;\n        uniform vec3 offset;\n        uniform mat4 camera;\n        void main () {\n            gl_Position = camera * vec4(position + offset, 1.0);\n        }\n    '};
+var _w0rm$elm_slice_show$Snake_Main$fragmentShader = {'src': '\n        precision mediump float;\n        varying highp float vlighting;\n        uniform vec3 color;\n        void main () {\n            gl_FragColor = vec4(color * vlighting, 1.0);\n        }\n    '};
+var _w0rm$elm_slice_show$Snake_Main$vertexShader = {'src': '\n        attribute vec3 position;\n        attribute vec3 normal;\n        uniform vec3 offset;\n        uniform mat4 camera;\n        uniform vec3 light;\n        varying highp float vlighting;\n        void main () {\n            highp float ambientLight = 0.5;\n            highp float directionalLight = 0.5;\n            gl_Position = camera * vec4(position + offset, 1.0);\n            vlighting = ambientLight + max(dot(normal, light), 0.0) * directionalLight;\n        }\n    '};
+var _w0rm$elm_slice_show$Snake_Main$octahedron = {
+	ctor: '::',
+	_0: {
+		ctor: '_Tuple3',
+		_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0, 0),
+		_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0.5, 0),
+		_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0.5)
+	},
+	_1: {
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple3',
+			_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0.5, 0),
+			_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, 0),
+			_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0.5)
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple3',
+				_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, 0),
+				_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -0.5, 0),
+				_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0.5)
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple3',
+					_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -0.5, 0),
+					_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0, 0),
+					_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0.5)
+				},
+				_1: {
 					ctor: '::',
 					_0: {
 						ctor: '_Tuple3',
-						_0: A2(
-							_elm_community$linear_algebra$Math_Matrix4$transform,
-							transform,
-							A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, -0.5)),
-						_1: A2(
-							_elm_community$linear_algebra$Math_Matrix4$transform,
-							transform,
-							A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, -0.5)),
-						_2: A2(
-							_elm_community$linear_algebra$Math_Matrix4$transform,
-							transform,
-							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, -0.5))
+						_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0, 0),
+						_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -0.5),
+						_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0.5, 0)
 					},
 					_1: {
 						ctor: '::',
 						_0: {
 							ctor: '_Tuple3',
-							_0: A2(
-								_elm_community$linear_algebra$Math_Matrix4$transform,
-								transform,
-								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, -0.5)),
-							_1: A2(
-								_elm_community$linear_algebra$Math_Matrix4$transform,
-								transform,
-								A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, -0.5)),
-							_2: A2(
-								_elm_community$linear_algebra$Math_Matrix4$transform,
-								transform,
-								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, -0.5))
+							_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0.5, 0),
+							_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -0.5),
+							_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, 0)
 						},
-						_1: {ctor: '[]'}
-					}
-				}));
-	});
-var _user$project$Main$selectCell = F2(
-	function (mouse, model) {
-		return _elm_lang$core$List$head(
-			_elm_lang$core$Dict$toList(
-				A2(
-					_elm_lang$core$Dict$filter,
-					function (_p4) {
-						return function (_p5) {
-							return A2(
-								F2(
-									function (x, y) {
-										return !_elm_lang$core$Native_Utils.eq(x, y);
-									}),
-								_elm_lang$core$Maybe$Nothing,
-								A2(
-									_user$project$Main$cellClickCoordinates,
-									A2(_user$project$Main$getMousePosition, model, mouse),
-									A2(
-										_elm_community$linear_algebra$Math_Matrix4$mul,
-										model.rotation,
-										function (_) {
-											return _.transform;
-										}(_p5))));
-						};
-					},
-					model.cubik)));
-	});
-var _user$project$Main$transforming = F5(
-	function (cellId, transformation, source, dest, model) {
-		var cell = function () {
-			var _p6 = A2(_elm_lang$core$Dict$get, cellId, model.cubik);
-			if (_p6.ctor === 'Just') {
-				return _p6._0;
-			} else {
-				return _elm_lang$core$Native_Utils.crashCase(
-					'Main',
-					{
-						start: {line: 281, column: 13},
-						end: {line: 286, column: 51}
-					},
-					_p6)('Shouldn\'t happen');
-			}
-		}();
-		var _p8 = A4(_user$project$Main$rotationDirection, cell, model, source, dest);
-		var x = _p8._0;
-		var y = _p8._1;
-		var z = _p8._2;
-		var axis = transformation.axis;
-		var angle = function () {
-			var _p9 = _user$project$Utils$round3(cell.normal);
-			_v2_6:
-			do {
-				if (_p9.ctor === '_Tuple3') {
-					switch (_p9._2) {
-						case -1:
-							return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? (0 - y) : x;
-						case 1:
-							return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? y : (0 - x);
-						default:
-							switch (_p9._0) {
-								case -1:
-									return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$ZAxis) ? y : (0 - z);
-								case 1:
-									return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$ZAxis) ? (0 - y) : z;
-								default:
-									switch (_p9._1) {
-										case 1:
-											return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? (0 - z) : x;
-										case -1:
-											return _elm_lang$core$Native_Utils.eq(axis, _user$project$Types$XAxis) ? z : (0 - x);
-										default:
-											break _v2_6;
-									}
-							}
-					}
-				} else {
-					break _v2_6;
-				}
-			} while(false);
-			return _elm_lang$core$Native_Utils.crashCase(
-				'Main',
-				{
-					start: {line: 292, column: 13},
-					end: {line: 336, column: 51}
-				},
-				_p9)('Shouldn\'t happen');
-		}();
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{
-				state: A3(
-					_user$project$Types$Transforming,
-					cellId,
-					_elm_lang$core$Native_Utils.update(
-						transformation,
-						{angle: angle}),
-					source)
-			});
-	});
-var _user$project$Main$startTransforming = F4(
-	function (cellId, source, dest, model) {
-		var cell = function () {
-			var _p11 = A2(_elm_lang$core$Dict$get, cellId, model.cubik);
-			if (_p11.ctor === 'Just') {
-				return _p11._0;
-			} else {
-				return _elm_lang$core$Native_Utils.crashCase(
-					'Main',
-					{
-						start: {line: 211, column: 13},
-						end: {line: 216, column: 51}
-					},
-					_p11)('Shouldn\'t happen');
-			}
-		}();
-		var _p13 = A4(_user$project$Main$rotationDirection, cell, model, source, dest);
-		var x = _p13._0;
-		var y = _p13._1;
-		var z = _p13._2;
-		var _p14 = function () {
-			var _p15 = _user$project$Utils$round3(cell.normal);
-			_v4_6:
-			do {
-				if (_p15.ctor === '_Tuple3') {
-					switch (_p15._2) {
-						case -1:
-							return (_elm_lang$core$Native_Utils.cmp(
-								_elm_lang$core$Basics$abs(x),
-								_elm_lang$core$Basics$abs(y)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$XAxis, _1: 0 - y} : {ctor: '_Tuple2', _0: _user$project$Types$YAxis, _1: x};
-						case 1:
-							return (_elm_lang$core$Native_Utils.cmp(
-								_elm_lang$core$Basics$abs(x),
-								_elm_lang$core$Basics$abs(y)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$XAxis, _1: y} : {ctor: '_Tuple2', _0: _user$project$Types$YAxis, _1: 0 - x};
-						default:
-							switch (_p15._0) {
-								case -1:
-									return (_elm_lang$core$Native_Utils.cmp(
-										_elm_lang$core$Basics$abs(z),
-										_elm_lang$core$Basics$abs(y)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$ZAxis, _1: y} : {ctor: '_Tuple2', _0: _user$project$Types$YAxis, _1: 0 - z};
-								case 1:
-									return (_elm_lang$core$Native_Utils.cmp(
-										_elm_lang$core$Basics$abs(z),
-										_elm_lang$core$Basics$abs(y)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$ZAxis, _1: 0 - y} : {ctor: '_Tuple2', _0: _user$project$Types$YAxis, _1: z};
-								default:
-									switch (_p15._1) {
-										case 1:
-											return (_elm_lang$core$Native_Utils.cmp(
-												_elm_lang$core$Basics$abs(x),
-												_elm_lang$core$Basics$abs(z)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$XAxis, _1: 0 - z} : {ctor: '_Tuple2', _0: _user$project$Types$ZAxis, _1: x};
-										case -1:
-											return (_elm_lang$core$Native_Utils.cmp(
-												_elm_lang$core$Basics$abs(x),
-												_elm_lang$core$Basics$abs(z)) < 0) ? {ctor: '_Tuple2', _0: _user$project$Types$XAxis, _1: z} : {ctor: '_Tuple2', _0: _user$project$Types$ZAxis, _1: 0 - x};
-										default:
-											break _v4_6;
-									}
-							}
-					}
-				} else {
-					break _v4_6;
-				}
-			} while(false);
-			return _elm_lang$core$Native_Utils.crashCase(
-				'Main',
-				{
-					start: {line: 222, column: 13},
-					end: {line: 266, column: 51}
-				},
-				_p15)('Shouldn\'t happen');
-		}();
-		var axis = _p14._0;
-		var angle = _p14._1;
-		var coord = A2(_user$project$Utils$cellRotationCoord, axis, cell);
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{
-				state: A3(
-					_user$project$Types$Transforming,
-					cellId,
-					{coord: coord, axis: axis, angle: angle},
-					source)
-			});
-	});
-var _user$project$Main$rotate = F3(
-	function (source, dest, model) {
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{
-				state: _user$project$Types$Rotating(dest),
-				rotation: A2(
-					_elm_community$linear_algebra$Math_Matrix4$mul,
-					A2(
-						_elm_community$linear_algebra$Math_Matrix4$makeRotate,
-						_elm_lang$core$Basics$toFloat(source.y - dest.y) * 5.0e-3,
-						_elm_community$linear_algebra$Math_Vector3$i),
-					A2(
-						_elm_community$linear_algebra$Math_Matrix4$mul,
-						A2(
-							_elm_community$linear_algebra$Math_Matrix4$makeRotate,
-							_elm_lang$core$Basics$toFloat(dest.x - source.x) * 5.0e-3,
-							_elm_community$linear_algebra$Math_Vector3$j),
-						model.rotation))
-			});
-	});
-var _user$project$Main$transform = F2(
-	function (_p17, cubik) {
-		var _p18 = _p17;
-		var _p20 = _p18.axis;
-		return A2(
-			_elm_lang$core$Dict$map,
-			F2(
-				function (_p19, cell) {
-					return _elm_lang$core$Native_Utils.eq(
-						A2(_user$project$Utils$cellRotationCoord, _p20, cell),
-						_p18.coord) ? A3(_user$project$Utils$rotateCell, _p20, _p18.angle, cell) : cell;
-				}),
-			cubik);
-	});
-var _user$project$Main$init = function (value) {
-	return {
-		ctor: '_Tuple2',
-		_0: _user$project$Decode$model(value),
-		_1: _elm_lang$core$Platform_Cmd$batch(
-			{
-				ctor: '::',
-				_0: A2(_elm_lang$core$Task$perform, _user$project$Types$Resize, _elm_lang$window$Window$size),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$core$Random$generate,
-						_user$project$Types$Transform,
-						_user$project$Utils$randomTransformations(30)),
-					_1: {ctor: '[]'}
-				}
-			})
-	};
-};
-var _user$project$Main$save = _elm_lang$core$Native_Platform.outgoingPort(
-	'save',
-	function (v) {
-		return v;
-	});
-var _user$project$Main$update = F2(
-	function (msg, model) {
-		var _p21 = msg;
-		switch (_p21.ctor) {
-			case 'Transform':
-				var _p22 = _p21._0;
-				if (_p22.ctor === '[]') {
-					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-				} else {
-					var _p23 = _p22._0;
-					return {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.update(
-							model,
-							{
-								state: A3(
-									_user$project$Types$Animating,
-									_p23,
-									_p22._1,
-									A2(
-										_mgold$elm_animation$Animation$duration,
-										100,
-										A2(
-											_mgold$elm_animation$Animation$to,
-											_p23.angle,
-											A2(
-												_mgold$elm_animation$Animation$from,
-												0,
-												_mgold$elm_animation$Animation$animation(model.time)))))
-							}),
-						_1: _elm_lang$core$Platform_Cmd$none
-					};
-				}
-			case 'Resize':
-				var _p24 = _p21._0;
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{
-							window: _p24,
-							perspective: A4(
-								_elm_community$linear_algebra$Math_Matrix4$makePerspective,
-								45,
-								_elm_lang$core$Basics$toFloat(_p24.width) / _elm_lang$core$Basics$toFloat(_p24.height),
-								1.0e-2,
-								100)
-						}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Down':
-				var _p27 = _p21._0;
-				var _p25 = model.state;
-				if (_p25.ctor === 'Initial') {
-					var _p26 = A2(_user$project$Main$selectCell, _p27, model);
-					if (_p26.ctor === 'Just') {
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{
-									state: A2(_user$project$Types$TransformStart, _p26._0._0, _p27)
-								}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					} else {
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{
-									state: _user$project$Types$Rotating(_p27)
-								}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					}
-				} else {
-					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-				}
-			case 'Move':
-				var _p30 = _p21._0;
-				var _p28 = model.state;
-				switch (_p28.ctor) {
-					case 'Rotating':
-						return {
-							ctor: '_Tuple2',
-							_0: A3(_user$project$Main$rotate, _p28._0, _p30, model),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					case 'TransformStart':
-						var _p29 = _p28._1;
-						return (_elm_lang$core$Native_Utils.cmp(
-							Math.pow(_p29.x - _p30.x, 2) + Math.pow(_p29.y - _p30.y, 2),
-							100) > 0) ? {
-							ctor: '_Tuple2',
-							_0: A4(_user$project$Main$startTransforming, _p28._0, _p29, _p30, model),
-							_1: _elm_lang$core$Platform_Cmd$none
-						} : {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-					case 'Transforming':
-						return {
-							ctor: '_Tuple2',
-							_0: A5(_user$project$Main$transforming, _p28._0, _p28._1, _p28._2, _p30, model),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					default:
-						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-				}
-			case 'Up':
-				var _p31 = model.state;
-				if (_p31.ctor === 'Transforming') {
-					var _p32 = _p31._1;
-					var closestAngle = (_elm_lang$core$Basics$toFloat(
-						_elm_lang$core$Basics$round(_p32.angle / (_elm_lang$core$Basics$pi / 2))) * _elm_lang$core$Basics$pi) / 2;
-					var animation = A2(
-						_mgold$elm_animation$Animation$duration,
-						100,
-						A2(
-							_mgold$elm_animation$Animation$to,
-							closestAngle,
-							A2(
-								_mgold$elm_animation$Animation$from,
-								_p32.angle,
-								_mgold$elm_animation$Animation$animation(model.time))));
-					return {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.update(
-							model,
-							{
-								state: A3(
-									_user$project$Types$Animating,
-									_elm_lang$core$Native_Utils.update(
-										_p32,
-										{angle: closestAngle}),
-									{ctor: '[]'},
-									animation)
-							}),
-						_1: _elm_lang$core$Platform_Cmd$none
-					};
-				} else {
-					return {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.update(
-							model,
-							{state: _user$project$Types$Initial}),
-						_1: _user$project$Main$save(
-							_user$project$Encode$model(model))
-					};
-				}
-			default:
-				var time = model.time + _p21._0;
-				var _p33 = model.state;
-				if (_p33.ctor === 'Animating') {
-					if (A2(_mgold$elm_animation$Animation$isDone, time, _p33._2)) {
-						var newModel = _elm_lang$core$Native_Utils.update(
-							model,
-							{
-								cubik: A2(_user$project$Main$transform, _p33._0, model.cubik)
-							});
-						var _p34 = _p33._1;
-						if (_p34.ctor === '[]') {
-							return {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									newModel,
-									{state: _user$project$Types$Initial, time: time}),
-								_1: _user$project$Main$save(
-									_user$project$Encode$model(newModel))
-							};
-						} else {
-							var _p35 = _p34._0;
-							return {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									newModel,
-									{
-										state: A3(
-											_user$project$Types$Animating,
-											_p35,
-											_p34._1,
-											A2(
-												_mgold$elm_animation$Animation$duration,
-												200,
-												A2(
-													_mgold$elm_animation$Animation$to,
-													_p35.angle,
-													_mgold$elm_animation$Animation$animation(time)))),
-										time: time
-									}),
-								_1: _user$project$Main$save(
-									_user$project$Encode$model(newModel))
-							};
-						}
-					} else {
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{time: time}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					}
-				} else {
-					return {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.update(
-							model,
-							{time: time}),
-						_1: _elm_lang$core$Platform_Cmd$none
-					};
-				}
-		}
-	});
-var _user$project$Main$main = _elm_lang$html$Html$programWithFlags(
-	{
-		init: _user$project$Main$init,
-		update: _user$project$Main$update,
-		view: _user$project$View$view,
-		subscriptions: function (_p36) {
-			return _elm_lang$core$Platform_Sub$batch(
-				{
-					ctor: '::',
-					_0: _elm_lang$window$Window$resizes(_user$project$Types$Resize),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$mouse$Mouse$moves(_user$project$Types$Move),
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$mouse$Mouse$downs(_user$project$Types$Down),
+							_0: {
+								ctor: '_Tuple3',
+								_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0, 0),
+								_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -0.5),
+								_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -0.5, 0)
+							},
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$mouse$Mouse$ups(_user$project$Types$Up),
+								_0: {
+									ctor: '_Tuple3',
+									_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, -0.5, 0),
+									_1: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -0.5),
+									_2: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0, 0)
+								},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Snake_Main$divide = function (_p0) {
+	var _p1 = _p0;
+	var _p4 = _p1._2;
+	var _p3 = _p1._1;
+	var _p2 = _p1._0;
+	var c = A2(
+		_elm_community$linear_algebra$Math_Vector3$scale,
+		0.5,
+		_elm_community$linear_algebra$Math_Vector3$normalize(
+			A2(_elm_community$linear_algebra$Math_Vector3$add, _p3, _p4)));
+	var b = A2(
+		_elm_community$linear_algebra$Math_Vector3$scale,
+		0.5,
+		_elm_community$linear_algebra$Math_Vector3$normalize(
+			A2(_elm_community$linear_algebra$Math_Vector3$add, _p2, _p3)));
+	var a = A2(
+		_elm_community$linear_algebra$Math_Vector3$scale,
+		0.5,
+		_elm_community$linear_algebra$Math_Vector3$normalize(
+			A2(_elm_community$linear_algebra$Math_Vector3$add, _p2, _p4)));
+	return {
+		ctor: '::',
+		_0: {ctor: '_Tuple3', _0: _p2, _1: b, _2: a},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple3', _0: b, _1: _p3, _2: c},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple3', _0: a, _1: b, _2: c},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple3', _0: a, _1: c, _2: _p4},
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	};
+};
+var _w0rm$elm_slice_show$Snake_Main$divideSphere = F2(
+	function (step, triangles) {
+		divideSphere:
+		while (true) {
+			if (_elm_lang$core$Native_Utils.eq(step, 0)) {
+				return triangles;
+			} else {
+				var _v1 = step - 1,
+					_v2 = A2(_elm_lang$core$List$concatMap, _w0rm$elm_slice_show$Snake_Main$divide, triangles);
+				step = _v1;
+				triangles = _v2;
+				continue divideSphere;
+			}
+		}
+	});
+var _w0rm$elm_slice_show$Snake_Main$shadow = F2(
+	function (normal, light) {
+		var d = A2(_elm_community$linear_algebra$Math_Vector3$dot, normal, light);
+		var l = _elm_community$linear_algebra$Math_Vector3$toRecord(light);
+		var p = _elm_community$linear_algebra$Math_Vector3$toRecord(normal);
+		return _elm_community$linear_algebra$Math_Matrix4$fromRecord(
+			{m11: (p.x * l.x) - d, m21: p.x * l.y, m31: p.x * l.z, m41: 0, m12: p.y * l.x, m22: (p.y * l.y) - d, m32: p.y * l.z, m42: 0, m13: p.z * l.x, m23: p.z * l.y, m33: (p.z * l.z) - d, m43: 0, m14: 0, m24: 0, m34: 0, m44: 0 - d});
+	});
+var _w0rm$elm_slice_show$Snake_Main$floorNormal = _elm_community$linear_algebra$Math_Vector3$normalize(
+	A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -1));
+var _w0rm$elm_slice_show$Snake_Main$light = _elm_community$linear_algebra$Math_Vector3$normalize(
+	A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 1, 3));
+var _w0rm$elm_slice_show$Snake_Main$handleKeyboard = F2(
+	function (model, keyMsg) {
+		var keyboardModel = A2(_ohanhi$keyboard_extra$Keyboard_Extra$update, keyMsg, model.keyboardModel);
+		var arrows = _ohanhi$keyboard_extra$Keyboard_Extra$wasd(keyboardModel);
+		var newArrows = {ctor: '_Tuple2', _0: arrows.x, _1: arrows.y};
+		return {
+			ctor: '_Tuple2',
+			_0: _elm_lang$core$Native_Utils.update(
+				model,
+				{keyboardModel: keyboardModel, arrows: newArrows}),
+			_1: _elm_lang$core$Platform_Cmd$none
+		};
+	});
+var _w0rm$elm_slice_show$Snake_Main$applyKeyboard = F2(
+	function (_p6, _p5) {
+		var _p7 = _p6;
+		var _p10 = _p7._1;
+		var _p9 = _p7._0;
+		var _p8 = _p5;
+		return ((!_elm_lang$core$Native_Utils.eq(_p9, 0)) && _elm_lang$core$Native_Utils.eq(_p8._0, 0)) ? {ctor: '_Tuple2', _0: _p9, _1: 0} : (((!_elm_lang$core$Native_Utils.eq(_p10, 0)) && _elm_lang$core$Native_Utils.eq(_p8._1, 0)) ? {ctor: '_Tuple2', _0: 0, _1: 0 - _p10} : _p8);
+	});
+var _w0rm$elm_slice_show$Snake_Main$updateDirection = function (model) {
+	var newDirection = A2(_w0rm$elm_slice_show$Snake_Main$applyKeyboard, model.arrows, model.direction);
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{direction: newDirection});
+};
+var _w0rm$elm_slice_show$Snake_Main$between = F3(
+	function (minimum, maximum, value) {
+		return (_elm_lang$core$Native_Utils.cmp(value, minimum) > -1) && (_elm_lang$core$Native_Utils.cmp(value, maximum) < 1);
+	});
+var _w0rm$elm_slice_show$Snake_Main$out = F3(
+	function (minimum, maximum, _p11) {
+		var _p12 = _p11;
+		var betweenBorders = A2(_w0rm$elm_slice_show$Snake_Main$between, minimum, maximum);
+		return (!betweenBorders(_p12._1)) || (!betweenBorders(_p12._0));
+	});
+var _w0rm$elm_slice_show$Snake_Main$collision = _elm_lang$core$List$member;
+var _w0rm$elm_slice_show$Snake_Main$calculateNewVertebra = F2(
+	function (_p14, _p13) {
+		var _p15 = _p14;
+		var _p16 = _p13;
+		return {ctor: '_Tuple2', _0: _p16._0 + _p15._0, _1: _p16._1 + _p15._1};
+	});
+var _w0rm$elm_slice_show$Snake_Main$addNewVertebra = F2(
+	function (direction, snake) {
+		var currentHead = A2(
+			_elm_lang$core$Maybe$withDefault,
+			{ctor: '_Tuple2', _0: 0, _1: 0},
+			_elm_lang$core$List$head(snake));
+		var newVertebra = A2(_w0rm$elm_slice_show$Snake_Main$calculateNewVertebra, currentHead, direction);
+		return {ctor: '::', _0: newVertebra, _1: snake};
+	});
+var _w0rm$elm_slice_show$Snake_Main$dropLastVertebra = function (_p17) {
+	return _elm_lang$core$List$reverse(
+		A2(
+			_elm_lang$core$List$drop,
+			1,
+			_elm_lang$core$List$reverse(_p17)));
+};
+var _w0rm$elm_slice_show$Snake_Main$initialKeyboard = {ctor: '[]'};
+var _w0rm$elm_slice_show$Snake_Main$config = {fps: 60, tps: 5, max: 10, spriteSize: 20};
+var _w0rm$elm_slice_show$Snake_Main$collisionWithHimselfOrWall = function (snake) {
+	var _p18 = snake;
+	if (_p18.ctor === '::') {
+		var _p19 = _p18._0;
+		return A2(_w0rm$elm_slice_show$Snake_Main$collision, _p19, _p18._1) || A3(_w0rm$elm_slice_show$Snake_Main$out, 0, _w0rm$elm_slice_show$Snake_Main$config.max, _p19);
+	} else {
+		return false;
+	}
+};
+var _w0rm$elm_slice_show$Snake_Main$camera = function (ratio) {
+	var c = _elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Snake_Main$config.max) / 2;
+	var eye = A3(_elm_community$linear_algebra$Math_Vector3$vec3, c, 0 - c, 15);
+	var center = A3(_elm_community$linear_algebra$Math_Vector3$vec3, c, c, 0);
+	return A2(
+		_elm_community$linear_algebra$Math_Matrix4$mul,
+		A4(_elm_community$linear_algebra$Math_Matrix4$makePerspective, 45, ratio, 1.0e-2, 100),
+		A3(_elm_community$linear_algebra$Math_Matrix4$makeLookAt, eye, center, _elm_community$linear_algebra$Math_Vector3$j));
+};
+var _w0rm$elm_slice_show$Snake_Main$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {snake: a, apple: b, arrows: c, direction: d, keyboardModel: e, size: f};
+	});
+var _w0rm$elm_slice_show$Snake_Main$initial = F2(
+	function (width, height) {
+		return A6(
+			_w0rm$elm_slice_show$Snake_Main$Model,
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+				_1: {ctor: '[]'}
+			},
+			{ctor: '_Tuple2', _0: 0, _1: 0},
+			{ctor: '_Tuple2', _0: 0, _1: 0},
+			{ctor: '_Tuple2', _0: 1, _1: 0},
+			_w0rm$elm_slice_show$Snake_Main$initialKeyboard,
+			A2(_elm_lang$window$Window$Size, width, height));
+	});
+var _w0rm$elm_slice_show$Snake_Main$Attributes = F2(
+	function (a, b) {
+		return {position: a, normal: b};
+	});
+var _w0rm$elm_slice_show$Snake_Main$attributes = F3(
+	function (p1, p2, p3) {
+		var normal = _elm_community$linear_algebra$Math_Vector3$normalize(
+			A2(
+				_elm_community$linear_algebra$Math_Vector3$cross,
+				A2(_elm_community$linear_algebra$Math_Vector3$sub, p1, p2),
+				A2(_elm_community$linear_algebra$Math_Vector3$sub, p1, p3)));
+		return {
+			ctor: '_Tuple3',
+			_0: A2(_w0rm$elm_slice_show$Snake_Main$Attributes, p1, normal),
+			_1: A2(_w0rm$elm_slice_show$Snake_Main$Attributes, p2, normal),
+			_2: A2(_w0rm$elm_slice_show$Snake_Main$Attributes, p3, normal)
+		};
+	});
+var _w0rm$elm_slice_show$Snake_Main$cube = _elm_community$webgl$WebGL$triangles(
+	{
+		ctor: '::',
+		_0: A3(
+			_w0rm$elm_slice_show$Snake_Main$attributes,
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, -0.5),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, 0.5),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0.5)),
+		_1: {
+			ctor: '::',
+			_0: A3(
+				_w0rm$elm_slice_show$Snake_Main$attributes,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0.5),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, -0.5),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, -0.5)),
+			_1: {
+				ctor: '::',
+				_0: A3(
+					_w0rm$elm_slice_show$Snake_Main$attributes,
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, 0.5),
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, 0.5),
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0.5)),
+				_1: {
+					ctor: '::',
+					_0: A3(
+						_w0rm$elm_slice_show$Snake_Main$attributes,
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, 0.5),
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, 0.5),
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0.5)),
+					_1: {
+						ctor: '::',
+						_0: A3(
+							_w0rm$elm_slice_show$Snake_Main$attributes,
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0.5),
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, 0.5),
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, -0.5)),
+						_1: {
+							ctor: '::',
+							_0: A3(
+								_w0rm$elm_slice_show$Snake_Main$attributes,
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, -0.5),
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, -0.5),
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0.5)),
+							_1: {
+								ctor: '::',
+								_0: A3(
+									_w0rm$elm_slice_show$Snake_Main$attributes,
+									A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, -0.5),
+									A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, 0.5),
+									A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, 0.5)),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$animation_frame$AnimationFrame$diffs(_user$project$Types$Tick),
-									_1: {ctor: '[]'}
+									_0: A3(
+										_w0rm$elm_slice_show$Snake_Main$attributes,
+										A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, -0.5),
+										A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, -0.5),
+										A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, 0.5)),
+									_1: {
+										ctor: '::',
+										_0: A3(
+											_w0rm$elm_slice_show$Snake_Main$attributes,
+											A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, -0.5),
+											A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, -0.5),
+											A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, -0.5)),
+										_1: {
+											ctor: '::',
+											_0: A3(
+												_w0rm$elm_slice_show$Snake_Main$attributes,
+												A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, -0.5),
+												A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, -0.5),
+												A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, -0.5)),
+											_1: {
+												ctor: '::',
+												_0: A3(
+													_w0rm$elm_slice_show$Snake_Main$attributes,
+													A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, -0.5),
+													A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, 0.5),
+													A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, 0.5)),
+												_1: {
+													ctor: '::',
+													_0: A3(
+														_w0rm$elm_slice_show$Snake_Main$attributes,
+														A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, 0.5),
+														A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, -0.5),
+														A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, -0.5)),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
 								}
 							}
 						}
 					}
-				});
+				}
+			}
 		}
-	})(_elm_lang$core$Json_Decode$value);
+	});
+var _w0rm$elm_slice_show$Snake_Main$square = _elm_community$webgl$WebGL$triangles(
+	{
+		ctor: '::',
+		_0: A3(
+			_w0rm$elm_slice_show$Snake_Main$attributes,
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, 0.5, 0),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, 0),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0)),
+		_1: {
+			ctor: '::',
+			_0: A3(
+				_w0rm$elm_slice_show$Snake_Main$attributes,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, -0.5, -0.5, 0),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, -0.5, 0),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0)),
+			_1: {ctor: '[]'}
+		}
+	});
+var _w0rm$elm_slice_show$Snake_Main$sphere = _elm_community$webgl$WebGL$triangles(
+	A2(
+		_elm_lang$core$List$map,
+		function (_p20) {
+			var _p21 = _p20;
+			return A3(_w0rm$elm_slice_show$Snake_Main$attributes, _p21._0, _p21._1, _p21._2);
+		},
+		A2(_w0rm$elm_slice_show$Snake_Main$divideSphere, 5, _w0rm$elm_slice_show$Snake_Main$octahedron)));
+var _w0rm$elm_slice_show$Snake_Main$Uniforms = F4(
+	function (a, b, c, d) {
+		return {color: a, offset: b, camera: c, light: d};
+	});
+var _w0rm$elm_slice_show$Snake_Main$vertebraShadowView = F2(
+	function (ratio, _p22) {
+		var _p23 = _p22;
+		return A5(
+			_elm_community$webgl$WebGL$entityWith,
+			{
+				ctor: '::',
+				_0: _elm_community$webgl$WebGL_Settings_StencilTest$test(
+					{ref: 1, mask: 255, test: _elm_community$webgl$WebGL_Settings_StencilTest$equal, fail: _elm_community$webgl$WebGL_Settings_StencilTest$keep, zfail: _elm_community$webgl$WebGL_Settings_StencilTest$keep, zpass: _elm_community$webgl$WebGL_Settings_StencilTest$keep, writeMask: 0}),
+				_1: {
+					ctor: '::',
+					_0: _elm_community$webgl$WebGL_Settings_DepthTest$default,
+					_1: {ctor: '[]'}
+				}
+			},
+			_w0rm$elm_slice_show$Snake_Main$shadowVertexShader,
+			_w0rm$elm_slice_show$Snake_Main$shadowFragmentShader,
+			_w0rm$elm_slice_show$Snake_Main$cube,
+			A4(
+				_w0rm$elm_slice_show$Snake_Main$Uniforms,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.32, 0.16, 0.24),
+				A3(
+					_elm_community$linear_algebra$Math_Vector3$vec3,
+					_elm_lang$core$Basics$toFloat(_p23._0),
+					_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Snake_Main$config.max - _p23._1),
+					0.5),
+				A2(
+					_elm_community$linear_algebra$Math_Matrix4$mul,
+					_w0rm$elm_slice_show$Snake_Main$camera(ratio),
+					A2(_w0rm$elm_slice_show$Snake_Main$shadow, _w0rm$elm_slice_show$Snake_Main$floorNormal, _w0rm$elm_slice_show$Snake_Main$light)),
+				_w0rm$elm_slice_show$Snake_Main$light));
+	});
+var _w0rm$elm_slice_show$Snake_Main$appleShadowView = F2(
+	function (ratio, _p24) {
+		var _p25 = _p24;
+		return A5(
+			_elm_community$webgl$WebGL$entityWith,
+			{
+				ctor: '::',
+				_0: _elm_community$webgl$WebGL_Settings_StencilTest$test(
+					{ref: 1, mask: 255, test: _elm_community$webgl$WebGL_Settings_StencilTest$equal, fail: _elm_community$webgl$WebGL_Settings_StencilTest$keep, zfail: _elm_community$webgl$WebGL_Settings_StencilTest$keep, zpass: _elm_community$webgl$WebGL_Settings_StencilTest$keep, writeMask: 0}),
+				_1: {
+					ctor: '::',
+					_0: _elm_community$webgl$WebGL_Settings_DepthTest$default,
+					_1: {ctor: '[]'}
+				}
+			},
+			_w0rm$elm_slice_show$Snake_Main$shadowVertexShader,
+			_w0rm$elm_slice_show$Snake_Main$shadowFragmentShader,
+			_w0rm$elm_slice_show$Snake_Main$sphere,
+			A4(
+				_w0rm$elm_slice_show$Snake_Main$Uniforms,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.32, 0.16, 0.24),
+				A3(
+					_elm_community$linear_algebra$Math_Vector3$vec3,
+					_elm_lang$core$Basics$toFloat(_p25._0),
+					_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Snake_Main$config.max - _p25._1),
+					0.5),
+				A2(
+					_elm_community$linear_algebra$Math_Matrix4$mul,
+					_w0rm$elm_slice_show$Snake_Main$camera(ratio),
+					A2(_w0rm$elm_slice_show$Snake_Main$shadow, _w0rm$elm_slice_show$Snake_Main$floorNormal, _w0rm$elm_slice_show$Snake_Main$light)),
+				_w0rm$elm_slice_show$Snake_Main$light));
+	});
+var _w0rm$elm_slice_show$Snake_Main$vertebraView = F2(
+	function (ratio, _p26) {
+		var _p27 = _p26;
+		return A4(
+			_elm_community$webgl$WebGL$entity,
+			_w0rm$elm_slice_show$Snake_Main$vertexShader,
+			_w0rm$elm_slice_show$Snake_Main$fragmentShader,
+			_w0rm$elm_slice_show$Snake_Main$cube,
+			A4(
+				_w0rm$elm_slice_show$Snake_Main$Uniforms,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 1, 0),
+				A3(
+					_elm_community$linear_algebra$Math_Vector3$vec3,
+					_elm_lang$core$Basics$toFloat(_p27._0),
+					_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Snake_Main$config.max - _p27._1),
+					0.5),
+				_w0rm$elm_slice_show$Snake_Main$camera(ratio),
+				_w0rm$elm_slice_show$Snake_Main$light));
+	});
+var _w0rm$elm_slice_show$Snake_Main$appleView = F2(
+	function (ratio, _p28) {
+		var _p29 = _p28;
+		return A4(
+			_elm_community$webgl$WebGL$entity,
+			_w0rm$elm_slice_show$Snake_Main$vertexShader,
+			_w0rm$elm_slice_show$Snake_Main$fragmentShader,
+			_w0rm$elm_slice_show$Snake_Main$sphere,
+			A4(
+				_w0rm$elm_slice_show$Snake_Main$Uniforms,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 0, 0),
+				A3(
+					_elm_community$linear_algebra$Math_Vector3$vec3,
+					_elm_lang$core$Basics$toFloat(_p29._0),
+					_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Snake_Main$config.max - _p29._1),
+					0.5),
+				_w0rm$elm_slice_show$Snake_Main$camera(ratio),
+				_w0rm$elm_slice_show$Snake_Main$light));
+	});
+var _w0rm$elm_slice_show$Snake_Main$wallsView = function (ratio) {
+	return A5(
+		_elm_community$webgl$WebGL$entityWith,
+		{
+			ctor: '::',
+			_0: _elm_community$webgl$WebGL_Settings_StencilTest$test(
+				{ref: 1, mask: 255, test: _elm_community$webgl$WebGL_Settings_StencilTest$always, fail: _elm_community$webgl$WebGL_Settings_StencilTest$keep, zfail: _elm_community$webgl$WebGL_Settings_StencilTest$keep, zpass: _elm_community$webgl$WebGL_Settings_StencilTest$replace, writeMask: 255}),
+			_1: {ctor: '[]'}
+		},
+		_w0rm$elm_slice_show$Snake_Main$vertexShader,
+		_w0rm$elm_slice_show$Snake_Main$fragmentShader,
+		_w0rm$elm_slice_show$Snake_Main$square,
+		A4(
+			_w0rm$elm_slice_show$Snake_Main$Uniforms,
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.4, 0.2, 0.3),
+			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
+			A2(
+				_elm_community$linear_algebra$Math_Matrix4$mul,
+				_w0rm$elm_slice_show$Snake_Main$camera(ratio),
+				A2(
+					_elm_community$linear_algebra$Math_Matrix4$mul,
+					A3(
+						_elm_community$linear_algebra$Math_Matrix4$makeTranslate3,
+						_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Snake_Main$config.max) / 2,
+						_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Snake_Main$config.max) / 2,
+						0),
+					A3(
+						_elm_community$linear_algebra$Math_Matrix4$makeScale3,
+						_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Snake_Main$config.max) + 1,
+						_elm_lang$core$Basics$toFloat(_w0rm$elm_slice_show$Snake_Main$config.max) + 1,
+						1))),
+			_w0rm$elm_slice_show$Snake_Main$light));
+};
+var _w0rm$elm_slice_show$Snake_Main$view = function (_p30) {
+	var _p31 = _p30;
+	var _p34 = _p31.snake;
+	var _p33 = _p31.size;
+	var _p32 = _p31.apple;
+	var ratio = _elm_lang$core$Basics$toFloat(_p33.width) / _elm_lang$core$Basics$toFloat(_p33.height);
+	return A3(
+		_elm_community$webgl$WebGL$toHtmlWith,
+		{
+			ctor: '::',
+			_0: _elm_community$webgl$WebGL$alpha(true),
+			_1: {
+				ctor: '::',
+				_0: _elm_community$webgl$WebGL$antialias,
+				_1: {
+					ctor: '::',
+					_0: _elm_community$webgl$WebGL$depth(1),
+					_1: {
+						ctor: '::',
+						_0: _elm_community$webgl$WebGL$stencil(0),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'width',
+							_1: A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(_p33.width),
+								'px')
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'height',
+								_1: A2(
+									_elm_lang$core$Basics_ops['++'],
+									_elm_lang$core$Basics$toString(_p33.height),
+									'px')
+							},
+							_1: {ctor: '[]'}
+						}
+					}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$width(_p33.width),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$height(_p33.height),
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _w0rm$elm_slice_show$Snake_Main$wallsView(ratio),
+			_1: {
+				ctor: '::',
+				_0: A2(_w0rm$elm_slice_show$Snake_Main$appleShadowView, ratio, _p32),
+				_1: {
+					ctor: '::',
+					_0: A2(_w0rm$elm_slice_show$Snake_Main$appleView, ratio, _p32),
+					_1: A2(
+						_elm_lang$core$Basics_ops['++'],
+						A2(
+							_elm_lang$core$List$map,
+							_w0rm$elm_slice_show$Snake_Main$vertebraShadowView(ratio),
+							_p34),
+						A2(
+							_elm_lang$core$List$map,
+							_w0rm$elm_slice_show$Snake_Main$vertebraView(ratio),
+							_p34))
+				}
+			}
+		});
+};
+var _w0rm$elm_slice_show$Snake_Main$Varying = function (a) {
+	return {vlighting: a};
+};
+var _w0rm$elm_slice_show$Snake_Main$Resize = function (a) {
+	return {ctor: 'Resize', _0: a};
+};
+var _w0rm$elm_slice_show$Snake_Main$NewApple = function (a) {
+	return {ctor: 'NewApple', _0: a};
+};
+var _w0rm$elm_slice_show$Snake_Main$generateNewApple = A2(
+	_elm_lang$core$Random$generate,
+	_w0rm$elm_slice_show$Snake_Main$NewApple,
+	A2(
+		_elm_lang$core$Random$pair,
+		A2(_elm_lang$core$Random$int, 1, _w0rm$elm_slice_show$Snake_Main$config.max),
+		A2(_elm_lang$core$Random$int, 1, _w0rm$elm_slice_show$Snake_Main$config.max)));
+var _w0rm$elm_slice_show$Snake_Main$moveSnake = function (_p35) {
+	var _p36 = _p35;
+	var _p37 = _p36;
+	var movedSnake = A2(_w0rm$elm_slice_show$Snake_Main$addNewVertebra, _p36.direction, _p36.snake);
+	var appleEaten = A2(_w0rm$elm_slice_show$Snake_Main$collision, _p36.apple, movedSnake);
+	var finalSnake = appleEaten ? movedSnake : _w0rm$elm_slice_show$Snake_Main$dropLastVertebra(movedSnake);
+	return _w0rm$elm_slice_show$Snake_Main$collisionWithHimselfOrWall(movedSnake) ? {
+		ctor: '_Tuple2',
+		_0: A2(_w0rm$elm_slice_show$Snake_Main$initial, _p37.size.width, _p37.size.height),
+		_1: _elm_lang$core$Platform_Cmd$none
+	} : {
+		ctor: '_Tuple2',
+		_0: _elm_lang$core$Native_Utils.update(
+			_p37,
+			{snake: finalSnake}),
+		_1: appleEaten ? _w0rm$elm_slice_show$Snake_Main$generateNewApple : _elm_lang$core$Platform_Cmd$none
+	};
+};
+var _w0rm$elm_slice_show$Snake_Main$addNewApple = F2(
+	function (newApple, model) {
+		return A2(_w0rm$elm_slice_show$Snake_Main$collision, newApple, model.snake) ? {ctor: '_Tuple2', _0: model, _1: _w0rm$elm_slice_show$Snake_Main$generateNewApple} : {
+			ctor: '_Tuple2',
+			_0: _elm_lang$core$Native_Utils.update(
+				model,
+				{apple: newApple}),
+			_1: _elm_lang$core$Platform_Cmd$none
+		};
+	});
+var _w0rm$elm_slice_show$Snake_Main$update = F2(
+	function (msg, model) {
+		var _p38 = msg;
+		switch (_p38.ctor) {
+			case 'KeyboardMsg':
+				return A2(_w0rm$elm_slice_show$Snake_Main$handleKeyboard, model, _p38._0);
+			case 'TickControl':
+				return {
+					ctor: '_Tuple2',
+					_0: _w0rm$elm_slice_show$Snake_Main$updateDirection(model),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Tick':
+				return _w0rm$elm_slice_show$Snake_Main$moveSnake(model);
+			case 'NewApple':
+				return A2(_w0rm$elm_slice_show$Snake_Main$addNewApple, _p38._0, model);
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{size: _p38._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+var _w0rm$elm_slice_show$Snake_Main$KeyboardMsg = function (a) {
+	return {ctor: 'KeyboardMsg', _0: a};
+};
+var _w0rm$elm_slice_show$Snake_Main$TickControl = function (a) {
+	return {ctor: 'TickControl', _0: a};
+};
+var _w0rm$elm_slice_show$Snake_Main$Tick = function (a) {
+	return {ctor: 'Tick', _0: a};
+};
+var _w0rm$elm_slice_show$Snake_Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: A2(_elm_lang$core$Platform_Sub$map, _w0rm$elm_slice_show$Snake_Main$KeyboardMsg, _ohanhi$keyboard_extra$Keyboard_Extra$subscriptions),
+			_1: {
+				ctor: '::',
+				_0: A2(_elm_lang$core$Time$every, _elm_lang$core$Time$second / _w0rm$elm_slice_show$Snake_Main$config.fps, _w0rm$elm_slice_show$Snake_Main$TickControl),
+				_1: {
+					ctor: '::',
+					_0: A2(_elm_lang$core$Time$every, _elm_lang$core$Time$second / _w0rm$elm_slice_show$Snake_Main$config.tps, _w0rm$elm_slice_show$Snake_Main$Tick),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+
+var _w0rm$elm_slice_show$Model$SnakeModel = function (a) {
+	return {ctor: 'SnakeModel', _0: a};
+};
+var _w0rm$elm_slice_show$Model$snake = F2(
+	function (width, height) {
+		return _w0rm$elm_slice_show$Model$SnakeModel(
+			A2(_w0rm$elm_slice_show$Snake_Main$initial, width, height));
+	});
+var _w0rm$elm_slice_show$Model$Animation2DModel = function (a) {
+	return {ctor: 'Animation2DModel', _0: a};
+};
+var _w0rm$elm_slice_show$Model$animation2d = function (path) {
+	return _w0rm$elm_slice_show$Model$Animation2DModel(
+		_w0rm$elm_slice_show$Animation2D_Main$initial(path));
+};
+var _w0rm$elm_slice_show$Model$ShadertoyModel = function (a) {
+	return {ctor: 'ShadertoyModel', _0: a};
+};
+var _w0rm$elm_slice_show$Model$shadertoy = _w0rm$elm_slice_show$Model$ShadertoyModel(_w0rm$elm_slice_show$Shadertoy_Main$initial);
+var _w0rm$elm_slice_show$Model$SphereModel = function (a) {
+	return {ctor: 'SphereModel', _0: a};
+};
+var _w0rm$elm_slice_show$Model$sphere = F3(
+	function (width, height, iterations) {
+		return _w0rm$elm_slice_show$Model$SphereModel(
+			A3(_w0rm$elm_slice_show$Sphere_Main$initial, width, height, iterations));
+	});
+var _w0rm$elm_slice_show$Model$TangramModel = function (a) {
+	return {ctor: 'TangramModel', _0: a};
+};
+var _w0rm$elm_slice_show$Model$tangram = _w0rm$elm_slice_show$Model$TangramModel(_w0rm$elm_slice_show$Tangram_Main$initial);
+var _w0rm$elm_slice_show$Model$TriangleModel = function (a) {
+	return {ctor: 'TriangleModel', _0: a};
+};
+var _w0rm$elm_slice_show$Model$triangle = _w0rm$elm_slice_show$Model$TriangleModel(_w0rm$elm_slice_show$Triangle_Main$initial);
+var _w0rm$elm_slice_show$Model$SnakeMessage = function (a) {
+	return {ctor: 'SnakeMessage', _0: a};
+};
+var _w0rm$elm_slice_show$Model$Animation2DMessage = function (a) {
+	return {ctor: 'Animation2DMessage', _0: a};
+};
+var _w0rm$elm_slice_show$Model$ShadertoyMessage = function (a) {
+	return {ctor: 'ShadertoyMessage', _0: a};
+};
+var _w0rm$elm_slice_show$Model$SphereMessage = function (a) {
+	return {ctor: 'SphereMessage', _0: a};
+};
+var _w0rm$elm_slice_show$Model$TangramMessage = function (a) {
+	return {ctor: 'TangramMessage', _0: a};
+};
+var _w0rm$elm_slice_show$Model$TriangleMessage = function (a) {
+	return {ctor: 'TriangleMessage', _0: a};
+};
+var _w0rm$elm_slice_show$Model$subscriptions = function (model) {
+	var _p0 = model;
+	switch (_p0.ctor) {
+		case 'TriangleModel':
+			return A2(
+				_elm_lang$core$Platform_Sub$map,
+				_w0rm$elm_slice_show$Model$TriangleMessage,
+				_w0rm$elm_slice_show$Triangle_Main$subscriptions(_p0._0));
+		case 'TangramModel':
+			return A2(
+				_elm_lang$core$Platform_Sub$map,
+				_w0rm$elm_slice_show$Model$TangramMessage,
+				_w0rm$elm_slice_show$Tangram_Main$subscriptions(_p0._0));
+		case 'SphereModel':
+			return A2(
+				_elm_lang$core$Platform_Sub$map,
+				_w0rm$elm_slice_show$Model$SphereMessage,
+				_w0rm$elm_slice_show$Sphere_Main$subscriptions(_p0._0));
+		case 'ShadertoyModel':
+			return A2(
+				_elm_lang$core$Platform_Sub$map,
+				_w0rm$elm_slice_show$Model$ShadertoyMessage,
+				_w0rm$elm_slice_show$Shadertoy_Main$subscriptions(_p0._0));
+		case 'Animation2DModel':
+			return A2(
+				_elm_lang$core$Platform_Sub$map,
+				_w0rm$elm_slice_show$Model$Animation2DMessage,
+				_w0rm$elm_slice_show$Animation2D_Main$subscriptions(_p0._0));
+		default:
+			return A2(
+				_elm_lang$core$Platform_Sub$map,
+				_w0rm$elm_slice_show$Model$SnakeMessage,
+				_w0rm$elm_slice_show$Snake_Main$subscriptions(_p0._0));
+	}
+};
+var _w0rm$elm_slice_show$Model$update = F2(
+	function (action, model) {
+		var _p1 = {ctor: '_Tuple2', _0: action, _1: model};
+		_v1_6:
+		do {
+			if (_p1.ctor === '_Tuple2') {
+				switch (_p1._0.ctor) {
+					case 'TriangleMessage':
+						if (_p1._1.ctor === 'TriangleModel') {
+							var _p2 = A2(_w0rm$elm_slice_show$Triangle_Main$update, _p1._0._0, _p1._1._0);
+							var newModel = _p2._0;
+							var newCmd = _p2._1;
+							return {
+								ctor: '_Tuple2',
+								_0: _w0rm$elm_slice_show$Model$TriangleModel(newModel),
+								_1: A2(_elm_lang$core$Platform_Cmd$map, _w0rm$elm_slice_show$Model$TriangleMessage, newCmd)
+							};
+						} else {
+							break _v1_6;
+						}
+					case 'TangramMessage':
+						if (_p1._1.ctor === 'TangramModel') {
+							var _p3 = A2(_w0rm$elm_slice_show$Tangram_Main$update, _p1._0._0, _p1._1._0);
+							var newModel = _p3._0;
+							var newCmd = _p3._1;
+							return {
+								ctor: '_Tuple2',
+								_0: _w0rm$elm_slice_show$Model$TangramModel(newModel),
+								_1: A2(_elm_lang$core$Platform_Cmd$map, _w0rm$elm_slice_show$Model$TangramMessage, newCmd)
+							};
+						} else {
+							break _v1_6;
+						}
+					case 'SphereMessage':
+						if (_p1._1.ctor === 'SphereModel') {
+							var _p4 = A2(_w0rm$elm_slice_show$Sphere_Main$update, _p1._0._0, _p1._1._0);
+							var newModel = _p4._0;
+							var newCmd = _p4._1;
+							return {
+								ctor: '_Tuple2',
+								_0: _w0rm$elm_slice_show$Model$SphereModel(newModel),
+								_1: A2(_elm_lang$core$Platform_Cmd$map, _w0rm$elm_slice_show$Model$SphereMessage, newCmd)
+							};
+						} else {
+							break _v1_6;
+						}
+					case 'ShadertoyMessage':
+						if (_p1._1.ctor === 'ShadertoyModel') {
+							var _p5 = A2(_w0rm$elm_slice_show$Shadertoy_Main$update, _p1._0._0, _p1._1._0);
+							var newModel = _p5._0;
+							var newCmd = _p5._1;
+							return {
+								ctor: '_Tuple2',
+								_0: _w0rm$elm_slice_show$Model$ShadertoyModel(newModel),
+								_1: A2(_elm_lang$core$Platform_Cmd$map, _w0rm$elm_slice_show$Model$ShadertoyMessage, newCmd)
+							};
+						} else {
+							break _v1_6;
+						}
+					case 'Animation2DMessage':
+						if (_p1._1.ctor === 'Animation2DModel') {
+							var _p6 = A2(_w0rm$elm_slice_show$Animation2D_Main$update, _p1._0._0, _p1._1._0);
+							var newModel = _p6._0;
+							var newCmd = _p6._1;
+							return {
+								ctor: '_Tuple2',
+								_0: _w0rm$elm_slice_show$Model$Animation2DModel(newModel),
+								_1: A2(_elm_lang$core$Platform_Cmd$map, _w0rm$elm_slice_show$Model$Animation2DMessage, newCmd)
+							};
+						} else {
+							break _v1_6;
+						}
+					default:
+						if (_p1._1.ctor === 'SnakeModel') {
+							var _p7 = A2(_w0rm$elm_slice_show$Snake_Main$update, _p1._0._0, _p1._1._0);
+							var newModel = _p7._0;
+							var newCmd = _p7._1;
+							return {
+								ctor: '_Tuple2',
+								_0: _w0rm$elm_slice_show$Model$SnakeModel(newModel),
+								_1: A2(_elm_lang$core$Platform_Cmd$map, _w0rm$elm_slice_show$Model$SnakeMessage, newCmd)
+							};
+						} else {
+							break _v1_6;
+						}
+				}
+			} else {
+				break _v1_6;
+			}
+		} while(false);
+		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+	});
+var _w0rm$elm_slice_show$Model$view = function (model) {
+	var _p8 = model;
+	switch (_p8.ctor) {
+		case 'TriangleModel':
+			return A2(
+				_elm_lang$html$Html$map,
+				_w0rm$elm_slice_show$Model$TriangleMessage,
+				_w0rm$elm_slice_show$Triangle_Main$view(_p8._0));
+		case 'TangramModel':
+			return A2(
+				_elm_lang$html$Html$map,
+				_w0rm$elm_slice_show$Model$TangramMessage,
+				_w0rm$elm_slice_show$Tangram_Main$view(_p8._0));
+		case 'SphereModel':
+			return A2(
+				_elm_lang$html$Html$map,
+				_w0rm$elm_slice_show$Model$SphereMessage,
+				_w0rm$elm_slice_show$Sphere_Main$view(_p8._0));
+		case 'ShadertoyModel':
+			return A2(
+				_elm_lang$html$Html$map,
+				_w0rm$elm_slice_show$Model$ShadertoyMessage,
+				_w0rm$elm_slice_show$Shadertoy_Main$view(_p8._0));
+		case 'Animation2DModel':
+			return A2(
+				_elm_lang$html$Html$map,
+				_w0rm$elm_slice_show$Model$Animation2DMessage,
+				_w0rm$elm_slice_show$Animation2D_Main$view(_p8._0));
+		default:
+			return A2(
+				_elm_lang$html$Html$map,
+				_w0rm$elm_slice_show$Model$SnakeMessage,
+				_w0rm$elm_slice_show$Snake_Main$view(_p8._0));
+	}
+};
+
+var _w0rm$elm_slice_show$Slides$sceneGraph = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('WIP Scene Graph Package'),
+	_1: {
+		ctor: '::',
+		_0: A3(
+			_w0rm$elm_slice_show$Formatting$imageLink,
+			{ctor: '_Tuple2', _0: 640, _1: 400},
+			'assets/scene-graph.png',
+			'https://opensolid.github.io/examples/sprocket.html'),
+		_1: {
+			ctor: '::',
+			_0: _w0rm$elm_slice_show$Formatting$richtext('<small>[opensolid/scene](https://github.com/opensolid/scene) by Ian Mackenzie</small>'),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 770, _1: 200},
+					{
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$bullets(
+							{
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$bullet('Physically-based rendering'),
+								_1: {
+									ctor: '::',
+									_0: _w0rm$elm_slice_show$Formatting$bullet('Different types of lighting'),
+									_1: {
+										ctor: '::',
+										_0: _w0rm$elm_slice_show$Formatting$bullet('Customizable materials'),
+										_1: {
+											ctor: '::',
+											_0: _w0rm$elm_slice_show$Formatting$bullet('Integrates with the geometry package'),
+											_1: {
+												ctor: '::',
+												_0: A2(_w0rm$elm_slice_show$Formatting$bulletLink, 'ianmackenzie/elm-geometry', 'https://github.com/ianmackenzie/elm-geometry'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$elmObjLoader = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('OBJ Format Support'),
+	_1: {
+		ctor: '::',
+		_0: A3(
+			_w0rm$elm_slice_show$Formatting$imageLink,
+			{ctor: '_Tuple2', _0: 640, _1: 400},
+			'assets/elm-obj-loader.jpg',
+			'https://zinggi.github.io/randomDemos/webgl/objLoader_modelViewer.html'),
+		_1: {
+			ctor: '::',
+			_0: _w0rm$elm_slice_show$Formatting$richtext('<small>[elm-obj-loader](https://github.com/Zinggi/elm-obj-loader) by Florian Zinggeler</small>'),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 770, _1: 170},
+					{
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$bullets(
+							{
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$bullet('Parses a small subset of the obj file format'),
+								_1: {
+									ctor: '::',
+									_0: _w0rm$elm_slice_show$Formatting$bullet('Export a mesh and textures from Blender'),
+									_1: {
+										ctor: '::',
+										_0: _w0rm$elm_slice_show$Formatting$bullet('Including the normal map'),
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$elmTerrain = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Terrain'),
+	_1: {
+		ctor: '::',
+		_0: A3(
+			_w0rm$elm_slice_show$Formatting$imageLink,
+			{ctor: '_Tuple2', _0: 640, _1: 400},
+			'assets/elm-terrain.jpg',
+			'https://lepoetemaudit.github.io/elm-terrain/'),
+		_1: {
+			ctor: '::',
+			_0: _w0rm$elm_slice_show$Formatting$richtext('<small>[elm-terrain](https://github.com/lepoetemaudit/elm-terrain) by Dave Jeffrey</small>'),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 770, _1: 170},
+					{
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$bullets(
+							{
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$bullet('Mesh is a grid'),
+								_1: {
+									ctor: '::',
+									_0: _w0rm$elm_slice_show$Formatting$bullet('Vertex shader uses the heightmap texture'),
+									_1: {
+										ctor: '::',
+										_0: _w0rm$elm_slice_show$Formatting$bullet('Fragment shader fuses base and details textures'),
+										_1: {
+											ctor: '::',
+											_0: _w0rm$elm_slice_show$Formatting$bullet('Skybox on the background'),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$cubik = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Rubik’s Cube in Elm'),
+	_1: {
+		ctor: '::',
+		_0: A3(
+			_w0rm$elm_slice_show$Formatting$imageLink,
+			{ctor: '_Tuple2', _0: 390, _1: 425},
+			'assets/cubik-large.png',
+			'http://unsoundscapes.itch.io/cubik'),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$position,
+				{ctor: '_Tuple2', _0: 600, _1: 230},
+				{
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$bullets(
+						{
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$Formatting$bullet('Complex interaction state'),
+							_1: {
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$bullet('Using quaternions for rotation'),
+								_1: {
+									ctor: '::',
+									_0: A2(_w0rm$elm_slice_show$Formatting$bulletLink, 'Clicking a 3D mesh', 'https://medium.com/@voorkanter/clicking-a-3d-mesh-in-elm-webgl-faadfdf703a0'),
+									_1: {
+										ctor: '::',
+										_0: A2(_w0rm$elm_slice_show$Formatting$bulletLink, 'kfish/quaternion', 'https://github.com/kfish/quaternion'),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}),
+					_1: {
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$SliceShow_Content$hide(
+							_w0rm$elm_slice_show$Formatting$bullets(
+								{
+									ctor: '::',
+									_0: A2(_w0rm$elm_slice_show$Formatting$bulletLink, 'Open sourced (w0rm/elm-cubik)', 'https://github.com/w0rm/elm-cubik'),
+									_1: {ctor: '[]'}
+								})),
+						_1: {ctor: '[]'}
+					}
+				}),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$shadertoy = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Shadertoy'),
+	_1: {
+		ctor: '::',
+		_0: _w0rm$elm_slice_show$SliceShow_Content$custom(_w0rm$elm_slice_show$Model$shadertoy),
+		_1: {
+			ctor: '::',
+			_0: _w0rm$elm_slice_show$Formatting$richtext('<small>Shader code from “[Seascape](https://www.shadertoy.com/view/Ms2SD1)” by Alexander Alekseev</small>'),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 770, _1: 170},
+					{
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$bullets(
+							{
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$bullet('Mesh is just a rectangle'),
+								_1: {
+									ctor: '::',
+									_0: _w0rm$elm_slice_show$Formatting$bullet('Everything is done in the fragment shader'),
+									_1: {
+										ctor: '::',
+										_0: _w0rm$elm_slice_show$Formatting$bullet('Subscriptions are wired to the shader inputs'),
+										_1: {
+											ctor: '::',
+											_0: A2(_w0rm$elm_slice_show$Formatting$bulletLink, 'kfish/elm-shadertoy', 'https://github.com/kfish/elm-shadertoy'),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$moreGames = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('More Games Using WebGL in Elm'),
+	_1: {
+		ctor: '::',
+		_0: A2(
+			_w0rm$elm_slice_show$Formatting$position,
+			{ctor: '_Tuple2', _0: 100, _1: 220},
+			{
+				ctor: '::',
+				_0: A3(
+					_w0rm$elm_slice_show$Formatting$imageLink,
+					{ctor: '_Tuple2', _0: 240, _1: 240},
+					'assets/flappy-bird.png',
+					'http://lab.passiomatic.com/flappy-bird/'),
+				_1: {
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$richtext('[Flappy Bird](http://lab.passiomatic.com/flappy-bird/)  \n<small>by Andrea Peltrin</small>'),
+					_1: {ctor: '[]'}
+				}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$position,
+				{ctor: '_Tuple2', _0: 380, _1: 220},
+				{
+					ctor: '::',
+					_0: A3(
+						_w0rm$elm_slice_show$Formatting$imageLink,
+						{ctor: '_Tuple2', _0: 240, _1: 240},
+						'assets/count-down.png',
+						'https://github.com/psandahl/count-down'),
+					_1: {
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$richtext('[Count Down](https://github.com/psandahl/count-down)  \n<small>by Patrik Sandahl</small>'),
+						_1: {ctor: '[]'}
+					}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 660, _1: 220},
+					{
+						ctor: '::',
+						_0: A3(
+							_w0rm$elm_slice_show$Formatting$imageLink,
+							{ctor: '_Tuple2', _0: 240, _1: 240},
+							'assets/cubik.png',
+							'https://unsoundscapes.itch.io/cubik'),
+						_1: {
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$Formatting$richtext('[Cubik](https://unsoundscapes.itch.io/cubik)'),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$games = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Games using WebGL in Elm'),
+	_1: {
+		ctor: '::',
+		_0: A2(
+			_w0rm$elm_slice_show$Formatting$position,
+			{ctor: '_Tuple2', _0: 100, _1: 220},
+			{
+				ctor: '::',
+				_0: A3(
+					_w0rm$elm_slice_show$Formatting$imageLink,
+					{ctor: '_Tuple2', _0: 240, _1: 240},
+					'assets/elm-street-404.png',
+					'https://unsoundscapes.itch.io/404-elm-street'),
+				_1: {
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$richtext('[404 Elm Street](https://unsoundscapes.itch.io/404-elm-street)'),
+					_1: {ctor: '[]'}
+				}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$position,
+				{ctor: '_Tuple2', _0: 380, _1: 220},
+				{
+					ctor: '::',
+					_0: A3(
+						_w0rm$elm_slice_show$Formatting$imageLink,
+						{ctor: '_Tuple2', _0: 240, _1: 240},
+						'assets/elm-mogee.png',
+						'https://unsoundscapes.itch.io/mogee'),
+					_1: {
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$richtext('[Mogee](https://unsoundscapes.itch.io/mogee)'),
+						_1: {ctor: '[]'}
+					}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 660, _1: 220},
+					{
+						ctor: '::',
+						_0: A3(
+							_w0rm$elm_slice_show$Formatting$imageLink,
+							{ctor: '_Tuple2', _0: 240, _1: 240},
+							'assets/mage-city.png',
+							'http://lab.passiomatic.com/mage-city'),
+						_1: {
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$Formatting$richtext('[Mage City](http://lab.passiomatic.com/mage-city)  \n<small>by Andrea Peltrin</small>'),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_w0rm$elm_slice_show$Formatting$position,
+						{ctor: '_Tuple2', _0: 940, _1: 220},
+						{
+							ctor: '::',
+							_0: A3(
+								_w0rm$elm_slice_show$Formatting$imageLink,
+								{ctor: '_Tuple2', _0: 240, _1: 240},
+								'assets/into-the-heavens.png',
+								'https://github.com/nphollon/into-the-heavens/'),
+							_1: {
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$richtext('[Into The Heavens](https://github.com/nphollon/into-the-heavens)  \n<small>by Nick Hollon</small>'),
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$snake = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Snake'),
+	_1: {
+		ctor: '::',
+		_0: _w0rm$elm_slice_show$Formatting$group(
+			{
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 100, _1: 100},
+					{
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$SliceShow_Content$custom(
+							A2(_w0rm$elm_slice_show$Model$snake, 500, 500)),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$position,
+				{ctor: '_Tuple2', _0: 170, _1: 550},
+				{
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$richtext('<small>[elm-snake](https://github.com/tibastral/elm-snake) by Thibaut Assus  \nplay with <kbd>wasd</kbd> keys here</small>'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 630, _1: 220},
+					{
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$bullets(
+							{
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$bullet('Migrated to WebGL'),
+								_1: {
+									ctor: '::',
+									_0: _w0rm$elm_slice_show$Formatting$bullet('Introduced flat lighting'),
+									_1: {
+										ctor: '::',
+										_0: _w0rm$elm_slice_show$Formatting$bullet('Implemented planar shadows'),
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$recursiveSphere = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Recursive Sphere'),
+	_1: {
+		ctor: '::',
+		_0: A2(
+			_w0rm$elm_slice_show$Formatting$position,
+			{ctor: '_Tuple2', _0: 100, _1: 200},
+			{
+				ctor: '::',
+				_0: _w0rm$elm_slice_show$SliceShow_Content$custom(
+					A3(_w0rm$elm_slice_show$Model$sphere, 240, 240, 0)),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_w0rm$elm_slice_show$Formatting$align,
+						_w0rm$elm_slice_show$Formatting$Center,
+						{
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$Formatting$richtext('n = 0'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$position,
+				{ctor: '_Tuple2', _0: 380, _1: 200},
+				{
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$SliceShow_Content$custom(
+						A3(_w0rm$elm_slice_show$Model$sphere, 240, 240, 1)),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_w0rm$elm_slice_show$Formatting$align,
+							_w0rm$elm_slice_show$Formatting$Center,
+							{
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$richtext('n = 1'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 660, _1: 200},
+					{
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$SliceShow_Content$custom(
+							A3(_w0rm$elm_slice_show$Model$sphere, 240, 240, 2)),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_w0rm$elm_slice_show$Formatting$align,
+								_w0rm$elm_slice_show$Formatting$Center,
+								{
+									ctor: '::',
+									_0: _w0rm$elm_slice_show$Formatting$richtext('n = 2'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_w0rm$elm_slice_show$Formatting$position,
+						{ctor: '_Tuple2', _0: 940, _1: 200},
+						{
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$SliceShow_Content$custom(
+								A3(_w0rm$elm_slice_show$Model$sphere, 240, 240, 3)),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_w0rm$elm_slice_show$Formatting$align,
+									_w0rm$elm_slice_show$Formatting$Center,
+									{
+										ctor: '::',
+										_0: _w0rm$elm_slice_show$Formatting$richtext('n = 3'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$spacing(330),
+						_1: {
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$Formatting$bullets(
+								{
+									ctor: '::',
+									_0: _w0rm$elm_slice_show$Formatting$bullet('Start with octahedron made of 8 triangles'),
+									_1: {
+										ctor: '::',
+										_0: _w0rm$elm_slice_show$Formatting$bullet('Divide each triangle by 4 and project the vertices on to the sphere'),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$animation2d = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Animation2D'),
+	_1: {
+		ctor: '::',
+		_0: A2(
+			_w0rm$elm_slice_show$Formatting$position,
+			{ctor: '_Tuple2', _0: 200, _1: 200},
+			{
+				ctor: '::',
+				_0: _w0rm$elm_slice_show$SliceShow_Content$custom(
+					_w0rm$elm_slice_show$Model$animation2d('assets/animation2d.png')),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$position,
+				{ctor: '_Tuple2', _0: 800, _1: 120},
+				{
+					ctor: '::',
+					_0: A2(
+						_w0rm$elm_slice_show$Formatting$image,
+						{ctor: '_Tuple2', _0: 256, _1: 256},
+						'assets/animation2d.png'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 800, _1: 300},
+					{
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$richtext('<small>illustration by [@01k](https://twitter.com/01k)</small>'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$spacing(260),
+					_1: {
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$bullets(
+							{
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$bullet('Convert pixels to clipSpace [-1…1] and texture coordinates [0…1]'),
+								_1: {
+									ctor: '::',
+									_0: _w0rm$elm_slice_show$Formatting$bullet('Calculate the frame offset based on frame number and size'),
+									_1: {
+										ctor: '::',
+										_0: _w0rm$elm_slice_show$Formatting$bullet('Address alpha transparency issues'),
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$codeView = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('View'),
+	_1: {
+		ctor: '::',
+		_0: A2(_w0rm$elm_slice_show$Formatting$code, 'elm', 'view : Float -> Html a\nview angle =\n  WebGL.toHtml\n    [ width 300, height 300 ]\n    [ WebGL.entity\n        vertexShader\n        fragmentShader\n        triangle\n        { rotation = makeRotate angle (vec3 0 1 0) }\n    ]'),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$position,
+				{ctor: '_Tuple2', _0: 800, _1: 100},
+				{
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$SliceShow_Content$custom(_w0rm$elm_slice_show$Model$triangle),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$codeFragmentShader = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Fragment Shader'),
+	_1: {
+		ctor: '::',
+		_0: A2(_w0rm$elm_slice_show$Formatting$code, 'elm', 'type alias Uniforms = { rotation : Mat4 }\ntype alias Varyings = { vColor : Vec3 }\n\nfragmentShader : Shader {} Uniforms Varyings\nfragmentShader = [glsl|\n  precision mediump float;\n  varying vec3 vColor;\n  void main () {\n    gl_FragColor = vec4(vColor, 1.0);\n  }\n|]'),
+		_1: {ctor: '[]'}
+	}
+};
+var _w0rm$elm_slice_show$Slides$codeVertexShader = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Vertex Shader'),
+	_1: {
+		ctor: '::',
+		_0: A2(
+			_w0rm$elm_slice_show$Formatting$scale,
+			0.9,
+			{
+				ctor: '::',
+				_0: A2(_w0rm$elm_slice_show$Formatting$code, 'elm', 'type alias Attributes = { position : Vec3, color : Vec3 }\ntype alias Uniforms = { rotation : Mat4 }\ntype alias Varyings = { vColor : Vec3 }\n\nvertexShader : Shader Attributes Uniforms Varyings\nvertexShader = [glsl|\n  attribute vec3 position;\n  attribute vec3 color;\n  uniform mat4 rotation;\n  varying vec3 vColor;\n  void main () {\n    gl_Position = rotation * vec4(position, 1.0);\n    vColor = color;\n  }\n|]'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {ctor: '[]'}
+	}
+};
+var _w0rm$elm_slice_show$Slides$codeMesh = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Mesh'),
+	_1: {
+		ctor: '::',
+		_0: A2(_w0rm$elm_slice_show$Formatting$code, 'elm', 'type alias Attributes = { position : Vec3, color : Vec3 }\n\ntriangle : Mesh Attributes\ntriangle =\n  WebGL.triangles\n    [ ( { position = vec3 0 1 0,   color = vec3 1 0 0 }\n      , { position = vec3 -1 -1 0, color = vec3 0 1 0 }\n      , { position = vec3 1 -1 0,  color = vec3 0 0 1 }\n      )\n    ]'),
+		_1: {ctor: '[]'}
+	}
+};
+var _w0rm$elm_slice_show$Slides$example = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('RGB Triangle (a.k.a. “Hello World”)'),
+	_1: {
+		ctor: '::',
+		_0: A2(
+			_w0rm$elm_slice_show$Formatting$split,
+			{
+				ctor: '::',
+				_0: _w0rm$elm_slice_show$Formatting$bullets(
+					{
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$bullet('Define a mesh'),
+						_1: {
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$Formatting$bullet('Implement shaders'),
+							_1: {
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$bullet('Make an entity'),
+								_1: {ctor: '[]'}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _w0rm$elm_slice_show$SliceShow_Content$custom(_w0rm$elm_slice_show$Model$triangle),
+				_1: {ctor: '[]'}
+			}),
+		_1: {ctor: '[]'}
+	}
+};
+var _w0rm$elm_slice_show$Slides$entity = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Entity'),
+	_1: {
+		ctor: '::',
+		_0: _w0rm$elm_slice_show$Formatting$spacing(20),
+		_1: {
+			ctor: '::',
+			_0: A2(_w0rm$elm_slice_show$Formatting$code, 'elm', 'entity :\n  Shader attributes uniforms varyings -> -- vertex shader\n  Shader {} uniforms varyings ->         -- fragment shader\n  Mesh attributes ->                     -- mesh\n  uniforms ->                            -- scene params\n  Entity\n\n\ntoHtml : List (Attribute msg) -> List Entity -> Html msg\n  '),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$rendering = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Graphics Pipeline'),
+	_1: {
+		ctor: '::',
+		_0: _w0rm$elm_slice_show$Formatting$spacing(30),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$image,
+				{ctor: '_Tuple2', _0: 1080, _1: 400},
+				'assets/schema.png'),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$videos = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Thanks'),
+	_1: {
+		ctor: '::',
+		_0: _w0rm$elm_slice_show$Formatting$spacing(10),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$split,
+				{
+					ctor: '::',
+					_0: A3(
+						_w0rm$elm_slice_show$Formatting$imageLink,
+						{ctor: '_Tuple2', _0: 480, _1: 270},
+						'assets/delightful-webgl-in-elm.jpg',
+						'https://vimeo.com/97408205'),
+					_1: {
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$spacing(10),
+						_1: {
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$Formatting$richtext('John P Mayer\n\n[Delightful WebGL in Elm](https://vimeo.com/97408205)'),
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				{
+					ctor: '::',
+					_0: A3(
+						_w0rm$elm_slice_show$Formatting$imageLink,
+						{ctor: '_Tuple2', _0: 480, _1: 270},
+						'assets/api-design-sessions.jpg',
+						'https://www.youtube.com/watch?v=qaTy_F98Moo'),
+					_1: {
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$spacing(10),
+						_1: {
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$Formatting$richtext('Evan Czaplicki\n\nAPI Design Sessions ([part 1](https://www.youtube.com/watch?v=qaTy_F98Moo), [part 2](https://www.youtube.com/watch?v=vQFGaGPPz2Q))'),
+							_1: {ctor: '[]'}
+						}
+					}
+				}),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$webglInElm = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('WebGL in Elm'),
+	_1: {
+		ctor: '::',
+		_0: _w0rm$elm_slice_show$Formatting$bullets(
+			{
+				ctor: '::',
+				_0: _w0rm$elm_slice_show$Formatting$bullet('Declarative API'),
+				_1: {
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$bullet('Triangles instead of native arrays'),
+					_1: {
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$bullet('The linear-algebra package'),
+						_1: {
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$Formatting$bullet('Baked in GLSL support'),
+							_1: {
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$bullet('Compiler type checks GLSL code'),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}),
+		_1: {ctor: '[]'}
+	}
+};
+var _w0rm$elm_slice_show$Slides$webgl = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('WebGL'),
+	_1: {
+		ctor: '::',
+		_0: _w0rm$elm_slice_show$Formatting$bullets(
+			{
+				ctor: '::',
+				_0: _w0rm$elm_slice_show$Formatting$bullet('Parallel processing on the GPU'),
+				_1: {
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$bullet('Fine grain control of the graphics pipeline'),
+					_1: {
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$bullet('Steep learning curve'),
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$position,
+				{ctor: '_Tuple2', _0: 100, _1: 620},
+				{
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$richtext('<small>[https://github.com/zalando/elm-street-404/pull/21](https://github.com/zalando/elm-street-404/pull/21)</small>'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$existing = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$title('Existing Packages'),
+	_1: {
+		ctor: '::',
+		_0: _w0rm$elm_slice_show$Formatting$bullets(
+			{
+				ctor: '::',
+				_0: _w0rm$elm_slice_show$Formatting$bullet('html is slow for many game objects'),
+				_1: {
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$bullet('elm-graphics has limited texture support'),
+					_1: {
+						ctor: '::',
+						_0: _w0rm$elm_slice_show$Formatting$bullet('svg is for vector graphics'),
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
+		_1: {ctor: '[]'}
+	}
+};
+var _w0rm$elm_slice_show$Slides$toc = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$Formatting$spacing(50),
+	_1: {
+		ctor: '::',
+		_0: A2(
+			_w0rm$elm_slice_show$Formatting$image,
+			{ctor: '_Tuple2', _0: 360, _1: 160},
+			'assets/webgl.jpg'),
+		_1: {
+			ctor: '::',
+			_0: _w0rm$elm_slice_show$SliceShow_Content$hide(
+				A2(
+					_w0rm$elm_slice_show$Formatting$image,
+					{ctor: '_Tuple2', _0: 290, _1: 160},
+					'assets/plus-elm.png')),
+			_1: {
+				ctor: '::',
+				_0: _w0rm$elm_slice_show$Formatting$spacing(50),
+				_1: {
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$SliceShow_Content$hide(
+						_w0rm$elm_slice_show$Formatting$bullets(
+							{
+								ctor: '::',
+								_0: _w0rm$elm_slice_show$Formatting$bullet('Why WebGL in Elm?'),
+								_1: {
+									ctor: '::',
+									_0: _w0rm$elm_slice_show$Formatting$bullet('Graphics Pipeline'),
+									_1: {
+										ctor: '::',
+										_0: _w0rm$elm_slice_show$Formatting$bullet('Demos'),
+										_1: {ctor: '[]'}
+									}
+								}
+							})),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$intro = {
+	ctor: '::',
+	_0: _w0rm$elm_slice_show$SliceShow_Content$item(
+		A2(
+			_elm_lang$html$Html$h1,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'font', _1: '90px/1.2 FiraSans-Light, sans-serif'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'letter-spacing', _1: '-2px'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'margin', _1: '30px 0 150px'},
+								_1: {ctor: '[]'}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Bringing the Fun to Graphics Programming'),
+				_1: {ctor: '[]'}
+			})),
+	_1: {
+		ctor: '::',
+		_0: A2(
+			_w0rm$elm_slice_show$Formatting$image,
+			{ctor: '_Tuple2', _0: 160, _1: 160},
+			'assets/mogee.png'),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_w0rm$elm_slice_show$Formatting$position,
+				{ctor: '_Tuple2', _0: 320, _1: 435},
+				{
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$richtext('Andrey Kuzmin\n\nTwitter: [@unsoundscapes](https://twitter.com/unsoundscapes)\n\nGitHub: [@w0rm](https://github.com/w0rm)'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_w0rm$elm_slice_show$Formatting$position,
+					{ctor: '_Tuple2', _0: 840, _1: 465},
+					{
+						ctor: '::',
+						_0: A2(
+							_w0rm$elm_slice_show$Formatting$image,
+							{ctor: '_Tuple2', _0: 240, _1: 140},
+							'assets/soundcloud.png'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _w0rm$elm_slice_show$Slides$slides = A2(
+	_elm_lang$core$List$map,
+	function (_p0) {
+		return A2(
+			_w0rm$elm_slice_show$SliceShow_Slide$setDimensions,
+			{ctor: '_Tuple2', _0: 1280, _1: 720},
+			_w0rm$elm_slice_show$SliceShow_Slide$slide(_p0));
+	},
+	{
+		ctor: '::',
+		_0: {
+			ctor: '::',
+			_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$intro),
+			_1: {ctor: '[]'}
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '::',
+				_0: _w0rm$elm_slice_show$SliceShow_Content$custom(_w0rm$elm_slice_show$Model$tangram),
+				_1: {ctor: '[]'}
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '::',
+					_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$toc),
+					_1: {ctor: '[]'}
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '::',
+						_0: A2(
+							_w0rm$elm_slice_show$Formatting$background,
+							'assets/elm-street-404-delivery.jpg',
+							{ctor: '[]'}),
+						_1: {
+							ctor: '::',
+							_0: _w0rm$elm_slice_show$Formatting$shout('Why WebGL in Elm?'),
+							_1: {ctor: '[]'}
+						}
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '::',
+							_0: A2(_w0rm$elm_slice_show$Formatting$background, 'assets/elm-street-404.jpg', _w0rm$elm_slice_show$Slides$existing),
+							_1: {ctor: '[]'}
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '::',
+								_0: A2(_w0rm$elm_slice_show$Formatting$background, 'assets/elm-street-404.jpg', _w0rm$elm_slice_show$Slides$webgl),
+								_1: {ctor: '[]'}
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '::',
+									_0: A2(_w0rm$elm_slice_show$Formatting$background, 'assets/elm-street-404.jpg', _w0rm$elm_slice_show$Slides$webglInElm),
+									_1: {ctor: '[]'}
+								},
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '::',
+										_0: _w0rm$elm_slice_show$Formatting$shout('How to get started?'),
+										_1: {ctor: '[]'}
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '::',
+											_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$rendering),
+											_1: {ctor: '[]'}
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '::',
+												_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$entity),
+												_1: {ctor: '[]'}
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '::',
+													_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$example),
+													_1: {ctor: '[]'}
+												},
+												_1: {
+													ctor: '::',
+													_0: {
+														ctor: '::',
+														_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$codeMesh),
+														_1: {ctor: '[]'}
+													},
+													_1: {
+														ctor: '::',
+														_0: {
+															ctor: '::',
+															_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$codeVertexShader),
+															_1: {ctor: '[]'}
+														},
+														_1: {
+															ctor: '::',
+															_0: {
+																ctor: '::',
+																_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$codeFragmentShader),
+																_1: {ctor: '[]'}
+															},
+															_1: {
+																ctor: '::',
+																_0: {
+																	ctor: '::',
+																	_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$codeView),
+																	_1: {ctor: '[]'}
+																},
+																_1: {
+																	ctor: '::',
+																	_0: {
+																		ctor: '::',
+																		_0: _w0rm$elm_slice_show$Formatting$shout('Demo Time!'),
+																		_1: {ctor: '[]'}
+																	},
+																	_1: {
+																		ctor: '::',
+																		_0: {
+																			ctor: '::',
+																			_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$animation2d),
+																			_1: {ctor: '[]'}
+																		},
+																		_1: {
+																			ctor: '::',
+																			_0: {
+																				ctor: '::',
+																				_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$recursiveSphere),
+																				_1: {ctor: '[]'}
+																			},
+																			_1: {
+																				ctor: '::',
+																				_0: {
+																					ctor: '::',
+																					_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$snake),
+																					_1: {ctor: '[]'}
+																				},
+																				_1: {
+																					ctor: '::',
+																					_0: {
+																						ctor: '::',
+																						_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$games),
+																						_1: {ctor: '[]'}
+																					},
+																					_1: {
+																						ctor: '::',
+																						_0: {
+																							ctor: '::',
+																							_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$moreGames),
+																							_1: {ctor: '[]'}
+																						},
+																						_1: {
+																							ctor: '::',
+																							_0: {
+																								ctor: '::',
+																								_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$cubik),
+																								_1: {ctor: '[]'}
+																							},
+																							_1: {
+																								ctor: '::',
+																								_0: {
+																									ctor: '::',
+																									_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$shadertoy),
+																									_1: {ctor: '[]'}
+																								},
+																								_1: {
+																									ctor: '::',
+																									_0: {
+																										ctor: '::',
+																										_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$elmTerrain),
+																										_1: {ctor: '[]'}
+																									},
+																									_1: {
+																										ctor: '::',
+																										_0: {
+																											ctor: '::',
+																											_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$elmObjLoader),
+																											_1: {ctor: '[]'}
+																										},
+																										_1: {
+																											ctor: '::',
+																											_0: {
+																												ctor: '::',
+																												_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$sceneGraph),
+																												_1: {ctor: '[]'}
+																											},
+																											_1: {
+																												ctor: '::',
+																												_0: {
+																													ctor: '::',
+																													_0: _w0rm$elm_slice_show$Formatting$padded(_w0rm$elm_slice_show$Slides$videos),
+																													_1: {ctor: '[]'}
+																												},
+																												_1: {
+																													ctor: '::',
+																													_0: {
+																														ctor: '::',
+																														_0: _w0rm$elm_slice_show$Formatting$shout('Thank you!'),
+																														_1: {ctor: '[]'}
+																													},
+																													_1: {ctor: '[]'}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+
+var _w0rm$elm_slice_show$Main$main = _w0rm$elm_slice_show$SliceShow$show(
+	A2(
+		_w0rm$elm_slice_show$SliceShow$setView,
+		_w0rm$elm_slice_show$Model$view,
+		A2(
+			_w0rm$elm_slice_show$SliceShow$setUpdate,
+			_w0rm$elm_slice_show$Model$update,
+			A2(
+				_w0rm$elm_slice_show$SliceShow$setSubscriptions,
+				_w0rm$elm_slice_show$Model$subscriptions,
+				_w0rm$elm_slice_show$SliceShow$init(_w0rm$elm_slice_show$Slides$slides)))))();
+
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
-if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', undefined);
+if (typeof _w0rm$elm_slice_show$Main$main !== 'undefined') {
+    _w0rm$elm_slice_show$Main$main(Elm['Main'], 'Main', undefined);
 }
 
 if (typeof define === "function" && define['amd'])
@@ -14738,4 +19817,4 @@ for (var publicModule in Elm)
 }
 
 }).call(this);
-</script></head><body><script type="text/javascript">Elm.Main.fullscreen()</script></body></html>
+
