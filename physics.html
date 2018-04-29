@@ -14515,56 +14515,7 @@ var _user$project$Physics_ConvexPolyhedron$closestFaceHelp = F7(
 		}
 	});
 var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstHull = F6(
-	function (t1, hull1, separatingNormal, worldVertsB1, minDist, maxDist) {
-		var clipFaceAgainstHullHelpAdd = F3(
-			function (closest, vertexIndex, result) {
-				var otherFaceIndex = A2(
-					_elm_lang$core$Maybe$withDefault,
-					-1,
-					A2(
-						_Skinney$elm_array_exploration$Array_Hamt$get,
-						vertexIndex,
-						A3(_user$project$Physics_ConvexPolyhedron$connectedFaces, closest.index, closest.indices, hull1.faces)));
-				var otherFaceVertex = A2(
-					_elm_lang$core$Maybe$withDefault,
-					_user$project$Physics_ConvexPolyhedron$zero3,
-					A2(
-						_elm_lang$core$Maybe$andThen,
-						function (i) {
-							return A2(_Skinney$elm_array_exploration$Array_Hamt$get, i, hull1.vertices);
-						},
-						A2(
-							_elm_lang$core$Maybe$andThen,
-							_Skinney$elm_array_exploration$Array_Hamt$get(0),
-							A2(_Skinney$elm_array_exploration$Array_Hamt$get, otherFaceIndex, hull1.faces))));
-				var otherFaceNormal = A2(
-					_elm_lang$core$Maybe$withDefault,
-					_user$project$Physics_ConvexPolyhedron$zero3,
-					A2(_Skinney$elm_array_exploration$Array_Hamt$get, otherFaceIndex, hull1.normals));
-				var localPlaneEq = 0 - A2(_elm_community$linear_algebra$Math_Vector3$dot, otherFaceVertex, otherFaceNormal);
-				var planeNormalWS = A2(_user$project$Physics_Quaternion$rotate, t1.quaternion, otherFaceNormal);
-				var planeEqWS = localPlaneEq - A2(_elm_community$linear_algebra$Math_Vector3$dot, planeNormalWS, t1.position);
-				return A3(_user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlane, planeNormalWS, planeEqWS, result);
-			});
-		var clipFaceAgainstHullHelp = F4(
-			function (length, current, closest, result) {
-				clipFaceAgainstHullHelp:
-				while (true) {
-					if (_elm_lang$core$Native_Utils.eq(current, length)) {
-						return result;
-					} else {
-						var _v35 = length,
-							_v36 = current + 1,
-							_v37 = closest,
-							_v38 = A3(clipFaceAgainstHullHelpAdd, closest, current, result);
-						length = _v35;
-						current = _v36;
-						closest = _v37;
-						result = _v38;
-						continue clipFaceAgainstHullHelp;
-					}
-				}
-			});
+	function (t1, hull1, separatingNormal, worldVertsB, minDist, maxDist) {
 		var _p13 = A7(
 			_user$project$Physics_ConvexPolyhedron$closestFaceHelp,
 			F2(
@@ -14608,12 +14559,32 @@ var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstHull = F6(
 						} : result) : result;
 					}),
 				{ctor: '[]'},
-				A4(
-					clipFaceAgainstHullHelp,
-					_Skinney$elm_array_exploration$Array_Hamt$length(_p14.indices),
-					0,
-					_p14,
-					worldVertsB1));
+				A3(
+					_Skinney$elm_array_exploration$Array_Hamt$foldl,
+					function (otherFaceIndex) {
+						var otherFaceNormal = A2(
+							_elm_lang$core$Maybe$withDefault,
+							_user$project$Physics_ConvexPolyhedron$zero3,
+							A2(_Skinney$elm_array_exploration$Array_Hamt$get, otherFaceIndex, hull1.normals));
+						var planeNormalWS = A2(_user$project$Physics_Quaternion$rotate, t1.quaternion, otherFaceNormal);
+						var otherFaceVertex = A2(
+							_elm_lang$core$Maybe$withDefault,
+							_user$project$Physics_ConvexPolyhedron$zero3,
+							A2(
+								_elm_lang$core$Maybe$andThen,
+								function (i) {
+									return A2(_Skinney$elm_array_exploration$Array_Hamt$get, i, hull1.vertices);
+								},
+								A2(
+									_elm_lang$core$Maybe$andThen,
+									_Skinney$elm_array_exploration$Array_Hamt$get(0),
+									A2(_Skinney$elm_array_exploration$Array_Hamt$get, otherFaceIndex, hull1.faces))));
+						var localPlaneEq = 0 - A2(_elm_community$linear_algebra$Math_Vector3$dot, otherFaceVertex, otherFaceNormal);
+						var planeEqWS = localPlaneEq - A2(_elm_community$linear_algebra$Math_Vector3$dot, planeNormalWS, t1.position);
+						return A2(_user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlane, planeNormalWS, planeEqWS);
+					},
+					worldVertsB,
+					A3(_user$project$Physics_ConvexPolyhedron$connectedFaces, _p14.index, _p14.indices, hull1.faces)));
 		} else {
 			return {ctor: '[]'};
 		}
@@ -14758,20 +14729,20 @@ var _user$project$Physics_ConvexPolyhedron$findSeparatingAxis = F4(
 						} else {
 							var _p29 = _p28._0;
 							if (_elm_lang$core$Native_Utils.cmp(_p29, context.dmin) < 0) {
-								var _v48 = quat,
-									_v49 = _p30,
-									_v50 = {dmin: _p29, target: rotatedNormal};
-								quat = _v48;
-								faceNormals = _v49;
-								context = _v50;
+								var _v44 = quat,
+									_v45 = _p30,
+									_v46 = {dmin: _p29, target: rotatedNormal};
+								quat = _v44;
+								faceNormals = _v45;
+								context = _v46;
 								continue testFaceNormals;
 							} else {
-								var _v51 = quat,
-									_v52 = _p30,
-									_v53 = context;
-								quat = _v51;
-								faceNormals = _v52;
-								context = _v53;
+								var _v47 = quat,
+									_v48 = _p30,
+									_v49 = context;
+								quat = _v47;
+								faceNormals = _v48;
+								context = _v49;
 								continue testFaceNormals;
 							}
 						}
@@ -15837,7 +15808,12 @@ var _user$project$Dice$update = F2(
 								_user$project$Physics_World$addBody,
 								A2(
 									_user$project$Physics_Body$setQuaternion,
-									A2(_user$project$Physics_Quaternion$fromAngleAxis, model.world.time, _elm_community$linear_algebra$Math_Vector3$j),
+									_elm_lang$core$Native_Utils.eq(
+										A2(
+											_elm_lang$core$Basics_ops['%'],
+											_elm_lang$core$Basics$round(model.world.time * 10),
+											2),
+										1) ? A2(_user$project$Physics_Quaternion$fromAngleAxis, model.world.time, _elm_community$linear_algebra$Math_Vector3$j) : A2(_user$project$Physics_Quaternion$fromAngleAxis, model.world.time, _elm_community$linear_algebra$Math_Vector3$k),
 									_user$project$Dice$box(
 										A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1.2, 0, 8))),
 								model.world)
@@ -15882,9 +15858,9 @@ var _user$project$Dice$init = {
 				_user$project$Physics_World$addBody,
 				A2(
 					_user$project$Physics_Body$setQuaternion,
-					A2(_user$project$Physics_Quaternion$fromAngleAxis, (0 - _elm_lang$core$Basics$pi) / 5, _elm_community$linear_algebra$Math_Vector3$j),
+					A2(_user$project$Physics_Quaternion$fromAngleAxis, (0 - _elm_lang$core$Basics$pi) / 4, _elm_community$linear_algebra$Math_Vector3$j),
 					_user$project$Dice$box(
-						A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1.2, 0, 8))),
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1.2, 0, 9))),
 				A2(
 					_user$project$Physics_World$addBody,
 					A2(
