@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>Dice</title><style>html,head,body { padding:0; margin:0; }
+<html><head><meta charset="UTF-8"><title>Boxes</title><style>html,head,body { padding:0; margin:0; }
 body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">
 (function() {
 'use strict';
@@ -12384,6 +12384,384 @@ var _elm_lang$animation_frame$AnimationFrame$subMap = F2(
 		}
 	});
 _elm_lang$core$Native_Platform.effectManagers['AnimationFrame'] = {pkg: 'elm-lang/animation-frame', init: _elm_lang$animation_frame$AnimationFrame$init, onEffects: _elm_lang$animation_frame$AnimationFrame$onEffects, onSelfMsg: _elm_lang$animation_frame$AnimationFrame$onSelfMsg, tag: 'sub', subMap: _elm_lang$animation_frame$AnimationFrame$subMap};
+var _elm_lang$core$Random$onSelfMsg = F3(
+	function (_p1, _p0, seed) {
+		return _elm_lang$core$Task$succeed(seed);
+	});
+var _elm_lang$core$Random$magicNum8 = 2147483562;
+var _elm_lang$core$Random$range = function (_p2) {
+	return {ctor: '_Tuple2', _0: 0, _1: _elm_lang$core$Random$magicNum8};
+};
+var _elm_lang$core$Random$magicNum7 = 2147483399;
+var _elm_lang$core$Random$magicNum6 = 2147483563;
+var _elm_lang$core$Random$magicNum5 = 3791;
+var _elm_lang$core$Random$magicNum4 = 40692;
+var _elm_lang$core$Random$magicNum3 = 52774;
+var _elm_lang$core$Random$magicNum2 = 12211;
+var _elm_lang$core$Random$magicNum1 = 53668;
+var _elm_lang$core$Random$magicNum0 = 40014;
+var _elm_lang$core$Random$step = F2(
+	function (_p3, seed) {
+		var _p4 = _p3;
+		return _p4._0(seed);
+	});
+var _elm_lang$core$Random$onEffects = F3(
+	function (router, commands, seed) {
+		var _p5 = commands;
+		if (_p5.ctor === '[]') {
+			return _elm_lang$core$Task$succeed(seed);
+		} else {
+			var _p6 = A2(_elm_lang$core$Random$step, _p5._0._0, seed);
+			var value = _p6._0;
+			var newSeed = _p6._1;
+			return A2(
+				_elm_lang$core$Task$andThen,
+				function (_p7) {
+					return A3(_elm_lang$core$Random$onEffects, router, _p5._1, newSeed);
+				},
+				A2(_elm_lang$core$Platform$sendToApp, router, value));
+		}
+	});
+var _elm_lang$core$Random$listHelp = F4(
+	function (list, n, generate, seed) {
+		listHelp:
+		while (true) {
+			if (_elm_lang$core$Native_Utils.cmp(n, 1) < 0) {
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$List$reverse(list),
+					_1: seed
+				};
+			} else {
+				var _p8 = generate(seed);
+				var value = _p8._0;
+				var newSeed = _p8._1;
+				var _v2 = {ctor: '::', _0: value, _1: list},
+					_v3 = n - 1,
+					_v4 = generate,
+					_v5 = newSeed;
+				list = _v2;
+				n = _v3;
+				generate = _v4;
+				seed = _v5;
+				continue listHelp;
+			}
+		}
+	});
+var _elm_lang$core$Random$minInt = -2147483648;
+var _elm_lang$core$Random$maxInt = 2147483647;
+var _elm_lang$core$Random$iLogBase = F2(
+	function (b, i) {
+		return (_elm_lang$core$Native_Utils.cmp(i, b) < 0) ? 1 : (1 + A2(_elm_lang$core$Random$iLogBase, b, (i / b) | 0));
+	});
+var _elm_lang$core$Random$command = _elm_lang$core$Native_Platform.leaf('Random');
+var _elm_lang$core$Random$Generator = function (a) {
+	return {ctor: 'Generator', _0: a};
+};
+var _elm_lang$core$Random$list = F2(
+	function (n, _p9) {
+		var _p10 = _p9;
+		return _elm_lang$core$Random$Generator(
+			function (seed) {
+				return A4(
+					_elm_lang$core$Random$listHelp,
+					{ctor: '[]'},
+					n,
+					_p10._0,
+					seed);
+			});
+	});
+var _elm_lang$core$Random$map = F2(
+	function (func, _p11) {
+		var _p12 = _p11;
+		return _elm_lang$core$Random$Generator(
+			function (seed0) {
+				var _p13 = _p12._0(seed0);
+				var a = _p13._0;
+				var seed1 = _p13._1;
+				return {
+					ctor: '_Tuple2',
+					_0: func(a),
+					_1: seed1
+				};
+			});
+	});
+var _elm_lang$core$Random$map2 = F3(
+	function (func, _p15, _p14) {
+		var _p16 = _p15;
+		var _p17 = _p14;
+		return _elm_lang$core$Random$Generator(
+			function (seed0) {
+				var _p18 = _p16._0(seed0);
+				var a = _p18._0;
+				var seed1 = _p18._1;
+				var _p19 = _p17._0(seed1);
+				var b = _p19._0;
+				var seed2 = _p19._1;
+				return {
+					ctor: '_Tuple2',
+					_0: A2(func, a, b),
+					_1: seed2
+				};
+			});
+	});
+var _elm_lang$core$Random$pair = F2(
+	function (genA, genB) {
+		return A3(
+			_elm_lang$core$Random$map2,
+			F2(
+				function (v0, v1) {
+					return {ctor: '_Tuple2', _0: v0, _1: v1};
+				}),
+			genA,
+			genB);
+	});
+var _elm_lang$core$Random$map3 = F4(
+	function (func, _p22, _p21, _p20) {
+		var _p23 = _p22;
+		var _p24 = _p21;
+		var _p25 = _p20;
+		return _elm_lang$core$Random$Generator(
+			function (seed0) {
+				var _p26 = _p23._0(seed0);
+				var a = _p26._0;
+				var seed1 = _p26._1;
+				var _p27 = _p24._0(seed1);
+				var b = _p27._0;
+				var seed2 = _p27._1;
+				var _p28 = _p25._0(seed2);
+				var c = _p28._0;
+				var seed3 = _p28._1;
+				return {
+					ctor: '_Tuple2',
+					_0: A3(func, a, b, c),
+					_1: seed3
+				};
+			});
+	});
+var _elm_lang$core$Random$map4 = F5(
+	function (func, _p32, _p31, _p30, _p29) {
+		var _p33 = _p32;
+		var _p34 = _p31;
+		var _p35 = _p30;
+		var _p36 = _p29;
+		return _elm_lang$core$Random$Generator(
+			function (seed0) {
+				var _p37 = _p33._0(seed0);
+				var a = _p37._0;
+				var seed1 = _p37._1;
+				var _p38 = _p34._0(seed1);
+				var b = _p38._0;
+				var seed2 = _p38._1;
+				var _p39 = _p35._0(seed2);
+				var c = _p39._0;
+				var seed3 = _p39._1;
+				var _p40 = _p36._0(seed3);
+				var d = _p40._0;
+				var seed4 = _p40._1;
+				return {
+					ctor: '_Tuple2',
+					_0: A4(func, a, b, c, d),
+					_1: seed4
+				};
+			});
+	});
+var _elm_lang$core$Random$map5 = F6(
+	function (func, _p45, _p44, _p43, _p42, _p41) {
+		var _p46 = _p45;
+		var _p47 = _p44;
+		var _p48 = _p43;
+		var _p49 = _p42;
+		var _p50 = _p41;
+		return _elm_lang$core$Random$Generator(
+			function (seed0) {
+				var _p51 = _p46._0(seed0);
+				var a = _p51._0;
+				var seed1 = _p51._1;
+				var _p52 = _p47._0(seed1);
+				var b = _p52._0;
+				var seed2 = _p52._1;
+				var _p53 = _p48._0(seed2);
+				var c = _p53._0;
+				var seed3 = _p53._1;
+				var _p54 = _p49._0(seed3);
+				var d = _p54._0;
+				var seed4 = _p54._1;
+				var _p55 = _p50._0(seed4);
+				var e = _p55._0;
+				var seed5 = _p55._1;
+				return {
+					ctor: '_Tuple2',
+					_0: A5(func, a, b, c, d, e),
+					_1: seed5
+				};
+			});
+	});
+var _elm_lang$core$Random$andThen = F2(
+	function (callback, _p56) {
+		var _p57 = _p56;
+		return _elm_lang$core$Random$Generator(
+			function (seed) {
+				var _p58 = _p57._0(seed);
+				var result = _p58._0;
+				var newSeed = _p58._1;
+				var _p59 = callback(result);
+				var genB = _p59._0;
+				return genB(newSeed);
+			});
+	});
+var _elm_lang$core$Random$State = F2(
+	function (a, b) {
+		return {ctor: 'State', _0: a, _1: b};
+	});
+var _elm_lang$core$Random$initState = function (seed) {
+	var s = A2(_elm_lang$core$Basics$max, seed, 0 - seed);
+	var q = (s / (_elm_lang$core$Random$magicNum6 - 1)) | 0;
+	var s2 = A2(_elm_lang$core$Basics_ops['%'], q, _elm_lang$core$Random$magicNum7 - 1);
+	var s1 = A2(_elm_lang$core$Basics_ops['%'], s, _elm_lang$core$Random$magicNum6 - 1);
+	return A2(_elm_lang$core$Random$State, s1 + 1, s2 + 1);
+};
+var _elm_lang$core$Random$next = function (_p60) {
+	var _p61 = _p60;
+	var _p63 = _p61._1;
+	var _p62 = _p61._0;
+	var k2 = (_p63 / _elm_lang$core$Random$magicNum3) | 0;
+	var rawState2 = (_elm_lang$core$Random$magicNum4 * (_p63 - (k2 * _elm_lang$core$Random$magicNum3))) - (k2 * _elm_lang$core$Random$magicNum5);
+	var newState2 = (_elm_lang$core$Native_Utils.cmp(rawState2, 0) < 0) ? (rawState2 + _elm_lang$core$Random$magicNum7) : rawState2;
+	var k1 = (_p62 / _elm_lang$core$Random$magicNum1) | 0;
+	var rawState1 = (_elm_lang$core$Random$magicNum0 * (_p62 - (k1 * _elm_lang$core$Random$magicNum1))) - (k1 * _elm_lang$core$Random$magicNum2);
+	var newState1 = (_elm_lang$core$Native_Utils.cmp(rawState1, 0) < 0) ? (rawState1 + _elm_lang$core$Random$magicNum6) : rawState1;
+	var z = newState1 - newState2;
+	var newZ = (_elm_lang$core$Native_Utils.cmp(z, 1) < 0) ? (z + _elm_lang$core$Random$magicNum8) : z;
+	return {
+		ctor: '_Tuple2',
+		_0: newZ,
+		_1: A2(_elm_lang$core$Random$State, newState1, newState2)
+	};
+};
+var _elm_lang$core$Random$split = function (_p64) {
+	var _p65 = _p64;
+	var _p68 = _p65._1;
+	var _p67 = _p65._0;
+	var _p66 = _elm_lang$core$Tuple$second(
+		_elm_lang$core$Random$next(_p65));
+	var t1 = _p66._0;
+	var t2 = _p66._1;
+	var new_s2 = _elm_lang$core$Native_Utils.eq(_p68, 1) ? (_elm_lang$core$Random$magicNum7 - 1) : (_p68 - 1);
+	var new_s1 = _elm_lang$core$Native_Utils.eq(_p67, _elm_lang$core$Random$magicNum6 - 1) ? 1 : (_p67 + 1);
+	return {
+		ctor: '_Tuple2',
+		_0: A2(_elm_lang$core$Random$State, new_s1, t2),
+		_1: A2(_elm_lang$core$Random$State, t1, new_s2)
+	};
+};
+var _elm_lang$core$Random$Seed = function (a) {
+	return {ctor: 'Seed', _0: a};
+};
+var _elm_lang$core$Random$int = F2(
+	function (a, b) {
+		return _elm_lang$core$Random$Generator(
+			function (_p69) {
+				var _p70 = _p69;
+				var _p75 = _p70._0;
+				var base = 2147483561;
+				var f = F3(
+					function (n, acc, state) {
+						f:
+						while (true) {
+							var _p71 = n;
+							if (_p71 === 0) {
+								return {ctor: '_Tuple2', _0: acc, _1: state};
+							} else {
+								var _p72 = _p75.next(state);
+								var x = _p72._0;
+								var nextState = _p72._1;
+								var _v27 = n - 1,
+									_v28 = x + (acc * base),
+									_v29 = nextState;
+								n = _v27;
+								acc = _v28;
+								state = _v29;
+								continue f;
+							}
+						}
+					});
+				var _p73 = (_elm_lang$core$Native_Utils.cmp(a, b) < 0) ? {ctor: '_Tuple2', _0: a, _1: b} : {ctor: '_Tuple2', _0: b, _1: a};
+				var lo = _p73._0;
+				var hi = _p73._1;
+				var k = (hi - lo) + 1;
+				var n = A2(_elm_lang$core$Random$iLogBase, base, k);
+				var _p74 = A3(f, n, 1, _p75.state);
+				var v = _p74._0;
+				var nextState = _p74._1;
+				return {
+					ctor: '_Tuple2',
+					_0: lo + A2(_elm_lang$core$Basics_ops['%'], v, k),
+					_1: _elm_lang$core$Random$Seed(
+						_elm_lang$core$Native_Utils.update(
+							_p75,
+							{state: nextState}))
+				};
+			});
+	});
+var _elm_lang$core$Random$bool = A2(
+	_elm_lang$core$Random$map,
+	F2(
+		function (x, y) {
+			return _elm_lang$core$Native_Utils.eq(x, y);
+		})(1),
+	A2(_elm_lang$core$Random$int, 0, 1));
+var _elm_lang$core$Random$float = F2(
+	function (a, b) {
+		return _elm_lang$core$Random$Generator(
+			function (seed) {
+				var _p76 = A2(
+					_elm_lang$core$Random$step,
+					A2(_elm_lang$core$Random$int, _elm_lang$core$Random$minInt, _elm_lang$core$Random$maxInt),
+					seed);
+				var number = _p76._0;
+				var newSeed = _p76._1;
+				var negativeOneToOne = _elm_lang$core$Basics$toFloat(number) / _elm_lang$core$Basics$toFloat(_elm_lang$core$Random$maxInt - _elm_lang$core$Random$minInt);
+				var _p77 = (_elm_lang$core$Native_Utils.cmp(a, b) < 0) ? {ctor: '_Tuple2', _0: a, _1: b} : {ctor: '_Tuple2', _0: b, _1: a};
+				var lo = _p77._0;
+				var hi = _p77._1;
+				var scaled = ((lo + hi) / 2) + ((hi - lo) * negativeOneToOne);
+				return {ctor: '_Tuple2', _0: scaled, _1: newSeed};
+			});
+	});
+var _elm_lang$core$Random$initialSeed = function (n) {
+	return _elm_lang$core$Random$Seed(
+		{
+			state: _elm_lang$core$Random$initState(n),
+			next: _elm_lang$core$Random$next,
+			split: _elm_lang$core$Random$split,
+			range: _elm_lang$core$Random$range
+		});
+};
+var _elm_lang$core$Random$init = A2(
+	_elm_lang$core$Task$andThen,
+	function (t) {
+		return _elm_lang$core$Task$succeed(
+			_elm_lang$core$Random$initialSeed(
+				_elm_lang$core$Basics$round(t)));
+	},
+	_elm_lang$core$Time$now);
+var _elm_lang$core$Random$Generate = function (a) {
+	return {ctor: 'Generate', _0: a};
+};
+var _elm_lang$core$Random$generate = F2(
+	function (tagger, generator) {
+		return _elm_lang$core$Random$command(
+			_elm_lang$core$Random$Generate(
+				A2(_elm_lang$core$Random$map, tagger, generator)));
+	});
+var _elm_lang$core$Random$cmdMap = F2(
+	function (func, _p78) {
+		var _p79 = _p78;
+		return _elm_lang$core$Random$Generate(
+			A2(_elm_lang$core$Random$map, func, _p79._0));
+	});
+_elm_lang$core$Native_Platform.effectManagers['Random'] = {pkg: 'elm-lang/core', init: _elm_lang$core$Random$init, onEffects: _elm_lang$core$Random$onEffects, onSelfMsg: _elm_lang$core$Random$onSelfMsg, tag: 'cmd', cmdMap: _elm_lang$core$Random$cmdMap};
 var _elm_lang$core$Set$foldr = F3(
 	function (f, b, _p0) {
 		var _p1 = _p0;
@@ -13281,7 +13659,7 @@ var _elm_lang$window$Window$subMap = F2(
 			});
 	});
 _elm_lang$core$Native_Platform.effectManagers['Window'] = {pkg: 'elm-lang/window', init: _elm_lang$window$Window$init, onEffects: _elm_lang$window$Window$onEffects, onSelfMsg: _elm_lang$window$Window$onSelfMsg, tag: 'sub', subMap: _elm_lang$window$Window$subMap};
-var _user$project$Physics_Quaternion$slerp = F3(
+var _w0rm$elm_physics$Physics_Quaternion$slerp = F3(
 	function (t, qa, qb) {
 		var _p0 = _elm_community$linear_algebra$Math_Vector4$toTuple(qb);
 		var bw = _p0._0;
@@ -13312,7 +13690,7 @@ var _user$project$Physics_Quaternion$slerp = F3(
 			_elm_lang$core$Basics$abs(sinHalfTheta),
 			1.0e-3) < 0) ? A4(_elm_community$linear_algebra$Math_Vector4$vec4, hw, hx, hy, hz) : A4(_elm_community$linear_algebra$Math_Vector4$vec4, mw, mx, my, mz));
 	});
-var _user$project$Physics_Quaternion$rotate = F2(
+var _w0rm$elm_physics$Physics_Quaternion$rotate = F2(
 	function (q, v) {
 		var _p2 = _elm_community$linear_algebra$Math_Vector4$toTuple(q);
 		var qx = _p2._0;
@@ -13329,7 +13707,7 @@ var _user$project$Physics_Quaternion$rotate = F2(
 		var iw = (((0 - qx) * x) - (qy * y)) - (qz * z);
 		return A3(_elm_community$linear_algebra$Math_Vector3$vec3, (((ix * qw) + (iw * (0 - qx))) + (iy * (0 - qz))) - (iz * (0 - qy)), (((iy * qw) + (iw * (0 - qy))) + (iz * (0 - qx))) - (ix * (0 - qz)), (((iz * qw) + (iw * (0 - qz))) + (ix * (0 - qy))) - (iy * (0 - qx)));
 	});
-var _user$project$Physics_Quaternion$rotateBy = F2(
+var _w0rm$elm_physics$Physics_Quaternion$rotateBy = F2(
 	function (angularDistance, quaternion) {
 		var _p4 = _elm_community$linear_algebra$Math_Vector4$toTuple(quaternion);
 		var bx = _p4._0;
@@ -13342,7 +13720,7 @@ var _user$project$Physics_Quaternion$rotateBy = F2(
 		var az = _p5._2;
 		return A4(_elm_community$linear_algebra$Math_Vector4$vec4, bx + (((ax * bw) + (ay * bz)) - (az * by)), by + (((ay * bw) + (az * bx)) - (ax * bz)), bz + (((az * bw) + (ax * by)) - (ay * bx)), bw + ((((0 - ax) * bx) - (ay * by)) - (az * bz)));
 	});
-var _user$project$Physics_Quaternion$conjugate = function (q) {
+var _w0rm$elm_physics$Physics_Quaternion$conjugate = function (q) {
 	var _p6 = _elm_community$linear_algebra$Math_Vector4$toRecord(q);
 	var x = _p6.x;
 	var y = _p6.y;
@@ -13350,7 +13728,7 @@ var _user$project$Physics_Quaternion$conjugate = function (q) {
 	var w = _p6.w;
 	return A4(_elm_community$linear_algebra$Math_Vector4$vec4, 0 - x, 0 - y, 0 - z, w);
 };
-var _user$project$Physics_Quaternion$mul = F2(
+var _w0rm$elm_physics$Physics_Quaternion$mul = F2(
 	function (q1, q2) {
 		var _p7 = _elm_community$linear_algebra$Math_Vector4$toTuple(q2);
 		var x2 = _p7._0;
@@ -13364,7 +13742,7 @@ var _user$project$Physics_Quaternion$mul = F2(
 		var w1 = _p8._3;
 		return A4(_elm_community$linear_algebra$Math_Vector4$vec4, (((x1 * w2) + (y1 * z2)) - (z1 * y2)) + (w1 * x2), ((((0 - x1) * z2) + (y1 * w2)) + (z1 * x2)) + (w1 * y2), (((x1 * y2) - (y1 * x2)) + (z1 * w2)) + (w1 * z2), ((((0 - x1) * x2) - (y1 * y2)) - (z1 * z2)) + (w1 * w2));
 	});
-var _user$project$Physics_Quaternion$toMat4 = function (q) {
+var _w0rm$elm_physics$Physics_Quaternion$toMat4 = function (q) {
 	var _p9 = _elm_community$linear_algebra$Math_Vector4$toRecord(q);
 	var x = _p9.x;
 	var y = _p9.y;
@@ -13373,7 +13751,7 @@ var _user$project$Physics_Quaternion$toMat4 = function (q) {
 	return _elm_community$linear_algebra$Math_Matrix4$fromRecord(
 		{m11: (1 - ((2 * y) * y)) - ((2 * z) * z), m12: ((2 * x) * y) - ((2 * w) * z), m13: ((2 * x) * z) + ((2 * w) * y), m14: 0, m21: ((2 * x) * y) + ((2 * w) * z), m22: (1 - ((2 * x) * x)) - ((2 * z) * z), m23: ((2 * y) * z) - ((2 * w) * x), m24: 0, m31: ((2 * x) * z) - ((2 * w) * y), m32: ((2 * y) * z) + ((2 * w) * x), m33: (1 - ((2 * x) * x)) - ((2 * y) * y), m34: 0, m41: 0, m42: 0, m43: 0, m44: 1});
 };
-var _user$project$Physics_Quaternion$fromAngleAxis = F2(
+var _w0rm$elm_physics$Physics_Quaternion$fromAngleAxis = F2(
 	function (angle, axis) {
 		var theta = angle / 2.0;
 		var c = _elm_lang$core$Basics$cos(theta);
@@ -13385,51 +13763,51 @@ var _user$project$Physics_Quaternion$fromAngleAxis = F2(
 		var z = _p10.z;
 		return A4(_elm_community$linear_algebra$Math_Vector4$vec4, x * s, y * s, z * s, c);
 	});
-var _user$project$Physics_Quaternion$identity = A4(_elm_community$linear_algebra$Math_Vector4$vec4, 0, 0, 0, 1);
-var _user$project$Physics_Transform$pointToLocalFrame = F2(
+var _w0rm$elm_physics$Physics_Quaternion$identity = A4(_elm_community$linear_algebra$Math_Vector4$vec4, 0, 0, 0, 1);
+var _w0rm$elm_physics$Physics_Transform$pointToLocalFrame = F2(
 	function (_p0, worldPoint) {
 		var _p1 = _p0;
 		return A2(
-			_user$project$Physics_Quaternion$rotate,
-			_user$project$Physics_Quaternion$conjugate(_p1.quaternion),
+			_w0rm$elm_physics$Physics_Quaternion$rotate,
+			_w0rm$elm_physics$Physics_Quaternion$conjugate(_p1.quaternion),
 			A2(_elm_community$linear_algebra$Math_Vector3$sub, worldPoint, _p1.position));
 	});
-var _user$project$Physics_Transform$vectorToLocalFrame = F2(
+var _w0rm$elm_physics$Physics_Transform$vectorToLocalFrame = F2(
 	function (_p2, worldVector) {
 		var _p3 = _p2;
 		var _p4 = _p3.quaternion;
 		return A2(
-			_user$project$Physics_Quaternion$rotate,
+			_w0rm$elm_physics$Physics_Quaternion$rotate,
 			A2(
 				_elm_community$linear_algebra$Math_Vector4$setW,
 				-1 * _elm_community$linear_algebra$Math_Vector4$getW(_p4),
 				_p4),
 			worldVector);
 	});
-var _user$project$Physics_Transform$pointToWorldFrame = F2(
+var _w0rm$elm_physics$Physics_Transform$pointToWorldFrame = F2(
 	function (_p5, localPoint) {
 		var _p6 = _p5;
 		return A2(
 			_elm_community$linear_algebra$Math_Vector3$add,
 			_p6.position,
-			A2(_user$project$Physics_Quaternion$rotate, _p6.quaternion, localPoint));
+			A2(_w0rm$elm_physics$Physics_Quaternion$rotate, _p6.quaternion, localPoint));
 	});
-var _user$project$Physics_Transform$identity = {
+var _w0rm$elm_physics$Physics_Transform$identity = {
 	position: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
-	quaternion: _user$project$Physics_Quaternion$identity
+	quaternion: _w0rm$elm_physics$Physics_Quaternion$identity
 };
-var _user$project$Physics_Transform$Transform = F2(
+var _w0rm$elm_physics$Physics_Transform$Transform = F2(
 	function (a, b) {
 		return {quaternion: a, position: b};
 	});
-var _user$project$Physics_AABB$toHalfExtends = function (_p0) {
+var _w0rm$elm_physics$Physics_AABB$toHalfExtends = function (_p0) {
 	var _p1 = _p0;
 	return A2(
 		_elm_community$linear_algebra$Math_Vector3$scale,
 		0.5,
 		A2(_elm_community$linear_algebra$Math_Vector3$sub, _p1.upperBound, _p1.lowerBound));
 };
-var _user$project$Physics_AABB$overlaps = F2(
+var _w0rm$elm_physics$Physics_AABB$overlaps = F2(
 	function (aabb1, aabb2) {
 		var _p2 = _elm_community$linear_algebra$Math_Vector3$toTuple(aabb2.upperBound);
 		var u2x = _p2._0;
@@ -13449,7 +13827,7 @@ var _user$project$Physics_AABB$overlaps = F2(
 		var l1z = _p5._2;
 		return (((_elm_lang$core$Native_Utils.cmp(l2x, u1x) < 1) && (_elm_lang$core$Native_Utils.cmp(u1x, u2x) < 1)) || ((_elm_lang$core$Native_Utils.cmp(l1x, u2x) < 1) && (_elm_lang$core$Native_Utils.cmp(u2x, u1x) < 1))) && ((((_elm_lang$core$Native_Utils.cmp(l2y, u1y) < 1) && (_elm_lang$core$Native_Utils.cmp(u1y, u2y) < 1)) || ((_elm_lang$core$Native_Utils.cmp(l1y, u2y) < 1) && (_elm_lang$core$Native_Utils.cmp(u2y, u1y) < 1))) && (((_elm_lang$core$Native_Utils.cmp(l2z, u1z) < 1) && (_elm_lang$core$Native_Utils.cmp(u1z, u2z) < 1)) || ((_elm_lang$core$Native_Utils.cmp(l1z, u2z) < 1) && (_elm_lang$core$Native_Utils.cmp(u2z, u1z) < 1))));
 	});
-var _user$project$Physics_AABB$extend = F2(
+var _w0rm$elm_physics$Physics_AABB$extend = F2(
 	function (aabb1, aabb) {
 		var _p6 = _elm_community$linear_algebra$Math_Vector3$toTuple(aabb1.upperBound);
 		var u1x = _p6._0;
@@ -13480,100 +13858,100 @@ var _user$project$Physics_AABB$extend = F2(
 				A2(_elm_lang$core$Basics$max, uz, u1z))
 		};
 	});
-var _user$project$Physics_AABB$zero = {
+var _w0rm$elm_physics$Physics_AABB$zero = {
 	lowerBound: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
 	upperBound: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0)
 };
-var _user$project$Physics_AABB$maxNumber = 3.40282347e38;
-var _user$project$Physics_AABB$maximum = {
-	lowerBound: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0 - _user$project$Physics_AABB$maxNumber, 0 - _user$project$Physics_AABB$maxNumber, 0 - _user$project$Physics_AABB$maxNumber),
-	upperBound: A3(_elm_community$linear_algebra$Math_Vector3$vec3, _user$project$Physics_AABB$maxNumber, _user$project$Physics_AABB$maxNumber, _user$project$Physics_AABB$maxNumber)
+var _w0rm$elm_physics$Physics_AABB$maxNumber = 3.40282347e38;
+var _w0rm$elm_physics$Physics_AABB$maximum = {
+	lowerBound: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0 - _w0rm$elm_physics$Physics_AABB$maxNumber, 0 - _w0rm$elm_physics$Physics_AABB$maxNumber, 0 - _w0rm$elm_physics$Physics_AABB$maxNumber),
+	upperBound: A3(_elm_community$linear_algebra$Math_Vector3$vec3, _w0rm$elm_physics$Physics_AABB$maxNumber, _w0rm$elm_physics$Physics_AABB$maxNumber, _w0rm$elm_physics$Physics_AABB$maxNumber)
 };
-var _user$project$Physics_AABB$impossible = {
-	lowerBound: A3(_elm_community$linear_algebra$Math_Vector3$vec3, _user$project$Physics_AABB$maxNumber, _user$project$Physics_AABB$maxNumber, _user$project$Physics_AABB$maxNumber),
-	upperBound: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0 - _user$project$Physics_AABB$maxNumber, 0 - _user$project$Physics_AABB$maxNumber, 0 - _user$project$Physics_AABB$maxNumber)
+var _w0rm$elm_physics$Physics_AABB$impossible = {
+	lowerBound: A3(_elm_community$linear_algebra$Math_Vector3$vec3, _w0rm$elm_physics$Physics_AABB$maxNumber, _w0rm$elm_physics$Physics_AABB$maxNumber, _w0rm$elm_physics$Physics_AABB$maxNumber),
+	upperBound: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0 - _w0rm$elm_physics$Physics_AABB$maxNumber, 0 - _w0rm$elm_physics$Physics_AABB$maxNumber, 0 - _w0rm$elm_physics$Physics_AABB$maxNumber)
 };
-var _user$project$Physics_AABB$plane = function (_p10) {
+var _w0rm$elm_physics$Physics_AABB$plane = function (_p10) {
 	var _p11 = _p10;
 	var _p13 = _p11.position;
 	var _p12 = _elm_community$linear_algebra$Math_Vector3$toTuple(
-		A2(_user$project$Physics_Quaternion$rotate, _p11.quaternion, _elm_community$linear_algebra$Math_Vector3$k));
+		A2(_w0rm$elm_physics$Physics_Quaternion$rotate, _p11.quaternion, _elm_community$linear_algebra$Math_Vector3$k));
 	switch (_p12._0) {
 		case 1:
 			return _elm_lang$core$Native_Utils.update(
-				_user$project$Physics_AABB$maximum,
+				_w0rm$elm_physics$Physics_AABB$maximum,
 				{
 					upperBound: A3(
 						_elm_community$linear_algebra$Math_Vector3$vec3,
 						_elm_community$linear_algebra$Math_Vector3$getX(_p13),
-						_user$project$Physics_AABB$maxNumber,
-						_user$project$Physics_AABB$maxNumber)
+						_w0rm$elm_physics$Physics_AABB$maxNumber,
+						_w0rm$elm_physics$Physics_AABB$maxNumber)
 				});
 		case -1:
 			return _elm_lang$core$Native_Utils.update(
-				_user$project$Physics_AABB$maximum,
+				_w0rm$elm_physics$Physics_AABB$maximum,
 				{
 					lowerBound: A3(
 						_elm_community$linear_algebra$Math_Vector3$vec3,
 						_elm_community$linear_algebra$Math_Vector3$getX(_p13),
-						0 - _user$project$Physics_AABB$maxNumber,
-						0 - _user$project$Physics_AABB$maxNumber)
+						0 - _w0rm$elm_physics$Physics_AABB$maxNumber,
+						0 - _w0rm$elm_physics$Physics_AABB$maxNumber)
 				});
 		default:
 			switch (_p12._1) {
 				case 1:
 					return _elm_lang$core$Native_Utils.update(
-						_user$project$Physics_AABB$maximum,
+						_w0rm$elm_physics$Physics_AABB$maximum,
 						{
 							upperBound: A3(
 								_elm_community$linear_algebra$Math_Vector3$vec3,
-								_user$project$Physics_AABB$maxNumber,
+								_w0rm$elm_physics$Physics_AABB$maxNumber,
 								_elm_community$linear_algebra$Math_Vector3$getY(_p13),
-								_user$project$Physics_AABB$maxNumber)
+								_w0rm$elm_physics$Physics_AABB$maxNumber)
 						});
 				case -1:
 					return _elm_lang$core$Native_Utils.update(
-						_user$project$Physics_AABB$maximum,
+						_w0rm$elm_physics$Physics_AABB$maximum,
 						{
 							lowerBound: A3(
 								_elm_community$linear_algebra$Math_Vector3$vec3,
-								0 - _user$project$Physics_AABB$maxNumber,
+								0 - _w0rm$elm_physics$Physics_AABB$maxNumber,
 								_elm_community$linear_algebra$Math_Vector3$getY(_p13),
-								0 - _user$project$Physics_AABB$maxNumber)
+								0 - _w0rm$elm_physics$Physics_AABB$maxNumber)
 						});
 				default:
 					switch (_p12._2) {
 						case 1:
 							return _elm_lang$core$Native_Utils.update(
-								_user$project$Physics_AABB$maximum,
+								_w0rm$elm_physics$Physics_AABB$maximum,
 								{
 									upperBound: A3(
 										_elm_community$linear_algebra$Math_Vector3$vec3,
-										_user$project$Physics_AABB$maxNumber,
-										_user$project$Physics_AABB$maxNumber,
+										_w0rm$elm_physics$Physics_AABB$maxNumber,
+										_w0rm$elm_physics$Physics_AABB$maxNumber,
 										_elm_community$linear_algebra$Math_Vector3$getZ(_p13))
 								});
 						case -1:
 							return _elm_lang$core$Native_Utils.update(
-								_user$project$Physics_AABB$maximum,
+								_w0rm$elm_physics$Physics_AABB$maximum,
 								{
 									lowerBound: A3(
 										_elm_community$linear_algebra$Math_Vector3$vec3,
-										0 - _user$project$Physics_AABB$maxNumber,
-										0 - _user$project$Physics_AABB$maxNumber,
+										0 - _w0rm$elm_physics$Physics_AABB$maxNumber,
+										0 - _w0rm$elm_physics$Physics_AABB$maxNumber,
 										_elm_community$linear_algebra$Math_Vector3$getZ(_p13))
 								});
 						default:
-							return _user$project$Physics_AABB$maximum;
+							return _w0rm$elm_physics$Physics_AABB$maximum;
 					}
 			}
 	}
 };
-var _user$project$Physics_AABB$AABB = F2(
+var _w0rm$elm_physics$Physics_AABB$AABB = F2(
 	function (a, b) {
 		return {upperBound: a, lowerBound: b};
 	});
-var _user$project$Physics_AABB$box = F2(
+var _w0rm$elm_physics$Physics_AABB$box = F2(
 	function (transform, halfExtends) {
 		var _p14 = _elm_community$linear_algebra$Math_Vector3$toRecord(halfExtends);
 		var x = _p14.x;
@@ -13582,11 +13960,11 @@ var _user$project$Physics_AABB$box = F2(
 		return A3(
 			_elm_lang$core$List$foldl,
 			function (point) {
-				var p = A2(_user$project$Physics_Transform$pointToWorldFrame, transform, point);
-				return _user$project$Physics_AABB$extend(
-					A2(_user$project$Physics_AABB$AABB, p, p));
+				var p = A2(_w0rm$elm_physics$Physics_Transform$pointToWorldFrame, transform, point);
+				return _w0rm$elm_physics$Physics_AABB$extend(
+					A2(_w0rm$elm_physics$Physics_AABB$AABB, p, p));
 			},
-			_user$project$Physics_AABB$impossible,
+			_w0rm$elm_physics$Physics_AABB$impossible,
 			{
 				ctor: '::',
 				_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0 - x, 0 - y, 0 - z),
@@ -13621,11 +13999,11 @@ var _user$project$Physics_AABB$box = F2(
 				}
 			});
 	});
-var _user$project$Physics_Mat3$mult = F2(
+var _w0rm$elm_physics$Physics_Mat3$mult = F2(
 	function (m1, m2) {
 		return {e0: ((m1.e0 * m2.e0) + (m1.e1 * m2.e3)) + (m1.e2 * m2.e6), e1: ((m1.e0 * m2.e1) + (m1.e1 * m2.e4)) + (m1.e2 * m2.e7), e2: ((m1.e0 * m2.e2) + (m1.e1 * m2.e5)) + (m1.e2 * m2.e8), e3: ((m1.e3 * m2.e0) + (m1.e4 * m2.e3)) + (m1.e5 * m2.e6), e4: ((m1.e3 * m2.e1) + (m1.e4 * m2.e4)) + (m1.e5 * m2.e7), e5: ((m1.e3 * m2.e2) + (m1.e4 * m2.e5)) + (m1.e5 * m2.e8), e6: ((m1.e6 * m2.e0) + (m1.e7 * m2.e3)) + (m1.e8 * m2.e6), e7: ((m1.e6 * m2.e1) + (m1.e7 * m2.e4)) + (m1.e8 * m2.e7), e8: ((m1.e6 * m2.e2) + (m1.e7 * m2.e5)) + (m1.e8 * m2.e8)};
 	});
-var _user$project$Physics_Mat3$scale = F2(
+var _w0rm$elm_physics$Physics_Mat3$scale = F2(
 	function (v, m) {
 		var _p0 = _elm_community$linear_algebra$Math_Vector3$toRecord(v);
 		var x = _p0.x;
@@ -13633,10 +14011,10 @@ var _user$project$Physics_Mat3$scale = F2(
 		var z = _p0.z;
 		return {e0: m.e0 * x, e1: m.e1 * x, e2: m.e2 * x, e3: m.e3 * y, e4: m.e4 * y, e5: m.e5 * y, e6: m.e6 * z, e7: m.e7 * z, e8: m.e8 * z};
 	});
-var _user$project$Physics_Mat3$transpose = function (m) {
+var _w0rm$elm_physics$Physics_Mat3$transpose = function (m) {
 	return {e0: m.e0, e1: m.e3, e2: m.e6, e3: m.e1, e4: m.e4, e5: m.e7, e6: m.e2, e7: m.e5, e8: m.e8};
 };
-var _user$project$Physics_Mat3$fromQuaternion = function (quaternion) {
+var _w0rm$elm_physics$Physics_Mat3$fromQuaternion = function (quaternion) {
 	var _p1 = _elm_community$linear_algebra$Math_Vector4$toRecord(quaternion);
 	var x = _p1.x;
 	var y = _p1.y;
@@ -13656,9 +14034,9 @@ var _user$project$Physics_Mat3$fromQuaternion = function (quaternion) {
 	var wz = w * z2;
 	return {e0: 1 - (yy + zz), e1: xy - wz, e2: xz + wy, e3: xy + wz, e4: 1 - (xx + zz), e5: yz - wx, e6: xz - wy, e7: yz + wx, e8: 1 - (xx + yy)};
 };
-var _user$project$Physics_Mat3$identity = {e0: 1, e1: 0, e2: 0, e3: 0, e4: 1, e5: 0, e6: 0, e7: 0, e8: 1};
-var _user$project$Physics_Mat3$zero = {e0: 0, e1: 0, e2: 0, e3: 0, e4: 0, e5: 0, e6: 0, e7: 0, e8: 0};
-var _user$project$Physics_Mat3$mul = F2(
+var _w0rm$elm_physics$Physics_Mat3$identity = {e0: 1, e1: 0, e2: 0, e3: 0, e4: 1, e5: 0, e6: 0, e7: 0, e8: 1};
+var _w0rm$elm_physics$Physics_Mat3$zero = {e0: 0, e1: 0, e2: 0, e3: 0, e4: 0, e5: 0, e6: 0, e7: 0, e8: 0};
+var _w0rm$elm_physics$Physics_Mat3$mul = F2(
 	function (_p2, vec) {
 		var _p3 = _p2;
 		var _p4 = _elm_community$linear_algebra$Math_Vector3$toRecord(vec);
@@ -13667,11 +14045,11 @@ var _user$project$Physics_Mat3$mul = F2(
 		var z = _p4.z;
 		return A3(_elm_community$linear_algebra$Math_Vector3$vec3, ((_p3.e0 * x) + (_p3.e1 * y)) + (_p3.e2 * z), ((_p3.e3 * x) + (_p3.e4 * y)) + (_p3.e5 * z), ((_p3.e6 * x) + (_p3.e7 * y)) + (_p3.e8 * z));
 	});
-var _user$project$Physics_Mat3$Mat3 = F9(
+var _w0rm$elm_physics$Physics_Mat3$Mat3 = F9(
 	function (a, b, c, d, e, f, g, h, i) {
 		return {e0: a, e1: b, e2: c, e3: d, e4: e, e5: f, e6: g, e7: h, e8: i};
 	});
-var _user$project$Physics_Shape$transform = function (shape) {
+var _w0rm$elm_physics$Physics_Shape$transform = function (shape) {
 	var _p0 = shape;
 	if (_p0.ctor === 'Plane') {
 		return _elm_community$linear_algebra$Math_Matrix4$identity;
@@ -13679,11 +14057,11 @@ var _user$project$Physics_Shape$transform = function (shape) {
 		return _elm_community$linear_algebra$Math_Matrix4$makeScale(_p0._0);
 	}
 };
-var _user$project$Physics_Shape$Plane = {ctor: 'Plane'};
-var _user$project$Physics_Shape$Box = function (a) {
+var _w0rm$elm_physics$Physics_Shape$Plane = {ctor: 'Plane'};
+var _w0rm$elm_physics$Physics_Shape$Box = function (a) {
 	return {ctor: 'Box', _0: a};
 };
-var _user$project$Physics_Body$updateInertiaWorld = F2(
+var _w0rm$elm_physics$Physics_Body$updateInertiaWorld = F2(
 	function (force, _p0) {
 		var _p1 = _p0;
 		var _p3 = _p1.invInertia;
@@ -13695,18 +14073,18 @@ var _user$project$Physics_Body$updateInertiaWorld = F2(
 			_elm_community$linear_algebra$Math_Vector3$getZ(_p3)))) {
 			return _p2;
 		} else {
-			var m = _user$project$Physics_Mat3$fromQuaternion(_p1.quaternion);
+			var m = _w0rm$elm_physics$Physics_Mat3$fromQuaternion(_p1.quaternion);
 			return _elm_lang$core$Native_Utils.update(
 				_p2,
 				{
 					invInertiaWorld: A2(
-						_user$project$Physics_Mat3$mult,
-						_user$project$Physics_Mat3$transpose(m),
-						A2(_user$project$Physics_Mat3$scale, _p3, m))
+						_w0rm$elm_physics$Physics_Mat3$mult,
+						_w0rm$elm_physics$Physics_Mat3$transpose(m),
+						A2(_w0rm$elm_physics$Physics_Mat3$scale, _p3, m))
 				});
 		}
 	});
-var _user$project$Physics_Body$tick = F2(
+var _w0rm$elm_physics$Physics_Body$tick = F2(
 	function (dt, body) {
 		var newAngularVelocity = A2(
 			_elm_community$linear_algebra$Math_Vector3$add,
@@ -13714,14 +14092,14 @@ var _user$project$Physics_Body$tick = F2(
 			A2(
 				_elm_community$linear_algebra$Math_Vector3$scale,
 				dt,
-				A2(_user$project$Physics_Mat3$mul, body.invInertiaWorld, body.torque)));
+				A2(_w0rm$elm_physics$Physics_Mat3$mul, body.invInertiaWorld, body.torque)));
 		var invMass = _elm_lang$core$Native_Utils.eq(body.mass, 0) ? 0 : (1.0 / body.mass);
 		var newVelocity = A2(
 			_elm_community$linear_algebra$Math_Vector3$add,
 			body.velocity,
 			A2(_elm_community$linear_algebra$Math_Vector3$scale, invMass * dt, body.force));
 		return A2(
-			_user$project$Physics_Body$updateInertiaWorld,
+			_w0rm$elm_physics$Physics_Body$updateInertiaWorld,
 			false,
 			_elm_lang$core$Native_Utils.update(
 				body,
@@ -13734,62 +14112,62 @@ var _user$project$Physics_Body$tick = F2(
 						A2(_elm_community$linear_algebra$Math_Vector3$scale, dt, newVelocity)),
 					quaternion: _elm_community$linear_algebra$Math_Vector4$normalize(
 						A2(
-							_user$project$Physics_Quaternion$rotateBy,
+							_w0rm$elm_physics$Physics_Quaternion$rotateBy,
 							A2(_elm_community$linear_algebra$Math_Vector3$scale, dt / 2, newAngularVelocity),
 							body.quaternion))
 				}));
 	});
-var _user$project$Physics_Body$zero3 = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0);
-var _user$project$Physics_Body$shapeWorldTransform = F2(
+var _w0rm$elm_physics$Physics_Body$zero3 = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0);
+var _w0rm$elm_physics$Physics_Body$shapeWorldTransform = F2(
 	function (shapeId, _p4) {
 		var _p5 = _p4;
 		var _p6 = _p5.quaternion;
 		return {
 			quaternion: A2(
-				_user$project$Physics_Quaternion$mul,
+				_w0rm$elm_physics$Physics_Quaternion$mul,
 				_p6,
 				A2(
 					_elm_lang$core$Maybe$withDefault,
-					_user$project$Physics_Quaternion$identity,
+					_w0rm$elm_physics$Physics_Quaternion$identity,
 					A2(_elm_lang$core$Dict$get, shapeId, _p5.shapeOrientations))),
 			position: A2(
 				_elm_community$linear_algebra$Math_Vector3$add,
 				_p5.position,
 				A2(
-					_user$project$Physics_Quaternion$rotate,
+					_w0rm$elm_physics$Physics_Quaternion$rotate,
 					_p6,
 					A2(
 						_elm_lang$core$Maybe$withDefault,
-						_user$project$Physics_Body$zero3,
+						_w0rm$elm_physics$Physics_Body$zero3,
 						A2(_elm_lang$core$Dict$get, shapeId, _p5.shapeOffsets))))
 		};
 	});
-var _user$project$Physics_Body$computeAABB = function (body) {
+var _w0rm$elm_physics$Physics_Body$computeAABB = function (body) {
 	return A3(
 		_elm_lang$core$Dict$foldl,
 		F2(
 			function (shapeId, shape) {
-				var transform = A2(_user$project$Physics_Body$shapeWorldTransform, shapeId, body);
-				return _user$project$Physics_AABB$extend(
+				var transform = A2(_w0rm$elm_physics$Physics_Body$shapeWorldTransform, shapeId, body);
+				return _w0rm$elm_physics$Physics_AABB$extend(
 					function () {
 						var _p7 = shape;
 						if (_p7.ctor === 'Box') {
-							return A2(_user$project$Physics_AABB$box, transform, _p7._0);
+							return A2(_w0rm$elm_physics$Physics_AABB$box, transform, _p7._0);
 						} else {
-							return _user$project$Physics_AABB$plane(transform);
+							return _w0rm$elm_physics$Physics_AABB$plane(transform);
 						}
 					}());
 			}),
-		_user$project$Physics_AABB$impossible,
+		_w0rm$elm_physics$Physics_AABB$impossible,
 		body.shapes);
 };
-var _user$project$Physics_Body$updateMassProperties = function (_p8) {
+var _w0rm$elm_physics$Physics_Body$updateMassProperties = function (_p8) {
 	var _p9 = _p8;
 	var _p12 = _p9.mass;
 	var _p11 = _p9;
 	var _p10 = _elm_community$linear_algebra$Math_Vector3$toTuple(
-		_user$project$Physics_AABB$toHalfExtends(
-			_user$project$Physics_Body$computeAABB(_p11)));
+		_w0rm$elm_physics$Physics_AABB$toHalfExtends(
+			_w0rm$elm_physics$Physics_Body$computeAABB(_p11)));
 	var ex = _p10._0;
 	var ey = _p10._1;
 	var ez = _p10._2;
@@ -13804,15 +14182,15 @@ var _user$project$Physics_Body$updateMassProperties = function (_p8) {
 		(_elm_lang$core$Native_Utils.cmp(iz, 0) > 0) ? (1.0 / iz) : 0);
 	var invMass = _elm_lang$core$Native_Utils.eq(_p12, 0) ? 0 : (1.0 / _p12);
 	return A2(
-		_user$project$Physics_Body$updateInertiaWorld,
+		_w0rm$elm_physics$Physics_Body$updateInertiaWorld,
 		true,
 		_elm_lang$core$Native_Utils.update(
 			_p11,
 			{invMass: invMass, inertia: inertia, invInertia: invInertia, quaternion: _p11.quaternion}));
 };
-var _user$project$Physics_Body$addShape = F2(
+var _w0rm$elm_physics$Physics_Body$addShape = F2(
 	function (shape, body) {
-		return _user$project$Physics_Body$updateMassProperties(
+		return _w0rm$elm_physics$Physics_Body$updateMassProperties(
 			_elm_lang$core$Native_Utils.update(
 				body,
 				{
@@ -13820,33 +14198,33 @@ var _user$project$Physics_Body$addShape = F2(
 					nextShapeId: body.nextShapeId + 1
 				}));
 	});
-var _user$project$Physics_Body$setQuaternion = F2(
+var _w0rm$elm_physics$Physics_Body$setQuaternion = F2(
 	function (quaternion, body) {
-		return _user$project$Physics_Body$updateMassProperties(
+		return _w0rm$elm_physics$Physics_Body$updateMassProperties(
 			_elm_lang$core$Native_Utils.update(
 				body,
 				{quaternion: quaternion}));
 	});
-var _user$project$Physics_Body$setPosition = F2(
+var _w0rm$elm_physics$Physics_Body$setPosition = F2(
 	function (position, body) {
-		return _user$project$Physics_Body$updateMassProperties(
+		return _w0rm$elm_physics$Physics_Body$updateMassProperties(
 			_elm_lang$core$Native_Utils.update(
 				body,
 				{position: position}));
 	});
-var _user$project$Physics_Body$setMass = F2(
+var _w0rm$elm_physics$Physics_Body$setMass = F2(
 	function (mass, body) {
-		return _user$project$Physics_Body$updateMassProperties(
+		return _w0rm$elm_physics$Physics_Body$updateMassProperties(
 			_elm_lang$core$Native_Utils.update(
 				body,
 				{mass: mass}));
 	});
-var _user$project$Physics_Body$clearForces = function (body) {
+var _w0rm$elm_physics$Physics_Body$clearForces = function (body) {
 	return _elm_lang$core$Native_Utils.update(
 		body,
-		{force: _user$project$Physics_Body$zero3, torque: _user$project$Physics_Body$zero3});
+		{force: _w0rm$elm_physics$Physics_Body$zero3, torque: _w0rm$elm_physics$Physics_Body$zero3});
 };
-var _user$project$Physics_Body$addGravity = F2(
+var _w0rm$elm_physics$Physics_Body$addGravity = F2(
 	function (gravity, body) {
 		return _elm_lang$core$Native_Utils.update(
 			body,
@@ -13857,8 +14235,8 @@ var _user$project$Physics_Body$addGravity = F2(
 					A2(_elm_community$linear_algebra$Math_Vector3$scale, body.mass, gravity))
 			});
 	});
-var _user$project$Physics_Body$body = {position: _user$project$Physics_Body$zero3, velocity: _user$project$Physics_Body$zero3, angularVelocity: _user$project$Physics_Body$zero3, quaternion: _user$project$Physics_Quaternion$identity, mass: 0, shapes: _elm_lang$core$Dict$empty, shapeOffsets: _elm_lang$core$Dict$empty, shapeOrientations: _elm_lang$core$Dict$empty, nextShapeId: 0, force: _user$project$Physics_Body$zero3, torque: _user$project$Physics_Body$zero3, invMass: 0, inertia: _user$project$Physics_Body$zero3, invInertia: _user$project$Physics_Body$zero3, invInertiaWorld: _user$project$Physics_Mat3$zero};
-var _user$project$Physics_Body$Body = function (a) {
+var _w0rm$elm_physics$Physics_Body$body = {position: _w0rm$elm_physics$Physics_Body$zero3, velocity: _w0rm$elm_physics$Physics_Body$zero3, angularVelocity: _w0rm$elm_physics$Physics_Body$zero3, quaternion: _w0rm$elm_physics$Physics_Quaternion$identity, mass: 0, shapes: _elm_lang$core$Dict$empty, shapeOffsets: _elm_lang$core$Dict$empty, shapeOrientations: _elm_lang$core$Dict$empty, nextShapeId: 0, force: _w0rm$elm_physics$Physics_Body$zero3, torque: _w0rm$elm_physics$Physics_Body$zero3, invMass: 0, inertia: _w0rm$elm_physics$Physics_Body$zero3, invInertia: _w0rm$elm_physics$Physics_Body$zero3, invInertiaWorld: _w0rm$elm_physics$Physics_Mat3$zero};
+var _w0rm$elm_physics$Physics_Body$Body = function (a) {
 	return function (b) {
 		return function (c) {
 			return function (d) {
@@ -13889,7 +14267,7 @@ var _user$project$Physics_Body$Body = function (a) {
 		};
 	};
 };
-var _user$project$Physics_World$getPairs = function (_p0) {
+var _w0rm$elm_physics$Physics_World$getPairs = function (_p0) {
 	var _p1 = _p0;
 	var bodyIds = _elm_lang$core$Dict$keys(_p1.bodies);
 	return A3(
@@ -13908,7 +14286,7 @@ var _user$project$Physics_World$getPairs = function (_p0) {
 		_elm_lang$core$Set$empty,
 		bodyIds);
 };
-var _user$project$Physics_World$addBody = F2(
+var _w0rm$elm_physics$Physics_World$addBody = F2(
 	function (body, world) {
 		return _elm_lang$core$Native_Utils.update(
 			world,
@@ -13917,7 +14295,7 @@ var _user$project$Physics_World$addBody = F2(
 				nextBodyId: world.nextBodyId + 1
 			});
 	});
-var _user$project$Physics_World$tick = F2(
+var _w0rm$elm_physics$Physics_World$tick = F2(
 	function (dt, world) {
 		return _elm_lang$core$Native_Utils.update(
 			world,
@@ -13926,54 +14304,43 @@ var _user$project$Physics_World$tick = F2(
 					_elm_lang$core$Dict$map,
 					function (_p2) {
 						return function (_p3) {
-							return _user$project$Physics_Body$clearForces(
-								A2(_user$project$Physics_Body$tick, dt, _p3));
+							return _w0rm$elm_physics$Physics_Body$clearForces(
+								A2(_w0rm$elm_physics$Physics_Body$tick, dt, _p3));
 						};
 					},
 					world.bodies),
 				time: world.time + dt
 			});
 	});
-var _user$project$Physics_World$addGravityForces = function (world) {
+var _w0rm$elm_physics$Physics_World$addGravityForces = function (world) {
 	return _elm_lang$core$Native_Utils.update(
 		world,
 		{
 			bodies: A2(
 				_elm_lang$core$Dict$map,
 				function (_p4) {
-					return _user$project$Physics_Body$addGravity(world.gravity);
+					return _w0rm$elm_physics$Physics_Body$addGravity(world.gravity);
 				},
 				world.bodies)
 		});
 };
-var _user$project$Physics_World$setGravity = F2(
+var _w0rm$elm_physics$Physics_World$setGravity = F2(
 	function (gravity, world) {
 		return _elm_lang$core$Native_Utils.update(
 			world,
 			{gravity: gravity});
 	});
-var _user$project$Physics_World$world = {
+var _w0rm$elm_physics$Physics_World$world = {
 	bodies: _elm_lang$core$Dict$empty,
 	nextBodyId: 0,
 	gravity: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
 	time: 0
 };
-var _user$project$Physics_World$World = F4(
+var _w0rm$elm_physics$Physics_World$World = F4(
 	function (a, b, c, d) {
 		return {bodies: a, nextBodyId: b, gravity: c, time: d};
 	});
-var _user$project$Types$Model = F4(
-	function (a, b, c, d) {
-		return {screenWidth: a, screenHeight: b, world: c, devicePixelRatio: d};
-	});
-var _user$project$Types$AddCube = {ctor: 'AddCube'};
-var _user$project$Types$Resize = function (a) {
-	return {ctor: 'Resize', _0: a};
-};
-var _user$project$Types$Tick = function (a) {
-	return {ctor: 'Tick', _0: a};
-};
-var _user$project$Physics_ConvexPolyhedron$lerp = F3(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$lerp = F3(
 	function (t, v1, v2) {
 		return A2(
 			_elm_community$linear_algebra$Math_Vector3$add,
@@ -13983,25 +14350,25 @@ var _user$project$Physics_ConvexPolyhedron$lerp = F3(
 				t,
 				A2(_elm_community$linear_algebra$Math_Vector3$sub, v2, v1)));
 	});
-var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlaneAdd = F5(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$clipFaceAgainstPlaneAdd = F5(
 	function (planeNormal, planeConstant, prev, next, result) {
 		var nDotNext = A2(_elm_community$linear_algebra$Math_Vector3$dot, planeNormal, next) + planeConstant;
 		var nDotPrev = A2(_elm_community$linear_algebra$Math_Vector3$dot, planeNormal, prev) + planeConstant;
 		return (_elm_lang$core$Native_Utils.cmp(nDotPrev, 0) < 0) ? ((_elm_lang$core$Native_Utils.cmp(nDotNext, 0) < 0) ? {ctor: '::', _0: next, _1: result} : {
 			ctor: '::',
-			_0: A3(_user$project$Physics_ConvexPolyhedron$lerp, nDotPrev / (nDotPrev - nDotNext), prev, next),
+			_0: A3(_w0rm$elm_physics$Physics_ConvexPolyhedron$lerp, nDotPrev / (nDotPrev - nDotNext), prev, next),
 			_1: result
 		}) : ((_elm_lang$core$Native_Utils.cmp(nDotNext, 0) < 0) ? {
 			ctor: '::',
 			_0: next,
 			_1: {
 				ctor: '::',
-				_0: A3(_user$project$Physics_ConvexPolyhedron$lerp, nDotPrev / (nDotPrev - nDotNext), prev, next),
+				_0: A3(_w0rm$elm_physics$Physics_ConvexPolyhedron$lerp, nDotPrev / (nDotPrev - nDotNext), prev, next),
 				_1: result
 			}
 		} : result);
 	});
-var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlaneHelp = F5(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$clipFaceAgainstPlaneHelp = F5(
 	function (planeNormal, planeConstant, first, vertices, result) {
 		clipFaceAgainstPlaneHelp:
 		while (true) {
@@ -14015,7 +14382,7 @@ var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlaneHelp = F5(
 						_v2 = planeConstant,
 						_v3 = first,
 						_v4 = {ctor: '::', _0: _p1, _1: _p0._1._1},
-						_v5 = A5(_user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlaneAdd, planeNormal, planeConstant, _p0._0, _p1, result);
+						_v5 = A5(_w0rm$elm_physics$Physics_ConvexPolyhedron$clipFaceAgainstPlaneAdd, planeNormal, planeConstant, _p0._0, _p1, result);
 					planeNormal = _v1;
 					planeConstant = _v2;
 					first = _v3;
@@ -14027,7 +14394,7 @@ var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlaneHelp = F5(
 						_v7 = planeConstant,
 						_v8 = first,
 						_v9 = {ctor: '[]'},
-						_v10 = A5(_user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlaneAdd, planeNormal, planeConstant, _p0._0, first, result);
+						_v10 = A5(_w0rm$elm_physics$Physics_ConvexPolyhedron$clipFaceAgainstPlaneAdd, planeNormal, planeConstant, _p0._0, first, result);
 					planeNormal = _v6;
 					planeConstant = _v7;
 					first = _v8;
@@ -14038,7 +14405,7 @@ var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlaneHelp = F5(
 			}
 		}
 	});
-var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlane = F3(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$clipFaceAgainstPlane = F3(
 	function (planeNormal, planeConstant, vertices) {
 		var _p2 = vertices;
 		if ((_p2.ctor === '::') && (_p2._1.ctor === '::')) {
@@ -14051,7 +14418,7 @@ var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlane = F3(
 					_elm_lang$core$List$reverse(tail));
 			}(
 				A5(
-					_user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlaneHelp,
+					_w0rm$elm_physics$Physics_ConvexPolyhedron$clipFaceAgainstPlaneHelp,
 					planeNormal,
 					planeConstant,
 					_p2._0,
@@ -14061,12 +14428,12 @@ var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlane = F3(
 			return {ctor: '[]'};
 		}
 	});
-var _user$project$Physics_ConvexPolyhedron$edge = F2(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$edge = F2(
 	function (v1, v2) {
 		return _elm_community$linear_algebra$Math_Vector3$normalize(
 			A2(_elm_community$linear_algebra$Math_Vector3$sub, v2, v1));
 	});
-var _user$project$Physics_ConvexPolyhedron$normal = F3(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$normal = F3(
 	function (v0, v1, v2) {
 		return _elm_community$linear_algebra$Math_Vector3$normalize(
 			A2(
@@ -14074,7 +14441,7 @@ var _user$project$Physics_ConvexPolyhedron$normal = F3(
 				A2(_elm_community$linear_algebra$Math_Vector3$sub, v2, v1),
 				A2(_elm_community$linear_algebra$Math_Vector3$sub, v0, v1)));
 	});
-var _user$project$Physics_ConvexPolyhedron$edgesInFaceHelp = F5(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$edgesInFaceHelp = F5(
 	function (current, length, vertices, indices, edges) {
 		edgesInFaceHelp:
 		while (true) {
@@ -14083,7 +14450,7 @@ var _user$project$Physics_ConvexPolyhedron$edgesInFaceHelp = F5(
 			} else {
 				var _p3 = A3(
 					_elm_lang$core$Maybe$map2,
-					_user$project$Physics_ConvexPolyhedron$edge,
+					_w0rm$elm_physics$Physics_ConvexPolyhedron$edge,
 					A2(
 						_elm_lang$core$Maybe$andThen,
 						function (i) {
@@ -14120,7 +14487,7 @@ var _user$project$Physics_ConvexPolyhedron$edgesInFaceHelp = F5(
 			}
 		}
 	});
-var _user$project$Physics_ConvexPolyhedron$uniqueEdges = F2(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$uniqueEdges = F2(
 	function (vertices, faces) {
 		return A2(
 			_elm_lang$core$List$map,
@@ -14130,7 +14497,7 @@ var _user$project$Physics_ConvexPolyhedron$uniqueEdges = F2(
 					_Skinney$elm_array_exploration$Array_Hamt$foldl,
 					function (indices) {
 						return A4(
-							_user$project$Physics_ConvexPolyhedron$edgesInFaceHelp,
+							_w0rm$elm_physics$Physics_ConvexPolyhedron$edgesInFaceHelp,
 							0,
 							_Skinney$elm_array_exploration$Array_Hamt$length(indices),
 							vertices,
@@ -14139,7 +14506,7 @@ var _user$project$Physics_ConvexPolyhedron$uniqueEdges = F2(
 					_elm_lang$core$Set$empty,
 					faces)));
 	});
-var _user$project$Physics_ConvexPolyhedron$faceNormals = function (vertices) {
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$faceNormals = function (vertices) {
 	return _Skinney$elm_array_exploration$Array_Hamt$map(
 		function (indices) {
 			var _p4 = A4(
@@ -14167,7 +14534,7 @@ var _user$project$Physics_ConvexPolyhedron$faceNormals = function (vertices) {
 					},
 					A2(_Skinney$elm_array_exploration$Array_Hamt$get, 2, indices)));
 			if ((_p4.ctor === 'Just') && (_p4._0.ctor === '_Tuple3')) {
-				return A3(_user$project$Physics_ConvexPolyhedron$normal, _p4._0._0, _p4._0._1, _p4._0._2);
+				return A3(_w0rm$elm_physics$Physics_ConvexPolyhedron$normal, _p4._0._0, _p4._0._1, _p4._0._2);
 			} else {
 				return _elm_lang$core$Native_Utils.crashCase(
 					'Physics.ConvexPolyhedron',
@@ -14179,7 +14546,7 @@ var _user$project$Physics_ConvexPolyhedron$faceNormals = function (vertices) {
 			}
 		});
 };
-var _user$project$Physics_ConvexPolyhedron$boxUniqueEdges = {
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$boxUniqueEdges = {
 	ctor: '::',
 	_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 0, 0),
 	_1: {
@@ -14204,7 +14571,7 @@ var _user$project$Physics_ConvexPolyhedron$boxUniqueEdges = {
 		}
 	}
 };
-var _user$project$Physics_ConvexPolyhedron$boxFaceNormals = _Skinney$elm_array_exploration$Array_Hamt$fromList(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$boxFaceNormals = _Skinney$elm_array_exploration$Array_Hamt$fromList(
 	{
 		ctor: '::',
 		_0: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -1),
@@ -14230,7 +14597,7 @@ var _user$project$Physics_ConvexPolyhedron$boxFaceNormals = _Skinney$elm_array_e
 			}
 		}
 	});
-var _user$project$Physics_ConvexPolyhedron$boxFaces = _Skinney$elm_array_exploration$Array_Hamt$fromList(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$boxFaces = _Skinney$elm_array_exploration$Array_Hamt$fromList(
 	{
 		ctor: '::',
 		_0: _Skinney$elm_array_exploration$Array_Hamt$fromList(
@@ -14358,13 +14725,13 @@ var _user$project$Physics_ConvexPolyhedron$boxFaces = _Skinney$elm_array_explora
 			}
 		}
 	});
-var _user$project$Physics_ConvexPolyhedron$fromBox = function (halfExtents) {
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$fromBox = function (halfExtents) {
 	var _p6 = _elm_community$linear_algebra$Math_Vector3$toRecord(halfExtents);
 	var x = _p6.x;
 	var y = _p6.y;
 	var z = _p6.z;
 	return {
-		faces: _user$project$Physics_ConvexPolyhedron$boxFaces,
+		faces: _w0rm$elm_physics$Physics_ConvexPolyhedron$boxFaces,
 		facesLength: 6,
 		vertices: _Skinney$elm_array_exploration$Array_Hamt$fromList(
 			{
@@ -14400,11 +14767,11 @@ var _user$project$Physics_ConvexPolyhedron$fromBox = function (halfExtents) {
 					}
 				}
 			}),
-		normals: _user$project$Physics_ConvexPolyhedron$boxFaceNormals,
-		edges: _user$project$Physics_ConvexPolyhedron$boxUniqueEdges
+		normals: _w0rm$elm_physics$Physics_ConvexPolyhedron$boxFaceNormals,
+		edges: _w0rm$elm_physics$Physics_ConvexPolyhedron$boxUniqueEdges
 	};
 };
-var _user$project$Physics_ConvexPolyhedron$connectedFaces = F3(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$connectedFaces = F3(
 	function (currentFace, currentIndices, allFaces) {
 		return _Skinney$elm_array_exploration$Array_Hamt$fromList(
 			_elm_lang$core$List$reverse(
@@ -14427,7 +14794,7 @@ var _user$project$Physics_ConvexPolyhedron$connectedFaces = F3(
 											function (_p9) {
 												var _p10 = _p9;
 												var _p11 = _p10._0;
-												return (!_elm_lang$core$Native_Utils.eq(_p11, currentFace)) && ((!_elm_lang$core$Native_Utils.eq(
+												return (!_elm_lang$core$Native_Utils.eq(_p11, currentFace)) && ((!A2(_elm_lang$core$List$member, _p11, connectedFaces)) && (!_elm_lang$core$Native_Utils.eq(
 													A2(
 														_Skinney$elm_array_exploration$Array_Hamt$filter,
 														F2(
@@ -14435,30 +14802,30 @@ var _user$project$Physics_ConvexPolyhedron$connectedFaces = F3(
 																return _elm_lang$core$Native_Utils.eq(x, y);
 															})(index),
 														_p10._1),
-													_Skinney$elm_array_exploration$Array_Hamt$empty)) && (!A2(_elm_lang$core$List$member, _p11, connectedFaces)));
+													_Skinney$elm_array_exploration$Array_Hamt$empty)));
 											},
 											_Skinney$elm_array_exploration$Array_Hamt$toIndexedList(allFaces)))));
 						}),
 					{ctor: '[]'},
 					currentIndices)));
 	});
-var _user$project$Physics_ConvexPolyhedron$precision = 1.0e-6;
-var _user$project$Physics_ConvexPolyhedron$almostZero = function (vec) {
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$precision = 1.0e-6;
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$almostZero = function (vec) {
 	var _p12 = _elm_community$linear_algebra$Math_Vector3$toRecord(vec);
 	var x = _p12.x;
 	var y = _p12.y;
 	var z = _p12.z;
 	return (_elm_lang$core$Native_Utils.cmp(
 		_elm_lang$core$Basics$abs(x),
-		_user$project$Physics_ConvexPolyhedron$precision) < 1) && ((_elm_lang$core$Native_Utils.cmp(
+		_w0rm$elm_physics$Physics_ConvexPolyhedron$precision) < 1) && ((_elm_lang$core$Native_Utils.cmp(
 		_elm_lang$core$Basics$abs(y),
-		_user$project$Physics_ConvexPolyhedron$precision) < 1) && (_elm_lang$core$Native_Utils.cmp(
+		_w0rm$elm_physics$Physics_ConvexPolyhedron$precision) < 1) && (_elm_lang$core$Native_Utils.cmp(
 		_elm_lang$core$Basics$abs(z),
-		_user$project$Physics_ConvexPolyhedron$precision) < 1));
+		_w0rm$elm_physics$Physics_ConvexPolyhedron$precision) < 1));
 };
-var _user$project$Physics_ConvexPolyhedron$maxNumber = 3.40282347e38;
-var _user$project$Physics_ConvexPolyhedron$zero3 = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0);
-var _user$project$Physics_ConvexPolyhedron$closestFaceHelp = F7(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$maxNumber = 3.40282347e38;
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$zero3 = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0);
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$closestFaceHelp = F7(
 	function (compareFunc, index, transform, hull, separatingNormal, dCurrent, result) {
 		closestFaceHelp:
 		while (true) {
@@ -14471,12 +14838,12 @@ var _user$project$Physics_ConvexPolyhedron$closestFaceHelp = F7(
 					A2(_Skinney$elm_array_exploration$Array_Hamt$get, index, hull.faces));
 				var faceNormal = A2(
 					_elm_lang$core$Maybe$withDefault,
-					_user$project$Physics_ConvexPolyhedron$zero3,
+					_w0rm$elm_physics$Physics_ConvexPolyhedron$zero3,
 					A2(_Skinney$elm_array_exploration$Array_Hamt$get, index, hull.normals));
 				var d = A2(
 					_elm_community$linear_algebra$Math_Vector3$dot,
 					separatingNormal,
-					A2(_user$project$Physics_Quaternion$rotate, transform.quaternion, faceNormal));
+					A2(_w0rm$elm_physics$Physics_Quaternion$rotate, transform.quaternion, faceNormal));
 				if (A2(compareFunc, d, dCurrent)) {
 					var _v21 = compareFunc,
 						_v22 = index + 1,
@@ -14514,10 +14881,10 @@ var _user$project$Physics_ConvexPolyhedron$closestFaceHelp = F7(
 			}
 		}
 	});
-var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstHull = F6(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$clipFaceAgainstHull = F6(
 	function (t1, hull1, separatingNormal, worldVertsB, minDist, maxDist) {
 		var _p13 = A7(
-			_user$project$Physics_ConvexPolyhedron$closestFaceHelp,
+			_w0rm$elm_physics$Physics_ConvexPolyhedron$closestFaceHelp,
 			F2(
 				function (x, y) {
 					return _elm_lang$core$Native_Utils.cmp(x, y) < 0;
@@ -14526,17 +14893,17 @@ var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstHull = F6(
 			t1,
 			hull1,
 			separatingNormal,
-			_user$project$Physics_ConvexPolyhedron$maxNumber,
+			_w0rm$elm_physics$Physics_ConvexPolyhedron$maxNumber,
 			_elm_lang$core$Maybe$Nothing);
 		if (_p13.ctor === 'Just') {
 			var _p14 = _p13._0;
-			var planeNormalWS = A2(_user$project$Physics_Quaternion$rotate, t1.quaternion, _p14.normal);
+			var planeNormalWS = A2(_w0rm$elm_physics$Physics_Quaternion$rotate, t1.quaternion, _p14.normal);
 			var localPlaneEq = 0 - A2(
 				_elm_community$linear_algebra$Math_Vector3$dot,
 				_p14.normal,
 				A2(
 					_elm_lang$core$Maybe$withDefault,
-					_user$project$Physics_ConvexPolyhedron$zero3,
+					_w0rm$elm_physics$Physics_ConvexPolyhedron$zero3,
 					A2(
 						_elm_lang$core$Maybe$andThen,
 						function (i) {
@@ -14564,12 +14931,12 @@ var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstHull = F6(
 					function (otherFaceIndex) {
 						var otherFaceNormal = A2(
 							_elm_lang$core$Maybe$withDefault,
-							_user$project$Physics_ConvexPolyhedron$zero3,
+							_w0rm$elm_physics$Physics_ConvexPolyhedron$zero3,
 							A2(_Skinney$elm_array_exploration$Array_Hamt$get, otherFaceIndex, hull1.normals));
-						var planeNormalWS = A2(_user$project$Physics_Quaternion$rotate, t1.quaternion, otherFaceNormal);
+						var planeNormalWS = A2(_w0rm$elm_physics$Physics_Quaternion$rotate, t1.quaternion, otherFaceNormal);
 						var otherFaceVertex = A2(
 							_elm_lang$core$Maybe$withDefault,
-							_user$project$Physics_ConvexPolyhedron$zero3,
+							_w0rm$elm_physics$Physics_ConvexPolyhedron$zero3,
 							A2(
 								_elm_lang$core$Maybe$andThen,
 								function (i) {
@@ -14581,18 +14948,18 @@ var _user$project$Physics_ConvexPolyhedron$clipFaceAgainstHull = F6(
 									A2(_Skinney$elm_array_exploration$Array_Hamt$get, otherFaceIndex, hull1.faces))));
 						var localPlaneEq = 0 - A2(_elm_community$linear_algebra$Math_Vector3$dot, otherFaceVertex, otherFaceNormal);
 						var planeEqWS = localPlaneEq - A2(_elm_community$linear_algebra$Math_Vector3$dot, planeNormalWS, t1.position);
-						return A2(_user$project$Physics_ConvexPolyhedron$clipFaceAgainstPlane, planeNormalWS, planeEqWS);
+						return A2(_w0rm$elm_physics$Physics_ConvexPolyhedron$clipFaceAgainstPlane, planeNormalWS, planeEqWS);
 					},
 					worldVertsB,
-					A3(_user$project$Physics_ConvexPolyhedron$connectedFaces, _p14.index, _p14.indices, hull1.faces)));
+					A3(_w0rm$elm_physics$Physics_ConvexPolyhedron$connectedFaces, _p14.index, _p14.indices, hull1.faces)));
 		} else {
 			return {ctor: '[]'};
 		}
 	});
-var _user$project$Physics_ConvexPolyhedron$clipAgainstHull = F7(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$clipAgainstHull = F7(
 	function (t1, hull1, t2, hull2, separatingNormal, minDist, maxDist) {
 		var _p15 = A7(
-			_user$project$Physics_ConvexPolyhedron$closestFaceHelp,
+			_w0rm$elm_physics$Physics_ConvexPolyhedron$closestFaceHelp,
 			F2(
 				function (x, y) {
 					return _elm_lang$core$Native_Utils.cmp(x, y) > 0;
@@ -14601,11 +14968,11 @@ var _user$project$Physics_ConvexPolyhedron$clipAgainstHull = F7(
 			t2,
 			hull2,
 			separatingNormal,
-			0 - _user$project$Physics_ConvexPolyhedron$maxNumber,
+			0 - _w0rm$elm_physics$Physics_ConvexPolyhedron$maxNumber,
 			_elm_lang$core$Maybe$Nothing);
 		if (_p15.ctor === 'Just') {
 			return A6(
-				_user$project$Physics_ConvexPolyhedron$clipFaceAgainstHull,
+				_w0rm$elm_physics$Physics_ConvexPolyhedron$clipFaceAgainstHull,
 				t1,
 				hull1,
 				separatingNormal,
@@ -14614,10 +14981,10 @@ var _user$project$Physics_ConvexPolyhedron$clipAgainstHull = F7(
 					function (i) {
 						return A2(
 							_elm_lang$core$Maybe$withDefault,
-							_user$project$Physics_ConvexPolyhedron$zero3,
+							_w0rm$elm_physics$Physics_ConvexPolyhedron$zero3,
 							A2(
 								_elm_lang$core$Maybe$map,
-								_user$project$Physics_Transform$pointToWorldFrame(t2),
+								_w0rm$elm_physics$Physics_Transform$pointToWorldFrame(t2),
 								A2(_Skinney$elm_array_exploration$Array_Hamt$get, i, hull2.vertices)));
 					},
 					_Skinney$elm_array_exploration$Array_Hamt$toList(_p15._0.indices)),
@@ -14627,14 +14994,14 @@ var _user$project$Physics_ConvexPolyhedron$clipAgainstHull = F7(
 			return {ctor: '[]'};
 		}
 	});
-var _user$project$Physics_ConvexPolyhedron$project = F3(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$project = F3(
 	function (transform, _p16, axis) {
 		var _p17 = _p16;
-		var localAxis = A2(_user$project$Physics_Transform$vectorToLocalFrame, transform, axis);
+		var localAxis = A2(_w0rm$elm_physics$Physics_Transform$vectorToLocalFrame, transform, axis);
 		var add = A2(
 			_elm_community$linear_algebra$Math_Vector3$dot,
 			localAxis,
-			A2(_user$project$Physics_Transform$pointToLocalFrame, transform, _user$project$Physics_ConvexPolyhedron$zero3));
+			A2(_w0rm$elm_physics$Physics_Transform$pointToLocalFrame, transform, _w0rm$elm_physics$Physics_ConvexPolyhedron$zero3));
 		return function (_p18) {
 			var _p19 = _p18;
 			return {ctor: '_Tuple2', _0: _p19._0 - add, _1: _p19._1 - add};
@@ -14651,40 +15018,40 @@ var _user$project$Physics_ConvexPolyhedron$project = F3(
 							_1: A2(_elm_lang$core$Basics$min, _p21._1, val)
 						};
 					}),
-				{ctor: '_Tuple2', _0: 0 - _user$project$Physics_ConvexPolyhedron$maxNumber, _1: _user$project$Physics_ConvexPolyhedron$maxNumber},
+				{ctor: '_Tuple2', _0: 0 - _w0rm$elm_physics$Physics_ConvexPolyhedron$maxNumber, _1: _w0rm$elm_physics$Physics_ConvexPolyhedron$maxNumber},
 				_p17.vertices));
 	});
-var _user$project$Physics_ConvexPolyhedron$testSepAxis = F5(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$testSepAxis = F5(
 	function (t1, hull1, t2, hull2, axis) {
-		var _p22 = A3(_user$project$Physics_ConvexPolyhedron$project, t2, hull2, axis);
+		var _p22 = A3(_w0rm$elm_physics$Physics_ConvexPolyhedron$project, t2, hull2, axis);
 		var max2 = _p22._0;
 		var min2 = _p22._1;
-		var _p23 = A3(_user$project$Physics_ConvexPolyhedron$project, t1, hull1, axis);
+		var _p23 = A3(_w0rm$elm_physics$Physics_ConvexPolyhedron$project, t1, hull1, axis);
 		var max1 = _p23._0;
 		var min1 = _p23._1;
 		return ((_elm_lang$core$Native_Utils.cmp(max1, min2) < 0) || (_elm_lang$core$Native_Utils.cmp(max2, min1) < 0)) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
 			A2(_elm_lang$core$Basics$min, max1 - min2, max2 - min1));
 	});
-var _user$project$Physics_ConvexPolyhedron$testEdges = F5(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$testEdges = F5(
 	function (t1, hull1, t2, hull2, context) {
 		return A3(
 			_elm_lang$core$List$foldl,
 			F2(
 				function (edge1, acc1) {
-					var worldEdge1 = A2(_user$project$Physics_Quaternion$rotate, t1.quaternion, edge1);
+					var worldEdge1 = A2(_w0rm$elm_physics$Physics_Quaternion$rotate, t1.quaternion, edge1);
 					return A3(
 						_elm_lang$core$List$foldl,
 						F2(
 							function (edge2, acc2) {
-								var worldEdge2 = A2(_user$project$Physics_Quaternion$rotate, t2.quaternion, edge2);
+								var worldEdge2 = A2(_w0rm$elm_physics$Physics_Quaternion$rotate, t2.quaternion, edge2);
 								var cross = A2(_elm_community$linear_algebra$Math_Vector3$cross, worldEdge1, worldEdge2);
-								if (_user$project$Physics_ConvexPolyhedron$almostZero(cross)) {
+								if (_w0rm$elm_physics$Physics_ConvexPolyhedron$almostZero(cross)) {
 									return acc2;
 								} else {
 									var _p24 = acc2;
 									if (_p24.ctor === 'Just') {
 										var _p25 = A5(
-											_user$project$Physics_ConvexPolyhedron$testSepAxis,
+											_w0rm$elm_physics$Physics_ConvexPolyhedron$testSepAxis,
 											t1,
 											hull1,
 											t2,
@@ -14711,7 +15078,7 @@ var _user$project$Physics_ConvexPolyhedron$testEdges = F5(
 			_elm_lang$core$Maybe$Just(context),
 			hull1.edges);
 	});
-var _user$project$Physics_ConvexPolyhedron$findSeparatingAxis = F4(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$findSeparatingAxis = F4(
 	function (t1, hull1, t2, hull2) {
 		var testFaceNormals = F3(
 			function (quat, faceNormals, context) {
@@ -14722,8 +15089,8 @@ var _user$project$Physics_ConvexPolyhedron$findSeparatingAxis = F4(
 						return _elm_lang$core$Maybe$Just(context);
 					} else {
 						var _p30 = _p27._1;
-						var rotatedNormal = A2(_user$project$Physics_Quaternion$rotate, quat, _p27._0);
-						var _p28 = A5(_user$project$Physics_ConvexPolyhedron$testSepAxis, t1, hull1, t2, hull2, rotatedNormal);
+						var rotatedNormal = A2(_w0rm$elm_physics$Physics_Quaternion$rotate, quat, _p27._0);
+						var _p28 = A5(_w0rm$elm_physics$Physics_ConvexPolyhedron$testSepAxis, t1, hull1, t2, hull2, rotatedNormal);
 						if (_p28.ctor === 'Nothing') {
 							return _elm_lang$core$Maybe$Nothing;
 						} else {
@@ -14763,7 +15130,7 @@ var _user$project$Physics_ConvexPolyhedron$findSeparatingAxis = F4(
 			},
 			A2(
 				_elm_lang$core$Maybe$andThen,
-				A4(_user$project$Physics_ConvexPolyhedron$testEdges, t1, hull1, t2, hull2),
+				A4(_w0rm$elm_physics$Physics_ConvexPolyhedron$testEdges, t1, hull1, t2, hull2),
 				A2(
 					_elm_lang$core$Maybe$andThen,
 					A2(
@@ -14774,29 +15141,29 @@ var _user$project$Physics_ConvexPolyhedron$findSeparatingAxis = F4(
 						testFaceNormals,
 						t1.quaternion,
 						_Skinney$elm_array_exploration$Array_Hamt$toList(hull1.normals),
-						{dmin: _user$project$Physics_ConvexPolyhedron$maxNumber, target: _user$project$Physics_ConvexPolyhedron$zero3}))));
+						{dmin: _w0rm$elm_physics$Physics_ConvexPolyhedron$maxNumber, target: _w0rm$elm_physics$Physics_ConvexPolyhedron$zero3}))));
 	});
-var _user$project$Physics_ConvexPolyhedron$ConvexPolyhedron = F5(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$ConvexPolyhedron = F5(
 	function (a, b, c, d, e) {
 		return {faces: a, facesLength: b, vertices: c, normals: d, edges: e};
 	});
-var _user$project$Physics_ConvexPolyhedron$ClipResult = F3(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$ClipResult = F3(
 	function (a, b, c) {
 		return {point: a, normal: b, depth: c};
 	});
-var _user$project$Physics_ConvexPolyhedron$ClosestFaceResult = F3(
+var _w0rm$elm_physics$Physics_ConvexPolyhedron$ClosestFaceResult = F3(
 	function (a, b, c) {
 		return {indices: a, normal: b, index: c};
 	});
-var _user$project$Physics_ContactEquation$ContactEquation = F6(
+var _w0rm$elm_physics$Physics_ContactEquation$ContactEquation = F6(
 	function (a, b, c, d, e, f) {
 		return {bodyId1: a, bodyId2: b, ri: c, rj: d, ni: e, restitution: f};
 	});
-var _user$project$Physics_NarrowPhase$getBoxBoxContacts = F9(
+var _w0rm$elm_physics$Physics_NarrowPhase$getBoxBoxContacts = F9(
 	function (shapeTransform1, halfExtents1, bodyId1, body1, shapeTransform2, halfExtents2, bodyId2, body2, contactEquations) {
-		var convexPolyhedron2 = _user$project$Physics_ConvexPolyhedron$fromBox(halfExtents2);
-		var convexPolyhedron1 = _user$project$Physics_ConvexPolyhedron$fromBox(halfExtents1);
-		var _p0 = A4(_user$project$Physics_ConvexPolyhedron$findSeparatingAxis, shapeTransform1, convexPolyhedron1, shapeTransform2, convexPolyhedron2);
+		var convexPolyhedron2 = _w0rm$elm_physics$Physics_ConvexPolyhedron$fromBox(halfExtents2);
+		var convexPolyhedron1 = _w0rm$elm_physics$Physics_ConvexPolyhedron$fromBox(halfExtents1);
+		var _p0 = A4(_w0rm$elm_physics$Physics_ConvexPolyhedron$findSeparatingAxis, shapeTransform1, convexPolyhedron1, shapeTransform2, convexPolyhedron2);
 		if (_p0.ctor === 'Just') {
 			var _p4 = _p0._0;
 			return A3(
@@ -14830,19 +15197,19 @@ var _user$project$Physics_NarrowPhase$getBoxBoxContacts = F9(
 						});
 				},
 				contactEquations,
-				A7(_user$project$Physics_ConvexPolyhedron$clipAgainstHull, shapeTransform1, convexPolyhedron1, shapeTransform2, convexPolyhedron2, _p4, -100, 100));
+				A7(_w0rm$elm_physics$Physics_ConvexPolyhedron$clipAgainstHull, shapeTransform1, convexPolyhedron1, shapeTransform2, convexPolyhedron2, _p4, -100, 100));
 		} else {
 			return contactEquations;
 		}
 	});
-var _user$project$Physics_NarrowPhase$getPlaneBoxContacts = F8(
+var _w0rm$elm_physics$Physics_NarrowPhase$getPlaneBoxContacts = F8(
 	function (planeTransform, planeBodyId, planeBody, boxTransform, boxHalfExtents, boxBodyId, boxBody, contactEquations) {
-		var convexPolyhedron = _user$project$Physics_ConvexPolyhedron$fromBox(boxHalfExtents);
-		var worldNormal = A2(_user$project$Physics_Quaternion$rotate, planeTransform.quaternion, _elm_community$linear_algebra$Math_Vector3$k);
+		var convexPolyhedron = _w0rm$elm_physics$Physics_ConvexPolyhedron$fromBox(boxHalfExtents);
+		var worldNormal = A2(_w0rm$elm_physics$Physics_Quaternion$rotate, planeTransform.quaternion, _elm_community$linear_algebra$Math_Vector3$k);
 		return A3(
 			_Skinney$elm_array_exploration$Array_Hamt$foldl,
 			function (vertex) {
-				var worldVertex = A2(_user$project$Physics_Transform$pointToWorldFrame, boxTransform, vertex);
+				var worldVertex = A2(_w0rm$elm_physics$Physics_Transform$pointToWorldFrame, boxTransform, vertex);
 				var dot = A2(
 					_elm_community$linear_algebra$Math_Vector3$dot,
 					worldNormal,
@@ -14870,24 +15237,24 @@ var _user$project$Physics_NarrowPhase$getPlaneBoxContacts = F8(
 			contactEquations,
 			convexPolyhedron.vertices);
 	});
-var _user$project$Physics_NarrowPhase$getShapeContacts = F8(
+var _w0rm$elm_physics$Physics_NarrowPhase$getShapeContacts = F8(
 	function (shapeTransform1, shape1, bodyId1, body1, shapeTransform2, shape2, bodyId2, body2) {
 		var _p5 = {ctor: '_Tuple2', _0: shape1, _1: shape2};
 		if (_p5._0.ctor === 'Plane') {
 			if (_p5._1.ctor === 'Plane') {
 				return _elm_lang$core$Basics$identity;
 			} else {
-				return A7(_user$project$Physics_NarrowPhase$getPlaneBoxContacts, shapeTransform1, bodyId1, body1, shapeTransform2, _p5._1._0, bodyId2, body2);
+				return A7(_w0rm$elm_physics$Physics_NarrowPhase$getPlaneBoxContacts, shapeTransform1, bodyId1, body1, shapeTransform2, _p5._1._0, bodyId2, body2);
 			}
 		} else {
 			if (_p5._1.ctor === 'Plane') {
-				return A7(_user$project$Physics_NarrowPhase$getPlaneBoxContacts, shapeTransform2, bodyId2, body2, shapeTransform1, _p5._0._0, bodyId1, body1);
+				return A7(_w0rm$elm_physics$Physics_NarrowPhase$getPlaneBoxContacts, shapeTransform2, bodyId2, body2, shapeTransform1, _p5._0._0, bodyId1, body1);
 			} else {
-				return A8(_user$project$Physics_NarrowPhase$getBoxBoxContacts, shapeTransform1, _p5._0._0, bodyId1, body1, shapeTransform2, _p5._1._0, bodyId2, body2);
+				return A8(_w0rm$elm_physics$Physics_NarrowPhase$getBoxBoxContacts, shapeTransform1, _p5._0._0, bodyId1, body1, shapeTransform2, _p5._1._0, bodyId2, body2);
 			}
 		}
 	});
-var _user$project$Physics_NarrowPhase$getBodyContacts = F6(
+var _w0rm$elm_physics$Physics_NarrowPhase$getBodyContacts = F6(
 	function (world, bodyId1, bodyId2, body1, body2, contactEquations) {
 		return A3(
 			_elm_lang$core$Dict$foldl,
@@ -14898,12 +15265,12 @@ var _user$project$Physics_NarrowPhase$getBodyContacts = F6(
 						F3(
 							function (shapeId2, shape2, acc2) {
 								return A9(
-									_user$project$Physics_NarrowPhase$getShapeContacts,
-									A2(_user$project$Physics_Body$shapeWorldTransform, shapeId1, body1),
+									_w0rm$elm_physics$Physics_NarrowPhase$getShapeContacts,
+									A2(_w0rm$elm_physics$Physics_Body$shapeWorldTransform, shapeId1, body1),
 									shape1,
 									bodyId1,
 									body1,
-									A2(_user$project$Physics_Body$shapeWorldTransform, shapeId2, body2),
+									A2(_w0rm$elm_physics$Physics_Body$shapeWorldTransform, shapeId2, body2),
 									shape2,
 									bodyId2,
 									body2,
@@ -14915,7 +15282,7 @@ var _user$project$Physics_NarrowPhase$getBodyContacts = F6(
 			contactEquations,
 			body1.shapes);
 	});
-var _user$project$Physics_NarrowPhase$getContacts = function (world) {
+var _w0rm$elm_physics$Physics_NarrowPhase$getContacts = function (world) {
 	return A3(
 		_elm_lang$core$Set$foldl,
 		function (_p6) {
@@ -14927,360 +15294,30 @@ var _user$project$Physics_NarrowPhase$getContacts = function (world) {
 				_elm_lang$core$Basics$identity,
 				A3(
 					_elm_lang$core$Maybe$map2,
-					A3(_user$project$Physics_NarrowPhase$getBodyContacts, world, _p8, _p9),
+					A3(_w0rm$elm_physics$Physics_NarrowPhase$getBodyContacts, world, _p8, _p9),
 					A2(_elm_lang$core$Dict$get, _p8, world.bodies),
 					A2(_elm_lang$core$Dict$get, _p9, world.bodies)));
 		},
 		{ctor: '[]'},
-		_user$project$Physics_World$getPairs(world));
+		_w0rm$elm_physics$Physics_World$getPairs(world));
 };
-var _user$project$Render$fragment = {'src': '\n        precision mediump float;\n        varying vec3 vcolor;\n        void main () {\n          gl_FragColor = vec4(vcolor, 1.0);\n        }\n    '};
-var _user$project$Render$vertex = {'src': '\n        attribute vec3 position;\n        attribute vec3 color;\n        uniform mat4 camera;\n        uniform mat4 perspective;\n        uniform mat4 transform;\n        varying vec3 vcolor;\n        void main () {\n          gl_Position = perspective * camera * transform * vec4(position, 1.0);\n          vcolor = color;\n        }\n    '};
-var _user$project$Render$plane = function () {
-	var rb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 10, -10, 0);
-	var lb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -10, -10, 0);
-	var lf = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -10, 10, 0);
-	var rf = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 10, 10, 0);
-	return _elm_community$webgl$WebGL$triangles(
-		{ctor: '[]'});
-}();
-var _user$project$Render$destination = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0);
-var _user$project$Render$origin = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 30, 20);
-var _user$project$Render$camera = A3(_elm_community$linear_algebra$Math_Matrix4$makeLookAt, _user$project$Render$origin, _user$project$Render$destination, _elm_community$linear_algebra$Math_Vector3$k);
-var _user$project$Render$addShape = F3(
-	function (camera, perspective, _p0) {
-		var _p1 = _p0;
-		return F2(
-			function (x, y) {
-				return {ctor: '::', _0: x, _1: y};
-			})(
-			A4(
-				_elm_community$webgl$WebGL$entity,
-				_user$project$Render$vertex,
-				_user$project$Render$fragment,
-				_p1.mesh,
-				{transform: _p1.transform, perspective: perspective, camera: camera}));
-	});
-var _user$project$Render$RenderShape = F2(
-	function (a, b) {
-		return {transform: a, mesh: b};
-	});
-var _user$project$Render$Uniforms = F3(
-	function (a, b, c) {
-		return {camera: a, perspective: b, transform: c};
-	});
-var _user$project$Render$Attributes = F2(
-	function (a, b) {
-		return {position: a, color: b};
-	});
-var _user$project$Render$face = F5(
-	function (a, b, c, d, color) {
-		return {
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple3',
-				_0: A2(_user$project$Render$Attributes, a, color),
-				_1: A2(_user$project$Render$Attributes, b, color),
-				_2: A2(_user$project$Render$Attributes, c, color)
-			},
-			_1: {
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple3',
-					_0: A2(_user$project$Render$Attributes, c, color),
-					_1: A2(_user$project$Render$Attributes, d, color),
-					_2: A2(_user$project$Render$Attributes, a, color)
-				},
-				_1: {ctor: '[]'}
-			}
-		};
-	});
-var _user$project$Render$cube = function () {
-	var lbb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, -1, -1);
-	var lfb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 1, -1);
-	var rfb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, -1);
-	var rbb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, -1, -1);
-	var rbt = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, -1, 1);
-	var lbt = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, -1, 1);
-	var lft = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 1, 1);
-	var rft = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 1);
-	return _elm_community$webgl$WebGL$triangles(
-		_elm_lang$core$List$concat(
-			{
-				ctor: '::',
-				_0: A5(
-					_user$project$Render$face,
-					rft,
-					rfb,
-					rbb,
-					rbt,
-					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.4, 0.4, 0.4)),
-				_1: {
-					ctor: '::',
-					_0: A5(
-						_user$project$Render$face,
-						rft,
-						rfb,
-						lfb,
-						lft,
-						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0.5)),
-					_1: {
-						ctor: '::',
-						_0: A5(
-							_user$project$Render$face,
-							rft,
-							lft,
-							lbt,
-							rbt,
-							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.6, 0.6, 0.6)),
-						_1: {
-							ctor: '::',
-							_0: A5(
-								_user$project$Render$face,
-								rfb,
-								lfb,
-								lbb,
-								rbb,
-								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.7, 0.7, 0.7)),
-							_1: {
-								ctor: '::',
-								_0: A5(
-									_user$project$Render$face,
-									lft,
-									lfb,
-									lbb,
-									lbt,
-									A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.8, 0.8, 0.8)),
-								_1: {
-									ctor: '::',
-									_0: A5(
-										_user$project$Render$face,
-										rbt,
-										rbb,
-										lbb,
-										lbt,
-										A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.9, 0.9, 0.9)),
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					}
-				}
-			}));
-}();
-var _user$project$Render$addContact = F4(
-	function (camera, perspective, bodies, _p2) {
-		var _p3 = _p2;
-		var b2 = A2(
-			_elm_lang$core$Maybe$withDefault,
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
-			A2(
-				_elm_lang$core$Maybe$map,
-				function (_) {
-					return _.position;
-				},
-				A2(_elm_lang$core$Dict$get, _p3.bodyId2, bodies)));
-		var b1 = A2(
-			_elm_lang$core$Maybe$withDefault,
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
-			A2(
-				_elm_lang$core$Maybe$map,
-				function (_) {
-					return _.position;
-				},
-				A2(_elm_lang$core$Dict$get, _p3.bodyId1, bodies)));
-		return F2(
-			function (x, y) {
-				return A2(_elm_lang$core$Basics_ops['++'], x, y);
-			})(
-			{
-				ctor: '::',
-				_0: A4(
-					_elm_community$webgl$WebGL$entity,
-					_user$project$Render$vertex,
-					_user$project$Render$fragment,
-					_user$project$Render$cube,
-					{
-						transform: A2(
-							_elm_community$linear_algebra$Math_Matrix4$mul,
-							_elm_community$linear_algebra$Math_Matrix4$makeTranslate(
-								A2(_elm_community$linear_algebra$Math_Vector3$add, _p3.ri, b1)),
-							_elm_community$linear_algebra$Math_Matrix4$makeScale(
-								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.1, 0.1, 0.1))),
-						perspective: perspective,
-						camera: camera
-					}),
-				_1: {
-					ctor: '::',
-					_0: A4(
-						_elm_community$webgl$WebGL$entity,
-						_user$project$Render$vertex,
-						_user$project$Render$fragment,
-						_user$project$Render$cube,
-						{
-							transform: A2(
-								_elm_community$linear_algebra$Math_Matrix4$mul,
-								_elm_community$linear_algebra$Math_Matrix4$makeTranslate(
-									A2(_elm_community$linear_algebra$Math_Vector3$add, _p3.rj, b2)),
-								_elm_community$linear_algebra$Math_Matrix4$makeScale(
-									A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.1, 0.1, 0.1))),
-							perspective: perspective,
-							camera: camera
-						}),
-					_1: {ctor: '[]'}
-				}
-			});
-	});
-var _user$project$Render$fold = F3(
-	function (fn, acc, _p4) {
-		var _p5 = _p4;
-		return A3(
-			_elm_lang$core$Dict$foldl,
-			F3(
-				function (bodyId, _p6, acc1) {
-					var _p7 = _p6;
-					return A3(
-						_elm_lang$core$Dict$foldl,
-						F3(
-							function (shapeId, shape, acc2) {
-								return A2(
-									fn,
-									{
-										transform: A2(
-											_elm_community$linear_algebra$Math_Matrix4$mul,
-											_elm_community$linear_algebra$Math_Matrix4$makeTranslate(_p7.position),
-											A2(
-												_elm_community$linear_algebra$Math_Matrix4$mul,
-												_user$project$Physics_Quaternion$toMat4(_p7.quaternion),
-												A2(
-													_elm_community$linear_algebra$Math_Matrix4$mul,
-													_elm_community$linear_algebra$Math_Matrix4$makeTranslate(
-														A2(
-															_elm_lang$core$Maybe$withDefault,
-															_user$project$Physics_Body$zero3,
-															A2(_elm_lang$core$Dict$get, shapeId, _p7.shapeOffsets))),
-													A2(
-														_elm_community$linear_algebra$Math_Matrix4$mul,
-														_user$project$Physics_Quaternion$toMat4(
-															A2(
-																_elm_lang$core$Maybe$withDefault,
-																_user$project$Physics_Quaternion$identity,
-																A2(_elm_lang$core$Dict$get, shapeId, _p7.shapeOrientations))),
-														_user$project$Physics_Shape$transform(shape))))),
-										mesh: function () {
-											var _p8 = shape;
-											if (_p8.ctor === 'Box') {
-												return _user$project$Render$cube;
-											} else {
-												return _user$project$Render$plane;
-											}
-										}()
-									},
-									acc2);
-							}),
-						acc1,
-						_p7.shapes);
-				}),
-			acc,
-			_p5.bodies);
-	});
-var _user$project$Render$world = function (_p9) {
-	var _p10 = _p9;
-	var _p11 = _p10.world;
-	var contacts = _user$project$Physics_NarrowPhase$getContacts(_p11);
-	var perspective = A4(_elm_community$linear_algebra$Math_Matrix4$makePerspective, 24, _p10.screenWidth / _p10.screenHeight, 5, 2000);
-	var entities = A3(
-		_user$project$Render$fold,
-		A2(_user$project$Render$addShape, _user$project$Render$camera, perspective),
-		{ctor: '[]'},
-		_p11);
-	return entities;
-};
-var _user$project$View$view = function (model) {
-	return A3(
-		_elm_community$webgl$WebGL$toHtmlWith,
-		{
-			ctor: '::',
-			_0: _elm_community$webgl$WebGL$depth(1),
-			_1: {
-				ctor: '::',
-				_0: _elm_community$webgl$WebGL$alpha(true),
-				_1: {
-					ctor: '::',
-					_0: _elm_community$webgl$WebGL$antialias,
-					_1: {
-						ctor: '::',
-						_0: A4(_elm_community$webgl$WebGL$clearColor, 0, 0, 0, 1),
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$width(
-				_elm_lang$core$Basics$round(model.screenWidth * model.devicePixelRatio)),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$height(
-					_elm_lang$core$Basics$round(model.screenHeight * model.devicePixelRatio)),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$style(
-						{
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
-							_1: {
-								ctor: '::',
-								_0: {
-									ctor: '_Tuple2',
-									_0: 'width',
-									_1: A2(
-										_elm_lang$core$Basics_ops['++'],
-										_elm_lang$core$Basics$toString(model.screenWidth),
-										'px')
-								},
-								_1: {
-									ctor: '::',
-									_0: {
-										ctor: '_Tuple2',
-										_0: 'height',
-										_1: A2(
-											_elm_lang$core$Basics_ops['++'],
-											_elm_lang$core$Basics$toString(model.screenHeight),
-											'px')
-									},
-									_1: {ctor: '[]'}
-								}
-							}
-						}),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onClick(_user$project$Types$AddCube),
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		},
-		_user$project$Render$world(model));
-};
-var _user$project$Physics_JacobianElement$mulVec = F3(
+var _w0rm$elm_physics$Physics_JacobianElement$mulVec = F3(
 	function (spatial, rotational, jacobianElement) {
 		return A2(_elm_community$linear_algebra$Math_Vector3$dot, jacobianElement.spatial, spatial) + A2(_elm_community$linear_algebra$Math_Vector3$dot, jacobianElement.rotational, rotational);
 	});
-var _user$project$Physics_JacobianElement$mul = F2(
+var _w0rm$elm_physics$Physics_JacobianElement$mul = F2(
 	function (jacobianElement1, jacobianElement2) {
 		return A2(_elm_community$linear_algebra$Math_Vector3$dot, jacobianElement2.spatial, jacobianElement1.spatial) + A2(_elm_community$linear_algebra$Math_Vector3$dot, jacobianElement2.rotational, jacobianElement1.rotational);
 	});
-var _user$project$Physics_JacobianElement$jacobianElement = {
+var _w0rm$elm_physics$Physics_JacobianElement$jacobianElement = {
 	spatial: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
 	rotational: A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0)
 };
-var _user$project$Physics_JacobianElement$JacobianElement = F2(
+var _w0rm$elm_physics$Physics_JacobianElement$JacobianElement = F2(
 	function (a, b) {
 		return {spatial: a, rotational: b};
 	});
-var _user$project$Physics_SolverBody$addToWlambda = F3(
+var _w0rm$elm_physics$Physics_SolverBody$addToWlambda = F3(
 	function (deltalambda, _p0, solverBody) {
 		var _p1 = _p0;
 		return _elm_lang$core$Native_Utils.update(
@@ -15296,14 +15333,14 @@ var _user$project$Physics_SolverBody$addToWlambda = F3(
 					A2(
 						_elm_community$linear_algebra$Math_Vector3$scale,
 						deltalambda,
-						A2(_user$project$Physics_Mat3$mul, solverBody.invInertiaWorld, _p1.rotational)))
+						A2(_w0rm$elm_physics$Physics_Mat3$mul, solverBody.invInertiaWorld, _p1.rotational)))
 			});
 	});
-var _user$project$Physics_SolverBody$fromBody = function (_p2) {
+var _w0rm$elm_physics$Physics_SolverBody$fromBody = function (_p2) {
 	var _p3 = _p2;
-	return {position: _p3.position, velocity: _p3.velocity, angularVelocity: _p3.angularVelocity, quaternion: _p3.quaternion, force: _p3.force, torque: _p3.torque, invMass: _p3.invMass, invInertiaWorld: _p3.invInertiaWorld, vlambda: _user$project$Physics_Body$zero3, wlambda: _user$project$Physics_Body$zero3};
+	return {position: _p3.position, velocity: _p3.velocity, angularVelocity: _p3.angularVelocity, quaternion: _p3.quaternion, force: _p3.force, torque: _p3.torque, invMass: _p3.invMass, invInertiaWorld: _p3.invInertiaWorld, vlambda: _w0rm$elm_physics$Physics_Body$zero3, wlambda: _w0rm$elm_physics$Physics_Body$zero3};
 };
-var _user$project$Physics_SolverBody$SolverBody = function (a) {
+var _w0rm$elm_physics$Physics_SolverBody$SolverBody = function (a) {
 	return function (b) {
 		return function (c) {
 			return function (d) {
@@ -15324,7 +15361,7 @@ var _user$project$Physics_SolverBody$SolverBody = function (a) {
 		};
 	};
 };
-var _user$project$Physics_SolverEquation$tangents = function (vec) {
+var _w0rm$elm_physics$Physics_SolverEquation$tangents = function (vec) {
 	if (_elm_lang$core$Native_Utils.cmp(
 		_elm_community$linear_algebra$Math_Vector3$length(vec),
 		0) > 0) {
@@ -15342,31 +15379,31 @@ var _user$project$Physics_SolverEquation$tangents = function (vec) {
 		return {ctor: '_Tuple2', _0: _elm_community$linear_algebra$Math_Vector3$i, _1: _elm_community$linear_algebra$Math_Vector3$j};
 	}
 };
-var _user$project$Physics_SolverEquation$defaultContactMaterial = {contactEquationRelaxation: 5, contactEquationStiffness: 10000000, friction: 0.3, frictionEquationRelaxation: 3, frictionEquationStiffness: 10000000, restitution: 0};
-var _user$project$Physics_SolverEquation$computeGW = F3(
+var _w0rm$elm_physics$Physics_SolverEquation$defaultContactMaterial = {contactEquationRelaxation: 5, contactEquationStiffness: 10000000, friction: 0.3, frictionEquationRelaxation: 3, frictionEquationStiffness: 10000000, restitution: 0};
+var _w0rm$elm_physics$Physics_SolverEquation$computeGW = F3(
 	function (bi, bj, _p0) {
 		var _p1 = _p0;
-		return A3(_user$project$Physics_JacobianElement$mulVec, bi.velocity, bi.angularVelocity, _p1.jacobianElementA) + A3(_user$project$Physics_JacobianElement$mulVec, bj.velocity, bj.angularVelocity, _p1.jacobianElementB);
+		return A3(_w0rm$elm_physics$Physics_JacobianElement$mulVec, bi.velocity, bi.angularVelocity, _p1.jacobianElementA) + A3(_w0rm$elm_physics$Physics_JacobianElement$mulVec, bj.velocity, bj.angularVelocity, _p1.jacobianElementB);
 	});
-var _user$project$Physics_SolverEquation$computeGWlambda = F3(
+var _w0rm$elm_physics$Physics_SolverEquation$computeGWlambda = F3(
 	function (bi, bj, _p2) {
 		var _p3 = _p2;
-		return A3(_user$project$Physics_JacobianElement$mulVec, bi.vlambda, bi.wlambda, _p3.jacobianElementA) + A3(_user$project$Physics_JacobianElement$mulVec, bj.vlambda, bj.wlambda, _p3.jacobianElementB);
+		return A3(_w0rm$elm_physics$Physics_JacobianElement$mulVec, bi.vlambda, bi.wlambda, _p3.jacobianElementA) + A3(_w0rm$elm_physics$Physics_JacobianElement$mulVec, bj.vlambda, bj.wlambda, _p3.jacobianElementB);
 	});
-var _user$project$Physics_SolverEquation$computeC = F3(
+var _w0rm$elm_physics$Physics_SolverEquation$computeC = F3(
 	function (bi, bj, _p4) {
 		var _p5 = _p4;
 		var _p7 = _p5.jacobianElementB;
 		var _p6 = _p5.jacobianElementA;
 		return (((bi.invMass + bj.invMass) + A2(
 			_elm_community$linear_algebra$Math_Vector3$dot,
-			A2(_user$project$Physics_Mat3$mul, bi.invInertiaWorld, _p6.rotational),
+			A2(_w0rm$elm_physics$Physics_Mat3$mul, bi.invInertiaWorld, _p6.rotational),
 			_p6.rotational)) + A2(
 			_elm_community$linear_algebra$Math_Vector3$dot,
-			A2(_user$project$Physics_Mat3$mul, bj.invInertiaWorld, _p7.rotational),
+			A2(_w0rm$elm_physics$Physics_Mat3$mul, bj.invInertiaWorld, _p7.rotational),
 			_p7.rotational)) + _p5.spookEps;
 	});
-var _user$project$Physics_SolverEquation$computeGiMf = F3(
+var _w0rm$elm_physics$Physics_SolverEquation$computeGiMf = F3(
 	function (bi, bj, _p8) {
 		var _p9 = _p8;
 		return A2(
@@ -15375,32 +15412,32 @@ var _user$project$Physics_SolverEquation$computeGiMf = F3(
 					return x + y;
 				}),
 			A3(
-				_user$project$Physics_JacobianElement$mulVec,
+				_w0rm$elm_physics$Physics_JacobianElement$mulVec,
 				A2(_elm_community$linear_algebra$Math_Vector3$scale, bi.invMass, bi.force),
-				A2(_user$project$Physics_Mat3$mul, bi.invInertiaWorld, bi.torque),
+				A2(_w0rm$elm_physics$Physics_Mat3$mul, bi.invInertiaWorld, bi.torque),
 				_p9.jacobianElementA),
 			A3(
-				_user$project$Physics_JacobianElement$mulVec,
+				_w0rm$elm_physics$Physics_JacobianElement$mulVec,
 				A2(_elm_community$linear_algebra$Math_Vector3$scale, bj.invMass, bj.force),
-				A2(_user$project$Physics_Mat3$mul, bj.invInertiaWorld, bj.torque),
+				A2(_w0rm$elm_physics$Physics_Mat3$mul, bj.invInertiaWorld, bj.torque),
 				_p9.jacobianElementB));
 	});
-var _user$project$Physics_SolverEquation$computeFrictionB = F5(
+var _w0rm$elm_physics$Physics_SolverEquation$computeFrictionB = F5(
 	function (dt, bi, bj, _p11, _p10) {
 		var _p12 = _p11;
 		var _p13 = _p12;
-		var giMf = A3(_user$project$Physics_SolverEquation$computeGiMf, bi, bj, _p13);
-		var gW = A3(_user$project$Physics_SolverEquation$computeGW, bi, bj, _p13);
+		var giMf = A3(_w0rm$elm_physics$Physics_SolverEquation$computeGiMf, bi, bj, _p13);
+		var gW = A3(_w0rm$elm_physics$Physics_SolverEquation$computeGW, bi, bj, _p13);
 		return ((0 - gW) * _p12.spookB) - (dt * giMf);
 	});
-var _user$project$Physics_SolverEquation$computeContactB = F5(
+var _w0rm$elm_physics$Physics_SolverEquation$computeContactB = F5(
 	function (dt, bi, bj, _p15, _p14) {
 		var _p16 = _p15;
 		var _p17 = _p14;
 		var _p20 = _p17.rj;
 		var _p19 = _p17.ri;
 		var _p18 = _p17.ni;
-		var giMf = A3(_user$project$Physics_SolverEquation$computeGiMf, bi, bj, _p16);
+		var giMf = A3(_w0rm$elm_physics$Physics_SolverEquation$computeGiMf, bi, bj, _p16);
 		var gW = (((_p17.restitution + 1) * (A2(_elm_community$linear_algebra$Math_Vector3$dot, bj.velocity, _p18) - A2(_elm_community$linear_algebra$Math_Vector3$dot, bi.velocity, _p18))) + A2(
 			_elm_community$linear_algebra$Math_Vector3$dot,
 			bj.angularVelocity,
@@ -15420,36 +15457,36 @@ var _user$project$Physics_SolverEquation$computeContactB = F5(
 					A2(_elm_community$linear_algebra$Math_Vector3$add, _p20, bj.position))));
 		return (((0 - g) * _p16.spookA) - (gW * _p16.spookB)) - (dt * giMf);
 	});
-var _user$project$Physics_SolverEquation$computeB = F4(
+var _w0rm$elm_physics$Physics_SolverEquation$computeB = F4(
 	function (dt, bi, bj, solverEquation) {
 		var _p21 = solverEquation.kind;
 		if (_p21.ctor === 'Contact') {
-			return A5(_user$project$Physics_SolverEquation$computeContactB, dt, bi, bj, solverEquation, _p21._0);
+			return A5(_w0rm$elm_physics$Physics_SolverEquation$computeContactB, dt, bi, bj, solverEquation, _p21._0);
 		} else {
-			return A5(_user$project$Physics_SolverEquation$computeFrictionB, dt, bi, bj, solverEquation, _p21._0);
+			return A5(_w0rm$elm_physics$Physics_SolverEquation$computeFrictionB, dt, bi, bj, solverEquation, _p21._0);
 		}
 	});
-var _user$project$Physics_SolverEquation$initSolverParams = F4(
+var _w0rm$elm_physics$Physics_SolverEquation$initSolverParams = F4(
 	function (dt, bi, bj, solverEquation) {
 		return _elm_lang$core$Native_Utils.update(
 			solverEquation,
 			{
 				solverLambda: 0,
-				solverBs: A4(_user$project$Physics_SolverEquation$computeB, dt, bi, bj, solverEquation),
-				solverInvCs: 1 / A3(_user$project$Physics_SolverEquation$computeC, bi, bj, solverEquation)
+				solverBs: A4(_w0rm$elm_physics$Physics_SolverEquation$computeB, dt, bi, bj, solverEquation),
+				solverInvCs: 1 / A3(_w0rm$elm_physics$Physics_SolverEquation$computeC, bi, bj, solverEquation)
 			});
 	});
-var _user$project$Physics_SolverEquation$setSpookParams = F4(
+var _w0rm$elm_physics$Physics_SolverEquation$setSpookParams = F4(
 	function (stiffness, relaxation, timeStep, solverEquation) {
 		return _elm_lang$core$Native_Utils.update(
 			solverEquation,
 			{spookA: 4.0 / (timeStep * (1 + (4 * relaxation))), spookB: (4.0 * relaxation) / (1 + (4 * relaxation)), spookEps: 4.0 / (((timeStep * timeStep) * stiffness) * (1 + (4 * relaxation)))});
 	});
-var _user$project$Physics_SolverEquation$FrictionEquation = F3(
+var _w0rm$elm_physics$Physics_SolverEquation$FrictionEquation = F3(
 	function (a, b, c) {
 		return {t: a, ri: b, rj: c};
 	});
-var _user$project$Physics_SolverEquation$SolverEquation = function (a) {
+var _w0rm$elm_physics$Physics_SolverEquation$SolverEquation = function (a) {
 	return function (b) {
 		return function (c) {
 			return function (d) {
@@ -15476,16 +15513,16 @@ var _user$project$Physics_SolverEquation$SolverEquation = function (a) {
 		};
 	};
 };
-var _user$project$Physics_SolverEquation$ContactMaterial = F6(
+var _w0rm$elm_physics$Physics_SolverEquation$ContactMaterial = F6(
 	function (a, b, c, d, e, f) {
 		return {contactEquationRelaxation: a, contactEquationStiffness: b, friction: c, frictionEquationRelaxation: d, frictionEquationStiffness: e, restitution: f};
 	});
-var _user$project$Physics_SolverEquation$Friction = function (a) {
+var _w0rm$elm_physics$Physics_SolverEquation$Friction = function (a) {
 	return {ctor: 'Friction', _0: a};
 };
-var _user$project$Physics_SolverEquation$addFrictionEquations = F5(
+var _w0rm$elm_physics$Physics_SolverEquation$addFrictionEquations = F5(
 	function (dt, gravity, bi, bj, contactEquation) {
-		var _p22 = _user$project$Physics_SolverEquation$tangents(contactEquation.ni);
+		var _p22 = _w0rm$elm_physics$Physics_SolverEquation$tangents(contactEquation.ni);
 		var t1 = _p22._0;
 		var t2 = _p22._1;
 		var frictionEquation1 = {ri: contactEquation.ri, rj: contactEquation.rj, t: t1};
@@ -15495,7 +15532,7 @@ var _user$project$Physics_SolverEquation$addFrictionEquations = F5(
 		var rixt2 = A2(_elm_community$linear_algebra$Math_Vector3$cross, contactEquation.ri, t2);
 		var rjxt2 = A2(_elm_community$linear_algebra$Math_Vector3$cross, contactEquation.rj, t2);
 		var reducedMass = (_elm_lang$core$Native_Utils.cmp(bi.invMass + bj.invMass, 0) > 0) ? (1 / (bi.invMass + bj.invMass)) : 0;
-		var mug = _user$project$Physics_SolverEquation$defaultContactMaterial.friction * _elm_community$linear_algebra$Math_Vector3$length(gravity);
+		var mug = _w0rm$elm_physics$Physics_SolverEquation$defaultContactMaterial.friction * _elm_community$linear_algebra$Math_Vector3$length(gravity);
 		return F2(
 			function (x, y) {
 				return A2(_elm_lang$core$Basics_ops['++'], x, y);
@@ -15503,19 +15540,19 @@ var _user$project$Physics_SolverEquation$addFrictionEquations = F5(
 			{
 				ctor: '::',
 				_0: A4(
-					_user$project$Physics_SolverEquation$initSolverParams,
+					_w0rm$elm_physics$Physics_SolverEquation$initSolverParams,
 					dt,
 					bi,
 					bj,
 					A4(
-						_user$project$Physics_SolverEquation$setSpookParams,
-						_user$project$Physics_SolverEquation$defaultContactMaterial.frictionEquationStiffness,
-						_user$project$Physics_SolverEquation$defaultContactMaterial.frictionEquationRelaxation,
+						_w0rm$elm_physics$Physics_SolverEquation$setSpookParams,
+						_w0rm$elm_physics$Physics_SolverEquation$defaultContactMaterial.frictionEquationStiffness,
+						_w0rm$elm_physics$Physics_SolverEquation$defaultContactMaterial.frictionEquationRelaxation,
 						dt,
 						{
 							bodyId1: contactEquation.bodyId1,
 							bodyId2: contactEquation.bodyId2,
-							kind: _user$project$Physics_SolverEquation$Friction(frictionEquation1),
+							kind: _w0rm$elm_physics$Physics_SolverEquation$Friction(frictionEquation1),
 							minForce: (0 - mug) * reducedMass,
 							maxForce: mug * reducedMass,
 							solverLambda: 0,
@@ -15533,19 +15570,19 @@ var _user$project$Physics_SolverEquation$addFrictionEquations = F5(
 				_1: {
 					ctor: '::',
 					_0: A4(
-						_user$project$Physics_SolverEquation$initSolverParams,
+						_w0rm$elm_physics$Physics_SolverEquation$initSolverParams,
 						dt,
 						bi,
 						bj,
 						A4(
-							_user$project$Physics_SolverEquation$setSpookParams,
-							_user$project$Physics_SolverEquation$defaultContactMaterial.frictionEquationStiffness,
-							_user$project$Physics_SolverEquation$defaultContactMaterial.frictionEquationRelaxation,
+							_w0rm$elm_physics$Physics_SolverEquation$setSpookParams,
+							_w0rm$elm_physics$Physics_SolverEquation$defaultContactMaterial.frictionEquationStiffness,
+							_w0rm$elm_physics$Physics_SolverEquation$defaultContactMaterial.frictionEquationRelaxation,
 							dt,
 							{
 								bodyId1: contactEquation.bodyId1,
 								bodyId2: contactEquation.bodyId2,
-								kind: _user$project$Physics_SolverEquation$Friction(frictionEquation2),
+								kind: _w0rm$elm_physics$Physics_SolverEquation$Friction(frictionEquation2),
 								minForce: (0 - mug) * reducedMass,
 								maxForce: mug * reducedMass,
 								solverLambda: 0,
@@ -15564,10 +15601,10 @@ var _user$project$Physics_SolverEquation$addFrictionEquations = F5(
 				}
 			});
 	});
-var _user$project$Physics_SolverEquation$Contact = function (a) {
+var _w0rm$elm_physics$Physics_SolverEquation$Contact = function (a) {
 	return {ctor: 'Contact', _0: a};
 };
-var _user$project$Physics_SolverEquation$addContactEquation = F5(
+var _w0rm$elm_physics$Physics_SolverEquation$addContactEquation = F5(
 	function (dt, gravity, bi, bj, contactEquation) {
 		var rjxn = A2(_elm_community$linear_algebra$Math_Vector3$cross, contactEquation.rj, contactEquation.ni);
 		var rixn = A2(_elm_community$linear_algebra$Math_Vector3$cross, contactEquation.ri, contactEquation.ni);
@@ -15576,19 +15613,19 @@ var _user$project$Physics_SolverEquation$addContactEquation = F5(
 				return {ctor: '::', _0: x, _1: y};
 			})(
 			A4(
-				_user$project$Physics_SolverEquation$initSolverParams,
+				_w0rm$elm_physics$Physics_SolverEquation$initSolverParams,
 				dt,
 				bi,
 				bj,
 				A4(
-					_user$project$Physics_SolverEquation$setSpookParams,
+					_w0rm$elm_physics$Physics_SolverEquation$setSpookParams,
 					1.0e7,
 					4,
 					dt,
 					{
 						bodyId1: contactEquation.bodyId1,
 						bodyId2: contactEquation.bodyId2,
-						kind: _user$project$Physics_SolverEquation$Contact(contactEquation),
+						kind: _w0rm$elm_physics$Physics_SolverEquation$Contact(contactEquation),
 						minForce: 0,
 						maxForce: 1000000,
 						solverLambda: 0,
@@ -15604,7 +15641,7 @@ var _user$project$Physics_SolverEquation$addContactEquation = F5(
 						jacobianElementB: {spatial: contactEquation.ni, rotational: rjxn}
 					})));
 	});
-var _user$project$Physics_Solver$fromJust = function (x) {
+var _w0rm$elm_physics$Physics_Solver$fromJust = function (x) {
 	var _p0 = x;
 	if (_p0.ctor === 'Just') {
 		return _p0._0;
@@ -15618,16 +15655,16 @@ var _user$project$Physics_Solver$fromJust = function (x) {
 			_p0)('');
 	}
 };
-var _user$project$Physics_Solver$solveStep = function (context) {
+var _w0rm$elm_physics$Physics_Solver$solveStep = function (context) {
 	return A3(
 		_elm_lang$core$List$foldl,
 		F2(
 			function (equation, acc) {
-				var bj = _user$project$Physics_Solver$fromJust(
+				var bj = _w0rm$elm_physics$Physics_Solver$fromJust(
 					A2(_elm_lang$core$Dict$get, equation.bodyId2, acc.bodies));
-				var bi = _user$project$Physics_Solver$fromJust(
+				var bi = _w0rm$elm_physics$Physics_Solver$fromJust(
 					A2(_elm_lang$core$Dict$get, equation.bodyId1, acc.bodies));
-				var gWlambda = A3(_user$project$Physics_SolverEquation$computeGWlambda, bi, bj, equation);
+				var gWlambda = A3(_w0rm$elm_physics$Physics_SolverEquation$computeGWlambda, bi, bj, equation);
 				var deltalambdaPrev = equation.solverInvCs * ((equation.solverBs - gWlambda) - (equation.spookEps * equation.solverLambda));
 				var deltalambda = (_elm_lang$core$Native_Utils.cmp(equation.solverLambda + deltalambdaPrev, equation.minForce) < 0) ? (equation.minForce - equation.solverLambda) : ((_elm_lang$core$Native_Utils.cmp(equation.solverLambda + deltalambdaPrev, equation.maxForce) > 0) ? (equation.maxForce - equation.solverLambda) : deltalambdaPrev);
 				var newEquation = _elm_lang$core$Native_Utils.update(
@@ -15641,11 +15678,11 @@ var _user$project$Physics_Solver$solveStep = function (context) {
 						bodies: A3(
 							_elm_lang$core$Dict$insert,
 							equation.bodyId2,
-							A3(_user$project$Physics_SolverBody$addToWlambda, deltalambda, newEquation.jacobianElementB, bj),
+							A3(_w0rm$elm_physics$Physics_SolverBody$addToWlambda, deltalambda, newEquation.jacobianElementB, bj),
 							A3(
 								_elm_lang$core$Dict$insert,
 								equation.bodyId1,
-								A3(_user$project$Physics_SolverBody$addToWlambda, deltalambda, newEquation.jacobianElementA, bi),
+								A3(_w0rm$elm_physics$Physics_SolverBody$addToWlambda, deltalambda, newEquation.jacobianElementA, bi),
 								acc.bodies))
 					});
 			}),
@@ -15657,12 +15694,12 @@ var _user$project$Physics_Solver$solveStep = function (context) {
 			}),
 		context.equations);
 };
-var _user$project$Physics_Solver$solveContext = F3(
+var _w0rm$elm_physics$Physics_Solver$solveContext = F3(
 	function (dt, contactEquations, world) {
 		var solverBodies = A2(
 			_elm_lang$core$Dict$map,
 			function (_p2) {
-				return _user$project$Physics_SolverBody$fromBody;
+				return _w0rm$elm_physics$Physics_SolverBody$fromBody;
 			},
 			world.bodies);
 		return {
@@ -15670,19 +15707,19 @@ var _user$project$Physics_Solver$solveContext = F3(
 			equations: A3(
 				_elm_lang$core$List$foldl,
 				function (contactEquation) {
-					var bj = _user$project$Physics_Solver$fromJust(
+					var bj = _w0rm$elm_physics$Physics_Solver$fromJust(
 						A2(_elm_lang$core$Dict$get, contactEquation.bodyId2, solverBodies));
-					var bi = _user$project$Physics_Solver$fromJust(
+					var bi = _w0rm$elm_physics$Physics_Solver$fromJust(
 						A2(_elm_lang$core$Dict$get, contactEquation.bodyId1, solverBodies));
 					return function (_p3) {
 						return A6(
-							_user$project$Physics_SolverEquation$addFrictionEquations,
+							_w0rm$elm_physics$Physics_SolverEquation$addFrictionEquations,
 							dt,
 							world.gravity,
 							bi,
 							bj,
 							contactEquation,
-							A6(_user$project$Physics_SolverEquation$addContactEquation, dt, world.gravity, bi, bj, contactEquation, _p3));
+							A6(_w0rm$elm_physics$Physics_SolverEquation$addContactEquation, dt, world.gravity, bi, bj, contactEquation, _p3));
 					};
 				},
 				{ctor: '[]'},
@@ -15691,7 +15728,7 @@ var _user$project$Physics_Solver$solveContext = F3(
 			world: world
 		};
 	});
-var _user$project$Physics_Solver$updateVelocities = function (_p4) {
+var _w0rm$elm_physics$Physics_Solver$updateVelocities = function (_p4) {
 	var _p5 = _p4;
 	var _p8 = _p5.world;
 	return _elm_lang$core$Native_Utils.update(
@@ -15720,7 +15757,7 @@ var _user$project$Physics_Solver$updateVelocities = function (_p4) {
 				_p8.bodies)
 		});
 };
-var _user$project$Physics_Solver$solveHelp = F2(
+var _w0rm$elm_physics$Physics_Solver$solveHelp = F2(
 	function (number, context) {
 		solveHelp:
 		while (true) {
@@ -15728,95 +15765,405 @@ var _user$project$Physics_Solver$solveHelp = F2(
 				return context;
 			} else {
 				var _v3 = number - 1,
-					_v4 = _user$project$Physics_Solver$solveStep(context);
+					_v4 = _w0rm$elm_physics$Physics_Solver$solveStep(context);
 				number = _v3;
 				context = _v4;
 				continue solveHelp;
 			}
 		}
 	});
-var _user$project$Physics_Solver$maxIterations = 20;
-var _user$project$Physics_Solver$solve = F3(
+var _w0rm$elm_physics$Physics_Solver$maxIterations = 20;
+var _w0rm$elm_physics$Physics_Solver$solve = F3(
 	function (dt, contactEquations, world) {
 		return _elm_lang$core$Native_Utils.eq(
 			contactEquations,
-			{ctor: '[]'}) ? world : _user$project$Physics_Solver$updateVelocities(
+			{ctor: '[]'}) ? world : _w0rm$elm_physics$Physics_Solver$updateVelocities(
 			A2(
-				_user$project$Physics_Solver$solveHelp,
-				_user$project$Physics_Solver$maxIterations,
-				A3(_user$project$Physics_Solver$solveContext, dt, contactEquations, world)));
+				_w0rm$elm_physics$Physics_Solver$solveHelp,
+				_w0rm$elm_physics$Physics_Solver$maxIterations,
+				A3(_w0rm$elm_physics$Physics_Solver$solveContext, dt, contactEquations, world)));
 	});
-var _user$project$Physics_Solver$SolveContext = F4(
+var _w0rm$elm_physics$Physics_Solver$SolveContext = F4(
 	function (a, b, c, d) {
 		return {bodies: a, equations: b, deltalambdaTot: c, world: d};
 	});
-var _user$project$Physics$step = F2(
-	function (dt, world) {
-		return A2(
-			_user$project$Physics_World$tick,
-			dt,
-			A3(
-				_user$project$Physics_Solver$solve,
-				dt,
-				_user$project$Physics_NarrowPhase$getContacts(world),
-				_user$project$Physics_World$addGravityForces(world)));
+var _w0rm$elm_physics$Physics$contacts = function (_p0) {
+	var _p1 = _p0;
+	return A3(
+		_elm_lang$core$List$foldl,
+		function (_p2) {
+			var _p3 = _p2;
+			return F2(
+				function (x, y) {
+					return A2(_elm_lang$core$Basics_ops['++'], x, y);
+				})(
+				A2(
+					_elm_lang$core$List$filterMap,
+					function (_p4) {
+						var _p5 = _p4;
+						return A2(
+							_elm_lang$core$Maybe$map,
+							function (_p6) {
+								return A2(
+									_elm_community$linear_algebra$Math_Vector3$add,
+									_p5._1,
+									function (_) {
+										return _.position;
+									}(_p6));
+							},
+							A2(_elm_lang$core$Dict$get, _p5._0, _p1._0.bodies));
+					},
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: _p3.bodyId1, _1: _p3.ri},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: _p3.bodyId2, _1: _p3.rj},
+							_1: {ctor: '[]'}
+						}
+					}));
+		},
+		{ctor: '[]'},
+		_w0rm$elm_physics$Physics_NarrowPhase$getContacts(_p1._0));
+};
+var _w0rm$elm_physics$Physics$foldl = F3(
+	function (fn, acc, _p7) {
+		var _p8 = _p7;
+		return A3(
+			_elm_lang$core$Dict$foldl,
+			F3(
+				function (bodyId, _p9, acc1) {
+					var _p10 = _p9;
+					return A3(
+						_elm_lang$core$Dict$foldl,
+						F2(
+							function (shapeId, shape) {
+								return fn(
+									{
+										transform: A2(
+											_elm_community$linear_algebra$Math_Matrix4$mul,
+											_elm_community$linear_algebra$Math_Matrix4$makeTranslate(_p10.position),
+											A2(
+												_elm_community$linear_algebra$Math_Matrix4$mul,
+												_w0rm$elm_physics$Physics_Quaternion$toMat4(_p10.quaternion),
+												A2(
+													_elm_community$linear_algebra$Math_Matrix4$mul,
+													_elm_community$linear_algebra$Math_Matrix4$makeTranslate(
+														A2(
+															_elm_lang$core$Maybe$withDefault,
+															_w0rm$elm_physics$Physics_Body$zero3,
+															A2(_elm_lang$core$Dict$get, shapeId, _p10.shapeOffsets))),
+													A2(
+														_elm_community$linear_algebra$Math_Matrix4$mul,
+														_w0rm$elm_physics$Physics_Quaternion$toMat4(
+															A2(
+																_elm_lang$core$Maybe$withDefault,
+																_w0rm$elm_physics$Physics_Quaternion$identity,
+																A2(_elm_lang$core$Dict$get, shapeId, _p10.shapeOrientations))),
+														_w0rm$elm_physics$Physics_Shape$transform(shape))))),
+										shapeId: shapeId,
+										bodyId: bodyId
+									});
+							}),
+						acc1,
+						_p10.shapes);
+				}),
+			acc,
+			_p8._0.bodies);
 	});
-var _user$project$Dice$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$batch(
-		{
+var _w0rm$elm_physics$Physics$World = function (a) {
+	return {ctor: 'World', _0: a};
+};
+var _w0rm$elm_physics$Physics$world = _w0rm$elm_physics$Physics$World(_w0rm$elm_physics$Physics_World$world);
+var _w0rm$elm_physics$Physics$setGravity = F2(
+	function (gravity, _p11) {
+		var _p12 = _p11;
+		return _w0rm$elm_physics$Physics$World(
+			A2(_w0rm$elm_physics$Physics_World$setGravity, gravity, _p12._0));
+	});
+var _w0rm$elm_physics$Physics$addBody = F2(
+	function (_p14, _p13) {
+		var _p15 = _p14;
+		var _p16 = _p13;
+		return _w0rm$elm_physics$Physics$World(
+			A2(_w0rm$elm_physics$Physics_World$addBody, _p15._0, _p16._0));
+	});
+var _w0rm$elm_physics$Physics$step = F2(
+	function (dt, _p17) {
+		var _p18 = _p17;
+		var _p19 = _p18._0;
+		return _w0rm$elm_physics$Physics$World(
+			A2(
+				_w0rm$elm_physics$Physics_World$tick,
+				dt,
+				A3(
+					_w0rm$elm_physics$Physics_Solver$solve,
+					dt,
+					_w0rm$elm_physics$Physics_NarrowPhase$getContacts(_p19),
+					_w0rm$elm_physics$Physics_World$addGravityForces(_p19))));
+	});
+var _w0rm$elm_physics$Physics$Body = function (a) {
+	return {ctor: 'Body', _0: a};
+};
+var _w0rm$elm_physics$Physics$body = _w0rm$elm_physics$Physics$Body(_w0rm$elm_physics$Physics_Body$body);
+var _w0rm$elm_physics$Physics$setMass = F2(
+	function (mass, _p20) {
+		var _p21 = _p20;
+		return _w0rm$elm_physics$Physics$Body(
+			A2(_w0rm$elm_physics$Physics_Body$setMass, mass, _p21._0));
+	});
+var _w0rm$elm_physics$Physics$addShape = F2(
+	function (_p23, _p22) {
+		var _p24 = _p23;
+		var _p25 = _p22;
+		return _w0rm$elm_physics$Physics$Body(
+			A2(_w0rm$elm_physics$Physics_Body$addShape, _p24._0, _p25._0));
+	});
+var _w0rm$elm_physics$Physics$rotateBy = F3(
+	function (axis, angle, _p26) {
+		var _p27 = _p26;
+		var _p28 = _p27._0;
+		return _w0rm$elm_physics$Physics$Body(
+			_elm_lang$core$Native_Utils.update(
+				_p28,
+				{
+					quaternion: A2(
+						_w0rm$elm_physics$Physics_Quaternion$mul,
+						A2(_w0rm$elm_physics$Physics_Quaternion$fromAngleAxis, angle, axis),
+						_p28.quaternion)
+				}));
+	});
+var _w0rm$elm_physics$Physics$offsetBy = F2(
+	function (offset, _p29) {
+		var _p30 = _p29;
+		var _p31 = _p30._0;
+		return _w0rm$elm_physics$Physics$Body(
+			_elm_lang$core$Native_Utils.update(
+				_p31,
+				{
+					position: A2(_elm_community$linear_algebra$Math_Vector3$add, offset, _p31.position)
+				}));
+	});
+var _w0rm$elm_physics$Physics$Shape = function (a) {
+	return {ctor: 'Shape', _0: a};
+};
+var _w0rm$elm_physics$Physics$box = function (halfExtends) {
+	return _w0rm$elm_physics$Physics$Shape(
+		_w0rm$elm_physics$Physics_Shape$Box(halfExtends));
+};
+var _w0rm$elm_physics$Physics$plane = _w0rm$elm_physics$Physics$Shape(_w0rm$elm_physics$Physics_Shape$Plane);
+var _w0rm$elm_physics$Boxes$fragment = {'src': '\n        precision mediump float;\n        varying vec3 vcolor;\n        void main () {\n          gl_FragColor = vec4(vcolor, 1.0);\n        }\n    '};
+var _w0rm$elm_physics$Boxes$vertex = {'src': '\n        attribute vec3 position;\n        attribute vec3 color;\n        uniform mat4 camera;\n        uniform mat4 perspective;\n        uniform mat4 transform;\n        varying vec3 vcolor;\n        void main () {\n          gl_Position = perspective * camera * transform * vec4(position, 1.0);\n          vcolor = color;\n        }\n    '};
+var _w0rm$elm_physics$Boxes$box = A2(
+	_w0rm$elm_physics$Physics$addShape,
+	_w0rm$elm_physics$Physics$box(
+		A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 1)),
+	A2(_w0rm$elm_physics$Physics$setMass, 5, _w0rm$elm_physics$Physics$body));
+var _w0rm$elm_physics$Boxes$randomBox = A5(
+	_elm_lang$core$Random$map4,
+	F4(
+		function (angle, x, y, z) {
+			return A3(
+				_w0rm$elm_physics$Physics$rotateBy,
+				_elm_community$linear_algebra$Math_Vector3$normalize(
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, x, y, z)),
+				angle,
+				A2(
+					_w0rm$elm_physics$Physics$offsetBy,
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 10),
+					_w0rm$elm_physics$Boxes$box));
+		}),
+	A2(_elm_lang$core$Random$float, (0 - _elm_lang$core$Basics$pi) / 2, _elm_lang$core$Basics$pi / 2),
+	A2(_elm_lang$core$Random$float, -1, 1),
+	A2(_elm_lang$core$Random$float, -1, 1),
+	A2(_elm_lang$core$Random$float, -1, 1));
+var _w0rm$elm_physics$Boxes$Model = F4(
+	function (a, b, c, d) {
+		return {screenWidth: a, screenHeight: b, world: c, devicePixelRatio: d};
+	});
+var _w0rm$elm_physics$Boxes$Attributes = F2(
+	function (a, b) {
+		return {position: a, color: b};
+	});
+var _w0rm$elm_physics$Boxes$face = F5(
+	function (a, b, c, d, color) {
+		return {
 			ctor: '::',
-			_0: _elm_lang$window$Window$resizes(_user$project$Types$Resize),
+			_0: {
+				ctor: '_Tuple3',
+				_0: A2(_w0rm$elm_physics$Boxes$Attributes, a, color),
+				_1: A2(_w0rm$elm_physics$Boxes$Attributes, b, color),
+				_2: A2(_w0rm$elm_physics$Boxes$Attributes, c, color)
+			},
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$animation_frame$AnimationFrame$diffs(_user$project$Types$Tick),
+				_0: {
+					ctor: '_Tuple3',
+					_0: A2(_w0rm$elm_physics$Boxes$Attributes, c, color),
+					_1: A2(_w0rm$elm_physics$Boxes$Attributes, d, color),
+					_2: A2(_w0rm$elm_physics$Boxes$Attributes, a, color)
+				},
 				_1: {ctor: '[]'}
 			}
-		});
+		};
+	});
+var _w0rm$elm_physics$Boxes$planeMesh = _elm_community$webgl$WebGL$triangles(
+	A5(
+		_w0rm$elm_physics$Boxes$face,
+		A3(_elm_community$linear_algebra$Math_Vector3$vec3, 10, 10, 0),
+		A3(_elm_community$linear_algebra$Math_Vector3$vec3, -10, 10, 0),
+		A3(_elm_community$linear_algebra$Math_Vector3$vec3, -10, -10, 0),
+		A3(_elm_community$linear_algebra$Math_Vector3$vec3, 10, -10, 0),
+		A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.2, 0.2, 0.2)));
+var _w0rm$elm_physics$Boxes$cubeMesh = function () {
+	var lbb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, -1, -1);
+	var lfb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 1, -1);
+	var rfb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, -1);
+	var rbb = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, -1, -1);
+	var rbt = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, -1, 1);
+	var lbt = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, -1, 1);
+	var lft = A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1, 1, 1);
+	var rft = A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 1);
+	return _elm_community$webgl$WebGL$triangles(
+		_elm_lang$core$List$concat(
+			{
+				ctor: '::',
+				_0: A5(
+					_w0rm$elm_physics$Boxes$face,
+					rft,
+					rfb,
+					rbb,
+					rbt,
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.4, 0.4, 0.4)),
+				_1: {
+					ctor: '::',
+					_0: A5(
+						_w0rm$elm_physics$Boxes$face,
+						rft,
+						rfb,
+						lfb,
+						lft,
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.5, 0.5, 0.5)),
+					_1: {
+						ctor: '::',
+						_0: A5(
+							_w0rm$elm_physics$Boxes$face,
+							rft,
+							lft,
+							lbt,
+							rbt,
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.6, 0.6, 0.6)),
+						_1: {
+							ctor: '::',
+							_0: A5(
+								_w0rm$elm_physics$Boxes$face,
+								rfb,
+								lfb,
+								lbb,
+								rbb,
+								A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.7, 0.7, 0.7)),
+							_1: {
+								ctor: '::',
+								_0: A5(
+									_w0rm$elm_physics$Boxes$face,
+									lft,
+									lfb,
+									lbb,
+									lbt,
+									A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.8, 0.8, 0.8)),
+								_1: {
+									ctor: '::',
+									_0: A5(
+										_w0rm$elm_physics$Boxes$face,
+										rbt,
+										rbb,
+										lbb,
+										lbt,
+										A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.9, 0.9, 0.9)),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}
+			}));
+}();
+var _w0rm$elm_physics$Boxes$addShape = F3(
+	function (camera, perspective, _p0) {
+		var _p1 = _p0;
+		return F2(
+			function (x, y) {
+				return {ctor: '::', _0: x, _1: y};
+			})(
+			A4(
+				_elm_community$webgl$WebGL$entity,
+				_w0rm$elm_physics$Boxes$vertex,
+				_w0rm$elm_physics$Boxes$fragment,
+				_elm_lang$core$Native_Utils.eq(_p1.bodyId, 0) ? _w0rm$elm_physics$Boxes$planeMesh : _w0rm$elm_physics$Boxes$cubeMesh,
+				{transform: _p1.transform, perspective: perspective, camera: camera}));
+	});
+var _w0rm$elm_physics$Boxes$addContacts = F4(
+	function (camera, perspective, contacts, entities) {
+		return A3(
+			_elm_lang$core$List$foldl,
+			function (contactPoint) {
+				return F2(
+					function (x, y) {
+						return {ctor: '::', _0: x, _1: y};
+					})(
+					A4(
+						_elm_community$webgl$WebGL$entity,
+						_w0rm$elm_physics$Boxes$vertex,
+						_w0rm$elm_physics$Boxes$fragment,
+						_w0rm$elm_physics$Boxes$cubeMesh,
+						{
+							transform: A2(
+								_elm_community$linear_algebra$Math_Matrix4$mul,
+								_elm_community$linear_algebra$Math_Matrix4$makeTranslate(contactPoint),
+								_elm_community$linear_algebra$Math_Matrix4$makeScale(
+									A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0.1, 0.1, 0.1))),
+							perspective: perspective,
+							camera: camera
+						}));
+			},
+			entities,
+			contacts);
+	});
+var _w0rm$elm_physics$Boxes$Uniforms = F3(
+	function (a, b, c) {
+		return {camera: a, perspective: b, transform: c};
+	});
+var _w0rm$elm_physics$Boxes$AddBox = function (a) {
+	return {ctor: 'AddBox', _0: a};
 };
-var _user$project$Dice$box = function (position) {
-	return A2(
-		_user$project$Physics_Body$addShape,
-		_user$project$Physics_Shape$Box(
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1, 1, 1)),
-		A2(
-			_user$project$Physics_Body$setPosition,
-			position,
-			A2(_user$project$Physics_Body$setMass, 5, _user$project$Physics_Body$body)));
-};
-var _user$project$Dice$update = F2(
+var _w0rm$elm_physics$Boxes$update = F2(
 	function (msg, model) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
+		var _p2 = msg;
+		switch (_p2.ctor) {
 			case 'Resize':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							screenWidth: _elm_lang$core$Basics$toFloat(_p0._0.width),
-							screenHeight: _elm_lang$core$Basics$toFloat(_p0._0.height)
+							screenWidth: _elm_lang$core$Basics$toFloat(_p2._0.width),
+							screenHeight: _elm_lang$core$Basics$toFloat(_p2._0.height)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			case 'AddCube':
+			case 'AddRandomBox':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(_elm_lang$core$Random$generate, _w0rm$elm_physics$Boxes$AddBox, _w0rm$elm_physics$Boxes$randomBox)
+				};
+			case 'AddBox':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							world: A2(
-								_user$project$Physics_World$addBody,
-								A2(
-									_user$project$Physics_Body$setQuaternion,
-									_elm_lang$core$Native_Utils.eq(
-										A2(
-											_elm_lang$core$Basics_ops['%'],
-											_elm_lang$core$Basics$round(model.world.time * 10),
-											2),
-										1) ? A2(_user$project$Physics_Quaternion$fromAngleAxis, model.world.time, _elm_community$linear_algebra$Math_Vector3$j) : A2(_user$project$Physics_Quaternion$fromAngleAxis, model.world.time, _elm_community$linear_algebra$Math_Vector3$k),
-									_user$project$Dice$box(
-										A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1.2, 0, 8))),
-								model.world)
+							world: A2(_w0rm$elm_physics$Physics$addBody, _p2._0, model.world)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -15826,65 +16173,171 @@ var _user$project$Dice$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							world: A2(_user$project$Physics$step, 1 / 60, model.world)
+							world: A2(_w0rm$elm_physics$Physics$step, 1 / 60, model.world)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
 	});
-var _user$project$Dice$ground = A2(
-	_user$project$Physics_Body$addShape,
-	_user$project$Physics_Shape$Plane,
-	A2(
-		_user$project$Physics_Body$setQuaternion,
-		A2(_user$project$Physics_Quaternion$fromAngleAxis, 0, _elm_community$linear_algebra$Math_Vector3$j),
-		A2(
-			_user$project$Physics_Body$setPosition,
-			A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -1),
-			_user$project$Physics_Body$body)));
-var _user$project$Dice$init = {
+var _w0rm$elm_physics$Boxes$AddRandomBox = {ctor: 'AddRandomBox'};
+var _w0rm$elm_physics$Boxes$view = function (_p3) {
+	var _p4 = _p3;
+	var _p7 = _p4.screenWidth;
+	var _p6 = _p4.screenHeight;
+	var _p5 = _p4.devicePixelRatio;
+	return A3(
+		_elm_community$webgl$WebGL$toHtmlWith,
+		{
+			ctor: '::',
+			_0: _elm_community$webgl$WebGL$depth(1),
+			_1: {
+				ctor: '::',
+				_0: _elm_community$webgl$WebGL$alpha(true),
+				_1: {
+					ctor: '::',
+					_0: _elm_community$webgl$WebGL$antialias,
+					_1: {
+						ctor: '::',
+						_0: A4(_elm_community$webgl$WebGL$clearColor, 0, 0, 0, 1),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$width(
+				_elm_lang$core$Basics$round(_p7 * _p5)),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$height(
+					_elm_lang$core$Basics$round(_p6 * _p5)),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'width',
+									_1: A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(_p7),
+										'px')
+								},
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 'height',
+										_1: A2(
+											_elm_lang$core$Basics_ops['++'],
+											_elm_lang$core$Basics$toString(_p6),
+											'px')
+									},
+									_1: {ctor: '[]'}
+								}
+							}
+						}),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Events$onClick(_w0rm$elm_physics$Boxes$AddRandomBox),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		},
+		function () {
+			var perspective = A4(_elm_community$linear_algebra$Math_Matrix4$makePerspective, 24, _p7 / _p6, 5, 2000);
+			var camera = A3(
+				_elm_community$linear_algebra$Math_Matrix4$makeLookAt,
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 30, 20),
+				A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 0),
+				_elm_community$linear_algebra$Math_Vector3$k);
+			var entities = A3(
+				_w0rm$elm_physics$Physics$foldl,
+				A2(_w0rm$elm_physics$Boxes$addShape, camera, perspective),
+				{ctor: '[]'},
+				_p4.world);
+			return entities;
+		}());
+};
+var _w0rm$elm_physics$Boxes$Resize = function (a) {
+	return {ctor: 'Resize', _0: a};
+};
+var _w0rm$elm_physics$Boxes$init = {
 	ctor: '_Tuple2',
 	_0: {
 		screenWidth: 1,
 		screenHeight: 1,
 		world: A2(
-			_user$project$Physics_World$addBody,
-			A2(
-				_user$project$Physics_Body$setQuaternion,
-				A2(_user$project$Physics_Quaternion$fromAngleAxis, _elm_lang$core$Basics$pi / 5, _elm_community$linear_algebra$Math_Vector3$j),
-				_user$project$Dice$box(
-					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1.3, 0, 6))),
-			A2(
-				_user$project$Physics_World$addBody,
+			_w0rm$elm_physics$Physics$addBody,
+			A3(
+				_w0rm$elm_physics$Physics$rotateBy,
+				_elm_community$linear_algebra$Math_Vector3$j,
+				_elm_lang$core$Basics$pi / 5,
 				A2(
-					_user$project$Physics_Body$setQuaternion,
-					A2(_user$project$Physics_Quaternion$fromAngleAxis, (0 - _elm_lang$core$Basics$pi) / 4, _elm_community$linear_algebra$Math_Vector3$j),
-					_user$project$Dice$box(
-						A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1.2, 0, 9))),
+					_w0rm$elm_physics$Physics$offsetBy,
+					A3(_elm_community$linear_algebra$Math_Vector3$vec3, 1.3, 0, 6),
+					_w0rm$elm_physics$Boxes$box)),
+			A2(
+				_w0rm$elm_physics$Physics$addBody,
+				A3(
+					_w0rm$elm_physics$Physics$rotateBy,
+					_elm_community$linear_algebra$Math_Vector3$j,
+					(0 - _elm_lang$core$Basics$pi) / 4,
+					A2(
+						_w0rm$elm_physics$Physics$offsetBy,
+						A3(_elm_community$linear_algebra$Math_Vector3$vec3, -1.2, 0, 9),
+						_w0rm$elm_physics$Boxes$box)),
 				A2(
-					_user$project$Physics_World$addBody,
-					A2(
-						_user$project$Physics_Body$setQuaternion,
-						A2(_user$project$Physics_Quaternion$fromAngleAxis, (0 - _elm_lang$core$Basics$pi) / 5, _elm_community$linear_algebra$Math_Vector3$j),
-						_user$project$Dice$box(
-							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 2))),
-					A2(
-						_user$project$Physics_World$addBody,
-						_user$project$Dice$ground,
+					_w0rm$elm_physics$Physics$addBody,
+					A3(
+						_w0rm$elm_physics$Physics$rotateBy,
+						_elm_community$linear_algebra$Math_Vector3$j,
+						(0 - _elm_lang$core$Basics$pi) / 5,
 						A2(
-							_user$project$Physics_World$setGravity,
+							_w0rm$elm_physics$Physics$offsetBy,
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, 2),
+							_w0rm$elm_physics$Boxes$box)),
+					A2(
+						_w0rm$elm_physics$Physics$addBody,
+						A2(
+							_w0rm$elm_physics$Physics$offsetBy,
+							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -1),
+							A2(_w0rm$elm_physics$Physics$addShape, _w0rm$elm_physics$Physics$plane, _w0rm$elm_physics$Physics$body)),
+						A2(
+							_w0rm$elm_physics$Physics$setGravity,
 							A3(_elm_community$linear_algebra$Math_Vector3$vec3, 0, 0, -10),
-							_user$project$Physics_World$world))))),
+							_w0rm$elm_physics$Physics$world))))),
 		devicePixelRatio: 1
 	},
-	_1: A2(_elm_lang$core$Task$perform, _user$project$Types$Resize, _elm_lang$window$Window$size)
+	_1: A2(_elm_lang$core$Task$perform, _w0rm$elm_physics$Boxes$Resize, _elm_lang$window$Window$size)
 };
-var _user$project$Dice$main = _elm_lang$html$Html$program(
-	{init: _user$project$Dice$init, update: _user$project$Dice$update, subscriptions: _user$project$Dice$subscriptions, view: _user$project$View$view})();
+var _w0rm$elm_physics$Boxes$Tick = function (a) {
+	return {ctor: 'Tick', _0: a};
+};
+var _w0rm$elm_physics$Boxes$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: _elm_lang$window$Window$resizes(_w0rm$elm_physics$Boxes$Resize),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$animation_frame$AnimationFrame$diffs(_w0rm$elm_physics$Boxes$Tick),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _w0rm$elm_physics$Boxes$main = _elm_lang$html$Html$program(
+	{init: _w0rm$elm_physics$Boxes$init, update: _w0rm$elm_physics$Boxes$update, subscriptions: _w0rm$elm_physics$Boxes$subscriptions, view: _w0rm$elm_physics$Boxes$view})();
 var Elm = {};
-Elm['Dice'] = Elm['Dice'] || {};
-if (typeof _user$project$Dice$main !== 'undefined') {
-    _user$project$Dice$main(Elm['Dice'], 'Dice', undefined);
+Elm['Boxes'] = Elm['Boxes'] || {};
+if (typeof _w0rm$elm_physics$Boxes$main !== 'undefined') {
+    _w0rm$elm_physics$Boxes$main(Elm['Boxes'], 'Boxes', undefined);
 }
 
 if (typeof define === "function" && define['amd'])
@@ -15916,4 +16369,4 @@ for (var publicModule in Elm)
 }
 
 }).call(this);
-</script></head><body><script type="text/javascript">Elm.Dice.fullscreen()</script></body></html>
+</script></head><body><script type="text/javascript">Elm.Boxes.fullscreen()</script></body></html>
