@@ -96,10 +96,10 @@ api =
 -- 新しい世界を作る
 world : World
 
--- ボディを加える
+-- 世界にボディを加える
 addBody : Body -> World -> ( World, BodyId )
 
--- シミュレーションする
+-- Nミリ秒先の世界をシミュレーションする
 step : Float -> World -> World
 """
         ]

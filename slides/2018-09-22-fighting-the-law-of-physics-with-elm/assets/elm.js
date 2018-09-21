@@ -5010,7 +5010,7 @@ var author$project$Main$api = _List_fromArray(
 			[
 				author$project$Formatting$spacer(50),
 				author$project$Formatting$title('elm-physicsのAPI'),
-				author$project$Formatting$code('\n-- 新しい世界を作る\nworld : World\n\n-- ボディを加える\naddBody : Body -> World -> ( World, BodyId )\n\n-- シミュレーションする\nstep : Float -> World -> World\n')
+				author$project$Formatting$code('\n-- 新しい世界を作る\nworld : World\n\n-- 世界にボディを加える\naddBody : Body -> World -> ( World, BodyId )\n\n-- Nミリ秒先の世界をシミュレーションする\nstep : Float -> World -> World\n')
 			]))
 	]);
 var elm$html$Html$li = _VirtualDom_node('li');
