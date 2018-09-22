@@ -5179,6 +5179,150 @@ var author$project$Main$games = _List_fromArray(
 					]))
 			]))
 	]);
+var elm$core$Basics$min = F2(
+	function (x, y) {
+		return (_Utils_cmp(x, y) < 0) ? x : y;
+	});
+var elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
+var elm$svg$Svg$circle = elm$svg$Svg$trustedNode('circle');
+var elm$svg$Svg$defs = elm$svg$Svg$trustedNode('defs');
+var elm$svg$Svg$line = elm$svg$Svg$trustedNode('line');
+var elm$svg$Svg$marker = elm$svg$Svg$trustedNode('marker');
+var elm$svg$Svg$path = elm$svg$Svg$trustedNode('path');
+var elm$svg$Svg$svg = elm$svg$Svg$trustedNode('svg');
+var elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
+var elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
+var elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
+var elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
+var elm$svg$Svg$Attributes$id = _VirtualDom_attribute('id');
+var elm$svg$Svg$Attributes$markerEnd = _VirtualDom_attribute('marker-end');
+var elm$svg$Svg$Attributes$markerHeight = _VirtualDom_attribute('markerHeight');
+var elm$svg$Svg$Attributes$markerStart = _VirtualDom_attribute('marker-start');
+var elm$svg$Svg$Attributes$markerUnits = _VirtualDom_attribute('markerUnits');
+var elm$svg$Svg$Attributes$markerWidth = _VirtualDom_attribute('markerWidth');
+var elm$svg$Svg$Attributes$orient = _VirtualDom_attribute('orient');
+var elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
+var elm$svg$Svg$Attributes$refX = _VirtualDom_attribute('refX');
+var elm$svg$Svg$Attributes$refY = _VirtualDom_attribute('refY');
+var elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
+var elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
+var elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
+var elm$svg$Svg$Attributes$x1 = _VirtualDom_attribute('x1');
+var elm$svg$Svg$Attributes$x2 = _VirtualDom_attribute('x2');
+var elm$svg$Svg$Attributes$y1 = _VirtualDom_attribute('y1');
+var elm$svg$Svg$Attributes$y2 = _VirtualDom_attribute('y2');
+var author$project$Formatting$arrow = F2(
+	function (_n0, _n1) {
+		var x01 = _n0.a;
+		var y01 = _n0.b;
+		var x02 = _n1.a;
+		var y02 = _n1.b;
+		var border = 20;
+		var x = A2(elm$core$Basics$min, x01, x02) - border;
+		var wid = (A2(elm$core$Basics$max, x01, x02) - x) + border;
+		var y = A2(elm$core$Basics$min, y01, y02) - border;
+		var hei = (A2(elm$core$Basics$max, y01, y02) - y) + border;
+		return w0rm$elm_slice_show$SliceShow$Content$item(
+			A2(
+				elm$svg$Svg$svg,
+				_List_fromArray(
+					[
+						A2(elm$html$Html$Attributes$style, 'position', 'absolute'),
+						A2(
+						elm$html$Html$Attributes$style,
+						'left',
+						elm$core$String$fromInt(x) + 'px'),
+						A2(
+						elm$html$Html$Attributes$style,
+						'top',
+						elm$core$String$fromInt(y) + 'px'),
+						A2(
+						elm$html$Html$Attributes$style,
+						'width',
+						elm$core$String$fromInt(wid) + 'px'),
+						A2(
+						elm$html$Html$Attributes$style,
+						'height',
+						elm$core$String$fromInt(hei) + 'px'),
+						elm$svg$Svg$Attributes$viewBox(
+						'0 0 ' + (elm$core$String$fromInt(wid) + (' ' + (elm$core$String$fromInt(hei) + ''))))
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$svg$Svg$defs,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								elm$svg$Svg$marker,
+								_List_fromArray(
+									[
+										elm$svg$Svg$Attributes$id('arrow'),
+										elm$svg$Svg$Attributes$markerWidth('10'),
+										elm$svg$Svg$Attributes$markerHeight('10'),
+										elm$svg$Svg$Attributes$refX('2'),
+										elm$svg$Svg$Attributes$refY('2'),
+										elm$svg$Svg$Attributes$orient('auto'),
+										elm$svg$Svg$Attributes$markerUnits('strokeWidth')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										elm$svg$Svg$path,
+										_List_fromArray(
+											[
+												elm$svg$Svg$Attributes$d('M0,0 L0,4 L3,2 z'),
+												elm$svg$Svg$Attributes$fill('#ffffff')
+											]),
+										_List_Nil)
+									])),
+								A2(
+								elm$svg$Svg$marker,
+								_List_fromArray(
+									[
+										elm$svg$Svg$Attributes$id('circle'),
+										elm$svg$Svg$Attributes$markerWidth('20'),
+										elm$svg$Svg$Attributes$markerHeight('20'),
+										elm$svg$Svg$Attributes$refX('2'),
+										elm$svg$Svg$Attributes$refY('2'),
+										elm$svg$Svg$Attributes$orient('auto'),
+										elm$svg$Svg$Attributes$markerUnits('strokeWidth')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										elm$svg$Svg$circle,
+										_List_fromArray(
+											[
+												elm$svg$Svg$Attributes$cx('2'),
+												elm$svg$Svg$Attributes$cy('2'),
+												elm$svg$Svg$Attributes$r('2'),
+												elm$svg$Svg$Attributes$fill('#ffffff')
+											]),
+										_List_Nil)
+									]))
+							])),
+						A2(
+						elm$svg$Svg$line,
+						_List_fromArray(
+							[
+								elm$svg$Svg$Attributes$x1(
+								elm$core$String$fromInt(x01 - x)),
+								elm$svg$Svg$Attributes$x2(
+								elm$core$String$fromInt(x02 - x)),
+								elm$svg$Svg$Attributes$y1(
+								elm$core$String$fromInt(y01 - y)),
+								elm$svg$Svg$Attributes$y2(
+								elm$core$String$fromInt(y02 - y)),
+								elm$svg$Svg$Attributes$stroke('#ffffff'),
+								elm$svg$Svg$Attributes$strokeWidth('5'),
+								elm$svg$Svg$Attributes$markerStart('url(#circle)'),
+								elm$svg$Svg$Attributes$markerEnd('url(#arrow)')
+							]),
+						_List_Nil)
+					])));
+	});
 var author$project$Main$intro = _List_fromArray(
 	[
 		A3(
@@ -5201,6 +5345,10 @@ var author$project$Main$intro = _List_fromArray(
 		690,
 		620,
 		author$project$Formatting$text('アンドレイ')),
+		A2(
+		author$project$Formatting$arrow,
+		_Utils_Tuple2(265, 100),
+		_Utils_Tuple2(265, 200)),
 		A3(
 		author$project$Formatting$position,
 		620,

@@ -9,6 +9,7 @@
             "elm/browser": "1.0.0",
             "elm/core": "1.0.0",
             "elm/html": "1.0.0",
+            "elm/svg": "1.0.1",
             "elm-explorations/linear-algebra": "1.0.3",
             "elm-explorations/webgl": "1.0.1",
             "w0rm/elm-physics": "2.0.1",

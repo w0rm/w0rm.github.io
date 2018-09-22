@@ -28,6 +28,7 @@ intro =
     , title "エルムで物理法則と戦う" |> position 620 20
     , image 50 50 "assets/twitter.png" |> position 620 633
     , text "アンドレイ" |> position 690 620
+    , arrow ( 265, 100 ) ( 265, 200 )
     , text "@unsoundscapes" |> link "https://twitter.com/unsoundscapes" |> position 620 550
     ]
 

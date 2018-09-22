@@ -1,6 +1,7 @@
 module Formatting
     exposing
-        ( bullet
+        ( arrow
+        , bullet
         , bulletLink
         , bullets
         , code
@@ -18,6 +19,31 @@ module Formatting
 import Html exposing (Html)
 import Html.Attributes exposing (height, href, src, style, width)
 import SliceShow.Content exposing (Content, container, item)
+import Svg
+import Svg.Attributes
+    exposing
+        ( cx
+        , cy
+        , d
+        , fill
+        , id
+        , markerEnd
+        , markerHeight
+        , markerStart
+        , markerUnits
+        , markerWidth
+        , orient
+        , r
+        , refX
+        , refY
+        , stroke
+        , strokeWidth
+        , viewBox
+        , x1
+        , x2
+        , y1
+        , y2
+        )
 
 
 spacer : Int -> Content model msg
@@ -129,3 +155,54 @@ stripProto url =
 code : String -> Content model msg
 code str =
     item (Html.pre [ style "margin" "0" ] [ Html.code [ style "font" "36px monospace", style "margin" "0" ] [ Html.text str ] ])
+
+
+{-| Draw an arrow
+-}
+arrow : ( Int, Int ) -> ( Int, Int ) -> Content model msg
+arrow ( x01, y01 ) ( x02, y02 ) =
+    let
+        border =
+            20
+
+        x =
+            min x01 x02 - border
+
+        y =
+            min y01 y02 - border
+
+        wid =
+            max x01 x02 - x + border
+
+        hei =
+            max y01 y02 - y + border
+    in
+    Svg.svg
+        [ style "position" "absolute"
+        , style "left" (String.fromInt x ++ "px")
+        , style "top" (String.fromInt y ++ "px")
+        , style "width" (String.fromInt wid ++ "px")
+        , style "height" (String.fromInt hei ++ "px")
+        , viewBox ("0 0 " ++ String.fromInt wid ++ " " ++ String.fromInt hei ++ "")
+        ]
+        [ Svg.defs []
+            [ Svg.marker
+                [ id "arrow", markerWidth "10", markerHeight "10", refX "2", refY "2", orient "auto", markerUnits "strokeWidth" ]
+                [ Svg.path [ d "M0,0 L0,4 L3,2 z", fill "#ffffff" ] [] ]
+            , Svg.marker
+                [ id "circle", markerWidth "20", markerHeight "20", refX "2", refY "2", orient "auto", markerUnits "strokeWidth" ]
+                [ Svg.circle [ cx "2", cy "2", r "2", fill "#ffffff" ] [] ]
+            ]
+        , Svg.line
+            [ x1 (String.fromInt (x01 - x))
+            , x2 (String.fromInt (x02 - x))
+            , y1 (String.fromInt (y01 - y))
+            , y2 (String.fromInt (y02 - y))
+            , stroke "#ffffff"
+            , strokeWidth "5"
+            , markerStart "url(#circle)"
+            , markerEnd "url(#arrow)"
+            ]
+            []
+        ]
+        |> item
