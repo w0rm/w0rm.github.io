@@ -13,8 +13,11 @@ main =
     , games
     , dice
     , api
+    , howItWorks
     , debug
     , demo
+    , learnings
+    , future
     , links
     ]
         |> List.map (slide >> setDimensions ( 1280, 720 ))
@@ -25,7 +28,7 @@ main =
 intro : List (Content model msg)
 intro =
     [ image 568 720 "assets/beeryoga.jpg" |> position 0 0
-    , title "Fighting the Law of\u{00A0}Physics\u{00A0}with\u{00A0}Elm" |> position 620 20
+    , title "Fighting the Law of Physics with Elm" |> position 620 20
     , image 50 50 "assets/twitter.png" |> position 620 625
     , text "Andrey Kuzmin" |> position 690 620
     , arrow ( 265, 100 ) ( 265, 200 )
@@ -48,7 +51,7 @@ about =
         , col
             [ image (480 * h // 480) h "assets/elm-berlin.svg"
             , spacer 10
-            , text "\u{00A0}Elm Berlin" |> color "#5a6378"
+            , text " Elm Berlin" |> color "#5a6378"
             ]
             |> hide
         , col
@@ -105,6 +108,19 @@ step : Float -> World -> World
     ]
 
 
+howItWorks : List (Content model msg)
+howItWorks =
+    [ title "How It Works" |> position 100 50
+    , bullets
+        [ bullet "Broadphase collision: collision pairs"
+        , bullet "Narrowphase collision: contact equations"
+        , bullet "Solver: new velocities"
+        , bullet "Update body positions and rotations"
+        ]
+        |> position 100 150
+    ]
+
+
 debug : List (Content model msg)
 debug =
     [ title "Troubleshooting" |> position 100 50
@@ -124,6 +140,31 @@ demo =
         [ spacer 250
         , title "Demo Time！" |> link "https://unsoundscapes.com/elm-physics/examples/spheres/"
         ]
+    ]
+
+
+learnings : List (Content model msg)
+learnings =
+    [ title "Learnings" |> position 100 50
+    , bullets
+        [ bullet "Data sctructures impact performance"
+        , bullet "Linear algebra in pure Elm is faster than elm-explorations/linear-algera"
+        , bullet "Creating a record is faster than updating it"
+        ]
+        |> position 100 150
+    ]
+
+
+future : List (Content model msg)
+future =
+    [ title "Future" |> position 100 50
+    , bullets
+        [ bullet "Build a more complex game"
+        , bullet "Improve collision performance"
+        , bullet "Allow interacting with bodies"
+        , bullet "Expose collision events"
+        ]
+        |> position 100 150
     ]
 
 
