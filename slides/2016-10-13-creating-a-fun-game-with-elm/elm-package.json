@@ -1,0 +1,21 @@
+{
+    "version": "1.0.0",
+    "summary": "Creating a Fun Game With Elm",
+    "repository": "https://github.com/w0rm/creating-a-fun-game-with-elm.git",
+    "license": "MIT",
+    "source-directories": [
+        "."
+    ],
+    "exposed-modules": [],
+    "dependencies": {
+        "elm-community/linear-algebra": "1.0.0 <= v < 2.0.0",
+        "elm-community/webgl": "1.0.0 <= v < 2.0.0",
+        "elm-lang/animation-frame": "1.0.1 <= v < 2.0.0",
+        "elm-lang/core": "5.0.0 <= v < 6.0.0",
+        "elm-lang/html": "2.0.0 <= v < 3.0.0",
+        "elm-lang/svg": "2.0.0 <= v < 3.0.0",
+        "evancz/elm-markdown": "3.0.1 <= v < 4.0.0",
+        "w0rm/elm-slice-show": "4.0.0 <= v < 5.0.0"
+    },
+    "elm-version": "0.18.0 <= v < 0.19.0"
+}
