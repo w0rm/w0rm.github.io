@@ -1,0 +1,38 @@
+{
+    "type": "application",
+    "source-directories": [
+        "."
+    ],
+    "elm-version": "0.19.1",
+    "dependencies": {
+        "direct": {
+            "elm/browser": "1.0.0",
+            "elm/core": "1.0.0",
+            "elm/html": "1.0.0",
+            "elm/svg": "1.0.1",
+            "elm-explorations/linear-algebra": "1.0.3",
+            "elm-explorations/webgl": "1.0.1",
+            "ianmackenzie/elm-3d-camera": "2.0.1",
+            "ianmackenzie/elm-geometry": "3.0.0",
+            "ianmackenzie/elm-units": "2.2.0",
+            "w0rm/elm-physics": "2.0.1",
+            "w0rm/elm-slice-show": "5.0.2"
+        },
+        "indirect": {
+            "elm/json": "1.0.0",
+            "elm/time": "1.0.0",
+            "elm/url": "1.0.0",
+            "elm/virtual-dom": "1.0.0",
+            "ianmackenzie/elm-1d-parameter": "1.0.1",
+            "ianmackenzie/elm-float-extra": "1.1.0",
+            "ianmackenzie/elm-geometry-linear-algebra-interop": "2.0.1",
+            "ianmackenzie/elm-interval": "2.0.0",
+            "ianmackenzie/elm-triangular-mesh": "1.0.2",
+            "ianmackenzie/elm-units-interval": "1.0.0"
+        }
+    },
+    "test-dependencies": {
+        "direct": {},
+        "indirect": {}
+    }
+}
