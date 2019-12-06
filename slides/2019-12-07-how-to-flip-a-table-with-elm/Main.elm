@@ -367,12 +367,12 @@ demo =
 
 links : List (Content model msg)
 links =
-    [ title "リンク" |> position 100 50
-    , bullets
-        [ bulletLink "ちゃぶ台返しのコード" "https://github.com/ianmackenzie/elm-3d-scene/blob/master/examples/Lack.elm"
+    [ bullets
+        [ bulletLink "「ちゃぶ台返し」のコード" "https://github.com/ianmackenzie/elm-3d-scene/blob/master/examples/Lack.elm"
         , bulletLink "elm-physicsについて" "https://discourse.elm-lang.org/search?q=%223D%20Physics%20Engine%22"
+        , bulletLink "新しいelm-geometryについて" "https://discourse.elm-lang.org/t/elm-geometry-3-now-with-units-and-coordinate-systems/4780"
         , bulletLink "elm-3d-sceneの発表" "https://www.youtube.com/watch?v=Htqc64s5qYU"
         , bulletLink "影のレンダリング" "https://discourse.elm-lang.org/t/rendering-real-time-shadows-in-webgl-using-shadow-volumes/4029"
         ]
-        |> position 100 180
+        |> position 100 50
     ]

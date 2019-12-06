@@ -7098,16 +7098,12 @@ var $author$project$Main$links = _List_fromArray(
 		$author$project$Formatting$position,
 		100,
 		50,
-		$author$project$Formatting$title('リンク')),
-		A3(
-		$author$project$Formatting$position,
-		100,
-		180,
 		$author$project$Formatting$bullets(
 			_List_fromArray(
 				[
-					A2($author$project$Formatting$bulletLink, 'ちゃぶ台返しのコード', 'https://github.com/ianmackenzie/elm-3d-scene/blob/master/examples/Lack.elm'),
+					A2($author$project$Formatting$bulletLink, '「ちゃぶ台返し」のコード', 'https://github.com/ianmackenzie/elm-3d-scene/blob/master/examples/Lack.elm'),
 					A2($author$project$Formatting$bulletLink, 'elm-physicsについて', 'https://discourse.elm-lang.org/search?q=%223D%20Physics%20Engine%22'),
+					A2($author$project$Formatting$bulletLink, '新しいelm-geometryについて', 'https://discourse.elm-lang.org/t/elm-geometry-3-now-with-units-and-coordinate-systems/4780'),
 					A2($author$project$Formatting$bulletLink, 'elm-3d-sceneの発表', 'https://www.youtube.com/watch?v=Htqc64s5qYU'),
 					A2($author$project$Formatting$bulletLink, '影のレンダリング', 'https://discourse.elm-lang.org/t/rendering-real-time-shadows-in-webgl-using-shadow-volumes/4029')
 				])))
