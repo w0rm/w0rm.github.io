@@ -235,13 +235,14 @@ rendering3 : List (Content model msg)
 rendering3 =
     [ title "レンダリング・座標系変換" |> position 100 50
     , code """drawables =
-    List.map
-        (\\body ->
+    world
+      |> World.getBodies
+      |> List.map
+          (\\body ->
             Drawable.placeIn
-                (Body.getFrame3d body)
-                (Body.getData body).drawable
-        )
-        (World.getBodies world)
+              (Body.getFrame3d body)
+              (Body.getData body).drawable
+          )
 """ |> position 100 180
     ]
 

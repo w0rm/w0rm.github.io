@@ -7234,7 +7234,7 @@ var $author$project$Main$rendering3 = _List_fromArray(
 		$author$project$Formatting$position,
 		100,
 		180,
-		$author$project$Formatting$code('drawables =\n    List.map\n        (\\body ->\n            Drawable.placeIn\n                (Body.getFrame3d body)\n                (Body.getData body).drawable\n        )\n        (World.getBodies world)\n'))
+		$author$project$Formatting$code('drawables =\n    world\n      |> World.getBodies\n      |> List.map\n          (\\body ->\n            Drawable.placeIn\n              (Body.getFrame3d body)\n              (Body.getData body).drawable\n          )\n'))
 	]);
 var $author$project$Main$rendering4 = _List_fromArray(
 	[
