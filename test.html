@@ -1,0 +1,88 @@
+<html>
+
+<head>
+  <style>
+    :root {
+      /* Distance between the baselines */
+      --baseline: 12px;
+      --line-gap: 0px;
+      --baselines: 2;
+
+      --font-family: system-ui;
+      --measured-font-size: 2048;
+      /* Computed props:
+      --measured-bb-height
+      --measured-bb-descent
+      */
+
+      /* Define 1rem to equal distance between the baselines */
+      font-size: var(--baseline);
+    }
+
+    .p,
+    .h2,
+    .h1 {
+      font-family: var(--font-family);
+      --ratio: (var(--baseline) * var(--baselines) - var(--line-gap)) / var(--measured-bb-height);
+      margin: 1rem 0 0;
+      position: relative;
+      top: calc(var(--measured-bb-descent) * var(--ratio) + 0.5 * var(--line-gap));
+      font-size: calc(var(--measured-font-size) * var(--ratio));
+      line-height: calc(1rem * var(--baselines));
+    }
+
+    .h2 {
+      --baselines: 3;
+      --line-gap: -4px;
+      font-weight: normal;
+    }
+
+    .h1 {
+      --baselines: 4;
+      --line-gap: -10.5px;
+      font-weight: normal;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .baseline-grid {
+      background: linear-gradient(white calc(1rem - 1px), red calc(1rem - 1px)) 0 1px / 1px 1rem;
+    }
+
+    .t {
+      background: rgba(255, 0, 0, 30%);
+      height: 6rem;
+      width: 50vw;
+    }
+  </style>
+
+  <script>
+    const computedStyle = getComputedStyle(document.documentElement);
+    const fontFamily = computedStyle.getPropertyValue("--font-family");
+    const size = computedStyle.getPropertyValue("--measured-font-size");
+    const ctx = document.createElement("canvas").getContext("2d");
+    ctx.font = size + "px " + fontFamily;
+    const { fontBoundingBoxDescent, fontBoundingBoxAscent } = ctx.measureText("x");
+    const style = document.documentElement.style;
+    style.setProperty("--measured-bb-descent", fontBoundingBoxDescent);
+    style.setProperty("--measured-bb-height", fontBoundingBoxAscent + fontBoundingBoxDescent);
+  </script>
+</head>
+
+<body class="baseline-grid" onkeypress="window.event.key == 'g' && this.classList.toggle('baseline-grid')">
+  <h1 class="h1">Header Header Header Header Header Header Header Header Header</h1>
+  <p class="p">Text</p>
+  <div class="t">
+    <p class="p">Text</p>
+  </div>
+  <h2 class="h2">Header header header header header header header header header header header header header header</h1>
+    <p class="p">Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+      Text
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text
+      Text Text Text Text Text Text Text Text Text Text Text Text Text Text</p>
+</body>
+
+</html>
