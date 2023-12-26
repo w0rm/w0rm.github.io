@@ -1,39 +1,60 @@
-#show heading: set text(font: "Helvetica Neue")
 #show link: underline
 
-#set text(size: 12pt, font: "Times")
-#set page(margin: (x: 2cm, y: 2cm))
+#set text(size: 10pt, font: "Helvetica Neue")
+#show heading: set text(size: 18pt, weight: "regular")
+#set page(margin: (left: 7cm, right: 2cm, y: 1.5cm))
 
-= Andrey Kuzmin #h(1fr) #text(size: 12pt, weight: "regular", font: "Times")[Berlin, Germany]
+#let caps(body) = [#linebreak()#text(weight: "bold", tracking: 0.5pt)[#upper[#body]]]
 
-he/him
-#h(2pt)•#h(2pt)
-#link("mailto:hi\@unsoundscapes.com")[hi\@unsoundscapes.com]
-#h(2pt)•#h(2pt)
-#link("https://unsoundscapes.com")[unsoundscapes.com]
-#h(2pt)•#h(2pt)
-#link("https://github.com/w0rm")[github.com/w0rm]
+#set list(indent: -9pt)
 
-#v(3pt)
+#place(
+  top + left,
+  dx: -6cm,
+  block(
+    width: 6cm
+  )[
+    = Andrey Kuzmin
 
+    he/him
+
+    #v(58pt)
+
+    #caps[Contact]
+
+    Berlin, Germany
+    #linebreak()
+
+    #link("https://unsoundscapes.com")[unsoundscapes.com]\
+    #link("https://github.com/w0rm")[github.com/w0rm]\
+    #link("https://twitter.com/unsoundscapes")[twitter.com/unsoundscapes]\
+    #link("https://linkedin.com/in/unsoundscapes/")[linkedin.com/in/unsoundscapes]
+    #linebreak()
+
+    #link("mailto:hi\@unsoundscapes.com")[hi\@unsoundscapes.com]
+  ],
+)
+
+#v(7pt)
 I am a Software Engineer with 18 years of experience in web technologies and distributed systems.
 
 With a hands-on approach, I'm committed to delivering impactful products by bridging gaps across frontend,
 backend, and infrastructure. I code in multiple languages, mentor junior engineers, enhance developer experience, design scalable solutions and troubleshoot complex issues.
 
-== Work Experience
+#caps[Work Experience]
 
 #let titleline(role, company, time) = [
-  #box(width: 140pt)[*#role*]
+  *#role*
   #h(1fr)
   *#company*
-  #h(1fr)
-  #box(width: 150pt)[#set align(right);#time]
+  #h(5pt)•#h(5pt)
+  #set text(gray);
+  #time
 ]
 
 #titleline([Staff Software Engineer], [Arrival], [May 2022--Present])
-- Led the integration of Web UI into a company-wide suite of tools to facilitate the adoption
-- Led the authentication upgrade across multiple systems to address security risks
+- Led the integration of web apps into a company-wide suite of tools to facilitate adoption
+- Led the authentication upgrade across multiple systems to enable single sign on and address security risks
 - Mentored junior software engineers in Elm and Rust
 - Simplified infrastructure to reduce AWS spendings (roughly 2k a month) and maintenance costs
 - Designed the GraphQL API for exposing computation results and led the implementation in Rust
@@ -69,23 +90,19 @@ backend, and infrastructure. I code in multiple languages, mentor junior enginee
 - Contributed to frontend team growth by interviewing candidates
 - #link("https://engineering.zalando.com/authors/andrey-kuzmin.html")[Wrote articles] for the company engineering blog
 
-#block(width: 100%)[
-  #set align(center);
-  #set text(gray);
-  continues on next page
-]
+#pagebreak()
 
-== Education
+#caps[Education]
 
-*Novgorod State University named after Yaroslav-the-Wise*
-#h(1fr)Sep 2002--Jun 2007 \
-Engineer’s degree, Computer Software Engineering#h(1fr)Veliky Novgorod, Russia
+*Novgorod State University*
+#h(1fr)#text(gray)[Sep 2002--Jun 2007] \
+Engineer’s degree, Software Engineering#h(1fr)Veliky Novgorod, Russia
 
-== Skills
+#caps[Skills]
 
 Frontend • Backend • Rust • Python • TypeScript • Elm • Ruby • Scala • Nix • Distributed Systems • Continuous Delivery • Functional Programming • SQL • Node.js • React.js • AWS • K8s • WebGL
 
-== Projects
+#caps[Projects]
 
 *Prometheus Alertmanager*#h(1fr)#link("https://github.com/prometheus/alertmanager")[github.com/prometheus/alertmanager] \
 Manages alerts sent from Prometheus. I designed and developed the UI and reviewed the changes from other contributors.
@@ -99,10 +116,11 @@ Various browser games that I created at game jams and hackathons. I also organiz
 *Elm OBJ File*#h(1fr)#link("https://github.com/w0rm/elm-obj-file")[github.com/w0rm/elm-obj-file] \
 A neat way to load and transform 3D geometry from the OBJ file format in one go with composable decoders.
 
-== Outreach and Public Speaking
+#caps[Outreach and Public Speaking]
 
-In 2018--2021, I organized the Elm Berlin meetup and ElmBridge, a bimonthly workshop dedicated to teaching Elm to folks from underrepresented groups in tech. Additionally, I presented at functional programming conferences, most notably Curry On, Elm Conf (Strange Loop preconf), and Lambda Days.
+In 2018--2021, I organized the Elm Berlin meetup and ElmBridge, \
+a bimonthly workshop dedicated to teaching Elm to folks from underrepresented groups in tech. Additionally, I presented at functional programming conferences, most notably Curry On, Elm Conf (Strange Loop preconf), and Lambda Days.
 
-== Hobbies
+#caps[Hobbies]
 
 My hobbies include yoga, going to concerts and learning 日本語.
