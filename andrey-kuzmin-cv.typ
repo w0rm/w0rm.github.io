@@ -4,7 +4,7 @@
 #show heading: set text(size: 18pt, weight: "regular")
 #set page(margin: (left: 7cm, right: 2cm, y: 1.5cm))
 
-#let caps(body) = [#linebreak()#text(weight: "bold", tracking: 0.5pt)[#upper[#body]]]
+#let caps(body) = [#v(7pt)#text(weight: "bold", tracking: 0.5pt)[#upper[#body]]]
 
 #set list(indent: -9pt)
 
@@ -18,7 +18,7 @@
 
     he/him
 
-    #v(58pt)
+    #v(39pt)
 
     #caps[Contact]
 
@@ -36,14 +36,12 @@
 )
 
 #v(7pt)
-I am a Software Engineer with 18 years of experience in web technologies and distributed systems.
-
-With a hands-on approach, I'm committed to delivering impactful products by bridging gaps across frontend,
-backend, and infrastructure. I code in multiple languages, mentor junior engineers, enhance developer experience, design scalable solutions and troubleshoot complex issues.
+I am a Software Engineer with 18 years of experience in web technologies and distributed systems. I bridge gaps across frontend, backend, and infrastructure to deliver impactful products. I use my diverse experience and skillset to mentor junior engineers, design scalable systems, and troubleshoot complex issues.
 
 #caps[Work Experience]
 
 #let titleline(role, company, time) = [
+  #v(7pt)
   *#role*
   #h(1fr)
   *#company*
@@ -53,40 +51,38 @@ backend, and infrastructure. I code in multiple languages, mentor junior enginee
 ]
 
 #titleline([Staff Software Engineer], [Arrival], [May 2022--Present])
-- Led the integration of web apps into a company-wide suite of tools to facilitate adoption
-- Led the authentication upgrade across multiple systems to enable single sign on and address security risks
-- Mentored junior software engineers in Elm and Rust
-- Simplified infrastructure to reduce AWS spendings (roughly 2k a month) and maintenance costs
-- Designed the GraphQL API for exposing computation results and led the implementation in Rust
-- Sped up CI pipelines using Nix (saved 5 minutes on average)
+- Led integration of web apps into a company-wide suite of tools to facilitate discovery and adoption
+- Coordinated authentication upgrade across multiple teams and systems to enable single sign on and address security risks
+- Mentored 4 software and computational engineers in Elm, Rust and Python
+- Saved \$2k per month on AWS and reduced maintenance costs by simplifying computational infrastructure
+- Managed stakeholders and led 3 engineers to expose the estimated costs for EV parts through GraphQL API in Rust
+- Reduced CI time by 5 minutes on average for pipelines that rely on Nix
 
 #titleline([Senior Software Engineer], [Arrival], [Feb 2021--Apr 2022])
-- Developed software for automated cost and manufacturability estimation
-- Developed a browser UI with interactive 3D visualisation
-- Evolved the in-house computation platform to deliver user facing product
+- Developed a tool for designers to estimate manufacturing cost of EV parts
+- Developed browser UI with interactive 3D visualisation for the tool
 - Designed a secure method to share computation result files
-- Sped up the CI pipeline for the UI monorepo from 20 to 5 minutes
+- Reduced CI time from 20 to 5 minutes by simplifying the build and deploy process of the UI monorepo
 
 #titleline([Senior Software Engineer], [SoundCloud],
 [Apr 2018--Jan 2021])
-- Introduced end-to-end tests for the major checkout flows, ensuring confident deployments
-- Unified the checkout UI across web, mobile web and Android webview
-- Participated in on call rotation for the payments services and the web frontend
-- Led the implementation of the new checkout flow for Mastering
-- Led the effort to upgrade the legacy SDK to enable new payment methods
-- Guided junior software engineers in TypeScript and React.js
-- Conducted interviews with engineers and designers, reviewed coding challenges
+- Ensured confident deployments with end-to-end tests of payment flows
+- Halved develpoment time of marketing campaigns and new payment features by unifying the UI codebase across web, mobile web and Android
+- Served in on call rotations for payment services and web frontend
+- Led 3 engineers to implement new payment flow for Mastering, upgrade legacy paymend SDK and enable new payment methods
+- Mentored 2 junior engineers in TypeScript and React.js
+- Conducted interviews with frontend and backend engineers and designers, reviewed coding challenges
 
 #titleline([Software Engineer], [SoundCloud], [Oct 2016--May 2018])
-- Developed the Play queue feature on web, also called "Next up"
-- Developed the SoundCloud app on Xbox and Windows
-- Led the development of the new home page on web, powered by recommendation systems
-- Led the development of the GDPR settings page on web
+- Developed Play queue on web, also called "Next up"
+- Developed SoundCloud app on Xbox and Windows
+- Led development of the new home page on web, powered by recommendation systems
+- Led development of the GDPR settings page on web
 - Set up dashboards for web platform KPIs
 
 #titleline([Senior Frontend Engineer], [Zalando], [Sep 2014--Sep 2016])
-- Designed and implemented a #link("https://www.oreilly.com/content/better-streaming-layouts-for-frontend-microservices-with-tailor/")[service for frontend microservices], that allowed teams develop and deploy their fragments of the Zalando website independently of each other
-- Collaborated with the checkout team to move their product to the new frontend architecture and implement the new checkout UI in React and backend in Node.js
+- Enabled teams develop and deploy their fragments of the Zalando website independently of each other, invented and implemented a #link("https://www.oreilly.com/content/better-streaming-layouts-for-frontend-microservices-with-tailor/")[service for frontend microservices]
+- Led 4 engineers in the checkout team to move their product to the new frontend architecture and implement the new checkout UI in React and backend in Node.js
 - Contributed to frontend team growth by interviewing candidates
 - #link("https://engineering.zalando.com/authors/andrey-kuzmin.html")[Wrote articles] for the company engineering blog
 
@@ -118,7 +114,7 @@ A neat way to load and transform 3D geometry from the OBJ file format in one go 
 
 #caps[Outreach and Public Speaking]
 
-In 2018--2021, I organized the Elm Berlin meetup and ElmBridge, \
+In 2017--2020, I organized the Elm Berlin meetup and ElmBridge, \
 a bimonthly workshop dedicated to teaching Elm to folks from underrepresented groups in tech. Additionally, I presented at functional programming conferences, most notably Curry On, Elm Conf (Strange Loop preconf), and Lambda Days.
 
 #caps[Hobbies]
