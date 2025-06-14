@@ -451,7 +451,7 @@ poolDemo =
 
 links : List Content
 links =
-    [ title "ありがとうございます！" |> position 100 50
+    [ title "ありがとうございました！" |> position 100 50
     , bullets
         [ bulletLink "w0rm/elm-obj-file" "https://package.elm-lang.org/packages/w0rm/elm-obj-file/latest"
         , bulletLink "elm/jsonについて日本語で" "https://guide.elm-lang.jp/effects/json.html#jsonデコーダー"
