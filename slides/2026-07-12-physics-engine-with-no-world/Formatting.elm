@@ -9,6 +9,7 @@ module Formatting exposing
     , col
     , color
     , cover
+    , coverFocus
     , font
     , footnote
     , group
@@ -21,6 +22,7 @@ module Formatting exposing
     , row
     , scale
     , spacer
+    , swatch
     , text
     , timeline
     , title
@@ -105,6 +107,27 @@ text txt =
 footnote : String -> Content model msg
 footnote txt =
     item (Html.span [ font False 24 ] [ Html.text txt ])
+
+
+{-| A footnote-sized line with a colored square in front — a legend entry.
+-}
+swatch : String -> String -> Content model msg
+swatch swatchColor txt =
+    item
+        (Html.span [ font False 24 ]
+            [ Html.span
+                [ style "display" "inline-block"
+                , style "width" "18px"
+                , style "height" "18px"
+                , style "background" swatchColor
+                , style "border-radius" "3px"
+                , style "margin-right" "12px"
+                , style "vertical-align" "-1px"
+                ]
+                []
+            , Html.text txt
+            ]
+        )
 
 
 link : String -> Content model msg -> Content model msg
@@ -226,13 +249,16 @@ code str =
     item (Html.pre [ style "margin" "0" ] [ Html.code [ style "font" "36px monospace", style "margin" "0" ] [ Html.text str ] ])
 
 
+{-| A cropped image tile. The percentage picks the vertical window of the
+source image (0 = top, 100 = bottom); `Nothing` keeps the top.
+-}
 cover : Int -> Int -> Maybe Int -> String -> Content model msg
 cover w h percentage url =
     let
         bg =
             case percentage of
                 Just p ->
-                    "url(" ++ url ++ ") " ++ String.fromInt p ++ "% 0% / cover"
+                    "url(" ++ url ++ ") 0% " ++ String.fromInt p ++ "% / cover"
 
                 Nothing ->
                     "url(" ++ url ++ ") 0% 0% / cover"
@@ -240,6 +266,33 @@ cover w h percentage url =
     item
         (Html.div
             [ Html.Attributes.style "background" bg
+            , Html.Attributes.style "width" (String.fromInt w ++ "px")
+            , Html.Attributes.style "height" (String.fromInt h ++ "px")
+            ]
+            []
+        )
+
+
+{-| A cropped image tile that can zoom past the box: the source is rendered
+`imageWidth` px wide (height auto), then `( xp, yp )` picks which part of it
+shows through the w×h window (both in percent, 50/50 = centred). Larger
+`imageWidth` = tighter zoom.
+-}
+coverFocus : Int -> Int -> Int -> ( Int, Int ) -> String -> Content model msg
+coverFocus w h imageWidth ( xp, yp ) url =
+    item
+        (Html.div
+            [ Html.Attributes.style "background"
+                ("url("
+                    ++ url
+                    ++ ") "
+                    ++ String.fromInt xp
+                    ++ "% "
+                    ++ String.fromInt yp
+                    ++ "% / "
+                    ++ String.fromInt imageWidth
+                    ++ "px auto no-repeat"
+                )
             , Html.Attributes.style "width" (String.fromInt w ++ "px")
             , Html.Attributes.style "height" (String.fromInt h ++ "px")
             ]

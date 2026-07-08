@@ -23,9 +23,11 @@ import Cone3d
 import Cylinder3d
 import Direction3d
 import Duration exposing (Duration)
+import Formatting exposing (font)
 import Frame3d
 import Html exposing (Html)
 import Html.Attributes
+import Html.Events.Extra.Pointer as PointerEvents
 import Json.Decode
 import Length exposing (Meters)
 import Mass
@@ -107,12 +109,12 @@ initialBodies : List ( Id, Body )
 initialBodies =
     ( Floor, Physics.plane Plane3d.xy Physics.Material.wood )
         :: List.map crate
-            [ Point3d.meters 1 -11 0.5
-            , Point3d.meters 0 -11 0.5
-            , Point3d.meters -1 -11 0.5
-            , Point3d.meters 0.5 -11 1.5
-            , Point3d.meters -0.5 -11 1.5
-            , Point3d.meters 0 -11 2.5
+            [ Point3d.meters 3.3 -9 0.5
+            , Point3d.meters 2.3 -9 0.5
+            , Point3d.meters 1.3 -9 0.5
+            , Point3d.meters 2.8 -9 1.5
+            , Point3d.meters 1.8 -9 1.5
+            , Point3d.meters 2.3 -9 2.5
             ]
 
 
@@ -161,7 +163,7 @@ update msg model =
                     ( Car (Jeep.wheels jeep)
                     , Physics.dynamic jeep.collider
                         |> Physics.scaleMassTo (Mass.kilograms 4000)
-                        |> Physics.moveTo (Point3d.meters 0 0 3)
+                        |> Physics.moveTo (Point3d.meters -7.6 -1.25 3)
                     )
             in
             ( { model
@@ -279,6 +281,9 @@ view model =
         [ Html.Attributes.style "position" "absolute"
         , Html.Attributes.style "left" "0"
         , Html.Attributes.style "top" "0"
+        , Html.Attributes.style "user-select" "none"
+        , Html.Attributes.style "-webkit-user-select" "none"
+        , Html.Attributes.style "-webkit-touch-callout" "none"
         ]
         [ Scene3d.sunny
             { upDirection = Direction3d.positiveZ
@@ -298,7 +303,68 @@ view model =
                     Nothing ->
                         []
             }
+        , controls model
         ]
+
+
+controls : Model -> Html Msg
+controls model =
+    Html.div
+        [ Html.Attributes.style "position" "absolute"
+
+        -- 100px slide margin minus the buttons' own 5px margin, so the
+        -- button borders align with the 1180/675 content edges
+        , Html.Attributes.style "right" "95px"
+        , Html.Attributes.style "bottom" "40px"
+        , Html.Attributes.style "text-align" "center"
+        , Html.Attributes.style "width" "210px"
+        ]
+        [ Html.div [] [ controlButton 60 (model.speeding == 1) "W" (KeyDown (Speed 1)) (KeyUp (Speed 1)) ]
+        , Html.div []
+            [ controlButton 60 (model.steering == -1) "A" (KeyDown (Steer -1)) (KeyUp (Steer -1))
+            , controlButton 60 (model.speeding == -1) "S" (KeyDown (Speed -1)) (KeyUp (Speed -1))
+            , controlButton 60 (model.steering == 1) "D" (KeyDown (Steer 1)) (KeyUp (Steer 1))
+            ]
+        , Html.div [] [ controlButton 200 model.braking "Space" (KeyDown Brake) (KeyUp Brake) ]
+        ]
+
+
+controlButton : Int -> Bool -> String -> Msg -> Msg -> Html Msg
+controlButton buttonWidth active label msg1 msg2 =
+    Html.button
+        [ Html.Attributes.style "display" "inline-block"
+        , Html.Attributes.style "margin" "5px"
+        , Html.Attributes.style "border" "2px solid rgba(0, 0, 0, 0.35)"
+        , Html.Attributes.style "border-radius" "4px"
+        , Html.Attributes.style "text-align" "center"
+        , Html.Attributes.style "cursor" "pointer"
+        , Html.Attributes.style "width" (String.fromInt buttonWidth ++ "px")
+        , Html.Attributes.style "height" "60px"
+        , Html.Attributes.style "line-height" "60px"
+        , Html.Attributes.style "user-select" "none"
+        , Html.Attributes.style "-webkit-user-select" "none"
+        , Html.Attributes.style "-webkit-touch-callout" "none"
+        , Html.Attributes.style "touch-action" "manipulation"
+        , Html.Attributes.style "background"
+            (if active then
+                "rgba(0, 0, 0, 0.35)"
+
+             else
+                "transparent"
+            )
+        , Html.Attributes.style "padding" "0"
+        , Html.Attributes.style "color"
+            (if active then
+                "white"
+
+             else
+                "rgba(0, 0, 0, 0.35)"
+            )
+        , font False 32
+        , PointerEvents.onDown (\_ -> msg1)
+        , PointerEvents.onUp (\_ -> msg2)
+        ]
+        [ Html.text label ]
 
 
 showCollider : Float -> Bool

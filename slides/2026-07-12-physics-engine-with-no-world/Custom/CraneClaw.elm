@@ -23,9 +23,11 @@ import Camera3d exposing (Camera3d)
 import Color exposing (Color)
 import Cylinder3d
 import Direction3d
+import Formatting exposing (font)
 import Frame3d
 import Html exposing (Html)
 import Html.Attributes
+import Html.Events.Extra.Pointer as PointerEvents
 import Http
 import Json.Decode
 import Length exposing (Meters)
@@ -982,11 +984,15 @@ jeepAt jeep x y angle =
 -- VIEW
 
 
+{-| The eye and focal points are shifted by the same offset from the machine
+at the origin — a pure pan that puts the machine center-left and raised,
+clear of the title, with the bottom-right corner free for the buttons.
+-}
 camera : Camera3d Meters WorldCoordinates
 camera =
     Camera3d.lookAt
-        { eyePoint = Point3d.meters -11 -20 15
-        , focalPoint = Point3d.meters 0 0 4
+        { eyePoint = Point3d.meters -12.1 -20.2 13.65
+        , focalPoint = Point3d.meters -1.1 -0.2 2.65
         , upDirection = Direction3d.positiveZ
         , projection = Camera3d.Perspective
         , fov = Camera3d.angle (Angle.degrees 30)
@@ -1022,6 +1028,9 @@ view model =
         [ Html.Attributes.style "position" "absolute"
         , Html.Attributes.style "left" "0"
         , Html.Attributes.style "top" "0"
+        , Html.Attributes.style "user-select" "none"
+        , Html.Attributes.style "-webkit-user-select" "none"
+        , Html.Attributes.style "-webkit-touch-callout" "none"
         ]
         [ Scene3d.sunny
             { upDirection = Direction3d.positiveZ
@@ -1035,7 +1044,68 @@ view model =
                 List.concatMap (bodyToEntities model) model.bodies
                     ++ armEntities
             }
+        , controls model
         ]
+
+
+controls : Model -> Html Msg
+controls model =
+    Html.div
+        [ Html.Attributes.style "position" "absolute"
+
+        -- 100px slide margin minus the buttons' own 5px margin, so the
+        -- button borders align with the 1180/675 content edges
+        , Html.Attributes.style "right" "95px"
+        , Html.Attributes.style "bottom" "40px"
+        , Html.Attributes.style "text-align" "center"
+        , Html.Attributes.style "width" "210px"
+        ]
+        [ Html.div [] [ controlButton 60 model.movingBack "W" (KeyDown MoveBack) (KeyUp MoveBack) ]
+        , Html.div []
+            [ controlButton 60 model.movingLeft "A" (KeyDown MoveLeft) (KeyUp MoveLeft)
+            , controlButton 60 model.movingForward "S" (KeyDown MoveForward) (KeyUp MoveForward)
+            , controlButton 60 model.movingRight "D" (KeyDown MoveRight) (KeyUp MoveRight)
+            ]
+        , Html.div [] [ controlButton 200 (model.phase /= Idle) "Space" (KeyDown Grab) (KeyUp Grab) ]
+        ]
+
+
+controlButton : Int -> Bool -> String -> Msg -> Msg -> Html Msg
+controlButton buttonWidth active label msg1 msg2 =
+    Html.button
+        [ Html.Attributes.style "display" "inline-block"
+        , Html.Attributes.style "margin" "5px"
+        , Html.Attributes.style "border" "2px solid rgba(0, 0, 0, 0.35)"
+        , Html.Attributes.style "border-radius" "4px"
+        , Html.Attributes.style "text-align" "center"
+        , Html.Attributes.style "cursor" "pointer"
+        , Html.Attributes.style "width" (String.fromInt buttonWidth ++ "px")
+        , Html.Attributes.style "height" "60px"
+        , Html.Attributes.style "line-height" "60px"
+        , Html.Attributes.style "user-select" "none"
+        , Html.Attributes.style "-webkit-user-select" "none"
+        , Html.Attributes.style "-webkit-touch-callout" "none"
+        , Html.Attributes.style "touch-action" "manipulation"
+        , Html.Attributes.style "background"
+            (if active then
+                "rgba(0, 0, 0, 0.35)"
+
+             else
+                "transparent"
+            )
+        , Html.Attributes.style "padding" "0"
+        , Html.Attributes.style "color"
+            (if active then
+                "white"
+
+             else
+                "rgba(0, 0, 0, 0.35)"
+            )
+        , font False 32
+        , PointerEvents.onDown (\_ -> msg1)
+        , PointerEvents.onUp (\_ -> msg2)
+        ]
+        [ Html.text label ]
 
 
 bodyToEntities : Model -> ( Id, Body ) -> List (Scene3d.Entity WorldCoordinates)

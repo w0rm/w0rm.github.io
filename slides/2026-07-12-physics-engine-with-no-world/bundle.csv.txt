@@ -1,0 +1,6 @@
+target,variant,minified_kb,min_gzip_kb
+physics_only,elm_app_dce,63.3,21.9
+physics_only,cannon_es_treeshaken,80.7,23.6
+physics_only,cannon_es_full_lib,136.2,35.7
+rendered,elm_elm3dscene,234,51.4
+rendered,threejs_cannon_es,537.5,138.3

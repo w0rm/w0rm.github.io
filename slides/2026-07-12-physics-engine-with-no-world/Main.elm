@@ -1,7 +1,8 @@
 module Main exposing (main)
 
 import Custom exposing (Content)
-import Formatting exposing (background, bullet, bulletLink, bullets, code, color, footnote, image, nextButton, position, prevButton, scale, text, timeline, title, width)
+import Custom.Charts
+import Formatting exposing (background, bullet, bulletLink, bullets, code, color, footnote, image, nextButton, position, prevButton, scale, swatch, timeline, title, width)
 import SliceShow exposing (Message, Model, hide)
 
 
@@ -14,16 +15,17 @@ main =
     , point2020
     , point2026
     , declarativeVsOop
-    , oneFunction
-    , constraintFunction
+    , createBody
     , typesCatch
     , buildShapes
-    , sameInOut
+    , massDerived
+    , rulesFunction
+    , pureFunction
     , costSlower
     , payoffStack
     , payoffSize
     , lessons
-    , wholeLoop
+    , madeWithElmPhysics
     , resources
     ]
         |> List.map addMobileNavigationButtons
@@ -54,12 +56,13 @@ top =
     152
 
 
-{-| A single table cell, positioned on a grid.
+{-| Left edge of the right-hand column (demos, second code panel, their
+captions), shared by every two-column slide. Columns are 520 wide: left
+spans 100–620, right spans 660–1180 — the same 100px margin on both sides.
 -}
-gridText : Int -> Int -> String -> Content
-gridText x y string =
-    footnote string |> position x y
-
+right : Int
+right =
+    660
 
 
 -- COVER (CraneClaw demo) -----------------------------------------------------
@@ -71,7 +74,6 @@ cover =
     , title "世界がない物理エンジン" |> position left 40
     , footnote "アンドレイ — Andrey Kuzmin (@unsoundscapes)" |> position left 600
     , footnote "3Dモデル設計：Kolja Wilcke（@01k）" |> position left 645
-    , footnote "WASD で動かす・Space でつかむ" |> color "#333" |> position 880 645
     ]
 
 
@@ -97,7 +99,7 @@ pointHeader heading =
 
 timelineOverview : List Content
 timelineOverview =
-    [ title "elm-physics の歩み" |> position left 40
+    [ title "World を手放すまでの歩み" |> position left 40
     , timeline { width = 1180, active = -1, headlines = True } historyNodes
         |> position 50 340
     ]
@@ -123,10 +125,9 @@ simulatedWorld =
     Physics.step (1 / 60) world"""
                 |> scale 0.55
                 |> position left top
-           , Formatting.cover 400 400 Nothing "sharing-results.jpg" |> position 780 210
-           , footnote "Evan も共有してくれた" |> position 780 645
-           , footnote "簡単だが、動いた" |> position left 600
-           , footnote "課題：単位なし・Int id が面倒" |> position left 645
+           , Formatting.coverFocus 420 340 690 ( 63, 40 ) "sharing-results.jpg" |> position 760 top
+           , footnote "Evan さんも共有してくれた" |> position 760 505
+           , footnote "問題：単位なし・Int id が面倒" |> position left 645
            , Custom.dice { width = 1280, height = 720 } |> position 0 0 |> hide
            ]
 
@@ -134,7 +135,8 @@ simulatedWorld =
 point2019 : List Content
 point2019 =
     pointHeader "型のある形と単位"
-        ++ [ code """type Id = Floor | Mouse | Table
+        ++ [ footnote "elm-geometry の形 ＋ elm-units の単位" |> position left top
+           , code """type Id = Floor | Mouse | Table
 
 tableBlocks =
     [ Block3d.from (Point3d.millimeters 222 222 0)
@@ -151,14 +153,13 @@ world : World Id
 world =
     World.empty |> World.add table"""
                 |> scale 0.52
-                |> position left top
-           , image 165 474 "lack-dimensions.png" |> position 788 200
-           , Formatting.cover 215 150 Nothing "lack-1.jpg" |> position 965 200
-           , Formatting.cover 215 150 Nothing "lack-2.jpg" |> position 965 362
-           , Formatting.cover 215 150 Nothing "lack-3.jpg" |> position 965 524
+                |> position left 210
+           , image 165 474 "lack-dimensions.png" |> position 788 top
+           , Formatting.cover 215 150 Nothing "lack-1.jpg" |> position 965 top
+           , Formatting.cover 215 150 Nothing "lack-2.jpg" |> position 965 314
+           , Formatting.cover 215 150 Nothing "lack-3.jpg" |> position 965 476
+           , footnote "ベルリンの路上の IKEA Lack" |> position 788 645
            , Custom.lack { width = 1280, height = 720 } |> position 0 0 |> hide
-           , footnote "elm-geometry の形 ＋ elm-units の単位" |> position left 600
-           , footnote "単位・座標の取り違えを型が防ぐ" |> position left 645
            ]
 
 
@@ -166,18 +167,20 @@ point2020 : List Content
 point2020 =
     pointHeader "任意の3D形状"
         ++ [ code """collider =
-    List.map Shape.unsafeConvex [ convexBase, convexWindow ]
+    List.map Shape.unsafeConvex
+        [ convexBase, convexWindow ]
 
 jeep : Body Id
 jeep =
     Body.compound collider Car
-        |> Body.withBehavior (Body.dynamic (Mass.kilograms 4000))"""
+        |> Body.withBehavior
+            (Body.dynamic (Mass.kilograms 4000))"""
                 |> scale 0.55
                 |> position left top
-           , image 200 200 "obj-body.png" |> position 760 435
-           , footnote "描画用" |> position 760 645
-           , image 200 200 "obj-collider.png" |> position 980 435
-           , footnote "衝突判定用" |> position 980 645
+           , image 200 200 "obj-body.png" |> position 760 top
+           , footnote "描画用" |> position 760 362
+           , image 200 200 "obj-collider.png" |> position 980 top
+           , footnote "衝突判定用" |> position 980 362
            , Custom.raycastCar { width = 1280, height = 720 } |> position 0 0 |> hide
            , footnote "メッシュを凸の衝突形状に・正しい慣性で転がる" |> position left 600
            , footnote "メッシュ読み込みは去年の発表で（elm-obj-file）" |> position left 645
@@ -187,150 +190,222 @@ jeep =
 point2026 : List Content
 point2026 =
     pointHeader "World を削除"
-        ++ [ code """simulate :
+        ++ [ footnote "１フレーム進める関数、8年ぶん：" |> position left top
+           , code """-- 2018
+step : Time -> World -> World
+
+-- 2020
+simulate : Duration -> World data -> World data
+
+-- 2026 — World が型から消えた
+simulate :
     Config id
     -> List ( id, Body )
     -> ( List ( id, Body ), Contacts id )"""
-                |> scale 0.55
-                |> position left top
-           , footnote "リスト入力・出力／宣言的" |> position left 470
-           , Custom.character { width = 560, height = 470 } |> position 690 210
-           , footnote "WASD で歩く・Space でジャンプ" |> position 720 690
+                |> scale 0.65
+                |> position left 210
+           , footnote "物体はエンジンの中ではなく、あなたの Model の中へ" |> position left 645
            ]
+
+
+
+-- 🎤 同じ役目の関数を8年分。2018も2020も、型の真ん中に World がいる。2026年、消えた。リストが入って、リストが出てくる。
 
 
 declarativeVsOop : List Content
 declarativeVsOop =
-    [ title "宣言的 ＞ OOP 風" |> position left 40
-    , footnote "OOP 風（〜v5）：不透明な World ＋ 専用メソッド" |> position left 190
-    , code """World.empty
-    |> World.add floor
-    |> World.add table
-    |> World.simulate dt
-    |> World.keepIf keep   -- 削除
-
--- 物体を探す：World.bodies を掘る"""
+    [ title "専用 API から、標準の List 操作へ" |> position left 40
+    , footnote "〜v5：World の専用メソッド" |> position 300 top
+    , footnote "v6：ただのリスト" |> position 810 top
+    , footnote "状態" |> position left 216
+    , code "world : World Id" |> scale 0.55 |> position 300 225
+    , code "bodies : List ( Id, Body )" |> scale 0.55 |> position 810 225
+    , footnote "追加" |> position left 288
+    , code "World.add table world" |> scale 0.55 |> position 300 297
+    , code "( Table, table ) :: bodies" |> scale 0.55 |> position 810 297
+    , footnote "削除" |> position left 360
+    , code "World.keepIf keep world" |> scale 0.55 |> position 300 369
+    , code "List.filter keep bodies" |> scale 0.55 |> position 810 369
+    , footnote "１フレーム" |> position left 432
+    , code "World.simulate dt world" |> scale 0.55 |> position 300 441
+    , code "Physics.simulate onEarth bodies" |> scale 0.55 |> position 810 441
+    , footnote "描画" |> position left 504
+    , code """World.bodies world
+    |> List.map (Body.data >> view)"""
         |> scale 0.55
-        |> position left 245
-    , footnote "宣言的（v6）：自分の List ＋ 標準操作" |> position 680 190
-    , code """bodies =
-    [ ( Floor, floor )
-    , ( Table, table )
+        |> position 300 513
+    , code "List.map view bodies" |> scale 0.55 |> position 810 513
+    , footnote "物理エンジンの API は simulate だけ。残りは elm/core の標準操作。" |> position left 645
     ]
 
-( next, contacts ) =
-    Physics.simulate cfg bodies
 
--- 追加 (::)・削除 List.filter・探す List.filter"""
+
+-- 🎤 上から：置き場所、追加、削除、実行、描画。描画は毎フレーム書くコード — 前は world から掘って、body からデータを掘り出す二段階。今はペアがもう手元に。左は覚える専用メソッド。右は simulate 以外ぜんぶ、もう知ってる List 操作。
+
+
+
+-- ACT II — SIX TECHNIQUES ----------------------------------------------------
+
+
+createBody : List Content
+createBody =
+    [ title "① 短くて、全部必須" |> position left 40
+    , footnote "〜v5：設定の積み重ね — どれも省略可" |> position left top
+    , code """table =
+    Body.compound tableShapes Table
+        |> Body.withBehavior
+            (Body.dynamic
+                (Mass.kilograms 3.58))
+        |> Body.withMaterial
+            (Material.custom
+                { friction = 0.3
+                , bounciness = 0
+                })"""
         |> scale 0.55
-        |> position 680 245
-    , text "コンテナを消すと、標準の List 操作だけで済む。" |> position left 600
+        |> position left 210
+    , footnote "v6：何でできているかを言うだけ" |> position right top
+    , code """table =
+    Physics.dynamic
+        [ ( tableShape, Material.wood ) ]"""
+        |> scale 0.55
+        |> position right 210
     ]
 
 
 
--- ACT II — FIVE TECHNIQUES ---------------------------------------------------
-
-
-oneFunction : List Content
-oneFunction =
-    [ title "① エンジンは関数一つ" |> position left 40
-    , code """simulate :
-    Config id
-    -> List ( id, Body )
-    -> ( List ( id, Body ), Contacts id )"""
-        |> scale 0.75
-        |> position left top
-    , bullets
-        [ bullet "小さい刻み → ループ"
-        , bullet "一時停止 → 呼ばない"
-        , bullet "巻き戻し → 古いリストを持つ"
-        ]
-        |> width 1200
-        |> scale 0.62
-        |> position left 380
-    ]
-
-
-constraintFunction : List Content
-constraintFunction =
-    [ title "② 制約はデータでなく関数" |> position left 40
-    , code """lockMouseTo :
-    Point3d Meters BodyCoordinates -> Id
-    -> Maybe (Id -> List Constraint)
-lockMouseTo pointOnTable mouseId =
-    if mouseId == Mouse then
-        Just (\\tableId ->
-            if tableId == Table then
-                [ Constraint.pointToPoint origin pointOnTable ]
-            else
-                []
-        )
-    else
-        Nothing"""
-        |> scale 0.62
-        |> position left top
-    , text "保存しない。毎フレーム、状況から計算する。" |> position left 600
-    ]
-
-
-typesCatch : List Content
-typesCatch =
-    [ title "③ 型で本物の間違いを防ぐ" |> position left 40
-    , code """type Dense   = Dense Never    -- 密度を持つ（質量を計算）
-type Surface = Surface Never  -- 摩擦と反発だけ
-
-dense :
-    { density : Density, friction : Float, bounciness : Float }
-    -> Material Dense
-
-surface :
-    { friction : Float, bounciness : Float }
-    -> Material Surface"""
-        |> scale 0.62
-        |> position left top
-    , text "単位・座標・素材 — テストが見逃すバグ。" |> position left 600
-    ]
+-- 🎤 前は手順の積み重ね：形を組んで、データを付けて、behavior を設定して質量を手入力（3.58kg — 実物の机の数字）、素材を設定して摩擦と反発を…。そして全部「省略可」。withBehavior を忘れたら静かに static のまま、素材を忘れたら黙って既定の摩擦。今は「木でできてる」と言うだけ — 短くて、省略できるものが無い。種類はコンストラクタ、素材は必須引数、質量はそもそも無い。
 
 
 buildShapes : List Content
 buildShapes =
-    [ title "④ 足し算・引き算で形を作る" |> position left 40
-    , code """snowman =                    -- 形を足す
+    [ title "③ 足し算・引き算で形を作る" |> position left 40
+    , code """snowman =
     Shape.sphere bottom
-        |> Shape.plus (Shape.sphere top)
+        |> Shape.plus
+            (Shape.sphere top)
 
-crate =                      -- 引く（本物の穴）
+crate =
     Shape.block outer
-        |> Shape.minus (Shape.block inner)
-
-body =                       -- 質量は計算され、書かない
-    Physics.dynamic [ ( crate, Material.wood ) ]"""
-        |> scale 0.62
-        |> position left top
-    , text "質量・重心・回転は形から計算される。" |> position left 600
+        |> Shape.minus
+            (Shape.block inner)"""
+        |> scale 0.6
+        |> position left 200
+    , Custom.shapeLab { width = 520, height = 430 } |> position right top
+    , footnote "plus" |> position 770 600
+    , footnote "minus" |> position 1040 600
+    , footnote "※ 幾何のブーリアン演算ではない — 変わるのは質量・重心・慣性" |> position left 645
     ]
 
 
-sameInOut : List Content
-sameInOut =
-    [ title "⑤ 同じ入力、同じ出力" |> position left 40
-    , code """( next, contacts ) =
-    Physics.simulate onEarth bodies
 
--- 同じ入力でもう一度
---   → 毎回まったく同じ結果"""
-        |> scale 0.72
-        |> position left top
-    , bullets
-        [ bullet "保存とロード"
-        , bullet "リプレイ・巻き戻し"
-        , bullet "ネットワーク同期"
-        ]
-        |> width 1200
-        |> scale 0.62
-        |> position left 400
+-- 🎤 plus で足す、minus で引く。注意：メッシュを削る幾何演算ではない — 変わるのは質量・重心・慣性。最後は実際に落として、１つの剛体になったことを確かめる。
+
+
+massDerived : List Content
+massDerived =
+    [ title "④ 質量・重心・慣性は形から" |> position left 40
+    , code """crate =
+    Physics.dynamic
+        [ ( shape, Material.wood ) ]
+
+-- 書くのは形と素材だけ。あとは計算：
+Physics.mass         -- 質量
+Physics.centerOfMass -- 重心"""
+        |> scale 0.6
+        |> position left 200
+    , Custom.seesaw { width = 520, height = 430 } |> position right top
+    , footnote "中まで木" |> position 730 600
+    , footnote "中は空洞" |> position 1030 600
+    , footnote "X線：赤い点＝重心・楕円体＝回りやすさ（慣性）" |> position left 645
     ]
+
+
+
+-- 🎤 見た目は同じ — でもエンジンは知っている。質量も重心も慣性も、形×素材から導出される。楕円体が大きいほど回しやすい。
+
+
+typesCatch : List Content
+typesCatch =
+    [ title "② 型で本物の間違いを防ぐ" |> position left 40
+    , code """-- 動く物体：質量が要る → 密度つき素材
+dynamic : List ( Shape, Material Dense ) -> Body
+
+-- 動かない・手で動かす：表面の感触だけ
+static : List ( Shape, Material any ) -> Body
+kinematic : List ( Shape, Material any ) -> Body
+
+-- Material Dense   ＝ 密度・摩擦・反発
+-- Material Surface ＝ 摩擦・反発
+
+-- 座標も同じ仕組み：形は物体の上、位置は世界
+block : Block3d Meters BodyCoordinates -> Shape
+moveTo : Point3d Meters WorldCoordinates -> ..."""
+        |> scale 0.5
+        |> position left top
+    , code """-- TYPE MISMATCH ------- Ball.elm
+
+The 2nd argument to `sphere`
+is not what I expect:
+
+21|  Physics.sphere ballShape felt
+                              ^^^^
+This `felt` value is a:
+
+    Material Surface
+
+But `sphere` needs the 2nd
+argument to be:
+
+    Material Dense"""
+        |> scale 0.5
+        |> position right top
+    , footnote "同じ仕組みで：単位・座標・素材" |> position left 645
+    ]
+
+
+
+-- 🎤 動く物体は密度が要る（質量を計算するから）。床は表面だけでいい。組み合わせを間違えたプログラムは存在できない。
+
+
+rulesFunction : List Content
+rulesFunction =
+    [ title "⑤ 世界のルールは関数" |> position left 40
+    , code """Physics.simulate
+    { onEarth
+        | constrain = constrain -- つなぐ規則
+        , collide = collide     -- 触れる規則
+    }
+    bodies
+
+constrain id =
+    case id of
+        Anchor ->
+            Just (distanceTo (Link 0))
+
+        Link i ->
+            Just (distanceTo (Link (i + 1)))"""
+        |> scale 0.5
+        |> position left top
+    , Custom.chain { width = 520, height = 430 } |> position right top
+    , footnote "鎖はどこにも保存されない — 規則だけ" |> position right 645
+    ]
+
+
+
+-- 🎤 制約のリストは無い。設定に渡す関数が毎フレーム聞かれる：この2つ、今つながってる？
+
+
+pureFunction : List Content
+pureFunction =
+    [ Custom.rewind { width = 1280, height = 720 } |> position 0 0
+    , title "⑥ 不変だから巻き戻せる" |> position left 40
+    , code "history : List (List ( Id, Body ))" |> scale 0.6 |> position left 630
+    , footnote "タイムトラベル＝リストを逆に辿るだけ" |> position left 680
+    ]
+
+
+
+-- 🎤 ビデオの逆再生ではない。毎フレームの状態は不変な値 — 履歴はただのリスト。巻き戻しはそれを逆に辿るだけ。
 
 
 
@@ -339,71 +414,49 @@ sameInOut =
 
 costSlower : List Content
 costSlower =
-    let
-        ( c0, c1, c2 ) =
-            ( left, 540, 840 )
-
-        row n =
-            top + 60 + n * 52
-    in
     [ title "コスト：約2倍遅い" |> position left 40
-    , footnote "125個の箱・2000ステップ・直接比較" |> position left top
-    , gridText c1 (row 0) "elm-physics"
-    , gridText c2 (row 0) "cannon-es"
-    , gridText c0 (row 1) "衝突判定"
-    , gridText c1 (row 1) "0.64 ms"
-    , gridText c2 (row 1) "0.87 ms"
-    , gridText c0 (row 2) "ソルバー + GC"
-    , gridText c1 (row 2) "~4.1 ms"
-    , gridText c2 (row 2) "~1.25 ms"
-    , gridText c0 (row 3) "合計"
-    , gridText c1 (row 3) "~4.8 ms"
-    , gridText c2 (row 3) "~2.1 ms"
-    , text "代償は純粋性 — GC が約5倍働く。" |> position left 600
+    , footnote "125個の箱・2000ステップ・描画なし" |> position left top
+    , Custom.chart { kind = Custom.Charts.Perf, width = 560, height = 430 } |> position left 200
+    , swatch "#9ec8ef" "衝突判定 — elm の方が速い" |> position right 300
+    , swatch "#2f6fed" "ソルバー — 差はここ。式あたり約2.8×" |> position right 380
+    , swatch "#b9b9b9" "GC — 停止は53×、でもフレームの12%" |> position right 460
     ]
+
+
+
+-- 🎤 犯人はソルバーであって、GC ではない。
 
 
 payoffStack : List Content
 payoffStack =
-    let
-        ( c0, c1, c2 ) =
-            ( left, 540, 840 )
-
-        row n =
-            top + 60 + n * 52
-    in
     [ title "利点：積み木が崩れない" |> position left 40
-    , footnote "125個の箱・60秒静置・同じ完全な格子" |> position left top
-    , gridText c1 (row 0) "elm-physics"
-    , gridText c2 (row 0) "cannon-es"
-    , gridText c0 (row 1) "平均のズレ"
-    , gridText c1 (row 1) "130 mm"
-    , gridText c2 (row 1) "847 mm"
-    , gridText c0 (row 2) "最悪のズレ"
-    , gridText c1 (row 2) "289 mm"
-    , gridText c2 (row 2) "7.3 m"
-    , text "丁寧で不変なソルバーが積み木を支える。" |> position left 600
+    , footnote "同じ完全な格子から出発・同じ60秒" |> position left top
+    , Custom.boxStack { width = 520, height = 347 } |> position left 200
+    , image 520 347 "boxstack-threejs-cannon.png" |> position right 200
+    , footnote "elm-physics — ライブ、いま動いている" |> position left 600
+    , footnote "平均ズレ 130 mm（60秒後）" |> position left 645
+    , footnote "three.js + cannon-es — 60秒後の写真" |> position right 600
+    , footnote "平均 847 mm・最悪 7.3 m" |> position right 645
     ]
+
+
+
+-- 🎤 左は録画ではない。話し終わる頃も、まだ崩れていない。
 
 
 payoffSize : List Content
 payoffSize =
-    let
-        ( c0, c1, c2 ) =
-            ( left, 540, 840 )
-
-        row n =
-            top + 60 + n * 52
-    in
     [ title "利点：小さいダウンロード" |> position left 40
-    , footnote "描画こみのデモ・gzip 後" |> position left top
-    , gridText c1 (row 0) "elm-physics"
-    , gridText c2 (row 0) "three.js + cannon-es"
-    , gridText c0 (row 1) "シーン + 影"
-    , gridText c1 (row 1) "51 KB"
-    , gridText c2 (row 1) "138 KB"
-    , text "エンジン・描画・影こみで約50KB。" |> position left 600
+    , footnote "同じシーン・minify + gzip 後" |> position left top
+    , footnote "物理エンジンのみ — ほぼ互角" |> position left 200
+    , footnote "描画こみ（影つき）" |> position right 200
+    , Custom.chart { kind = Custom.Charts.BundlePhysics, width = 520, height = 400 } |> position left 240
+    , Custom.chart { kind = Custom.Charts.BundleRendered, width = 520, height = 400 } |> position right 240
     ]
+
+
+
+-- 🎤 エンジンだけなら互角 — 描画こみで 51 対 138 KB。
 
 
 lessons : List Content
@@ -428,26 +481,30 @@ lessons =
 
 
 
-wholeLoop : List Content
-wholeLoop =
-    [ title "全部で5行" |> position left 40
-    , code """type alias Model =
-    { bodies : List ( Id, Body )
-    , contacts : Physics.Contacts Id
-    }
-
-update : Msg -> Model -> Model
-update Tick model =
-    let
-        ( bs, cs ) =
-            Physics.simulate
-                { onEarth | contacts = model.contacts }
-                model.bodies
-    in
-    { model | bodies = bs, contacts = cs }"""
-        |> scale 0.6
-        |> position left top
+madeWithElmPhysics : List Content
+madeWithElmPhysics =
+    [ title "コミュニティの作品" |> position left 40
+    , Formatting.cover 520 205 (Just 10) "elm-pool.png" |> position left top
+    , Formatting.link "https://unsoundscapes.itch.io/pool"
+        (footnote "Elm Pool — Andrey Kuzmin & Jared Smith")
+        |> position left 365
+    , Formatting.cover 520 205 (Just 40) "duckling-game.png" |> position right top
+    , Formatting.link "https://github.com/ianmackenzie/elm-3d-scene/blob/main/examples/DucklingGame.elm"
+        (footnote "Duckling Game — Ian Mackenzie")
+        |> position right 365
+    , Formatting.cover 520 205 (Just 79) "block-topple.png" |> position left 432
+    , Formatting.link "https://github.com/wolfadex/block-topple"
+        (footnote "Block Topple — Wolfgang Schuster")
+        |> position left 645
+    , Formatting.cover 520 205 (Just 28) "elm-physics-experiments.png" |> position right 432
+    , Formatting.link "https://elm-physics-experiment.surge.sh"
+        (footnote "Elm Physics Experiments — Erkal Selman")
+        |> position right 645
     ]
+
+
+
+-- 🎤 私だけじゃない。コミュニティも elm-physics で作っている。
 
 
 resources : List Content

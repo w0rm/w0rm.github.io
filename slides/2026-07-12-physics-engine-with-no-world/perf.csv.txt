@@ -1,0 +1,5 @@
+component,cannon_ms_per_step,elm_ms_per_step
+collision_broadphase,0.87,0.64
+solver,1.25,3.53
+gc,0.011,0.587
+total,2.13,4.76
