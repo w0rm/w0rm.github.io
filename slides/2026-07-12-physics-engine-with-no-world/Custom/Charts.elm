@@ -252,10 +252,9 @@ perfChart model rows =
     C.chart
         [ CA.width (toFloat model.width)
         , CA.height (toFloat model.height)
-        , CA.margin { top = 20, bottom = 45, left = 85, right = 10 }
+        , CA.margin { top = 20, bottom = 45, left = 10, right = 10 }
         ]
-        [ C.yLabels [ CA.withGrid, CA.format (\ms -> String.fromFloat ms ++ " ms") ]
-        , C.bars [ CA.margin 0.35 ]
+        [ C.bars [ CA.margin 0.35 ]
             [ -- C.stacked puts the first property on top: GC ends up the
               -- sliver at the top, collision sits on the baseline so the
               -- cannon/elm collision segments compare directly
@@ -268,8 +267,8 @@ perfChart model rows =
             [ engine "cannon-es" .cannon
             , engine "elm-physics" .elm
             ]
-        , C.binLabels (\e -> e.engine ++ " — " ++ String.fromFloat e.total ++ " ms")
-            [ CA.moveDown 34 ]
+        , C.binLabels (\e -> e.engine ++ " — " ++ String.fromFloat e.total)
+            [ CA.color "#000", CA.moveDown 34 ]
         ]
 
 
@@ -283,9 +282,6 @@ bundleChart model target rows =
 
                 "cannon_es_treeshaken" ->
                     "cannon-es"
-
-                "cannon_es_full_lib" ->
-                    "cannon-es 全体"
 
                 "elm_elm3dscene" ->
                     "elm + elm-3d-scene"
@@ -302,7 +298,7 @@ bundleChart model target rows =
 
         bars =
             rows
-                |> List.filter (\r -> r.target == target)
+                |> List.filter (\r -> r.target == target && r.variant /= "cannon_es_full_lib")
                 |> List.map
                     (\r ->
                         { label = variantLabel r.variant
@@ -314,17 +310,17 @@ bundleChart model target rows =
     C.chart
         [ CA.width (toFloat model.width)
         , CA.height (toFloat model.height)
-        , CA.margin { top = 40, bottom = 45, left = 90, right = 10 }
+        , CA.margin { top = 40, bottom = 75, left = 10, right = 10 }
 
         -- both panels share the same scale, so the bars compare across panels
         , CA.domain [ CA.lowest 0 CA.exactly, CA.highest 150 CA.exactly ]
         ]
-        [ C.yLabels [ CA.withGrid, CA.format (\kb -> String.fromFloat kb ++ " KB") ]
-        , C.bars [ CA.margin 0.25 ]
+        [ C.bars [ CA.margin 0.25 ]
             [ C.bar .kb []
                 |> C.variation (\_ d -> [ CA.color d.color ])
             ]
             bars
-        , C.binLabels .label [ CA.moveDown 34 ]
-        , C.barLabels [ CA.moveUp 10 ]
+        , C.binLabels .label [ CA.color "#000", CA.moveDown 34 ]
+        , C.binLabels (\b -> String.fromFloat b.kb ++ " KB")
+            [ CA.color "#000", CA.moveDown 64 ]
         ]

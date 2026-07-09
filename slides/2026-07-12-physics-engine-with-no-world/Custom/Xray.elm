@@ -43,7 +43,7 @@ outlineColor =
 
 voidColor : Color
 voidColor =
-    Color.rgb255 158 200 239
+    Color.rgb255 12 130 165
 
 
 ellipsoidColor : Color

@@ -194,8 +194,8 @@ simulateStep model =
 camera : Camera3d Meters WorldCoordinates
 camera =
     Camera3d.lookAt
-        { eyePoint = Point3d.meters 2 2.6 1.35
-        , focalPoint = Point3d.meters -0.5 -0.5 0.35
+        { eyePoint = Point3d.meters 2 2.6 1.27
+        , focalPoint = Point3d.meters -0.5 -0.5 0.27
         , upDirection = Direction3d.positiveZ
         , projection = Camera3d.Perspective
         , fov = Camera3d.angle (Angle.degrees 24)

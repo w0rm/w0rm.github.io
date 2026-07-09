@@ -21,6 +21,7 @@ main =
     , massDerived
     , rulesFunction
     , pureFunction
+    , costSetup
     , costSlower
     , payoffStack
     , payoffSize
@@ -165,7 +166,7 @@ world =
 
 point2020 : List Content
 point2020 =
-    pointHeader "任意の3D形状"
+    pointHeader "elm-obj-file で任意の3D形状"
         ++ [ code """collider =
     List.map Shape.unsafeConvex
         [ convexBase, convexWindow ]
@@ -183,7 +184,7 @@ jeep =
            , footnote "衝突判定用" |> position 980 362
            , Custom.raycastCar { width = 1280, height = 720 } |> position 0 0 |> hide
            , footnote "メッシュを凸の衝突形状に・正しい慣性で転がる" |> position left 600
-           , footnote "メッシュ読み込みは去年の発表で（elm-obj-file）" |> position left 645
+           , footnote "メッシュ読み込みは去年の発表で" |> position left 645
            ]
 
 
@@ -204,7 +205,6 @@ simulate :
     -> ( List ( id, Body ), Contacts id )"""
                 |> scale 0.65
                 |> position left 210
-           , footnote "物体はエンジンの中ではなく、あなたの Model の中へ" |> position left 645
            ]
 
 
@@ -279,20 +279,19 @@ createBody =
 buildShapes : List Content
 buildShapes =
     [ title "③ 足し算・引き算で形を作る" |> position left 40
+    , Custom.shapeLab { width = 1280, height = 720 } |> position 0 0
     , code """snowman =
     Shape.sphere bottom
         |> Shape.plus
-            (Shape.sphere top)
-
-crate =
+            (Shape.sphere top)"""
+        |> scale 0.6
+        |> position 300 480
+    , code """box =
     Shape.block outer
         |> Shape.minus
             (Shape.block inner)"""
         |> scale 0.6
-        |> position left 200
-    , Custom.shapeLab { width = 520, height = 430 } |> position right top
-    , footnote "plus" |> position 770 600
-    , footnote "minus" |> position 1040 600
+        |> position 720 480
     , footnote "※ 幾何のブーリアン演算ではない — 変わるのは質量・重心・慣性" |> position left 645
     ]
 
@@ -304,19 +303,20 @@ crate =
 massDerived : List Content
 massDerived =
     [ title "④ 質量・重心・慣性は形から" |> position left 40
-    , code """crate =
+    , code """box =
     Physics.dynamic
         [ ( shape, Material.wood ) ]
 
--- 書くのは形と素材だけ。あとは計算：
-Physics.mass         -- 質量
-Physics.centerOfMass -- 重心"""
+-- 形と素材だけ。あとは計算：
+Physics.mass          -- 質量
+Physics.centerOfMass  -- 重心"""
         |> scale 0.6
         |> position left 200
     , Custom.seesaw { width = 520, height = 430 } |> position right top
-    , footnote "中まで木" |> position 730 600
-    , footnote "中は空洞" |> position 1030 600
-    , footnote "X線：赤い点＝重心・楕円体＝回りやすさ（慣性）" |> position left 645
+    , footnote "中まで木" |> position 730 490
+    , footnote "133 kg" |> color "#d81b1b" |> position 730 528
+    , footnote "中は空洞" |> position 1030 490
+    , footnote "32 kg" |> color "#d81b1b" |> position 1030 528
     ]
 
 
@@ -327,19 +327,20 @@ Physics.centerOfMass -- 重心"""
 typesCatch : List Content
 typesCatch =
     [ title "② 型で本物の間違いを防ぐ" |> position left 40
-    , code """-- 動く物体：質量が要る → 密度つき素材
-dynamic : List ( Shape, Material Dense ) -> Body
+    , code """-- 動く物体には密度つき素材が要る
+Physics.sphere :
+    Sphere3d Meters BodyCoordinates
+    -> Material Dense
+    -> Body
 
--- 動かない・手で動かす：表面の感触だけ
-static : List ( Shape, Material any ) -> Body
-kinematic : List ( Shape, Material any ) -> Body
+-- felt は表面だけの素材（密度なし）
+felt =
+    Material.surface
+        { friction = 0.9, bounciness = 0.2 }
 
--- Material Dense   ＝ 密度・摩擦・反発
--- Material Surface ＝ 摩擦・反発
-
--- 座標も同じ仕組み：形は物体の上、位置は世界
-block : Block3d Meters BodyCoordinates -> Shape
-moveTo : Point3d Meters WorldCoordinates -> ..."""
+-- 動く球に felt を渡すと…
+ball =
+    Physics.sphere ballShape felt"""
         |> scale 0.5
         |> position left top
     , code """-- TYPE MISMATCH ------- Ball.elm
@@ -359,7 +360,6 @@ argument to be:
     Material Dense"""
         |> scale 0.5
         |> position right top
-    , footnote "同じ仕組みで：単位・座標・素材" |> position left 645
     ]
 
 
@@ -369,7 +369,8 @@ argument to be:
 
 rulesFunction : List Content
 rulesFunction =
-    [ title "⑤ 世界のルールは関数" |> position left 40
+    [ title "⑤ 世界の規則は関数" |> position left 40
+    , footnote "鎖はどこにも保存されない — 規則だけ" |> position left top
     , code """Physics.simulate
     { onEarth
         | constrain = constrain -- つなぐ規則
@@ -385,9 +386,8 @@ constrain id =
         Link i ->
             Just (distanceTo (Link (i + 1)))"""
         |> scale 0.5
-        |> position left top
-    , Custom.chain { width = 520, height = 430 } |> position right top
-    , footnote "鎖はどこにも保存されない — 規則だけ" |> position right 645
+        |> position left 210
+    , Custom.chain { width = 520, height = 430 } |> position right 210
     ]
 
 
@@ -398,9 +398,9 @@ constrain id =
 pureFunction : List Content
 pureFunction =
     [ Custom.rewind { width = 1280, height = 720 } |> position 0 0
-    , title "⑥ 不変だから巻き戻せる" |> position left 40
-    , code "history : List (List ( Id, Body ))" |> scale 0.6 |> position left 630
-    , footnote "タイムトラベル＝リストを逆に辿るだけ" |> position left 680
+    , title "不変だから巻き戻せる" |> position left 40
+    , code "history : List (List ( Id, Body ))" |> scale 0.6 |> position left top
+    , footnote "タイムトラベル＝リストを逆に辿るだけ" |> position left 205
     ]
 
 
@@ -412,10 +412,28 @@ pureFunction =
 -- ACT III — TRADEOFFS --------------------------------------------------------
 
 
+costSetup : List Content
+costSetup =
+    [ title "欠点の測り方" |> position left 40
+    , image 480 320 "boxstack-elm.png" |> position left top
+    , footnote "125 個の箱（5×5×5）" |> position left 500
+    , footnote "同じ初期配置から出発" |> position right 210
+    , footnote "2000 ステップ シミュレート" |> position right 290
+    , footnote "1 ステップの平均時間を計測（ms）" |> position right 370
+    , footnote "描画なし・物理エンジンだけ" |> position right 450
+    , footnote "cannon-es と elm-physics を比較" |> position right 530
+    ]
+
+
+
+-- 🎤 同じ土俵：125個の箱を2000ステップ回して、1ステップの時間を測る。描画は外して、物理だけ。
+
+
 costSlower : List Content
 costSlower =
-    [ title "コスト：約2倍遅い" |> position left 40
+    [ title "欠点：約2倍遅い" |> position left 40
     , footnote "125個の箱・2000ステップ・描画なし" |> position left top
+    , footnote "ms" |> position left 205
     , Custom.chart { kind = Custom.Charts.Perf, width = 560, height = 430 } |> position left 200
     , swatch "#9ec8ef" "衝突判定 — elm の方が速い" |> position right 300
     , swatch "#2f6fed" "ソルバー — 差はここ。式あたり約2.8×" |> position right 380
@@ -430,12 +448,12 @@ costSlower =
 payoffStack : List Content
 payoffStack =
     [ title "利点：積み木が崩れない" |> position left 40
-    , footnote "同じ完全な格子から出発・同じ60秒" |> position left top
-    , Custom.boxStack { width = 520, height = 347 } |> position left 200
+    , footnote "同じ完全な格子から・60秒後" |> position left top
+    , image 520 347 "boxstack-elm-3d-scene.png" |> position left 200
     , image 520 347 "boxstack-threejs-cannon.png" |> position right 200
-    , footnote "elm-physics — ライブ、いま動いている" |> position left 600
-    , footnote "平均ズレ 130 mm（60秒後）" |> position left 645
-    , footnote "three.js + cannon-es — 60秒後の写真" |> position right 600
+    , footnote "elm-physics" |> position left 600
+    , footnote "平均ズレ 130 mm" |> position left 645
+    , footnote "three.js + cannon-es" |> position right 600
     , footnote "平均 847 mm・最悪 7.3 m" |> position right 645
     ]
 
@@ -450,7 +468,11 @@ payoffSize =
     , footnote "同じシーン・minify + gzip 後" |> position left top
     , footnote "物理エンジンのみ — ほぼ互角" |> position left 200
     , footnote "描画こみ（影つき）" |> position right 200
-    , Custom.chart { kind = Custom.Charts.BundlePhysics, width = 520, height = 400 } |> position left 240
+
+    -- 27 = left margin (100) minus the chart's internal padding before the
+    -- first bar (10px chart margin + 0.25 × 250px bin margin ≈ 73px), so the
+    -- first bar's left edge lands on the slide margin
+    , Custom.chart { kind = Custom.Charts.BundlePhysics, width = 520, height = 400 } |> position 27 240
     , Custom.chart { kind = Custom.Charts.BundleRendered, width = 520, height = 400 } |> position right 240
     ]
 
@@ -463,10 +485,10 @@ lessons : List Content
 lessons =
     [ title "まとめ：物理を超えて" |> position left 40
     , bullets
-        [ bullet "コンテナは大抵 List の変装。開けよう。"
-        , bullet "ルールはデータより関数。関数は合成できる。"
+        [ bullet "コンテナは大抵 List のようなもの。開けよう。"
+        , bullet "規則はデータより関数。関数は合成できる。"
         , bullet "型は境界に — 単位・座標・素材。"
-        , bullet "純粋な state → state でリプレイも取り消しも無料。"
+        , bullet "純粋な state → state でリプレイも取り消しも可能。"
         , bullet "代償を知って、意図して選ぶ。"
         ]
         |> width 1300
@@ -519,6 +541,10 @@ resources =
         |> width 800
         |> scale 0.7
         |> position left top
+    , Formatting.link "https://unsoundscapes.com/slides/2026-07-12-physics-engine-with-no-world/"
+        (image 200 200 "qr.svg")
+        |> position left 425
+    , footnote "このスライド" |> position left 645
     ]
 
 

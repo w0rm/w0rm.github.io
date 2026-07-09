@@ -363,8 +363,8 @@ rewindStep model =
 camera : Camera3d Meters WorldCoordinates
 camera =
     Camera3d.lookAt
-        { eyePoint = Point3d.meters 0.2 -8 1.9
-        , focalPoint = Point3d.meters 0.2 0 1.3
+        { eyePoint = Point3d.meters 0.2 -8 2.25
+        , focalPoint = Point3d.meters 0.2 0 1.65
         , upDirection = Direction3d.positiveZ
         , projection = Camera3d.Perspective
         , fov = Camera3d.angle (Angle.degrees 35)

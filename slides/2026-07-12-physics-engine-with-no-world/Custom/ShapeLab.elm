@@ -5,13 +5,12 @@ module Custom.ShapeLab exposing (Id(..), Model, Msg, Options, dropScene, initial
 1.  Two spheres and two blocks hover as separate parts.
 2.  They glide together: `plus` fuses the snowman, `minus` sinks the
     inner block into the outer one.
-3.  X-ray: wireframes reveal that the cavity inside the crate is real
-    geometry — the void block is still there, subtracted.
-4.  The payoff: both results drop as real physics bodies, built literally
-    with `Shape.plus` and `Shape.minus` — one rigid body each.
+3.  Blink: the fused solids alternate with X-ray wireframes a few times,
+    revealing the inner shapes — the cavity block is still there,
+    subtracted.
 
-Phases 1–3 are pure animation (no physics); phase 4 is a real simulation
-from a constant initial scene, so the loop is deterministic.
+Pure animation, no physics. `dropScene` remains only as the constant
+scene that Verify.elm simulates headlessly.
 
 -}
 
@@ -93,46 +92,42 @@ glideEnd =
     2.0
 
 
-xrayStart : Float
-xrayStart =
+blinkStart : Float
+blinkStart =
     2.6
 
 
-xrayEnd : Float
-xrayEnd =
-    4.4
+blinkPeriod : Float
+blinkPeriod =
+    0.5
 
 
-dropStart : Float
-dropStart =
-    5.0
+blinkEnd : Float
+blinkEnd =
+    5.6
 
 
 loopEnd : Float
 loopEnd =
-    9.2
+    6.6
 
 
 type Phase
     = Parts Float -- glide progress: 0 = apart, 1 = fused
     | Xray
-    | Dropping
 
 
 phase : Float -> Phase
 phase t =
-    if t < xrayStart then
+    if t < blinkStart then
         Parts (easeInOut (clamp 0 1 ((t - glideStart) / (glideEnd - glideStart))))
 
-    else if t < xrayEnd then
+    else if t < blinkEnd && (floor ((t - blinkStart) / blinkPeriod) |> modBy 2) == 0 then
         Xray
 
-    else if t < dropStart then
-        -- solid again for a beat, then the drop
-        Parts 1
-
     else
-        Dropping
+        -- solid between the blinks and for a beat before the loop restarts
+        Parts 1
 
 
 easeInOut : Float -> Float
@@ -177,12 +172,12 @@ innerBlock =
 -}
 snowmanAnchor : Point3d Meters WorldCoordinates
 snowmanAnchor =
-    Point3d.meters -0.95 0 1.05
+    Point3d.meters -0.95 0 0.9
 
 
 crateAnchor : Point3d Meters WorldCoordinates
 crateAnchor =
-    Point3d.meters 0.95 0 1.15
+    Point3d.meters 0.95 0 1.0
 
 
 {-| How far above their fused positions the loose parts hover: both around
@@ -191,7 +186,7 @@ enough for the inner block to clear the outer one.
 -}
 topSphereLift : Float
 topSphereLift =
-    0.29
+    0.22
 
 
 innerBlockLift : Float
@@ -251,33 +246,10 @@ simulateStep model =
             model.elapsed + Duration.inSeconds (Timestep.duration model.timestep)
     in
     if t >= loopEnd then
-        -- restart the loop
-        { model
-            | elapsed = 0
-            , prevBodies = dropScene
-            , bodies = dropScene
-            , contacts = Physics.emptyContacts
-        }
-
-    else if t >= dropStart then
-        let
-            ( newBodies, newContacts ) =
-                Physics.simulate
-                    { onEarth
-                        | duration = Timestep.duration model.timestep
-                        , contacts = model.contacts
-                    }
-                    model.bodies
-        in
-        { model
-            | elapsed = t
-            , prevBodies = model.bodies
-            , bodies = newBodies
-            , contacts = newContacts
-        }
+        { model | elapsed = 0 }
 
     else
-        { model | elapsed = t, prevBodies = model.bodies }
+        { model | elapsed = t }
 
 
 
@@ -296,24 +268,18 @@ camera =
 
 
 view : Model -> Html Msg
-view { elapsed, prevBodies, bodies, dimensions, timestep } =
+view { elapsed, dimensions, timestep } =
     let
         renderTime =
             elapsed + Timestep.progress timestep * Duration.inSeconds (Timestep.duration timestep)
 
-        currentPhase =
-            phase renderTime
-
         entities =
-            case currentPhase of
+            case phase renderTime of
                 Parts progress ->
                     partsEntities renderTime progress
 
                 Xray ->
                     xrayEntities
-
-                Dropping ->
-                    List.map2 (bodyEntity timestep) prevBodies bodies
     in
     Html.div
         [ Html.Attributes.style "position" "absolute"
@@ -330,38 +296,7 @@ view { elapsed, prevBodies, bodies, dimensions, timestep } =
             , clipDepth = Length.meters 0.1
             , entities = entities
             }
-        , caption dimensions currentPhase
         ]
-
-
-caption : ( Quantity Int Pixels, Quantity Int Pixels ) -> Phase -> Html msg
-caption ( w, _ ) currentPhase =
-    let
-        text =
-            case currentPhase of
-                Parts progress ->
-                    if progress <= 0 then
-                        "部品はただの形"
-
-                    else
-                        "plus ／ minus で合成"
-
-                Xray ->
-                    "X線 — 空洞は質量・慣性に効く"
-
-                Dropping ->
-                    "落として確認 — それぞれ１つの剛体"
-    in
-    Html.div
-        [ Html.Attributes.style "position" "absolute"
-        , Html.Attributes.style "left" "0"
-        , Html.Attributes.style "top" "12px"
-        , Html.Attributes.style "width" (String.fromInt (Pixels.toInt w) ++ "px")
-        , Html.Attributes.style "text-align" "center"
-        , Html.Attributes.style "font" "24px \"Helvetica Neue\", Arial, sans-serif"
-        , Html.Attributes.style "color" "#555"
-        ]
-        [ Html.text text ]
 
 
 
@@ -438,26 +373,6 @@ crateWireframe =
         , Xray.blockWireframe Xray.voidColor innerBlock
         ]
 
-
-
--- DROP (physics phase)
-
-
-bodyEntity : Timestep -> ( Id, Body ) -> ( Id, Body ) -> Entity WorldCoordinates
-bodyEntity timestep ( _, prev ) ( id, curr ) =
-    Scene3d.placeIn (Physics.interpolatedFrame (Timestep.progress timestep) prev curr) <|
-        case id of
-            Ground ->
-                Scene3d.nothing
-
-            Snowman ->
-                Scene3d.group
-                    [ Scene3d.sphere snowMaterial bottomSphere
-                    , Scene3d.sphere snowMaterial topSphere
-                    ]
-
-            Crate ->
-                Scene3d.block crateMaterial outerBlock
 
 
 

@@ -380,7 +380,7 @@ background contents =
             , style "width" "1280px"
             , style "height" "720px"
             , style "overflow" "hidden"
-            , style "background" "linear-gradient(160deg, #fbfbfd 0%, #e9edf3 100%)"
+            , style "background" "#fff"
             ]
         )
         contents

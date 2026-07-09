@@ -251,19 +251,6 @@ hollowCrateXray =
         ]
 
 
-{-| The derived mass, printed. Nothing is typed in: this comes out of
-`Physics.mass` at runtime.
--}
-derivedMassLabel : Body -> String
-derivedMassLabel body =
-    case Physics.mass body of
-        Just mass ->
-            String.fromInt (round (Mass.inKilograms mass)) ++ " kg"
-
-        Nothing ->
-            ""
-
-
 
 -- UPDATE
 
@@ -319,7 +306,7 @@ view { elapsed, prevBodies, bodies, dimensions, timestep } =
         , Html.Attributes.style "left" "0"
         , Html.Attributes.style "top" "0"
         ]
-        (Scene3d.sunny
+        [ Scene3d.sunny
             { upDirection = Direction3d.positiveZ
             , sunlightDirection = Direction3d.xyZ (Angle.degrees 135) (Angle.degrees -60)
             , shadows = False
@@ -330,36 +317,7 @@ view { elapsed, prevBodies, bodies, dimensions, timestep } =
             , entities =
                 List.map2 (bodyEntity xray timestep) prevBodies bodies
             }
-            :: (if xray then
-                    massLabels
-
-                else
-                    []
-               )
-        )
-
-
-{-| The derived masses, above each crate. Left/right offsets match the
-crates' resting positions (x = ±1.235 m) under this camera.
--}
-massLabels : List (Html msg)
-massLabels =
-    [ massLabel 86 (derivedMassLabel solidCrate)
-    , massLabel 434 (derivedMassLabel hollowCrate)
-    ]
-
-
-massLabel : Int -> String -> Html msg
-massLabel centerX text =
-    Html.div
-        [ Html.Attributes.style "position" "absolute"
-        , Html.Attributes.style "left" (String.fromInt centerX ++ "px")
-        , Html.Attributes.style "top" "42px"
-        , Html.Attributes.style "transform" "translateX(-50%)"
-        , Html.Attributes.style "font" "bold 28px \"Helvetica Neue\", Arial, sans-serif"
-        , Html.Attributes.style "color" "#d81b1b"
         ]
-        [ Html.text text ]
 
 
 crateMaterial : Material.Uniform BodyCoordinates
