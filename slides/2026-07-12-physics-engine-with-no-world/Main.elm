@@ -28,6 +28,7 @@ main =
     , lessons
     , madeWithElmPhysics
     , resources
+    , characterDemo
     ]
         |> List.map addMobileNavigationButtons
         |> SliceShow.init
@@ -548,6 +549,15 @@ resources =
         |> scale 0.7
         |> position left top
     ]
+
+
+
+{-| A bonus playground after the thanks: the character controller,
+full-screen, drivable from the on-screen buttons on mobile too.
+-}
+characterDemo : List Content
+characterDemo =
+    [ Custom.character { width = 1280, height = 720 } |> position 0 0 ]
 
 
 

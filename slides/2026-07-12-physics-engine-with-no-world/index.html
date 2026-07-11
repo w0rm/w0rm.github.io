@@ -9043,6 +9043,554 @@ var $author$project$Main$buildShapes = _List_fromArray(
 		645,
 		$author$project$Formatting$footnote('※ 幾何のブーリアン演算ではない — 変わるのは質量・重心・慣性'))
 	]);
+var $author$project$Custom$CharacterModel = function (a) {
+	return {$: 'CharacterModel', a: a};
+};
+var $author$project$Custom$Character$Box = function (a) {
+	return {$: 'Box', a: a};
+};
+var $author$project$Custom$Character$Floor = {$: 'Floor'};
+var $author$project$Custom$Character$Player = {$: 'Player'};
+var $author$project$Custom$Character$Stairs = {$: 'Stairs'};
+var $author$project$Internal$Lock$RotateX = {$: 'RotateX'};
+var $author$project$Physics$Lock$rotateX = $author$project$Internal$Lock$RotateX;
+var $author$project$Internal$Lock$RotateY = {$: 'RotateY'};
+var $author$project$Physics$Lock$rotateY = $author$project$Internal$Lock$RotateY;
+var $author$project$Internal$Lock$RotateZ = {$: 'RotateZ'};
+var $author$project$Physics$Lock$rotateZ = $author$project$Internal$Lock$RotateZ;
+var $author$project$Physics$Lock$allRotation = _List_fromArray(
+	[$author$project$Physics$Lock$rotateX, $author$project$Physics$Lock$rotateY, $author$project$Physics$Lock$rotateZ]);
+var $author$project$Physics$block = F2(
+	function (block3d, mat) {
+		return $author$project$Physics$dynamic(
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					$author$project$Physics$Shape$block(block3d),
+					mat)
+				]));
+	});
+var $ianmackenzie$elm_geometry$Direction3d$x = $ianmackenzie$elm_geometry$Direction3d$positiveX;
+var $ianmackenzie$elm_geometry$Direction3d$y = $ianmackenzie$elm_geometry$Direction3d$positiveY;
+var $ianmackenzie$elm_geometry$Frame3d$atOrigin = $ianmackenzie$elm_geometry$Geometry$Types$Frame3d(
+	{originPoint: $ianmackenzie$elm_geometry$Point3d$origin, xDirection: $ianmackenzie$elm_geometry$Direction3d$x, yDirection: $ianmackenzie$elm_geometry$Direction3d$y, zDirection: $ianmackenzie$elm_geometry$Direction3d$z});
+var $ianmackenzie$elm_geometry$Block3d$centeredOn = F2(
+	function (givenAxes, _v0) {
+		var xDimension = _v0.a;
+		var yDimension = _v0.b;
+		var zDimension = _v0.c;
+		return $ianmackenzie$elm_geometry$Geometry$Types$Block3d(
+			{
+				axes: $ianmackenzie$elm_geometry$Frame3d$copy(givenAxes),
+				dimensions: _Utils_Tuple3(
+					$ianmackenzie$elm_units$Quantity$abs(xDimension),
+					$ianmackenzie$elm_units$Quantity$abs(yDimension),
+					$ianmackenzie$elm_units$Quantity$abs(zDimension))
+			});
+	});
+var $author$project$Custom$Character$boxBlock = A2(
+	$ianmackenzie$elm_geometry$Block3d$centeredOn,
+	$ianmackenzie$elm_geometry$Frame3d$atOrigin,
+	_Utils_Tuple3(
+		$ianmackenzie$elm_units$Length$meters(0.5),
+		$ianmackenzie$elm_units$Length$meters(0.5),
+		$ianmackenzie$elm_units$Length$meters(0.8)));
+var $author$project$Custom$Character$boxMaterial = $author$project$Physics$Material$dense(
+	{
+		bounciness: 0,
+		density: $ianmackenzie$elm_units$Density$kilogramsPerCubicMeter(700),
+		friction: 0.4
+	});
+var $author$project$Custom$Character$boxPositions = _List_fromArray(
+	[
+		_Utils_Tuple2(-3, -2),
+		_Utils_Tuple2(-3, 0),
+		_Utils_Tuple2(-3, 2),
+		_Utils_Tuple2(-4, 1),
+		_Utils_Tuple2(3, -2),
+		_Utils_Tuple2(3, 0),
+		_Utils_Tuple2(3, 2),
+		_Utils_Tuple2(4, 1)
+	]);
+var $author$project$Internal$Matrix3$capsuleInertia = F3(
+	function (m, radius, halfLength) {
+		var r = radius;
+		var vSph = ((((4 / 3) * $elm$core$Basics$pi) * r) * r) * r;
+		var h = halfLength;
+		var vCyl = (((2 * $elm$core$Basics$pi) * r) * r) * h;
+		var vTotal = vCyl + vSph;
+		var mCyl = (m * vCyl) / vTotal;
+		var mSph = (m * vSph) / vTotal;
+		var ixy = ((mCyl * (((3 * r) * r) + ((4 * h) * h))) / 12) + (mSph * (((((2 * r) * r) / 5) + (h * h)) + (((3 * r) * h) / 4)));
+		var iz = (((mCyl * r) * r) / 2) + ((((mSph * r) * r) * 2) / 5);
+		return {m11: ixy, m12: 0, m13: 0, m21: 0, m22: ixy, m23: 0, m31: 0, m32: 0, m33: iz};
+	});
+var $author$project$Shapes$Capsule$atOrigin = F2(
+	function (radius, halfLength) {
+		var volume = (($elm$core$Basics$pi * radius) * radius) * ((2 * halfLength) + ((4 / 3) * radius));
+		return {
+			axis: $author$project$Internal$Vector3$zAxis,
+			halfLength: halfLength,
+			inertia: A3($author$project$Internal$Matrix3$capsuleInertia, volume, radius, halfLength),
+			position: $author$project$Internal$Vector3$zero,
+			radius: radius,
+			volume: volume
+		};
+	});
+var $ianmackenzie$elm_geometry$Cylinder3d$axis = function (_v0) {
+	var cylinder = _v0.a;
+	return cylinder.axis;
+};
+var $ianmackenzie$elm_geometry$Axis3d$direction = function (_v0) {
+	var axis = _v0.a;
+	return axis.direction;
+};
+var $ianmackenzie$elm_geometry$Cylinder3d$axialDirection = function (cylinder) {
+	return $ianmackenzie$elm_geometry$Axis3d$direction(
+		$ianmackenzie$elm_geometry$Cylinder3d$axis(cylinder));
+};
+var $ianmackenzie$elm_geometry$Axis3d$originPoint = function (_v0) {
+	var axis = _v0.a;
+	return axis.originPoint;
+};
+var $ianmackenzie$elm_geometry$Cylinder3d$centerPoint = function (cylinder) {
+	return $ianmackenzie$elm_geometry$Axis3d$originPoint(
+		$ianmackenzie$elm_geometry$Cylinder3d$axis(cylinder));
+};
+var $ianmackenzie$elm_geometry$Cylinder3d$length = function (_v0) {
+	var cylinder = _v0.a;
+	return cylinder.length;
+};
+var $ianmackenzie$elm_geometry$Direction3d$perpendicularTo = function (_v0) {
+	var d = _v0.a;
+	var absZ = $elm$core$Basics$abs(d.z);
+	var absY = $elm$core$Basics$abs(d.y);
+	var absX = $elm$core$Basics$abs(d.x);
+	if (_Utils_cmp(absX, absY) < 1) {
+		if (_Utils_cmp(absX, absZ) < 1) {
+			var scale = $elm$core$Basics$sqrt((d.z * d.z) + (d.y * d.y));
+			return $ianmackenzie$elm_geometry$Geometry$Types$Direction3d(
+				{x: 0, y: (-d.z) / scale, z: d.y / scale});
+		} else {
+			var scale = $elm$core$Basics$sqrt((d.y * d.y) + (d.x * d.x));
+			return $ianmackenzie$elm_geometry$Geometry$Types$Direction3d(
+				{x: (-d.y) / scale, y: d.x / scale, z: 0});
+		}
+	} else {
+		if (_Utils_cmp(absY, absZ) < 1) {
+			var scale = $elm$core$Basics$sqrt((d.z * d.z) + (d.x * d.x));
+			return $ianmackenzie$elm_geometry$Geometry$Types$Direction3d(
+				{x: d.z / scale, y: 0, z: (-d.x) / scale});
+		} else {
+			var scale = $elm$core$Basics$sqrt((d.x * d.x) + (d.y * d.y));
+			return $ianmackenzie$elm_geometry$Geometry$Types$Direction3d(
+				{x: (-d.y) / scale, y: d.x / scale, z: 0});
+		}
+	}
+};
+var $ianmackenzie$elm_geometry$Direction3d$perpendicularBasis = function (direction) {
+	var xDirection = $ianmackenzie$elm_geometry$Direction3d$perpendicularTo(direction);
+	var _v0 = xDirection;
+	var dX = _v0.a;
+	var _v1 = direction;
+	var d = _v1.a;
+	var yDirection = $ianmackenzie$elm_geometry$Geometry$Types$Direction3d(
+		{x: (d.y * dX.z) - (d.z * dX.y), y: (d.z * dX.x) - (d.x * dX.z), z: (d.x * dX.y) - (d.y * dX.x)});
+	return _Utils_Tuple2(xDirection, yDirection);
+};
+var $ianmackenzie$elm_geometry$Cylinder3d$radius = function (_v0) {
+	var cylinder = _v0.a;
+	return cylinder.radius;
+};
+var $author$project$Physics$Shape$capsule = function (cylinder3d) {
+	var _v0 = $ianmackenzie$elm_geometry$Direction3d$perpendicularBasis(
+		$ianmackenzie$elm_geometry$Cylinder3d$axialDirection(cylinder3d));
+	var a = _v0.a;
+	var b = _v0.b;
+	var transform3d = A4(
+		$author$project$Internal$Transform3d$fromOriginAndBasis,
+		$ianmackenzie$elm_geometry$Point3d$toMeters(
+			$ianmackenzie$elm_geometry$Cylinder3d$centerPoint(cylinder3d)),
+		$ianmackenzie$elm_geometry$Direction3d$unwrap(a),
+		$ianmackenzie$elm_geometry$Direction3d$unwrap(b),
+		$ianmackenzie$elm_geometry$Direction3d$unwrap(
+			$ianmackenzie$elm_geometry$Cylinder3d$axialDirection(cylinder3d)));
+	return $author$project$Physics$Types$Shape(
+		_List_fromArray(
+			[
+				_Utils_Tuple2(
+				$author$project$Internal$Shape$Capsule(
+					A2(
+						$author$project$Shapes$Capsule$placeIn,
+						transform3d,
+						A2(
+							$author$project$Shapes$Capsule$atOrigin,
+							$ianmackenzie$elm_units$Length$inMeters(
+								$ianmackenzie$elm_geometry$Cylinder3d$radius(cylinder3d)),
+							$ianmackenzie$elm_units$Length$inMeters(
+								$ianmackenzie$elm_geometry$Cylinder3d$length(cylinder3d)) / 2))),
+				1)
+			]));
+};
+var $author$project$Physics$capsule = F2(
+	function (cylinder3d, mat) {
+		return $author$project$Physics$dynamic(
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					$author$project$Physics$Shape$capsule(cylinder3d),
+					mat)
+				]));
+	});
+var $ianmackenzie$elm_units$Mass$kilograms = function (numKilograms) {
+	return $ianmackenzie$elm_units$Quantity$Quantity(numKilograms);
+};
+var $author$project$Internal$Lock$foldMasks = F3(
+	function (locks, linear, angular) {
+		foldMasks:
+		while (true) {
+			if (!locks.b) {
+				return _Utils_Tuple2(linear, angular);
+			} else {
+				switch (locks.a.$) {
+					case 'TranslateX':
+						var _v1 = locks.a;
+						var rest = locks.b;
+						var $temp$locks = rest,
+							$temp$linear = _Utils_update(
+							linear,
+							{x: 0}),
+							$temp$angular = angular;
+						locks = $temp$locks;
+						linear = $temp$linear;
+						angular = $temp$angular;
+						continue foldMasks;
+					case 'TranslateY':
+						var _v2 = locks.a;
+						var rest = locks.b;
+						var $temp$locks = rest,
+							$temp$linear = _Utils_update(
+							linear,
+							{y: 0}),
+							$temp$angular = angular;
+						locks = $temp$locks;
+						linear = $temp$linear;
+						angular = $temp$angular;
+						continue foldMasks;
+					case 'TranslateZ':
+						var _v3 = locks.a;
+						var rest = locks.b;
+						var $temp$locks = rest,
+							$temp$linear = _Utils_update(
+							linear,
+							{z: 0}),
+							$temp$angular = angular;
+						locks = $temp$locks;
+						linear = $temp$linear;
+						angular = $temp$angular;
+						continue foldMasks;
+					case 'RotateX':
+						var _v4 = locks.a;
+						var rest = locks.b;
+						var $temp$locks = rest,
+							$temp$linear = linear,
+							$temp$angular = _Utils_update(
+							angular,
+							{x: 0});
+						locks = $temp$locks;
+						linear = $temp$linear;
+						angular = $temp$angular;
+						continue foldMasks;
+					case 'RotateY':
+						var _v5 = locks.a;
+						var rest = locks.b;
+						var $temp$locks = rest,
+							$temp$linear = linear,
+							$temp$angular = _Utils_update(
+							angular,
+							{y: 0});
+						locks = $temp$locks;
+						linear = $temp$linear;
+						angular = $temp$angular;
+						continue foldMasks;
+					default:
+						var _v6 = locks.a;
+						var rest = locks.b;
+						var $temp$locks = rest,
+							$temp$linear = linear,
+							$temp$angular = _Utils_update(
+							angular,
+							{z: 0});
+						locks = $temp$locks;
+						linear = $temp$linear;
+						angular = $temp$angular;
+						continue foldMasks;
+				}
+			}
+		}
+	});
+var $author$project$Internal$Vector3$one = {x: 1, y: 1, z: 1};
+var $author$project$Internal$Lock$masks = function (locks) {
+	return A3($author$project$Internal$Lock$foldMasks, locks, $author$project$Internal$Vector3$one, $author$project$Internal$Vector3$one);
+};
+var $author$project$Internal$Body$lock = F2(
+	function (locks, body) {
+		var _v0 = $author$project$Internal$Lock$masks(locks);
+		var linearLock = _v0.a;
+		var angularLock = _v0.b;
+		return {angularDamping: body.angularDamping, angularLock: angularLock, angularVelocity: body.angularVelocity, centerOfMassTransform3d: body.centerOfMassTransform3d, force: body.force, geometry: body.geometry, id: body.id, invInertia: body.invInertia, invInertiaWorld: body.invInertiaWorld, invMass: body.invMass, kindInt: body.kindInt, linearDamping: body.linearDamping, linearLock: linearLock, mass: body.mass, torque: body.torque, transform3d: body.transform3d, velocity: body.velocity, worldShapesWithMaterials: body.worldShapesWithMaterials};
+	});
+var $author$project$Physics$lock = F2(
+	function (locks, original) {
+		var body = original.a;
+		return (body.kindInt === 2) ? $author$project$Physics$Types$Body(
+			A2($author$project$Internal$Body$lock, locks, body)) : original;
+	});
+var $ianmackenzie$elm_geometry$Geometry$Types$Cylinder3d = function (a) {
+	return {$: 'Cylinder3d', a: a};
+};
+var $ianmackenzie$elm_geometry$Geometry$Types$Axis3d = function (a) {
+	return {$: 'Axis3d', a: a};
+};
+var $ianmackenzie$elm_geometry$Axis3d$through = F2(
+	function (givenPoint, givenDirection) {
+		return $ianmackenzie$elm_geometry$Geometry$Types$Axis3d(
+			{direction: givenDirection, originPoint: givenPoint});
+	});
+var $ianmackenzie$elm_geometry$Cylinder3d$centeredOn = F3(
+	function (givenCenterPoint, givenDirection, _arguments) {
+		return $ianmackenzie$elm_geometry$Geometry$Types$Cylinder3d(
+			{
+				axis: A2($ianmackenzie$elm_geometry$Axis3d$through, givenCenterPoint, givenDirection),
+				length: $ianmackenzie$elm_units$Quantity$abs(_arguments.length),
+				radius: $ianmackenzie$elm_units$Quantity$abs(_arguments.radius)
+			});
+	});
+var $author$project$Custom$Character$playerCylinderHalfLength = $ianmackenzie$elm_units$Length$meters(0.4);
+var $author$project$Custom$Character$playerRadius = $ianmackenzie$elm_units$Length$meters(0.3);
+var $ianmackenzie$elm_units$Quantity$twice = function (_v0) {
+	var value = _v0.a;
+	return $ianmackenzie$elm_units$Quantity$Quantity(2 * value);
+};
+var $author$project$Custom$Character$playerCapsule = A3(
+	$ianmackenzie$elm_geometry$Cylinder3d$centeredOn,
+	$ianmackenzie$elm_geometry$Point3d$origin,
+	$ianmackenzie$elm_geometry$Direction3d$z,
+	{
+		length: $ianmackenzie$elm_units$Quantity$twice($author$project$Custom$Character$playerCylinderHalfLength),
+		radius: $author$project$Custom$Character$playerRadius
+	});
+var $author$project$Custom$Character$playerMass = $ianmackenzie$elm_units$Mass$kilograms(5);
+var $author$project$Custom$Character$playerMaterial = $author$project$Physics$Material$dense(
+	{
+		bounciness: 0,
+		density: $ianmackenzie$elm_units$Density$kilogramsPerCubicMeter(700),
+		friction: 0.2
+	});
+var $ianmackenzie$elm_units$Quantity$plus = F2(
+	function (_v0, _v1) {
+		var y = _v0.a;
+		var x = _v1.a;
+		return $ianmackenzie$elm_units$Quantity$Quantity(x + y);
+	});
+var $ianmackenzie$elm_units$Mass$inKilograms = function (_v0) {
+	var numKilograms = _v0.a;
+	return numKilograms;
+};
+var $author$project$Physics$scaleMassTo = F2(
+	function (desiredMass, original) {
+		var body = original.a;
+		var newMass = $ianmackenzie$elm_units$Mass$inKilograms(desiredMass);
+		if ((body.kindInt === 2) && (newMass > 0)) {
+			var scale = body.mass / newMass;
+			var newInvInertia = {x: body.invInertia.x * scale, y: body.invInertia.y * scale, z: body.invInertia.z * scale};
+			return $author$project$Physics$Types$Body(
+				{
+					angularDamping: body.angularDamping,
+					angularLock: body.angularLock,
+					angularVelocity: body.angularVelocity,
+					centerOfMassTransform3d: body.centerOfMassTransform3d,
+					force: body.force,
+					geometry: body.geometry,
+					id: body.id,
+					invInertia: newInvInertia,
+					invInertiaWorld: A2($author$project$Internal$Transform3d$invertedInertiaRotateIn, body.transform3d, newInvInertia),
+					invMass: 1 / newMass,
+					kindInt: body.kindInt,
+					linearDamping: body.linearDamping,
+					linearLock: body.linearLock,
+					mass: newMass,
+					torque: body.torque,
+					transform3d: body.transform3d,
+					velocity: body.velocity,
+					worldShapesWithMaterials: body.worldShapesWithMaterials
+				});
+		} else {
+			return original;
+		}
+	});
+var $ianmackenzie$elm_units$Quantity$half = function (_v0) {
+	var value = _v0.a;
+	return $ianmackenzie$elm_units$Quantity$Quantity(0.5 * value);
+};
+var $ianmackenzie$elm_units$Quantity$multiplyBy = F2(
+	function (scale, _v0) {
+		var value = _v0.a;
+		return $ianmackenzie$elm_units$Quantity$Quantity(scale * value);
+	});
+var $ianmackenzie$elm_units$Quantity$negate = function (_v0) {
+	var value = _v0.a;
+	return $ianmackenzie$elm_units$Quantity$Quantity(-value);
+};
+var $author$project$Custom$Character$stairBlocks = function () {
+	var width = $ianmackenzie$elm_units$Length$meters(1.5);
+	var topPlatformDepth = $ianmackenzie$elm_units$Length$meters(1.2);
+	var stepHeight = $ianmackenzie$elm_units$Length$meters(0.2);
+	var stepDepth = $ianmackenzie$elm_units$Length$meters(0.5);
+	var numSteps = 4;
+	var halfWidth = $ianmackenzie$elm_units$Quantity$half(width);
+	return A2(
+		$elm$core$List$map,
+		function (level) {
+			var zMax = A2($ianmackenzie$elm_units$Quantity$multiplyBy, level + 1, stepHeight);
+			var yMin = A2($ianmackenzie$elm_units$Quantity$multiplyBy, level, stepDepth);
+			var yMax = A2(
+				$ianmackenzie$elm_units$Quantity$plus,
+				yMin,
+				_Utils_eq(level, numSteps) ? topPlatformDepth : stepDepth);
+			return A2(
+				$ianmackenzie$elm_geometry$Block3d$from,
+				A3(
+					$ianmackenzie$elm_geometry$Point3d$xyz,
+					$ianmackenzie$elm_units$Quantity$negate(halfWidth),
+					yMin,
+					$ianmackenzie$elm_units$Quantity$zero),
+				A3($ianmackenzie$elm_geometry$Point3d$xyz, halfWidth, yMax, zMax));
+		},
+		A2($elm$core$List$range, 0, numSteps));
+}();
+var $author$project$Custom$Character$stairMaterial = $author$project$Physics$Material$dense(
+	{
+		bounciness: 0,
+		density: $ianmackenzie$elm_units$Density$kilogramsPerCubicMeter(700),
+		friction: 0.02
+	});
+var $author$project$Physics$static = function (shapesWithMaterials) {
+	return $author$project$Physics$Types$Body(
+		A2(
+			$author$project$Internal$Body$compound,
+			1,
+			A2(
+				$elm$core$List$concatMap,
+				function (_v0) {
+					var entries = _v0.a.a;
+					var internalMat = _v0.b.a;
+					return A2(
+						$elm$core$List$map,
+						function (_v1) {
+							var shape = _v1.a;
+							var sign = _v1.b;
+							return _Utils_Tuple3(shape, internalMat, sign);
+						},
+						entries);
+				},
+				shapesWithMaterials)));
+};
+var $author$project$Custom$Character$initialBodies = function () {
+	var stairsBody = A2(
+		$author$project$Physics$moveTo,
+		A3($ianmackenzie$elm_geometry$Point3d$meters, 0, 1, 0),
+		$author$project$Physics$static(
+			A2(
+				$elm$core$List$map,
+				function (b) {
+					return _Utils_Tuple2(
+						$author$project$Physics$Shape$block(b),
+						$author$project$Custom$Character$stairMaterial);
+				},
+				$author$project$Custom$Character$stairBlocks)));
+	var player = A2(
+		$author$project$Physics$lock,
+		$author$project$Physics$Lock$allRotation,
+		A2(
+			$author$project$Physics$moveTo,
+			A3(
+				$ianmackenzie$elm_geometry$Point3d$xyz,
+				$ianmackenzie$elm_units$Quantity$zero,
+				$ianmackenzie$elm_units$Length$meters(-4),
+				A2($ianmackenzie$elm_units$Quantity$plus, $author$project$Custom$Character$playerCylinderHalfLength, $author$project$Custom$Character$playerRadius)),
+			A2(
+				$author$project$Physics$scaleMassTo,
+				$author$project$Custom$Character$playerMass,
+				A2($author$project$Physics$capsule, $author$project$Custom$Character$playerCapsule, $author$project$Custom$Character$playerMaterial))));
+	var floorBody = A2($author$project$Physics$plane, $ianmackenzie$elm_geometry$Plane3d$xy, $author$project$Physics$Material$wood);
+	var boxAt = function (_v0) {
+		var x = _v0.a;
+		var y = _v0.b;
+		return A2(
+			$author$project$Physics$moveTo,
+			A3($ianmackenzie$elm_geometry$Point3d$meters, x, y, 0.4),
+			A2(
+				$author$project$Physics$scaleMassTo,
+				$ianmackenzie$elm_units$Mass$kilograms(5),
+				A2($author$project$Physics$block, $author$project$Custom$Character$boxBlock, $author$project$Custom$Character$boxMaterial)));
+	};
+	var boxes = A2(
+		$elm$core$List$indexedMap,
+		F2(
+			function (idx, pos) {
+				return _Utils_Tuple2(
+					$author$project$Custom$Character$Box(idx),
+					boxAt(pos));
+			}),
+		$author$project$Custom$Character$boxPositions);
+	return A2(
+		$elm$core$List$cons,
+		_Utils_Tuple2($author$project$Custom$Character$Floor, floorBody),
+		A2(
+			$elm$core$List$cons,
+			_Utils_Tuple2($author$project$Custom$Character$Player, player),
+			A2(
+				$elm$core$List$cons,
+				_Utils_Tuple2($author$project$Custom$Character$Stairs, stairsBody),
+				boxes)));
+}();
+var $author$project$Custom$Character$initial = function (_v0) {
+	var height = _v0.height;
+	var width = _v0.width;
+	return {
+		bodies: $author$project$Custom$Character$initialBodies,
+		contacts: $author$project$Physics$emptyContacts,
+		dimensions: _Utils_Tuple2(
+			$ianmackenzie$elm_units$Pixels$int(width),
+			$ianmackenzie$elm_units$Pixels$int(height)),
+		forwardInput: 0,
+		grounded: false,
+		jumpHeld: false,
+		jumpRequested: false,
+		prevBodies: $author$project$Custom$Character$initialBodies,
+		rightInput: 0,
+		timestep: $w0rm$elm_timestep$Timestep$init(
+			{
+				duration: $ianmackenzie$elm_units$Duration$seconds(1 / 120),
+				maxSteps: 2
+			})
+	};
+};
+var $author$project$Custom$character = function (options) {
+	return $w0rm$elm_slice_show$SliceShow$custom(
+		$author$project$Custom$CharacterModel(
+			$author$project$Custom$Character$initial(options)));
+};
+var $author$project$Main$characterDemo = _List_fromArray(
+	[
+		A3(
+		$author$project$Formatting$position,
+		0,
+		0,
+		$author$project$Custom$character(
+			{height: 720, width: 1280}))
+	]);
 var $author$project$Custom$BoxStackModel = function (a) {
 	return {$: 'BoxStackModel', a: a};
 };
@@ -9229,8 +9777,6 @@ var $ianmackenzie$elm_geometry$Point3d$along = F2(
 var $author$project$Custom$CraneClaw$anchorRestZ = $ianmackenzie$elm_units$Length$meters(7.0);
 var $author$project$Custom$CraneClaw$Box = {$: 'Box'};
 var $author$project$Custom$CraneClaw$Floor = {$: 'Floor'};
-var $ianmackenzie$elm_geometry$Direction3d$x = $ianmackenzie$elm_geometry$Direction3d$positiveX;
-var $ianmackenzie$elm_geometry$Direction3d$y = $ianmackenzie$elm_geometry$Direction3d$positiveY;
 var $ianmackenzie$elm_geometry$Frame3d$atPoint = function (point) {
 	return $ianmackenzie$elm_geometry$Frame3d$unsafe(
 		{originPoint: point, xDirection: $ianmackenzie$elm_geometry$Direction3d$x, yDirection: $ianmackenzie$elm_geometry$Direction3d$y, zDirection: $ianmackenzie$elm_geometry$Direction3d$z});
@@ -9238,40 +9784,8 @@ var $ianmackenzie$elm_geometry$Frame3d$atPoint = function (point) {
 var $author$project$Custom$CraneClaw$boxDepth = $ianmackenzie$elm_units$Length$meters(5.0);
 var $author$project$Custom$CraneClaw$boxHeight = $ianmackenzie$elm_units$Length$meters(3.0);
 var $author$project$Custom$CraneClaw$boxWidth = $ianmackenzie$elm_units$Length$meters(5.0);
-var $ianmackenzie$elm_geometry$Block3d$centeredOn = F2(
-	function (givenAxes, _v0) {
-		var xDimension = _v0.a;
-		var yDimension = _v0.b;
-		var zDimension = _v0.c;
-		return $ianmackenzie$elm_geometry$Geometry$Types$Block3d(
-			{
-				axes: $ianmackenzie$elm_geometry$Frame3d$copy(givenAxes),
-				dimensions: _Utils_Tuple3(
-					$ianmackenzie$elm_units$Quantity$abs(xDimension),
-					$ianmackenzie$elm_units$Quantity$abs(yDimension),
-					$ianmackenzie$elm_units$Quantity$abs(zDimension))
-			});
-	});
-var $ianmackenzie$elm_units$Quantity$half = function (_v0) {
-	var value = _v0.a;
-	return $ianmackenzie$elm_units$Quantity$Quantity(0.5 * value);
-};
 var $author$project$Custom$CraneClaw$wallThickness = $ianmackenzie$elm_units$Length$meters(0.5);
 var $author$project$Custom$CraneClaw$halfWall = $ianmackenzie$elm_units$Quantity$half($author$project$Custom$CraneClaw$wallThickness);
-var $ianmackenzie$elm_units$Quantity$negate = function (_v0) {
-	var value = _v0.a;
-	return $ianmackenzie$elm_units$Quantity$Quantity(-value);
-};
-var $ianmackenzie$elm_units$Quantity$plus = F2(
-	function (_v0, _v1) {
-		var y = _v0.a;
-		var x = _v1.a;
-		return $ianmackenzie$elm_units$Quantity$Quantity(x + y);
-	});
-var $ianmackenzie$elm_units$Quantity$twice = function (_v0) {
-	var value = _v0.a;
-	return $ianmackenzie$elm_units$Quantity$Quantity(2 * value);
-};
 var $author$project$Custom$CraneClaw$outerDepth = A2(
 	$ianmackenzie$elm_units$Quantity$plus,
 	$ianmackenzie$elm_units$Quantity$twice($author$project$Custom$CraneClaw$wallThickness),
@@ -9284,14 +9798,6 @@ var $author$project$Custom$CraneClaw$wallZ = A2(
 	$ianmackenzie$elm_units$Quantity$plus,
 	$author$project$Custom$CraneClaw$wallThickness,
 	$ianmackenzie$elm_units$Quantity$half($author$project$Custom$CraneClaw$boxHeight));
-var $ianmackenzie$elm_geometry$Geometry$Types$Axis3d = function (a) {
-	return {$: 'Axis3d', a: a};
-};
-var $ianmackenzie$elm_geometry$Axis3d$through = F2(
-	function (givenPoint, givenDirection) {
-		return $ianmackenzie$elm_geometry$Geometry$Types$Axis3d(
-			{direction: givenDirection, originPoint: givenPoint});
-	});
 var $ianmackenzie$elm_geometry$Axis3d$z = A2($ianmackenzie$elm_geometry$Axis3d$through, $ianmackenzie$elm_geometry$Point3d$origin, $ianmackenzie$elm_geometry$Direction3d$z);
 var $author$project$Custom$CraneClaw$boxShapes = function () {
 	var sideWallX = A2(
@@ -9345,27 +9851,6 @@ var $author$project$Custom$CraneClaw$boxShapes = function () {
 			frontWall
 		]);
 }();
-var $author$project$Physics$static = function (shapesWithMaterials) {
-	return $author$project$Physics$Types$Body(
-		A2(
-			$author$project$Internal$Body$compound,
-			1,
-			A2(
-				$elm$core$List$concatMap,
-				function (_v0) {
-					var entries = _v0.a.a;
-					var internalMat = _v0.b.a;
-					return A2(
-						$elm$core$List$map,
-						function (_v1) {
-							var shape = _v1.a;
-							var sign = _v1.b;
-							return _Utils_Tuple3(shape, internalMat, sign);
-						},
-						entries);
-				},
-				shapesWithMaterials)));
-};
 var $author$project$Custom$CraneClaw$initialBodies = _List_fromArray(
 	[
 		_Utils_Tuple2(
@@ -9913,16 +10398,6 @@ var $author$project$Custom$Seesaw$plankParts = _List_fromArray(
 		A2($author$project$Custom$Seesaw$stop, 0.87, 0.97),
 		A2($author$project$Custom$Seesaw$stop, 1.5, 1.6)
 	]);
-var $author$project$Physics$block = F2(
-	function (block3d, mat) {
-		return $author$project$Physics$dynamic(
-			_List_fromArray(
-				[
-					_Utils_Tuple2(
-					$author$project$Physics$Shape$block(block3d),
-					mat)
-				]));
-	});
 var $author$project$Custom$Seesaw$solidCrate = A2(
 	$author$project$Physics$moveTo,
 	A3($ianmackenzie$elm_geometry$Point3d$meters, -1.235, 0, $author$project$Custom$Seesaw$crateZ),
@@ -10253,8 +10728,6 @@ var $author$project$Custom$Dice$diceMaterial = $author$project$Physics$Material$
 		density: $ianmackenzie$elm_units$Density$gramsPerCubicCentimeter(0.6),
 		friction: 0.1
 	});
-var $ianmackenzie$elm_geometry$Frame3d$atOrigin = $ianmackenzie$elm_geometry$Geometry$Types$Frame3d(
-	{originPoint: $ianmackenzie$elm_geometry$Point3d$origin, xDirection: $ianmackenzie$elm_geometry$Direction3d$x, yDirection: $ianmackenzie$elm_geometry$Direction3d$y, zDirection: $ianmackenzie$elm_geometry$Direction3d$z});
 var $author$project$Custom$Dice$dieBlock = A2(
 	$ianmackenzie$elm_geometry$Block3d$centeredOn,
 	$ianmackenzie$elm_geometry$Frame3d$atOrigin,
@@ -10262,13 +10735,6 @@ var $author$project$Custom$Dice$dieBlock = A2(
 		$ianmackenzie$elm_units$Length$meters(2),
 		$ianmackenzie$elm_units$Length$meters(2),
 		$ianmackenzie$elm_units$Length$meters(2)));
-var $ianmackenzie$elm_units$Mass$kilograms = function (numKilograms) {
-	return $ianmackenzie$elm_units$Quantity$Quantity(numKilograms);
-};
-var $ianmackenzie$elm_geometry$Axis3d$direction = function (_v0) {
-	var axis = _v0.a;
-	return axis.direction;
-};
 var $ianmackenzie$elm_geometry$Point3d$fromMeters = function (givenCoordinates) {
 	return $ianmackenzie$elm_geometry$Geometry$Types$Point3d(givenCoordinates);
 };
@@ -10399,42 +10865,6 @@ var $author$project$Physics$rotateAround = F3(
 					},
 					body.geometry.shapesWithMaterials)
 			});
-	});
-var $ianmackenzie$elm_units$Mass$inKilograms = function (_v0) {
-	var numKilograms = _v0.a;
-	return numKilograms;
-};
-var $author$project$Physics$scaleMassTo = F2(
-	function (desiredMass, original) {
-		var body = original.a;
-		var newMass = $ianmackenzie$elm_units$Mass$inKilograms(desiredMass);
-		if ((body.kindInt === 2) && (newMass > 0)) {
-			var scale = body.mass / newMass;
-			var newInvInertia = {x: body.invInertia.x * scale, y: body.invInertia.y * scale, z: body.invInertia.z * scale};
-			return $author$project$Physics$Types$Body(
-				{
-					angularDamping: body.angularDamping,
-					angularLock: body.angularLock,
-					angularVelocity: body.angularVelocity,
-					centerOfMassTransform3d: body.centerOfMassTransform3d,
-					force: body.force,
-					geometry: body.geometry,
-					id: body.id,
-					invInertia: newInvInertia,
-					invInertiaWorld: A2($author$project$Internal$Transform3d$invertedInertiaRotateIn, body.transform3d, newInvInertia),
-					invMass: 1 / newMass,
-					kindInt: body.kindInt,
-					linearDamping: body.linearDamping,
-					linearLock: body.linearLock,
-					mass: newMass,
-					torque: body.torque,
-					transform3d: body.transform3d,
-					velocity: body.velocity,
-					worldShapesWithMaterials: body.worldShapesWithMaterials
-				});
-		} else {
-			return original;
-		}
 	});
 var $author$project$Custom$Dice$placeDie = F6(
 	function (x, y, z, az, el, ang) {
@@ -11090,18 +11520,6 @@ var $author$project$Custom$Clock$chainPositions = function () {
 		loaded,
 		_Utils_ap(wrap, slack));
 }();
-var $ianmackenzie$elm_geometry$Geometry$Types$Cylinder3d = function (a) {
-	return {$: 'Cylinder3d', a: a};
-};
-var $ianmackenzie$elm_geometry$Cylinder3d$centeredOn = F3(
-	function (givenCenterPoint, givenDirection, _arguments) {
-		return $ianmackenzie$elm_geometry$Geometry$Types$Cylinder3d(
-			{
-				axis: A2($ianmackenzie$elm_geometry$Axis3d$through, givenCenterPoint, givenDirection),
-				length: $ianmackenzie$elm_units$Quantity$abs(_arguments.length),
-				radius: $ianmackenzie$elm_units$Quantity$abs(_arguments.radius)
-			});
-	});
 var $author$project$Custom$Clock$counterweightCylinder = A3(
 	$ianmackenzie$elm_geometry$Cylinder3d$centeredOn,
 	$ianmackenzie$elm_geometry$Point3d$origin,
@@ -11112,22 +11530,6 @@ var $author$project$Custom$Clock$counterweightCylinder = A3(
 	});
 var $author$project$Custom$Clock$counterweightMass = 0.3;
 var $author$project$Custom$Clock$counterweightPosition = A3($ianmackenzie$elm_geometry$Point3d$meters, -$author$project$Custom$Clock$chainRideR, $author$project$Custom$Clock$sprocketY, -(($author$project$Custom$Clock$slackHang + 1) * $author$project$Custom$Clock$chainSpacing));
-var $ianmackenzie$elm_geometry$Cylinder3d$axis = function (_v0) {
-	var cylinder = _v0.a;
-	return cylinder.axis;
-};
-var $ianmackenzie$elm_geometry$Cylinder3d$axialDirection = function (cylinder) {
-	return $ianmackenzie$elm_geometry$Axis3d$direction(
-		$ianmackenzie$elm_geometry$Cylinder3d$axis(cylinder));
-};
-var $ianmackenzie$elm_geometry$Axis3d$originPoint = function (_v0) {
-	var axis = _v0.a;
-	return axis.originPoint;
-};
-var $ianmackenzie$elm_geometry$Cylinder3d$centerPoint = function (cylinder) {
-	return $ianmackenzie$elm_geometry$Axis3d$originPoint(
-		$ianmackenzie$elm_geometry$Cylinder3d$axis(cylinder));
-};
 var $author$project$Internal$Matrix3$cylinderInertia = F3(
 	function (m, radius, height) {
 		var a = (m * ((3 * A2($elm$core$Basics$pow, radius, 2)) + A2($elm$core$Basics$pow, height, 2))) / 12;
@@ -11506,51 +11908,6 @@ var $author$project$Shapes$Convex$fromCylinder = F3(
 				volume: volume
 			});
 	});
-var $ianmackenzie$elm_geometry$Cylinder3d$length = function (_v0) {
-	var cylinder = _v0.a;
-	return cylinder.length;
-};
-var $ianmackenzie$elm_geometry$Direction3d$perpendicularTo = function (_v0) {
-	var d = _v0.a;
-	var absZ = $elm$core$Basics$abs(d.z);
-	var absY = $elm$core$Basics$abs(d.y);
-	var absX = $elm$core$Basics$abs(d.x);
-	if (_Utils_cmp(absX, absY) < 1) {
-		if (_Utils_cmp(absX, absZ) < 1) {
-			var scale = $elm$core$Basics$sqrt((d.z * d.z) + (d.y * d.y));
-			return $ianmackenzie$elm_geometry$Geometry$Types$Direction3d(
-				{x: 0, y: (-d.z) / scale, z: d.y / scale});
-		} else {
-			var scale = $elm$core$Basics$sqrt((d.y * d.y) + (d.x * d.x));
-			return $ianmackenzie$elm_geometry$Geometry$Types$Direction3d(
-				{x: (-d.y) / scale, y: d.x / scale, z: 0});
-		}
-	} else {
-		if (_Utils_cmp(absY, absZ) < 1) {
-			var scale = $elm$core$Basics$sqrt((d.z * d.z) + (d.x * d.x));
-			return $ianmackenzie$elm_geometry$Geometry$Types$Direction3d(
-				{x: d.z / scale, y: 0, z: (-d.x) / scale});
-		} else {
-			var scale = $elm$core$Basics$sqrt((d.x * d.x) + (d.y * d.y));
-			return $ianmackenzie$elm_geometry$Geometry$Types$Direction3d(
-				{x: (-d.y) / scale, y: d.x / scale, z: 0});
-		}
-	}
-};
-var $ianmackenzie$elm_geometry$Direction3d$perpendicularBasis = function (direction) {
-	var xDirection = $ianmackenzie$elm_geometry$Direction3d$perpendicularTo(direction);
-	var _v0 = xDirection;
-	var dX = _v0.a;
-	var _v1 = direction;
-	var d = _v1.a;
-	var yDirection = $ianmackenzie$elm_geometry$Geometry$Types$Direction3d(
-		{x: (d.y * dX.z) - (d.z * dX.y), y: (d.z * dX.x) - (d.x * dX.z), z: (d.x * dX.y) - (d.y * dX.x)});
-	return _Utils_Tuple2(xDirection, yDirection);
-};
-var $ianmackenzie$elm_geometry$Cylinder3d$radius = function (_v0) {
-	var cylinder = _v0.a;
-	return cylinder.radius;
-};
 var $author$project$Physics$Shape$cylinder = F2(
 	function (subdivisions, cylinder3d) {
 		var _v0 = $ianmackenzie$elm_geometry$Direction3d$perpendicularBasis(
@@ -11863,111 +12220,6 @@ var $author$project$Custom$Clock$interPinTeeth = 8;
 var $author$project$Custom$Clock$interPinToothMeshes = A3($author$project$Custom$Clock$gearTeeth, $author$project$Custom$Clock$gear2Y, $author$project$Custom$Clock$interPinTeeth, 0);
 var $author$project$Custom$Clock$pinionTeeth = 8;
 var $author$project$Custom$Clock$intermediateCenter = A3($ianmackenzie$elm_geometry$Point3d$meters, $author$project$Custom$Clock$pitchPerTooth * ($author$project$Custom$Clock$pinionTeeth + $author$project$Custom$Clock$interBigTeeth), 0, 0);
-var $author$project$Internal$Lock$foldMasks = F3(
-	function (locks, linear, angular) {
-		foldMasks:
-		while (true) {
-			if (!locks.b) {
-				return _Utils_Tuple2(linear, angular);
-			} else {
-				switch (locks.a.$) {
-					case 'TranslateX':
-						var _v1 = locks.a;
-						var rest = locks.b;
-						var $temp$locks = rest,
-							$temp$linear = _Utils_update(
-							linear,
-							{x: 0}),
-							$temp$angular = angular;
-						locks = $temp$locks;
-						linear = $temp$linear;
-						angular = $temp$angular;
-						continue foldMasks;
-					case 'TranslateY':
-						var _v2 = locks.a;
-						var rest = locks.b;
-						var $temp$locks = rest,
-							$temp$linear = _Utils_update(
-							linear,
-							{y: 0}),
-							$temp$angular = angular;
-						locks = $temp$locks;
-						linear = $temp$linear;
-						angular = $temp$angular;
-						continue foldMasks;
-					case 'TranslateZ':
-						var _v3 = locks.a;
-						var rest = locks.b;
-						var $temp$locks = rest,
-							$temp$linear = _Utils_update(
-							linear,
-							{z: 0}),
-							$temp$angular = angular;
-						locks = $temp$locks;
-						linear = $temp$linear;
-						angular = $temp$angular;
-						continue foldMasks;
-					case 'RotateX':
-						var _v4 = locks.a;
-						var rest = locks.b;
-						var $temp$locks = rest,
-							$temp$linear = linear,
-							$temp$angular = _Utils_update(
-							angular,
-							{x: 0});
-						locks = $temp$locks;
-						linear = $temp$linear;
-						angular = $temp$angular;
-						continue foldMasks;
-					case 'RotateY':
-						var _v5 = locks.a;
-						var rest = locks.b;
-						var $temp$locks = rest,
-							$temp$linear = linear,
-							$temp$angular = _Utils_update(
-							angular,
-							{y: 0});
-						locks = $temp$locks;
-						linear = $temp$linear;
-						angular = $temp$angular;
-						continue foldMasks;
-					default:
-						var _v6 = locks.a;
-						var rest = locks.b;
-						var $temp$locks = rest,
-							$temp$linear = linear,
-							$temp$angular = _Utils_update(
-							angular,
-							{z: 0});
-						locks = $temp$locks;
-						linear = $temp$linear;
-						angular = $temp$angular;
-						continue foldMasks;
-				}
-			}
-		}
-	});
-var $author$project$Internal$Vector3$one = {x: 1, y: 1, z: 1};
-var $author$project$Internal$Lock$masks = function (locks) {
-	return A3($author$project$Internal$Lock$foldMasks, locks, $author$project$Internal$Vector3$one, $author$project$Internal$Vector3$one);
-};
-var $author$project$Internal$Body$lock = F2(
-	function (locks, body) {
-		var _v0 = $author$project$Internal$Lock$masks(locks);
-		var linearLock = _v0.a;
-		var angularLock = _v0.b;
-		return {angularDamping: body.angularDamping, angularLock: angularLock, angularVelocity: body.angularVelocity, centerOfMassTransform3d: body.centerOfMassTransform3d, force: body.force, geometry: body.geometry, id: body.id, invInertia: body.invInertia, invInertiaWorld: body.invInertiaWorld, invMass: body.invMass, kindInt: body.kindInt, linearDamping: body.linearDamping, linearLock: linearLock, mass: body.mass, torque: body.torque, transform3d: body.transform3d, velocity: body.velocity, worldShapesWithMaterials: body.worldShapesWithMaterials};
-	});
-var $author$project$Physics$lock = F2(
-	function (locks, original) {
-		var body = original.a;
-		return (body.kindInt === 2) ? $author$project$Physics$Types$Body(
-			A2($author$project$Internal$Body$lock, locks, body)) : original;
-	});
-var $author$project$Internal$Lock$RotateX = {$: 'RotateX'};
-var $author$project$Physics$Lock$rotateX = $author$project$Internal$Lock$RotateX;
-var $author$project$Internal$Lock$RotateZ = {$: 'RotateZ'};
-var $author$project$Physics$Lock$rotateZ = $author$project$Internal$Lock$RotateZ;
 var $author$project$Internal$Lock$TranslateY = {$: 'TranslateY'};
 var $author$project$Physics$Lock$translateY = $author$project$Internal$Lock$TranslateY;
 var $author$project$Custom$Clock$lockToPlane = $author$project$Physics$lock(
@@ -15821,9 +16073,6 @@ var $author$project$Main$typesCatch = _List_fromArray(
 			0.5,
 			$author$project$Formatting$code('-- TYPE MISMATCH ------- Ball.elm\n\nThe 2nd argument to `sphere`\nis not what I expect:\n\n21|  Physics.sphere ballShape felt\n                              ^^^^\nThis `felt` value is a:\n\n    Material Surface\n\nBut `sphere` needs the 2nd\nargument to be:\n\n    Material Dense')))
 	]);
-var $author$project$Custom$CharacterModel = function (a) {
-	return {$: 'CharacterModel', a: a};
-};
 var $author$project$Custom$JeepModel = function (a) {
 	return {$: 'JeepModel', a: a};
 };
@@ -15847,11 +16096,6 @@ var $w0rm$elm_timestep$Timestep$applyN = F3(
 				continue applyN;
 			}
 		}
-	});
-var $ianmackenzie$elm_units$Quantity$multiplyBy = F2(
-	function (scale, _v0) {
-		var value = _v0.a;
-		return $ianmackenzie$elm_units$Quantity$Quantity(scale * value);
 	});
 var $ianmackenzie$elm_units$Quantity$ratio = F2(
 	function (_v0, _v1) {
@@ -21775,7 +22019,6 @@ var $author$project$Custom$Character$release = F2(
 	function (direction, current) {
 		return _Utils_eq(current, direction) ? 0 : current;
 	});
-var $author$project$Custom$Character$Player = {$: 'Player'};
 var $author$project$Internal$Body$applyImpulse = F3(
 	function (impulse, point, body) {
 		var relativePoint = A2(
@@ -21939,7 +22182,6 @@ var $ianmackenzie$elm_units$Quantity$per = F2(
 		var dependentValue = _v1.a;
 		return $ianmackenzie$elm_units$Quantity$Quantity(dependentValue / independentValue);
 	});
-var $author$project$Custom$Character$playerMass = $ianmackenzie$elm_units$Mass$kilograms(5);
 var $ianmackenzie$elm_geometry$Vector3d$withLength = F2(
 	function (_v0, _v1) {
 		var a = _v0.a;
@@ -22083,7 +22325,6 @@ var $ianmackenzie$elm_units$Quantity$lessThan = F2(
 		var x = _v1.a;
 		return _Utils_cmp(x, y) < 0;
 	});
-var $author$project$Custom$Character$playerCylinderHalfLength = $ianmackenzie$elm_units$Length$meters(0.4);
 var $author$project$Custom$Character$playerGrounded = F2(
 	function (bodies, contacts) {
 		var _v0 = A2(
@@ -22207,7 +22448,7 @@ var $author$project$Custom$Character$stepModel = F2(
 						var _v5 = msg.a;
 						return _Utils_update(
 							model,
-							{jumpRequested: true});
+							{jumpHeld: true, jumpRequested: true});
 				}
 			default:
 				switch (msg.a.$) {
@@ -22241,7 +22482,9 @@ var $author$project$Custom$Character$stepModel = F2(
 							});
 					default:
 						var _v10 = msg.a;
-						return model;
+						return _Utils_update(
+							model,
+							{jumpHeld: false});
 				}
 		}
 	});
@@ -25048,61 +25291,6 @@ var $author$project$Custom$CraneClaw$potCollider = A2(
 		$w0rm$elm_obj_file$Obj$Decode$object,
 		'Pot',
 		$w0rm$elm_obj_file$Obj$Decode$trianglesIn($ianmackenzie$elm_geometry$Frame3d$atOrigin)));
-var $author$project$Internal$Matrix3$capsuleInertia = F3(
-	function (m, radius, halfLength) {
-		var r = radius;
-		var vSph = ((((4 / 3) * $elm$core$Basics$pi) * r) * r) * r;
-		var h = halfLength;
-		var vCyl = (((2 * $elm$core$Basics$pi) * r) * r) * h;
-		var vTotal = vCyl + vSph;
-		var mCyl = (m * vCyl) / vTotal;
-		var mSph = (m * vSph) / vTotal;
-		var ixy = ((mCyl * (((3 * r) * r) + ((4 * h) * h))) / 12) + (mSph * (((((2 * r) * r) / 5) + (h * h)) + (((3 * r) * h) / 4)));
-		var iz = (((mCyl * r) * r) / 2) + ((((mSph * r) * r) * 2) / 5);
-		return {m11: ixy, m12: 0, m13: 0, m21: 0, m22: ixy, m23: 0, m31: 0, m32: 0, m33: iz};
-	});
-var $author$project$Shapes$Capsule$atOrigin = F2(
-	function (radius, halfLength) {
-		var volume = (($elm$core$Basics$pi * radius) * radius) * ((2 * halfLength) + ((4 / 3) * radius));
-		return {
-			axis: $author$project$Internal$Vector3$zAxis,
-			halfLength: halfLength,
-			inertia: A3($author$project$Internal$Matrix3$capsuleInertia, volume, radius, halfLength),
-			position: $author$project$Internal$Vector3$zero,
-			radius: radius,
-			volume: volume
-		};
-	});
-var $author$project$Physics$Shape$capsule = function (cylinder3d) {
-	var _v0 = $ianmackenzie$elm_geometry$Direction3d$perpendicularBasis(
-		$ianmackenzie$elm_geometry$Cylinder3d$axialDirection(cylinder3d));
-	var a = _v0.a;
-	var b = _v0.b;
-	var transform3d = A4(
-		$author$project$Internal$Transform3d$fromOriginAndBasis,
-		$ianmackenzie$elm_geometry$Point3d$toMeters(
-			$ianmackenzie$elm_geometry$Cylinder3d$centerPoint(cylinder3d)),
-		$ianmackenzie$elm_geometry$Direction3d$unwrap(a),
-		$ianmackenzie$elm_geometry$Direction3d$unwrap(b),
-		$ianmackenzie$elm_geometry$Direction3d$unwrap(
-			$ianmackenzie$elm_geometry$Cylinder3d$axialDirection(cylinder3d)));
-	return $author$project$Physics$Types$Shape(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				$author$project$Internal$Shape$Capsule(
-					A2(
-						$author$project$Shapes$Capsule$placeIn,
-						transform3d,
-						A2(
-							$author$project$Shapes$Capsule$atOrigin,
-							$ianmackenzie$elm_units$Length$inMeters(
-								$ianmackenzie$elm_geometry$Cylinder3d$radius(cylinder3d)),
-							$ianmackenzie$elm_units$Length$inMeters(
-								$ianmackenzie$elm_geometry$Cylinder3d$length(cylinder3d)) / 2))),
-				1)
-			]));
-};
 var $ianmackenzie$elm_geometry$Point3d$translateIn = F3(
 	function (_v0, _v1, _v2) {
 		var d = _v0.a;
@@ -36208,13 +36396,6 @@ var $ianmackenzie$elm_3d_scene$Scene3d$blockWithShadow = F2(
 	function (givenMaterial, givenBlock) {
 		return A4($ianmackenzie$elm_3d_scene$Scene3d$Entity$block, true, true, givenMaterial, givenBlock);
 	});
-var $author$project$Custom$Character$boxBlock = A2(
-	$ianmackenzie$elm_geometry$Block3d$centeredOn,
-	$ianmackenzie$elm_geometry$Frame3d$atOrigin,
-	_Utils_Tuple3(
-		$ianmackenzie$elm_units$Length$meters(0.5),
-		$ianmackenzie$elm_units$Length$meters(0.5),
-		$ianmackenzie$elm_units$Length$meters(0.8)));
 var $ianmackenzie$elm_3d_scene$Scene3d$Mesh$collectSmooth = F2(
 	function (_v0, accumulated) {
 		var normal = _v0.normal;
@@ -36451,15 +36632,6 @@ var $ianmackenzie$elm_3d_scene$Scene3d$Material$nonmetal = function (_v0) {
 		{baseColor: baseColor, metallic: 0, roughness: roughness});
 };
 var $avh4$elm_color$Color$orange = A4($avh4$elm_color$Color$RgbaSpace, 245 / 255, 121 / 255, 0 / 255, 1.0);
-var $author$project$Custom$Character$playerRadius = $ianmackenzie$elm_units$Length$meters(0.3);
-var $author$project$Custom$Character$playerCapsule = A3(
-	$ianmackenzie$elm_geometry$Cylinder3d$centeredOn,
-	$ianmackenzie$elm_geometry$Point3d$origin,
-	$ianmackenzie$elm_geometry$Direction3d$z,
-	{
-		length: $ianmackenzie$elm_units$Quantity$twice($author$project$Custom$Character$playerCylinderHalfLength),
-		radius: $author$project$Custom$Character$playerRadius
-	});
 var $ianmackenzie$elm_3d_scene$Scene3d$UnoptimizedShaders$plainQuadVertex = {
 	src: '\n        precision highp float;\n        \n        attribute highp vec3 quadVertex;\n        \n        uniform highp vec4 modelScale;\n        uniform highp mat4 modelMatrix;\n        uniform highp mat4 viewMatrix;\n        uniform highp mat4 projectionMatrix;\n        uniform highp mat4 sceneProperties;\n        uniform highp mat4 quadVertexPositions;\n        \n        void getQuadVertex(int quadVertexIndex, mat4 quadVertexPositions, out vec3 position, out vec3 normal, out vec4 tangent) {\n            vec3 next = vec3(0.0, 0.0, 0.0);\n            vec3 prev = vec3(0.0, 0.0, 0.0);\n            if (quadVertexIndex == 0) {\n                prev = quadVertexPositions[3].xyz;\n                position = quadVertexPositions[0].xyz;\n                next = quadVertexPositions[1].xyz;\n                tangent = vec4(normalize(next - position), 1.0);\n            } else if (quadVertexIndex == 1) {\n                prev = quadVertexPositions[0].xyz;\n                position = quadVertexPositions[1].xyz;\n                next = quadVertexPositions[2].xyz;\n                tangent = vec4(normalize(position - prev), 1.0);\n            } else if (quadVertexIndex == 2) {\n                prev = quadVertexPositions[1].xyz;\n                position = quadVertexPositions[2].xyz;\n                next = quadVertexPositions[3].xyz;\n                tangent = vec4(normalize(position - next), 1.0);\n            } else {\n                prev = quadVertexPositions[2].xyz;\n                position = quadVertexPositions[3].xyz;\n                next = quadVertexPositions[0].xyz;\n                tangent = vec4(normalize(prev - position), 1.0);\n            }\n            normal = normalize(cross(next - position, prev - position));\n        }\n        \n        vec4 getWorldPosition(vec3 modelPosition, vec4 modelScale, mat4 modelMatrix) {\n            vec4 scaledPosition = vec4(modelScale.xyz * modelPosition, 1.0);\n            return modelMatrix * scaledPosition;\n        }\n        \n        void main() {\n            vec3 position = vec3(0.0, 0.0, 0.0);\n            vec3 normal = vec3(0.0, 0.0, 0.0);\n            vec4 tangent = vec4(0.0, 0.0, 0.0, 0.0);\n            getQuadVertex(int(quadVertex.z), quadVertexPositions, position, normal, tangent);\n            vec4 worldPosition = getWorldPosition(position, modelScale, modelMatrix);\n            gl_Position = projectionMatrix * (viewMatrix * worldPosition);\n        }\n    ',
 	attributes: {quadVertex: 'quadVertex'},
@@ -37018,33 +37190,6 @@ var $ianmackenzie$elm_3d_scene$Scene3d$sphereWithShadow = F2(
 			$ianmackenzie$elm_3d_scene$Scene3d$Material$textured(givenMaterial),
 			givenSphere);
 	});
-var $author$project$Custom$Character$stairBlocks = function () {
-	var width = $ianmackenzie$elm_units$Length$meters(1.5);
-	var topPlatformDepth = $ianmackenzie$elm_units$Length$meters(1.2);
-	var stepHeight = $ianmackenzie$elm_units$Length$meters(0.2);
-	var stepDepth = $ianmackenzie$elm_units$Length$meters(0.5);
-	var numSteps = 4;
-	var halfWidth = $ianmackenzie$elm_units$Quantity$half(width);
-	return A2(
-		$elm$core$List$map,
-		function (level) {
-			var zMax = A2($ianmackenzie$elm_units$Quantity$multiplyBy, level + 1, stepHeight);
-			var yMin = A2($ianmackenzie$elm_units$Quantity$multiplyBy, level, stepDepth);
-			var yMax = A2(
-				$ianmackenzie$elm_units$Quantity$plus,
-				yMin,
-				_Utils_eq(level, numSteps) ? topPlatformDepth : stepDepth);
-			return A2(
-				$ianmackenzie$elm_geometry$Block3d$from,
-				A3(
-					$ianmackenzie$elm_geometry$Point3d$xyz,
-					$ianmackenzie$elm_units$Quantity$negate(halfWidth),
-					yMin,
-					$ianmackenzie$elm_units$Quantity$zero),
-				A3($ianmackenzie$elm_geometry$Point3d$xyz, halfWidth, yMax, zMax));
-		},
-		A2($elm$core$List$range, 0, numSteps));
-}();
 var $author$project$Custom$Character$bodyEntity = F3(
 	function (timestep, _v0, _v1) {
 		var prev = _v0.b;
@@ -37119,18 +37264,271 @@ var $author$project$Custom$Character$camera = $ianmackenzie$elm_3d_camera$Camera
 		projection: $ianmackenzie$elm_3d_camera$Camera3d$Perspective,
 		upDirection: $ianmackenzie$elm_geometry$Direction3d$positiveZ
 	});
-var $author$project$Custom$Character$view = function (_v0) {
-	var timestep = _v0.timestep;
-	var dimensions = _v0.dimensions;
-	var bodies = _v0.bodies;
-	var prevBodies = _v0.prevBodies;
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$defaultOptions = {preventDefault: true, stopPropagation: false};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$Event = F5(
+	function (pointerType, pointer, pointerId, isPrimary, contactDetails) {
+		return {contactDetails: contactDetails, isPrimary: isPrimary, pointer: pointer, pointerId: pointerId, pointerType: pointerType};
+	});
+var $elm$json$Json$Decode$bool = _Json_decodeBool;
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$ContactDetails = F5(
+	function (width, height, pressure, tiltX, tiltY) {
+		return {height: height, pressure: pressure, tiltX: tiltX, tiltY: tiltY, width: width};
+	});
+var $elm$json$Json$Decode$float = _Json_decodeFloat;
+var $elm$json$Json$Decode$map5 = _Json_map5;
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$contactDetailsDecoder = A6(
+	$elm$json$Json$Decode$map5,
+	$mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$ContactDetails,
+	A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'height', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'pressure', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'tiltX', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'tiltY', $elm$json$Json$Decode$float));
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$Event = F6(
+	function (keys, button, clientPos, offsetPos, pagePos, screenPos) {
+		return {button: button, clientPos: clientPos, keys: keys, offsetPos: offsetPos, pagePos: pagePos, screenPos: screenPos};
+	});
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$BackButton = {$: 'BackButton'};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$ErrorButton = {$: 'ErrorButton'};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$ForwardButton = {$: 'ForwardButton'};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$MainButton = {$: 'MainButton'};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$MiddleButton = {$: 'MiddleButton'};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$SecondButton = {$: 'SecondButton'};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$buttonFromId = function (id) {
+	switch (id) {
+		case 0:
+			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$MainButton;
+		case 1:
+			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$MiddleButton;
+		case 2:
+			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$SecondButton;
+		case 3:
+			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$BackButton;
+		case 4:
+			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$ForwardButton;
+		default:
+			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$ErrorButton;
+	}
+};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$buttonDecoder = A2(
+	$elm$json$Json$Decode$map,
+	$mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$buttonFromId,
+	A2($elm$json$Json$Decode$field, 'button', $elm$json$Json$Decode$int));
+var $mpizenberg$elm_pointer_events$Internal$Decode$clientPos = A3(
+	$elm$json$Json$Decode$map2,
+	F2(
+		function (a, b) {
+			return _Utils_Tuple2(a, b);
+		}),
+	A2($elm$json$Json$Decode$field, 'clientX', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'clientY', $elm$json$Json$Decode$float));
+var $mpizenberg$elm_pointer_events$Internal$Decode$Keys = F4(
+	function (alt, ctrl, meta, shift) {
+		return {alt: alt, ctrl: ctrl, meta: meta, shift: shift};
+	});
+var $elm$json$Json$Decode$map4 = _Json_map4;
+var $mpizenberg$elm_pointer_events$Internal$Decode$keys = A5(
+	$elm$json$Json$Decode$map4,
+	$mpizenberg$elm_pointer_events$Internal$Decode$Keys,
+	A2($elm$json$Json$Decode$field, 'altKey', $elm$json$Json$Decode$bool),
+	A2($elm$json$Json$Decode$field, 'ctrlKey', $elm$json$Json$Decode$bool),
+	A2($elm$json$Json$Decode$field, 'metaKey', $elm$json$Json$Decode$bool),
+	A2($elm$json$Json$Decode$field, 'shiftKey', $elm$json$Json$Decode$bool));
+var $elm$json$Json$Decode$map6 = _Json_map6;
+var $mpizenberg$elm_pointer_events$Internal$Decode$offsetPos = A3(
+	$elm$json$Json$Decode$map2,
+	F2(
+		function (a, b) {
+			return _Utils_Tuple2(a, b);
+		}),
+	A2($elm$json$Json$Decode$field, 'offsetX', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'offsetY', $elm$json$Json$Decode$float));
+var $mpizenberg$elm_pointer_events$Internal$Decode$pagePos = A3(
+	$elm$json$Json$Decode$map2,
+	F2(
+		function (a, b) {
+			return _Utils_Tuple2(a, b);
+		}),
+	A2($elm$json$Json$Decode$field, 'pageX', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'pageY', $elm$json$Json$Decode$float));
+var $mpizenberg$elm_pointer_events$Internal$Decode$screenPos = A3(
+	$elm$json$Json$Decode$map2,
+	F2(
+		function (a, b) {
+			return _Utils_Tuple2(a, b);
+		}),
+	A2($elm$json$Json$Decode$field, 'screenX', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'screenY', $elm$json$Json$Decode$float));
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$eventDecoder = A7($elm$json$Json$Decode$map6, $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$Event, $mpizenberg$elm_pointer_events$Internal$Decode$keys, $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$buttonDecoder, $mpizenberg$elm_pointer_events$Internal$Decode$clientPos, $mpizenberg$elm_pointer_events$Internal$Decode$offsetPos, $mpizenberg$elm_pointer_events$Internal$Decode$pagePos, $mpizenberg$elm_pointer_events$Internal$Decode$screenPos);
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$MouseType = {$: 'MouseType'};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$PenType = {$: 'PenType'};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$TouchType = {$: 'TouchType'};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$stringToPointerType = function (str) {
+	switch (str) {
+		case 'pen':
+			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$PenType;
+		case 'touch':
+			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$TouchType;
+		default:
+			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$MouseType;
+	}
+};
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$pointerTypeDecoder = A2($elm$json$Json$Decode$map, $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$stringToPointerType, $elm$json$Json$Decode$string);
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$eventDecoder = A6(
+	$elm$json$Json$Decode$map5,
+	$mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$Event,
+	A2($elm$json$Json$Decode$field, 'pointerType', $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$pointerTypeDecoder),
+	$mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$eventDecoder,
+	A2($elm$json$Json$Decode$field, 'pointerId', $elm$json$Json$Decode$int),
+	A2($elm$json$Json$Decode$field, 'isPrimary', $elm$json$Json$Decode$bool),
+	$mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$contactDetailsDecoder);
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onWithOptions = F3(
+	function (event, options, tag) {
+		return A2(
+			$elm$html$Html$Events$custom,
+			event,
+			A2(
+				$elm$json$Json$Decode$map,
+				function (ev) {
+					return {
+						message: tag(ev),
+						preventDefault: options.preventDefault,
+						stopPropagation: options.stopPropagation
+					};
+				},
+				$mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$eventDecoder));
+	});
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onDown = A2($mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onWithOptions, 'pointerdown', $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$defaultOptions);
+var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onUp = A2($mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onWithOptions, 'pointerup', $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$defaultOptions);
+var $author$project$Custom$Character$controlButton = F5(
+	function (buttonWidth, active, label, msg1, msg2) {
+		return A2(
+			$elm$html$Html$button,
+			_List_fromArray(
+				[
+					A2($elm$html$Html$Attributes$style, 'display', 'inline-block'),
+					A2($elm$html$Html$Attributes$style, 'margin', '5px'),
+					A2($elm$html$Html$Attributes$style, 'border', '2px solid rgba(0, 0, 0, 0.35)'),
+					A2($elm$html$Html$Attributes$style, 'border-radius', '4px'),
+					A2($elm$html$Html$Attributes$style, 'text-align', 'center'),
+					A2($elm$html$Html$Attributes$style, 'cursor', 'pointer'),
+					A2(
+					$elm$html$Html$Attributes$style,
+					'width',
+					$elm$core$String$fromInt(buttonWidth) + 'px'),
+					A2($elm$html$Html$Attributes$style, 'height', '60px'),
+					A2($elm$html$Html$Attributes$style, 'line-height', '60px'),
+					A2($elm$html$Html$Attributes$style, 'user-select', 'none'),
+					A2($elm$html$Html$Attributes$style, '-webkit-user-select', 'none'),
+					A2($elm$html$Html$Attributes$style, '-webkit-touch-callout', 'none'),
+					A2($elm$html$Html$Attributes$style, 'touch-action', 'manipulation'),
+					A2(
+					$elm$html$Html$Attributes$style,
+					'background',
+					active ? 'rgba(0, 0, 0, 0.35)' : 'transparent'),
+					A2($elm$html$Html$Attributes$style, 'padding', '0'),
+					A2(
+					$elm$html$Html$Attributes$style,
+					'color',
+					active ? 'white' : 'rgba(0, 0, 0, 0.35)'),
+					A2($author$project$Formatting$font, false, 32),
+					$mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onDown(
+					function (_v0) {
+						return msg1;
+					}),
+					$mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onUp(
+					function (_v1) {
+						return msg2;
+					})
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text(label)
+				]));
+	});
+var $author$project$Custom$Character$controls = function (model) {
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
+				A2($elm$html$Html$Attributes$style, 'right', '95px'),
+				A2($elm$html$Html$Attributes$style, 'bottom', '40px'),
+				A2($elm$html$Html$Attributes$style, 'text-align', 'center'),
+				A2($elm$html$Html$Attributes$style, 'width', '210px')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A5(
+						$author$project$Custom$Character$controlButton,
+						60,
+						model.forwardInput === 1,
+						'W',
+						$author$project$Custom$Character$KeyDown($author$project$Custom$Character$KeyForward),
+						$author$project$Custom$Character$KeyUp($author$project$Custom$Character$KeyForward))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A5(
+						$author$project$Custom$Character$controlButton,
+						60,
+						_Utils_eq(model.rightInput, -1),
+						'A',
+						$author$project$Custom$Character$KeyDown($author$project$Custom$Character$KeyLeft),
+						$author$project$Custom$Character$KeyUp($author$project$Custom$Character$KeyLeft)),
+						A5(
+						$author$project$Custom$Character$controlButton,
+						60,
+						_Utils_eq(model.forwardInput, -1),
+						'S',
+						$author$project$Custom$Character$KeyDown($author$project$Custom$Character$KeyBack),
+						$author$project$Custom$Character$KeyUp($author$project$Custom$Character$KeyBack)),
+						A5(
+						$author$project$Custom$Character$controlButton,
+						60,
+						model.rightInput === 1,
+						'D',
+						$author$project$Custom$Character$KeyDown($author$project$Custom$Character$KeyRight),
+						$author$project$Custom$Character$KeyUp($author$project$Custom$Character$KeyRight))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A5(
+						$author$project$Custom$Character$controlButton,
+						200,
+						model.jumpHeld,
+						'Space',
+						$author$project$Custom$Character$KeyDown($author$project$Custom$Character$KeyJump),
+						$author$project$Custom$Character$KeyUp($author$project$Custom$Character$KeyJump))
+					]))
+			]));
+};
+var $author$project$Custom$Character$view = function (model) {
+	var timestep = model.timestep;
+	var dimensions = model.dimensions;
+	var bodies = model.bodies;
+	var prevBodies = model.prevBodies;
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
 				A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
 				A2($elm$html$Html$Attributes$style, 'left', '0'),
-				A2($elm$html$Html$Attributes$style, 'top', '0')
+				A2($elm$html$Html$Attributes$style, 'top', '0'),
+				A2($elm$html$Html$Attributes$style, 'user-select', 'none'),
+				A2($elm$html$Html$Attributes$style, '-webkit-user-select', 'none'),
+				A2($elm$html$Html$Attributes$style, '-webkit-touch-callout', 'none')
 			]),
 		_List_fromArray(
 			[
@@ -37151,7 +37549,8 @@ var $author$project$Custom$Character$view = function (_v0) {
 						$ianmackenzie$elm_units$Angle$degrees(135),
 						$ianmackenzie$elm_units$Angle$degrees(-60)),
 					upDirection: $ianmackenzie$elm_geometry$Direction3d$positiveZ
-				})
+				}),
+				$author$project$Custom$Character$controls(model)
 			]));
 };
 var $author$project$Custom$Charts$accentBlue = '#2f6fed';
@@ -40113,10 +40512,8 @@ var $terezka$elm_charts$Chart$addIndexes = F2(
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$svg$Svg$clipPath = $elm$svg$Svg$trustedNode('clipPath');
 var $elm$json$Json$Decode$map3 = _Json_map3;
-var $elm$json$Json$Decode$float = _Json_decodeFloat;
 var $K_Adam$elm_dom$DOM$offsetHeight = A2($elm$json$Json$Decode$field, 'offsetHeight', $elm$json$Json$Decode$float);
 var $K_Adam$elm_dom$DOM$offsetWidth = A2($elm$json$Json$Decode$field, 'offsetWidth', $elm$json$Json$Decode$float);
-var $elm$json$Json$Decode$map4 = _Json_map4;
 var $K_Adam$elm_dom$DOM$offsetLeft = A2($elm$json$Json$Decode$field, 'offsetLeft', $elm$json$Json$Decode$float);
 var $elm$json$Json$Decode$null = _Json_decodeNull;
 var $elm$json$Json$Decode$oneOf = _Json_oneOf;
@@ -41807,142 +42204,8 @@ var $author$project$Custom$Clock$dialEntity = $ianmackenzie$elm_3d_scene$Scene3d
 							$ianmackenzie$elm_units$Length$meters(len)))));
 		},
 		A2($elm$core$List$range, 0, 11)));
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$defaultOptions = {preventDefault: true, stopPropagation: false};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$Event = F5(
-	function (pointerType, pointer, pointerId, isPrimary, contactDetails) {
-		return {contactDetails: contactDetails, isPrimary: isPrimary, pointer: pointer, pointerId: pointerId, pointerType: pointerType};
-	});
-var $elm$json$Json$Decode$bool = _Json_decodeBool;
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$ContactDetails = F5(
-	function (width, height, pressure, tiltX, tiltY) {
-		return {height: height, pressure: pressure, tiltX: tiltX, tiltY: tiltY, width: width};
-	});
-var $elm$json$Json$Decode$map5 = _Json_map5;
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$contactDetailsDecoder = A6(
-	$elm$json$Json$Decode$map5,
-	$mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$ContactDetails,
-	A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'height', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'pressure', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'tiltX', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'tiltY', $elm$json$Json$Decode$float));
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$Event = F6(
-	function (keys, button, clientPos, offsetPos, pagePos, screenPos) {
-		return {button: button, clientPos: clientPos, keys: keys, offsetPos: offsetPos, pagePos: pagePos, screenPos: screenPos};
-	});
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$BackButton = {$: 'BackButton'};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$ErrorButton = {$: 'ErrorButton'};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$ForwardButton = {$: 'ForwardButton'};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$MainButton = {$: 'MainButton'};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$MiddleButton = {$: 'MiddleButton'};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$SecondButton = {$: 'SecondButton'};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$buttonFromId = function (id) {
-	switch (id) {
-		case 0:
-			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$MainButton;
-		case 1:
-			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$MiddleButton;
-		case 2:
-			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$SecondButton;
-		case 3:
-			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$BackButton;
-		case 4:
-			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$ForwardButton;
-		default:
-			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$ErrorButton;
-	}
-};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$buttonDecoder = A2(
-	$elm$json$Json$Decode$map,
-	$mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$buttonFromId,
-	A2($elm$json$Json$Decode$field, 'button', $elm$json$Json$Decode$int));
-var $mpizenberg$elm_pointer_events$Internal$Decode$clientPos = A3(
-	$elm$json$Json$Decode$map2,
-	F2(
-		function (a, b) {
-			return _Utils_Tuple2(a, b);
-		}),
-	A2($elm$json$Json$Decode$field, 'clientX', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'clientY', $elm$json$Json$Decode$float));
-var $mpizenberg$elm_pointer_events$Internal$Decode$Keys = F4(
-	function (alt, ctrl, meta, shift) {
-		return {alt: alt, ctrl: ctrl, meta: meta, shift: shift};
-	});
-var $mpizenberg$elm_pointer_events$Internal$Decode$keys = A5(
-	$elm$json$Json$Decode$map4,
-	$mpizenberg$elm_pointer_events$Internal$Decode$Keys,
-	A2($elm$json$Json$Decode$field, 'altKey', $elm$json$Json$Decode$bool),
-	A2($elm$json$Json$Decode$field, 'ctrlKey', $elm$json$Json$Decode$bool),
-	A2($elm$json$Json$Decode$field, 'metaKey', $elm$json$Json$Decode$bool),
-	A2($elm$json$Json$Decode$field, 'shiftKey', $elm$json$Json$Decode$bool));
-var $elm$json$Json$Decode$map6 = _Json_map6;
-var $mpizenberg$elm_pointer_events$Internal$Decode$offsetPos = A3(
-	$elm$json$Json$Decode$map2,
-	F2(
-		function (a, b) {
-			return _Utils_Tuple2(a, b);
-		}),
-	A2($elm$json$Json$Decode$field, 'offsetX', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'offsetY', $elm$json$Json$Decode$float));
-var $mpizenberg$elm_pointer_events$Internal$Decode$pagePos = A3(
-	$elm$json$Json$Decode$map2,
-	F2(
-		function (a, b) {
-			return _Utils_Tuple2(a, b);
-		}),
-	A2($elm$json$Json$Decode$field, 'pageX', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'pageY', $elm$json$Json$Decode$float));
-var $mpizenberg$elm_pointer_events$Internal$Decode$screenPos = A3(
-	$elm$json$Json$Decode$map2,
-	F2(
-		function (a, b) {
-			return _Utils_Tuple2(a, b);
-		}),
-	A2($elm$json$Json$Decode$field, 'screenX', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'screenY', $elm$json$Json$Decode$float));
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$eventDecoder = A7($elm$json$Json$Decode$map6, $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$Event, $mpizenberg$elm_pointer_events$Internal$Decode$keys, $mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$buttonDecoder, $mpizenberg$elm_pointer_events$Internal$Decode$clientPos, $mpizenberg$elm_pointer_events$Internal$Decode$offsetPos, $mpizenberg$elm_pointer_events$Internal$Decode$pagePos, $mpizenberg$elm_pointer_events$Internal$Decode$screenPos);
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$MouseType = {$: 'MouseType'};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$PenType = {$: 'PenType'};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$TouchType = {$: 'TouchType'};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$stringToPointerType = function (str) {
-	switch (str) {
-		case 'pen':
-			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$PenType;
-		case 'touch':
-			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$TouchType;
-		default:
-			return $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$MouseType;
-	}
-};
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$pointerTypeDecoder = A2($elm$json$Json$Decode$map, $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$stringToPointerType, $elm$json$Json$Decode$string);
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$eventDecoder = A6(
-	$elm$json$Json$Decode$map5,
-	$mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$Event,
-	A2($elm$json$Json$Decode$field, 'pointerType', $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$pointerTypeDecoder),
-	$mpizenberg$elm_pointer_events$Html$Events$Extra$Mouse$eventDecoder,
-	A2($elm$json$Json$Decode$field, 'pointerId', $elm$json$Json$Decode$int),
-	A2($elm$json$Json$Decode$field, 'isPrimary', $elm$json$Json$Decode$bool),
-	$mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$contactDetailsDecoder);
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onWithOptions = F3(
-	function (event, options, tag) {
-		return A2(
-			$elm$html$Html$Events$custom,
-			event,
-			A2(
-				$elm$json$Json$Decode$map,
-				function (ev) {
-					return {
-						message: tag(ev),
-						preventDefault: options.preventDefault,
-						stopPropagation: options.stopPropagation
-					};
-				},
-				$mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$eventDecoder));
-	});
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onDown = A2($mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onWithOptions, 'pointerdown', $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$defaultOptions);
 var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onLeave = A2($mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onWithOptions, 'pointerleave', $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$defaultOptions);
 var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onMove = A2($mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onWithOptions, 'pointermove', $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$defaultOptions);
-var $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onUp = A2($mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$onWithOptions, 'pointerup', $mpizenberg$elm_pointer_events$Html$Events$Extra$Pointer$defaultOptions);
 var $author$project$Custom$Clock$view = function (model) {
 	var orbiting = model.orbiting;
 	var timestep = model.timestep;
@@ -44241,7 +44504,7 @@ var $author$project$Main$main = $w0rm$elm_slice_show$SliceShow$show(
 							$elm$core$List$map,
 							$author$project$Main$addMobileNavigationButtons,
 							_List_fromArray(
-								[$author$project$Main$cover, $author$project$Main$timelineOverview, $author$project$Main$point2018, $author$project$Main$point2019, $author$project$Main$point2020, $author$project$Main$point2026, $author$project$Main$declarativeVsOop, $author$project$Main$createBody, $author$project$Main$typesCatch, $author$project$Main$buildShapes, $author$project$Main$massDerived, $author$project$Main$rulesFunction, $author$project$Main$pureFunction, $author$project$Main$costSetup, $author$project$Main$costSlower, $author$project$Main$payoffStack, $author$project$Main$payoffSize, $author$project$Main$lessons, $author$project$Main$madeWithElmPhysics, $author$project$Main$resources]))))))));
+								[$author$project$Main$cover, $author$project$Main$timelineOverview, $author$project$Main$point2018, $author$project$Main$point2019, $author$project$Main$point2020, $author$project$Main$point2026, $author$project$Main$declarativeVsOop, $author$project$Main$createBody, $author$project$Main$typesCatch, $author$project$Main$buildShapes, $author$project$Main$massDerived, $author$project$Main$rulesFunction, $author$project$Main$pureFunction, $author$project$Main$costSetup, $author$project$Main$costSlower, $author$project$Main$payoffStack, $author$project$Main$payoffSize, $author$project$Main$lessons, $author$project$Main$madeWithElmPhysics, $author$project$Main$resources, $author$project$Main$characterDemo]))))))));
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
 

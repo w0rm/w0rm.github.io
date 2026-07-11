@@ -20,9 +20,11 @@ import Density
 import Direction3d
 import Duration exposing (Duration)
 import Force exposing (Force)
+import Formatting exposing (font)
 import Frame3d
 import Html exposing (Html)
 import Html.Attributes
+import Html.Events.Extra.Pointer as PointerEvents
 import Json.Decode exposing (Decoder)
 import Length exposing (Length, Meters)
 import Mass exposing (Mass)
@@ -59,6 +61,7 @@ type alias Model =
     , rightInput : Float
     , grounded : Bool
     , jumpRequested : Bool
+    , jumpHeld : Bool
     }
 
 
@@ -94,6 +97,7 @@ initial { width, height } =
     , rightInput = 0
     , grounded = False
     , jumpRequested = False
+    , jumpHeld = False
     }
 
 
@@ -124,7 +128,7 @@ stepModel msg model =
             { model | rightInput = 1 }
 
         KeyDown KeyJump ->
-            { model | jumpRequested = True }
+            { model | jumpRequested = True, jumpHeld = True }
 
         KeyUp KeyForward ->
             { model | forwardInput = release 1 model.forwardInput }
@@ -139,7 +143,7 @@ stepModel msg model =
             { model | rightInput = release 1 model.rightInput }
 
         KeyUp KeyJump ->
-            model
+            { model | jumpHeld = False }
 
 
 {-| Zero an axis only when the released key is the one currently holding it,
@@ -454,11 +458,14 @@ initialBodies =
 
 
 view : Model -> Html Msg
-view { prevBodies, bodies, dimensions, timestep } =
+view ({ prevBodies, bodies, dimensions, timestep } as model) =
     Html.div
         [ Html.Attributes.style "position" "absolute"
         , Html.Attributes.style "left" "0"
         , Html.Attributes.style "top" "0"
+        , Html.Attributes.style "user-select" "none"
+        , Html.Attributes.style "-webkit-user-select" "none"
+        , Html.Attributes.style "-webkit-touch-callout" "none"
         ]
         [ Scene3d.sunny
             { upDirection = Direction3d.positiveZ
@@ -471,7 +478,68 @@ view { prevBodies, bodies, dimensions, timestep } =
             , entities =
                 List.map2 (bodyEntity timestep) prevBodies bodies
             }
+        , controls model
         ]
+
+
+controls : Model -> Html Msg
+controls model =
+    Html.div
+        [ Html.Attributes.style "position" "absolute"
+
+        -- 100px slide margin minus the buttons' own 5px margin, so the
+        -- button borders align with the 1180/675 content edges
+        , Html.Attributes.style "right" "95px"
+        , Html.Attributes.style "bottom" "40px"
+        , Html.Attributes.style "text-align" "center"
+        , Html.Attributes.style "width" "210px"
+        ]
+        [ Html.div [] [ controlButton 60 (model.forwardInput == 1) "W" (KeyDown KeyForward) (KeyUp KeyForward) ]
+        , Html.div []
+            [ controlButton 60 (model.rightInput == -1) "A" (KeyDown KeyLeft) (KeyUp KeyLeft)
+            , controlButton 60 (model.forwardInput == -1) "S" (KeyDown KeyBack) (KeyUp KeyBack)
+            , controlButton 60 (model.rightInput == 1) "D" (KeyDown KeyRight) (KeyUp KeyRight)
+            ]
+        , Html.div [] [ controlButton 200 model.jumpHeld "Space" (KeyDown KeyJump) (KeyUp KeyJump) ]
+        ]
+
+
+controlButton : Int -> Bool -> String -> Msg -> Msg -> Html Msg
+controlButton buttonWidth active label msg1 msg2 =
+    Html.button
+        [ Html.Attributes.style "display" "inline-block"
+        , Html.Attributes.style "margin" "5px"
+        , Html.Attributes.style "border" "2px solid rgba(0, 0, 0, 0.35)"
+        , Html.Attributes.style "border-radius" "4px"
+        , Html.Attributes.style "text-align" "center"
+        , Html.Attributes.style "cursor" "pointer"
+        , Html.Attributes.style "width" (String.fromInt buttonWidth ++ "px")
+        , Html.Attributes.style "height" "60px"
+        , Html.Attributes.style "line-height" "60px"
+        , Html.Attributes.style "user-select" "none"
+        , Html.Attributes.style "-webkit-user-select" "none"
+        , Html.Attributes.style "-webkit-touch-callout" "none"
+        , Html.Attributes.style "touch-action" "manipulation"
+        , Html.Attributes.style "background"
+            (if active then
+                "rgba(0, 0, 0, 0.35)"
+
+             else
+                "transparent"
+            )
+        , Html.Attributes.style "padding" "0"
+        , Html.Attributes.style "color"
+            (if active then
+                "white"
+
+             else
+                "rgba(0, 0, 0, 0.35)"
+            )
+        , font False 32
+        , PointerEvents.onDown (\_ -> msg1)
+        , PointerEvents.onUp (\_ -> msg2)
+        ]
+        [ Html.text label ]
 
 
 camera : Camera3d Meters WorldCoordinates
