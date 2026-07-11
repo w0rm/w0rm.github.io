@@ -392,7 +392,9 @@ view { prevBodies, bodies, dimensions, timestep, phase } =
         , Html.div
             [ Html.Attributes.style "position" "absolute"
             , Html.Attributes.style "right" "40px"
-            , Html.Attributes.style "top" "24px"
+
+            -- baseline-aligned with the 48px slide title at y=40
+            , Html.Attributes.style "top" "52px"
             , Html.Attributes.style "font" "bold 44px \"Helvetica Neue\", Arial, sans-serif"
             , Html.Attributes.style "color" "#2f6fed"
             ]

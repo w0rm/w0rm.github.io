@@ -391,9 +391,12 @@ type alias Model =
     , contacts : Physics.Contacts Id
     , duckMesh : Maybe { mesh : Textured BodyCoordinates, shadow : Shadow BodyCoordinates }
     , duckMaterial : Maybe (Scene3d.Material.Textured BodyCoordinates)
+    , duckShape : Maybe Shape
     , cactusMesh : Maybe { mesh : Textured BodyCoordinates, shadow : Shadow BodyCoordinates }
     , cactusMaterial : Maybe (Scene3d.Material.Textured BodyCoordinates)
+    , cactusShapes : Maybe (List Shape)
     , jeep : Maybe Jeep
+    , spawned : Bool
     , dimensions : ( Quantity Int Pixels, Quantity Int Pixels )
     , anchor : Point3d Meters WorldCoordinates
     , movingLeft : Bool
@@ -442,9 +445,12 @@ initial { width, height } =
     , contacts = Physics.emptyContacts
     , duckMesh = Nothing
     , duckMaterial = Nothing
+    , duckShape = Nothing
     , cactusMesh = Nothing
     , cactusMaterial = Nothing
+    , cactusShapes = Nothing
     , jeep = Nothing
+    , spawned = False
     , dimensions = ( Pixels.int width, Pixels.int height )
     , anchor = Point3d.along Axis3d.z anchorRestZ
     , movingLeft = False
@@ -649,7 +655,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Tick ->
-            ( stepModel msg model
+            ( stepModel msg (spawnWhenReady model)
             , if model.firstTick then
                 loadAssets
 
@@ -659,6 +665,31 @@ update msg model =
 
         _ ->
             ( stepModel msg model, Cmd.none )
+
+
+{-| Everything downloads first, then all the contents drop in together —
+adding bodies one by one as each asset arrived made them pop in
+mid-simulation, disturbing the ones already settled.
+-}
+spawnWhenReady : Model -> Model
+spawnWhenReady model =
+    if model.spawned then
+        model
+
+    else
+        case ( ( model.duckMaterial, model.duckShape ), ( model.cactusMaterial, model.cactusShapes ), model.jeep ) of
+            ( ( Just _, Just duckShape ), ( Just _, Just cactusShapes ), Just jeep ) ->
+                { model
+                    | spawned = True
+                    , bodies =
+                        model.bodies
+                            ++ duckBodies duckShape
+                            ++ cactusBodies cactusShapes
+                            ++ jeepBodies jeep
+                }
+
+            _ ->
+                model
 
 
 stepModel : Msg -> Model -> Model
@@ -673,7 +704,7 @@ stepModel msg model =
         LoadedMesh (Ok ( mesh, shape )) ->
             { model
                 | duckMesh = Just { mesh = mesh, shadow = Scene3d.Mesh.shadow mesh }
-                , bodies = model.bodies ++ duckBodies shape
+                , duckShape = Just shape
             }
 
         LoadedMesh (Err _) ->
@@ -688,17 +719,14 @@ stepModel msg model =
         LoadedCactus (Ok ( mesh, shapes )) ->
             { model
                 | cactusMesh = Just { mesh = mesh, shadow = Scene3d.Mesh.shadow mesh }
-                , bodies = model.bodies ++ cactusBodies shapes
+                , cactusShapes = Just shapes
             }
 
         LoadedCactus (Err _) ->
             model
 
         JeepLoaded (Ok jeep) ->
-            { model
-                | jeep = Just jeep
-                , bodies = model.bodies ++ jeepBodies jeep
-            }
+            { model | jeep = Just jeep }
 
         JeepLoaded (Err _) ->
             model

@@ -73,6 +73,9 @@ cover : List Content
 cover =
     [ Custom.craneClaw { width = 1280, height = 720 } |> position 0 0
     , title "世界がない物理エンジン" |> position left 40
+    , Formatting.link "https://unsoundscapes.com/slides/2026-07-12-physics-engine-with-no-world/#1"
+        (image 200 200 "qr.svg")
+        |> position left 360
     , footnote "アンドレイ — Andrey Kuzmin (@unsoundscapes)" |> position left 600
     , footnote "3Dモデル設計：Kolja Wilcke（@01k）" |> position left 645
     ]
@@ -249,7 +252,7 @@ declarativeVsOop =
 
 createBody : List Content
 createBody =
-    [ title "① 短くて、全部必須" |> position left 40
+    [ title "短くて、全部必須" |> position left 40
     , footnote "〜v5：設定の積み重ね — どれも省略可" |> position left top
     , code """table =
     Body.compound tableShapes Table
@@ -278,7 +281,7 @@ createBody =
 
 buildShapes : List Content
 buildShapes =
-    [ title "③ 足し算・引き算で形を作る" |> position left 40
+    [ title "足し算・引き算で形を作る" |> position left 40
     , Custom.shapeLab { width = 1280, height = 720 } |> position 0 0
     , code """snowman =
     Shape.sphere bottom
@@ -302,7 +305,7 @@ buildShapes =
 
 massDerived : List Content
 massDerived =
-    [ title "④ 質量・重心・慣性は形から" |> position left 40
+    [ title "質量・重心・慣性は形から" |> position left 40
     , code """box =
     Physics.dynamic
         [ ( shape, Material.wood ) ]
@@ -314,9 +317,9 @@ Physics.centerOfMass  -- 重心"""
         |> position left 200
     , Custom.seesaw { width = 520, height = 430 } |> position right top
     , footnote "中まで木" |> position 730 490
-    , footnote "133 kg" |> color "#d81b1b" |> position 730 528
+    , footnote "133 kg" |> position 730 528
     , footnote "中は空洞" |> position 1030 490
-    , footnote "32 kg" |> color "#d81b1b" |> position 1030 528
+    , footnote "32 kg" |> position 1030 528
     ]
 
 
@@ -326,7 +329,7 @@ Physics.centerOfMass  -- 重心"""
 
 typesCatch : List Content
 typesCatch =
-    [ title "② 型で本物の間違いを防ぐ" |> position left 40
+    [ title "型で本物の間違いを防ぐ" |> position left 40
     , code """-- 動く物体には密度つき素材が要る
 Physics.sphere :
     Sphere3d Meters BodyCoordinates
@@ -369,7 +372,7 @@ argument to be:
 
 rulesFunction : List Content
 rulesFunction =
-    [ title "⑤ 世界の規則は関数" |> position left 40
+    [ title "世界の規則は関数" |> position left 40
     , footnote "鎖はどこにも保存されない — 規則だけ" |> position left top
     , code """Physics.simulate
     { onEarth
@@ -415,29 +418,34 @@ pureFunction =
 costSetup : List Content
 costSetup =
     [ title "欠点の測り方" |> position left 40
-    , image 480 320 "boxstack-elm.png" |> position left top
-    , footnote "125 個の箱（5×5×5）" |> position left 500
-    , footnote "同じ初期配置から出発" |> position right 210
-    , footnote "2000 ステップ シミュレート" |> position right 290
-    , footnote "1 ステップの平均時間を計測（ms）" |> position right 370
-    , footnote "描画なし・物理エンジンだけ" |> position right 450
-    , footnote "cannon-es と elm-physics を比較" |> position right 530
+    , Custom.boxStack { width = 520, height = 430 } |> position left top
+    , footnote "125 個の箱（5×5×5）" |> position left 600
+    , bullets
+        [ bullet "cannon.js と elm-physics を比較"
+        , bullet "同じ初期配置から出発"
+        , bullet "3600 フレームをシミュレート"
+        , bullet "1 フレームの平均時間を計測（ms）"
+        , bullet "描画なし・物理エンジンだけ"
+        , bullet "cannon.js の sleep は無効化"
+        ]
+        |> width 945
+        |> scale 0.55
+        |> position right top
     ]
 
 
 
--- 🎤 同じ土俵：125個の箱を2000ステップ回して、1ステップの時間を測る。描画は外して、物理だけ。
+-- 🎤 同じ土俵：125個の箱を3600フレーム回して、1フレームの時間を測る。描画は外して、物理だけ。
 
 
 costSlower : List Content
 costSlower =
     [ title "欠点：約2倍遅い" |> position left 40
-    , footnote "125個の箱・2000ステップ・描画なし" |> position left top
-    , footnote "ms" |> position left 205
+    , footnote "125個の箱・3600 フレーム・描画なし" |> position left top
     , Custom.chart { kind = Custom.Charts.Perf, width = 560, height = 430 } |> position left 200
     , swatch "#9ec8ef" "衝突判定 — elm の方が速い" |> position right 300
-    , swatch "#2f6fed" "ソルバー — 差はここ。式あたり約2.8×" |> position right 380
-    , swatch "#b9b9b9" "GC — 停止は53×、でもフレームの12%" |> position right 460
+    , swatch "#2f6fed" "ソルバー — 差はここ。式あたり約2.2×" |> position right 380
+    , swatch "#b9b9b9" "GC — 停止は60×、でもフレームの11%" |> position right 460
     ]
 
 
@@ -448,13 +456,12 @@ costSlower =
 payoffStack : List Content
 payoffStack =
     [ title "利点：積み木が崩れない" |> position left 40
-    , footnote "同じ完全な格子から・60秒後" |> position left top
+    , footnote "同じ完全な格子から・3600 フレーム（60秒）後" |> position left top
     , image 520 347 "boxstack-elm-3d-scene.png" |> position left 200
     , image 520 347 "boxstack-threejs-cannon.png" |> position right 200
-    , footnote "elm-physics" |> position left 600
-    , footnote "平均ズレ 130 mm" |> position left 645
-    , footnote "three.js + cannon-es" |> position right 600
-    , footnote "平均 847 mm・最悪 7.3 m" |> position right 645
+    , footnote "elm-physics — 平均ズレ 130 mm" |> position left 565
+    , footnote "cannon.js — 平均 847 mm・最悪 7.3 m" |> position right 565
+    , footnote "※ cannon.js の sleep は無効化" |> position right 645
     ]
 
 
@@ -466,14 +473,13 @@ payoffSize : List Content
 payoffSize =
     [ title "利点：小さいダウンロード" |> position left 40
     , footnote "同じシーン・minify + gzip 後" |> position left top
-    , footnote "物理エンジンのみ — ほぼ互角" |> position left 200
-    , footnote "描画こみ（影つき）" |> position right 200
-
     -- 27 = left margin (100) minus the chart's internal padding before the
     -- first bar (10px chart margin + 0.25 × 250px bin margin ≈ 73px), so the
     -- first bar's left edge lands on the slide margin
-    , Custom.chart { kind = Custom.Charts.BundlePhysics, width = 520, height = 400 } |> position 27 240
-    , Custom.chart { kind = Custom.Charts.BundleRendered, width = 520, height = 400 } |> position right 240
+    , Custom.chart { kind = Custom.Charts.BundlePhysics, width = 520, height = 400 } |> position 27 190
+    , Custom.chart { kind = Custom.Charts.BundleRendered, width = 520, height = 400 } |> position right 190
+    , Formatting.col [ footnote "物理エンジンのみ — ほぼ互角" ] |> width 520 |> position 27 620
+    , Formatting.col [ footnote "描画こみ（影つき）" ] |> width 520 |> position right 620
     ]
 
 
@@ -541,10 +547,6 @@ resources =
         |> width 800
         |> scale 0.7
         |> position left top
-    , Formatting.link "https://unsoundscapes.com/slides/2026-07-12-physics-engine-with-no-world/"
-        (image 200 200 "qr.svg")
-        |> position left 425
-    , footnote "このスライド" |> position left 645
     ]
 
 

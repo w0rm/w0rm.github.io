@@ -39,8 +39,7 @@ import Duration
 import Frame3d
 import Html exposing (Html)
 import Html.Attributes
-import Html.Events
-import Json.Decode
+import Html.Events.Extra.Pointer as PointerEvents
 import Length exposing (Meters)
 import Mass
 import Physics exposing (Body, BodyCoordinates, WorldCoordinates, onEarth)
@@ -1244,14 +1243,15 @@ type alias Model =
     , elevation : Angle.Angle
     , orbiting : Bool
     , dragged : Bool
+    , lastPos : ( Float, Float )
     }
 
 
 type Msg
     = Tick Duration.Duration
     | Resize Int Int
-    | MouseDown
-    | MouseMove Float Float
+    | MouseDown ( Float, Float )
+    | MouseMove ( Float, Float )
     | MouseUp
 
 
@@ -1272,6 +1272,7 @@ initial { width, height } =
     , elevation = Angle.degrees 0
     , orbiting = False
     , dragged = False
+    , lastPos = ( 0, 0 )
     }
 
 
@@ -1289,17 +1290,22 @@ stepModel msg model =
         Resize width height ->
             { model | dimensions = ( Pixels.int width, Pixels.int height ) }
 
-        MouseDown ->
-            { model | orbiting = True, dragged = False }
+        MouseDown pos ->
+            { model | orbiting = True, dragged = False, lastPos = pos }
 
-        MouseMove dx dy ->
+        MouseMove (( x, y ) as pos) ->
             if model.orbiting then
+                let
+                    ( lastX, lastY ) =
+                        model.lastPos
+                in
                 { model
                     | dragged = True
-                    , azimuth = model.azimuth |> Quantity.minus (Angle.degrees (dx * 0.3))
+                    , lastPos = pos
+                    , azimuth = model.azimuth |> Quantity.minus (Angle.degrees ((x - lastX) * 0.3))
                     , elevation =
                         model.elevation
-                            |> Quantity.plus (Angle.degrees (dy * 0.3))
+                            |> Quantity.plus (Angle.degrees ((y - lastY) * 0.3))
                             |> Quantity.clamp (Angle.degrees -85) (Angle.degrees 85)
                 }
 
@@ -1307,7 +1313,11 @@ stepModel msg model =
                 model
 
         MouseUp ->
-            if model.dragged then
+            if not model.orbiting then
+                -- a stray up/leave without a preceding down
+                model
+
+            else if model.dragged then
                 -- finished an orbit drag; leave the sim running
                 { model | orbiting = False }
 
@@ -1378,7 +1388,13 @@ view ({ prevBodies, bodies, dimensions, timestep, orbiting } as model) =
              else
                 "grab"
             )
-        , Html.Events.onMouseDown MouseDown
+        -- pointer events cover mouse AND touch; touch-action none keeps
+        -- touch drags from scrolling the page instead
+        , Html.Attributes.style "touch-action" "none"
+        , PointerEvents.onDown (\e -> MouseDown e.pointer.offsetPos)
+        , PointerEvents.onMove (\e -> MouseMove e.pointer.offsetPos)
+        , PointerEvents.onUp (\_ -> MouseUp)
+        , PointerEvents.onLeave (\_ -> MouseUp)
         ]
         [ Scene3d.sunny
             { upDirection = Direction3d.positiveZ
@@ -1555,23 +1571,6 @@ gearTintD =
     SceneMaterial.metal { baseColor = Color.rgb255 182 192 206, roughness = 0.4 }
 
 
-decodeMouseMove : Json.Decode.Decoder Msg
-decodeMouseMove =
-    Json.Decode.map2 MouseMove
-        (Json.Decode.field "movementX" Json.Decode.float)
-        (Json.Decode.field "movementY" Json.Decode.float)
-
-
 subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.batch
-        [ Browser.Events.onAnimationFrameDelta (Duration.milliseconds >> Tick)
-        , if model.orbiting then
-            Sub.batch
-                [ Browser.Events.onMouseMove decodeMouseMove
-                , Browser.Events.onMouseUp (Json.Decode.succeed MouseUp)
-                ]
-
-          else
-            Sub.none
-        ]
+subscriptions _ =
+    Browser.Events.onAnimationFrameDelta (Duration.milliseconds >> Tick)

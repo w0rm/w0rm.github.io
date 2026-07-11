@@ -12,6 +12,7 @@ deck typography.
 
 import Chart as C
 import Chart.Attributes as CA
+import Chart.Item as CI
 import Csv.Decode as Decode
 import Html exposing (Html)
 import Html.Attributes
@@ -252,7 +253,7 @@ perfChart model rows =
     C.chart
         [ CA.width (toFloat model.width)
         , CA.height (toFloat model.height)
-        , CA.margin { top = 20, bottom = 45, left = 10, right = 10 }
+        , CA.margin { top = 45, bottom = 45, left = 10, right = 10 }
         ]
         [ C.bars [ CA.margin 0.35 ]
             [ -- C.stacked puts the first property on top: GC ends up the
@@ -264,11 +265,12 @@ perfChart model rows =
                 , C.bar .collision [ CA.color lightBlue ] |> C.named "衝突判定"
                 ]
             ]
-            [ engine "cannon-es" .cannon
+            [ engine "cannon.js" .cannon
             , engine "elm-physics" .elm
             ]
-        , C.binLabels (\e -> e.engine ++ " — " ++ String.fromFloat e.total)
-            [ CA.color "#000", CA.moveDown 34 ]
+        , C.binLabels .engine [ CA.color "#000", CA.moveDown 34 ]
+        , C.binLabels (\e -> String.fromFloat e.total ++ " ms")
+            [ CA.color "#000", CA.position CI.getTop, CA.moveUp 10 ]
         ]
 
 
@@ -278,16 +280,16 @@ bundleChart model target rows =
         variantLabel variant =
             case variant of
                 "elm_app_dce" ->
-                    "elm"
+                    "elm-physics"
 
                 "cannon_es_treeshaken" ->
-                    "cannon-es"
+                    "cannon.js"
 
                 "elm_elm3dscene" ->
                     "elm + elm-3d-scene"
 
                 _ ->
-                    "three.js + cannon-es"
+                    "three.js + cannon.js"
 
         variantColor variant =
             if String.startsWith "elm" variant then
@@ -310,7 +312,7 @@ bundleChart model target rows =
     C.chart
         [ CA.width (toFloat model.width)
         , CA.height (toFloat model.height)
-        , CA.margin { top = 40, bottom = 75, left = 10, right = 10 }
+        , CA.margin { top = 40, bottom = 45, left = 10, right = 10 }
 
         -- both panels share the same scale, so the bars compare across panels
         , CA.domain [ CA.lowest 0 CA.exactly, CA.highest 150 CA.exactly ]
@@ -322,5 +324,5 @@ bundleChart model target rows =
             bars
         , C.binLabels .label [ CA.color "#000", CA.moveDown 34 ]
         , C.binLabels (\b -> String.fromFloat b.kb ++ " KB")
-            [ CA.color "#000", CA.moveDown 64 ]
+            [ CA.color "#000", CA.position CI.getTop, CA.moveUp 10 ]
         ]

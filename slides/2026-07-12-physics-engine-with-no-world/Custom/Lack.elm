@@ -22,8 +22,7 @@ import Direction3d
 import Duration
 import Html exposing (Html)
 import Html.Attributes
-import Html.Events
-import Json.Decode exposing (Decoder)
+import Html.Events.Extra.Pointer as PointerEvents
 import Length exposing (Meters)
 import Physics exposing (Body, BodyCoordinates, WorldCoordinates, onEarth)
 import Physics.Constraint exposing (Constraint)
@@ -224,9 +223,13 @@ view { prevBodies, bodies, dimensions, dragTarget, timestep } =
         [ Html.Attributes.style "position" "absolute"
         , Html.Attributes.style "left" "0"
         , Html.Attributes.style "top" "0"
-        , Html.Events.on "mousedown" (decodeMouseRay dimensions MouseDown)
-        , Html.Events.on "mousemove" (decodeMouseRay dimensions MouseMove)
-        , Html.Events.onMouseUp MouseUp
+
+        -- pointer events cover mouse AND touch; touch-action none keeps
+        -- touch drags from scrolling the page instead
+        , Html.Attributes.style "touch-action" "none"
+        , PointerEvents.onDown (\e -> MouseDown (pointerRay dimensions e.pointer.offsetPos))
+        , PointerEvents.onMove (\e -> MouseMove (pointerRay dimensions e.pointer.offsetPos))
+        , PointerEvents.onUp (\_ -> MouseUp)
         ]
         [ Scene3d.sunny
             { upDirection = Direction3d.positiveZ
@@ -286,23 +289,20 @@ subscriptions _ =
         ]
 
 
-decodeMouseRay :
+{-| The pointer's `offsetPos` is in canvas-local layout pixels, which is
+scale/position-independent — exactly what the camera ray needs.
+-}
+pointerRay :
     ( Quantity Int Pixels, Quantity Int Pixels )
-    -> (Axis3d Meters WorldCoordinates -> msg)
-    -> Decoder msg
-decodeMouseRay ( width, height ) rayToMsg =
-    Json.Decode.map2
-        (\x y ->
-            rayToMsg <|
-                Camera3d.ray camera
-                    (Rectangle2d.with
-                        { x1 = Quantity.zero
-                        , y1 = Quantity.toFloatQuantity height
-                        , x2 = Quantity.toFloatQuantity width
-                        , y2 = Quantity.zero
-                        }
-                    )
-                    (Point2d.pixels x y)
+    -> ( Float, Float )
+    -> Axis3d Meters WorldCoordinates
+pointerRay ( width, height ) ( x, y ) =
+    Camera3d.ray camera
+        (Rectangle2d.with
+            { x1 = Quantity.zero
+            , y1 = Quantity.toFloatQuantity height
+            , x2 = Quantity.toFloatQuantity width
+            , y2 = Quantity.zero
+            }
         )
-        (Json.Decode.field "offsetX" Json.Decode.float)
-        (Json.Decode.field "offsetY" Json.Decode.float)
+        (Point2d.pixels x y)

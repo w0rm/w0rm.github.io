@@ -1,29 +1,24 @@
 module Custom.BoxStack exposing (Model, Msg, Options, initial, subscriptions, update, view)
 
-{-| The comparison scene, live: 5×5×5 = 125 one-meter wood boxes resting on a
-plane — the exact setup measured against cannon-es in
-`elm-physics-extra/comparison/`. Shown next to cannon's 60-second screenshot:
-this side is not a screenshot, it's the engine running on the slide.
+{-| The comparison scene as a static schematic: 5×5×5 = 125 one-meter boxes
+in their initial lattice — the exact setup measured against cannon-es in
+`elm-physics-extra/comparison/`, shown on the benchmark-setup slide.
 
-Same visual style as the comparison renders (light blue sky, dark floor) so
-the live panel and the cannon photo read as the same scene. Steps at the
-measured dt of 1/60.
+Grey wireframe on the bare slide background, no simulation: the slide
+explains the setup and the benchmark measures the engine alone (描画なし).
 
 -}
 
-import Angle
 import Block3d exposing (Block3d)
-import Browser.Events
 import Camera3d exposing (Camera3d)
 import Color
 import Direction3d
-import Duration exposing (Duration)
 import Frame3d
 import Html exposing (Html)
 import Html.Attributes
 import Length exposing (Meters)
 import Mass
-import Physics exposing (Body, WorldCoordinates, onEarth)
+import Physics exposing (Body, WorldCoordinates)
 import Physics.Material as Material
 import Pixels exposing (Pixels)
 import Plane3d
@@ -31,7 +26,7 @@ import Point3d
 import Quantity exposing (Quantity)
 import Scene3d exposing (Entity)
 import Scene3d.Material as SceneMaterial
-import Timestep exposing (Timestep)
+import Scene3d.Mesh
 
 
 boxesPerDimension : number
@@ -40,16 +35,12 @@ boxesPerDimension =
 
 
 type alias Model =
-    { prevBodies : List ( Int, Body )
-    , bodies : List ( Int, Body )
-    , contacts : Physics.Contacts Int
-    , dimensions : ( Quantity Int Pixels, Quantity Int Pixels )
-    , timestep : Timestep
+    { dimensions : ( Quantity Int Pixels, Quantity Int Pixels )
     }
 
 
 type Msg
-    = Tick Duration
+    = NoOp
 
 
 type alias Options =
@@ -60,28 +51,13 @@ type alias Options =
 
 initial : Options -> Model
 initial { width, height } =
-    { prevBodies = initialBodies
-    , bodies = initialBodies
-    , contacts = Physics.emptyContacts
-    , dimensions = ( Pixels.int width, Pixels.int height )
-    , timestep = Timestep.init { duration = Duration.seconds (1 / 60), maxSteps = 1 }
+    { dimensions = ( Pixels.int width, Pixels.int height )
     }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update (Tick dt) model =
-    ( Timestep.advance simulateStep dt model, Cmd.none )
-
-
-simulateStep : Model -> Model
-simulateStep model =
-    let
-        ( newBodies, newContacts ) =
-            Physics.simulate
-                { onEarth | duration = Timestep.duration model.timestep, contacts = model.contacts }
-                model.bodies
-    in
-    { model | prevBodies = model.bodies, bodies = newBodies, contacts = newContacts }
+update NoOp model =
+    ( model, Cmd.none )
 
 
 block3d : Block3d Meters coordinates
@@ -128,60 +104,53 @@ initialBodies =
     ( 0, floorBody ) :: boxes
 
 
+{-| Orthographic, so the lattice reads as a clean diagram. The focal point
+is panned so the stack's left silhouette sits at the canvas' left edge,
+which the slide aligns with the text margin.
+-}
 camera : Camera3d Meters WorldCoordinates
 camera =
     Camera3d.lookAt
-        { eyePoint = Point3d.meters 14 14 9
-        , focalPoint = Point3d.meters 0 0 1.5
+        { eyePoint = Point3d.meters 11.5 11.5 7.5
+        , focalPoint = Point3d.meters -0.9 0.9 2.5
         , upDirection = Direction3d.positiveZ
-        , projection = Camera3d.Perspective
-        , fov = Camera3d.angle (Angle.degrees 30)
+        , projection = Camera3d.Orthographic
+        , fov = Camera3d.height (Length.meters 8)
         }
 
 
 view : Model -> Html Msg
-view { prevBodies, bodies, dimensions, timestep } =
+view { dimensions } =
     Html.div
         [ Html.Attributes.style "position" "absolute"
         , Html.Attributes.style "left" "0"
         , Html.Attributes.style "top" "0"
         ]
-        [ Scene3d.sunny
-            { upDirection = Direction3d.positiveZ
-            , sunlightDirection = Direction3d.xyZ (Angle.degrees 135) (Angle.degrees -60)
-            , shadows = True
-            , camera = camera
+        [ Scene3d.unlit
+            { camera = camera
             , dimensions = dimensions
-            , background = Scene3d.backgroundColor Color.lightBlue
+            , background = Scene3d.transparentBackground
             , clipDepth = Length.meters 0.1
-            , entities =
-                floorEntity
-                    :: List.map2 (boxEntity (Timestep.progress timestep)) prevBodies bodies
+            , entities = List.map boxEntity initialBodies
             }
         ]
 
 
-boxEntity : Float -> ( Int, Body ) -> ( Int, Body ) -> Entity WorldCoordinates
-boxEntity progress ( _, prev ) ( id, curr ) =
+boxWireframe : Scene3d.Mesh.Plain coordinates
+boxWireframe =
+    Scene3d.Mesh.lineSegments (Block3d.edges block3d)
+
+
+boxEntity : ( Int, Body ) -> Entity WorldCoordinates
+boxEntity ( id, body ) =
     if id == 0 then
         Scene3d.nothing
 
     else
-        Scene3d.placeIn (Physics.interpolatedFrame progress prev curr) <|
-            Scene3d.blockWithShadow
-                (SceneMaterial.nonmetal { baseColor = Color.orange, roughness = 0.4 })
-                block3d
-
-
-floorEntity : Entity WorldCoordinates
-floorEntity =
-    Scene3d.quad (SceneMaterial.matte Color.darkCharcoal)
-        (Point3d.meters -25 -25 0)
-        (Point3d.meters -25 25 0)
-        (Point3d.meters 25 25 0)
-        (Point3d.meters 25 -25 0)
+        Scene3d.placeIn (Physics.frame body) <|
+            Scene3d.mesh (SceneMaterial.color (Color.rgb255 110 110 115)) boxWireframe
 
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Browser.Events.onAnimationFrameDelta (Duration.milliseconds >> Tick)
+    Sub.none

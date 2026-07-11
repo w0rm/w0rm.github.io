@@ -1,13 +1,13 @@
 module Custom.ShapeLab exposing (Id(..), Model, Msg, Options, dropScene, initial, subscriptions, update, view)
 
-{-| Shape composition, assembled in front of you, on loop:
+{-| Shape composition, assembled in front of you:
 
 1.  Two spheres and two blocks hover as separate parts.
 2.  They glide together: `plus` fuses the snowman, `minus` sinks the
     inner block into the outer one.
-3.  Blink: the fused solids alternate with X-ray wireframes a few times,
-    revealing the inner shapes — the cavity block is still there,
-    subtracted.
+3.  X-ray, 4 s on / 2 s off forever (the seesaw's rhythm on the next
+    slide): wireframes reveal the inner shapes — the cavity block is
+    still there, subtracted.
 
 Pure animation, no physics. `dropScene` remains only as the constant
 scene that Verify.elm simulates headlessly.
@@ -92,24 +92,9 @@ glideEnd =
     2.0
 
 
-blinkStart : Float
-blinkStart =
+xrayStart : Float
+xrayStart =
     2.6
-
-
-blinkPeriod : Float
-blinkPeriod =
-    0.5
-
-
-blinkEnd : Float
-blinkEnd =
-    5.6
-
-
-loopEnd : Float
-loopEnd =
-    6.6
 
 
 type Phase
@@ -117,16 +102,23 @@ type Phase
     | Xray
 
 
+{-| After the parts fuse: 4 s of X-ray, 2 s solid, forever — the same
+rhythm as the seesaw on the next slide.
+-}
+xrayOn : Float -> Bool
+xrayOn t =
+    (t - xrayStart) - 6 * toFloat (floor ((t - xrayStart) / 6)) < 4
+
+
 phase : Float -> Phase
 phase t =
-    if t < blinkStart then
+    if t < xrayStart then
         Parts (easeInOut (clamp 0 1 ((t - glideStart) / (glideEnd - glideStart))))
 
-    else if t < blinkEnd && (floor ((t - blinkStart) / blinkPeriod) |> modBy 2) == 0 then
+    else if xrayOn t then
         Xray
 
     else
-        -- solid between the blinks and for a beat before the loop restarts
         Parts 1
 
 
@@ -241,15 +233,7 @@ update (Tick dt) model =
 
 simulateStep : Model -> Model
 simulateStep model =
-    let
-        t =
-            model.elapsed + Duration.inSeconds (Timestep.duration model.timestep)
-    in
-    if t >= loopEnd then
-        { model | elapsed = 0 }
-
-    else
-        { model | elapsed = t }
+    { model | elapsed = model.elapsed + Duration.inSeconds (Timestep.duration model.timestep) }
 
 
 
